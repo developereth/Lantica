@@ -4,65 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Lantica 1960 | Cafe & Restaurant | Authentic Ethiopian Cuisine</title>
-    <!-- Google Fonts + Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="description" content="Lantica 1960 - Ethiopian soul, modern elegance, timeless taste. Premium cafe & restaurant in Addis Ababa.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --gold: #C9A96E;
+            --gold-dark: #B8933F;
+            --gold-light: #F5EDDF;
+            --red: #B45F3B;
+            --red-dark: #8B3A1F;
+            --dark: #0D0D0D;
+            --dark-light: #1A1A1A;
+            --dark-card: #1E1B17;
+            --white: #FFFFFF;
+            --gray: #9B8A74;
+            --gray-light: #C4B8A8;
+            --radius-sm: 8px;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.5);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: #fef7f0;
-            color: #2a2418;
-            scroll-behavior: smooth;
+            background: var(--dark);
+            color: #E8E0D5;
+            line-height: 1.6;
         }
-        :root {
-            --gold: #c8a45d;
-            --dark-bg: #1e1912;
-            --warm-bg: #fef3e4;
-            --accent-red: #b45f3b;
-            --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-        }
-        /* HERO SECTION with custom image */
-        .hero {
-            position: relative;
-            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600');
-            background-size: cover;
-            background-position: center 30%;
-            height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        /* ============ TOP BAR ============ */
+        .topbar {
+            background: #000;
+            color: var(--gray-light);
             text-align: center;
-            color: white;
+            padding: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-            background: rgba(0,0,0,0.3);
-            border-radius: 40px;
-            backdrop-filter: blur(2px);
-        }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            letter-spacing: 4px;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-        }
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 550px;
-            margin: 1rem auto 0;
-            font-weight: 400;
-        }
-        /* Navigation */
+        .topbar i { color: var(--gold); margin: 0 6px; }
+        .topbar span { color: var(--gold); font-weight: 600; }
+
+        /* ============ NAVIGATION ============ */
         .nav-bar {
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background: rgba(13,13,13,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(201,169,110,0.2);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -71,172 +66,265 @@
             align-items: center;
             padding: 0.9rem 2rem;
             flex-wrap: wrap;
+            gap: 16px;
         }
         .logo {
             font-weight: 800;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             letter-spacing: 1px;
-            color: #b45f3b;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
         }
         .logo span {
-            color: #c8a45d;
+            color: var(--red);
             font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
         }
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
+            flex-wrap: wrap;
         }
         .nav-links a {
             text-decoration: none;
             font-weight: 500;
-            color: #2c241a;
-            transition: 0.2s;
+            color: #C4B8A8;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
-        .nav-links a:hover {
-            color: #b45f3b;
-        }
+        .nav-links a:hover { color: var(--gold); }
         .cart-badge {
-            background: #1e1912;
+            background: var(--red);
             color: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(180,95,59,0.3);
         }
-        .cart-badge:hover { background: #b45f3b; }
+        .cart-badge:hover { background: var(--red-dark); transform: scale(1.03); }
 
-        /* EVENT CARD (new card with demo phone) */
+        /* ============ HERO ============ */
+        .hero {
+            position: relative;
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%),
+                url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80') center/cover no-repeat;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(0deg, var(--dark) 0%, transparent 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 3rem;
+            background: rgba(0,0,0,0.4);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(201,169,110,0.2);
+        }
+        .hero-badge {
+            display: inline-block;
+            background: var(--red);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            letter-spacing: 6px;
+            margin-bottom: 0.3rem;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.6);
+            color: var(--gold);
+        }
+        .hero-subtitle {
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+            color: var(--gray-light);
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+        .hero-desc {
+            font-size: 1rem;
+            color: #AAA;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        /* ============ EVENT CARD ============ */
         .events-section {
             max-width: 1300px;
-            margin: 2rem auto 1rem;
+            margin: -60px auto 2rem;
             padding: 0 2rem;
+            position: relative;
+            z-index: 3;
         }
         .event-card {
-            background: linear-gradient(135deg, #2c241a 0%, #1e1912 100%);
-            border-radius: 48px;
-            padding: 2rem 2rem;
+            background: linear-gradient(135deg, #1E1B17 0%, #2A2520 100%);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem 2.5rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 2rem;
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.25);
-            margin-bottom: 2rem;
-        }
-        .event-text {
-            flex: 2;
-            color: #fef3e4;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(201,169,110,0.2);
         }
         .event-text h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--gold);
             display: flex;
             align-items: center;
             gap: 12px;
         }
         .event-text p {
-            opacity: 0.9;
-            line-height: 1.5;
+            opacity: 0.85;
+            line-height: 1.6;
             margin: 0.5rem 0;
+            color: #C4B8A8;
         }
         .call-demo-btn {
             background: var(--gold);
             border: none;
             padding: 1rem 2.2rem;
             border-radius: 60px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #1e1912;
+            color: var(--dark);
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            transition: 0.2s;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(201,169,110,0.3);
         }
         .call-demo-btn:hover {
-            background: #b8833a;
-            transform: scale(1.02);
-            color: white;
+            background: var(--gold-dark);
+            transform: scale(1.03);
+            box-shadow: 0 12px 35px rgba(201,169,110,0.4);
         }
         .demo-contact {
             margin-top: 1rem;
             font-size: 0.8rem;
-            background: rgba(255,255,240,0.15);
-            padding: 0.5rem 1rem;
+            background: rgba(201,169,110,0.1);
+            padding: 0.5rem 1.2rem;
             border-radius: 40px;
             display: inline-block;
+            color: var(--gold);
         }
 
-        /* Container & menu grids */
+        /* ============ CONTAINER ============ */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 1rem 2rem 3rem;
         }
-        .category {
-            margin-bottom: 4rem;
-        }
+
+        /* ============ CATEGORY ============ */
+        .category { margin-bottom: 4rem; }
         .category-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            border-left: 6px solid #c8a45d;
-            padding-left: 1rem;
-            color: #2a2418;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--gold);
+            padding-left: 1.2rem;
+            color: var(--gold);
         }
+
+        /* ============ MENU GRID ============ */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 2rem;
+            gap: 1.8rem;
             margin-top: 1.5rem;
         }
         .menu-card {
-            background: white;
-            border-radius: 28px;
+            background: var(--dark-card);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.25s ease;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
+            border: 1px solid #2A2520;
         }
         .menu-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--gold);
         }
         .card-img {
-            height: 190px;
+            height: 200px;
             width: 100%;
             object-fit: cover;
-            background: #e9dfd3;
+            background: #1A1612;
         }
         .card-body {
-            padding: 1.2rem;
+            padding: 1.4rem;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
         .item-title {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             flex-wrap: wrap;
+            gap: 8px;
         }
-        .item-name { color: #2c241a; }
-        .item-price { color: #b45f3b; font-weight: 800; font-size: 1.2rem; }
+        .item-name { color: #E8E0D5; }
+        .item-price {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+        }
         .item-desc {
             font-size: 0.8rem;
-            color: #6b5a48;
+            color: var(--gray);
             margin: 0.6rem 0 1rem;
-            line-height: 1.4;
+            line-height: 1.5;
+        }
+        .pizza-prices {
+            font-size: 0.85rem;
+            background: rgba(201,169,110,0.1);
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+            color: var(--gold);
         }
         .qty-wrapper {
             display: flex;
@@ -245,54 +333,60 @@
             margin-bottom: 1rem;
         }
         .qty-btn {
-            background: #f0e3d4;
-            border: none;
-            width: 32px;
-            height: 32px;
+            background: #2A2520;
+            border: 1px solid #3D3630;
+            color: #C4B8A8;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             font-weight: bold;
             font-size: 1.2rem;
             cursor: pointer;
+            transition: var(--transition);
         }
+        .qty-btn:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
         .qty-input {
             width: 52px;
             text-align: center;
-            border: 1px solid #e2d4c8;
+            border: 1px solid #3D3630;
             border-radius: 30px;
             padding: 0.3rem;
             font-weight: 500;
+            background: #1A1612;
+            color: #E8E0D5;
         }
         .add-btn {
-            background: #1e1912;
+            background: var(--red);
             color: white;
             border: none;
-            padding: 0.65rem;
+            padding: 0.7rem;
             border-radius: 60px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(180,95,59,0.2);
         }
-        .add-btn:hover { background: #b45f3b; }
-        .pizza-prices {
-            font-size: 0.85rem;
-            background: #f3ede7;
-            border-radius: 40px;
-            padding: 0.2rem 0.8rem;
-            margin-bottom: 0.8rem;
-            display: inline-block;
+        .add-btn:hover { background: var(--red-dark); box-shadow: 0 8px 25px rgba(180,95,59,0.3); }
+        .add-btn--gold {
+            background: var(--gold);
+            color: var(--dark);
+            box-shadow: 0 4px 15px rgba(201,169,110,0.2);
         }
-        /* Cart Sidebar */
+        .add-btn--gold:hover { background: var(--gold-dark); }
+
+        /* ============ CART ============ */
         .cart-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0,0,0,0.7);
             z-index: 1000;
             display: none;
         }
@@ -302,21 +396,23 @@
             top: 0;
             width: 420px;
             height: 100%;
-            background: white;
+            background: var(--dark-card);
             z-index: 1001;
             transition: right 0.3s ease;
             display: flex;
             flex-direction: column;
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+            border-left: 1px solid #2A2520;
         }
         .cart-panel.open { right: 0; }
         .cart-header {
-            background: #1e1912;
-            color: white;
+            background: #1A1612;
+            color: var(--gold);
             padding: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #2A2520;
         }
         .cart-items-list { flex: 1; overflow-y: auto; padding: 1rem; }
         .cart-item {
@@ -324,137 +420,162 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.8rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #2A2520;
+            color: #C4B8A8;
         }
         .cart-actions { display: flex; gap: 0.5rem; align-items: center; }
         .cart-qty-btn {
-            background: #f0e3d4;
-            border: none;
+            background: #2A2520;
+            border: 1px solid #3D3630;
+            color: #C4B8A8;
             width: 28px;
+            height: 28px;
             border-radius: 50%;
             font-weight: bold;
             cursor: pointer;
+            transition: var(--transition);
         }
+        .cart-qty-btn:hover { background: var(--gold); color: var(--dark); }
         .cart-total-area {
             padding: 1.5rem;
-            border-top: 2px solid #f0e3d4;
-            background: #fefaf5;
+            border-top: 2px solid #2A2520;
+            background: #1A1612;
         }
+        .cart-total-area h4 { color: #E8E0D5; }
         .checkout-demo {
-            background: #c8a45d;
-            color: #1e1912;
+            background: var(--gold);
+            color: var(--dark);
             border: none;
             padding: 1rem;
             width: 100%;
-            font-weight: bold;
+            font-weight: 700;
             border-radius: 60px;
             margin-top: 1rem;
             font-size: 1rem;
             cursor: pointer;
+            transition: var(--transition);
         }
+        .checkout-demo:hover { background: var(--gold-dark); }
+
+        /* ============ PAYMENT MODAL ============ */
         .payment-modal {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 32px;
+            background: var(--dark-card);
+            border-radius: var(--radius-xl);
             width: 90%;
             max-width: 440px;
             padding: 1.8rem;
             z-index: 1100;
             display: none;
-            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid #2A2520;
+            color: #E8E0D5;
         }
         .payment-option {
-            background: #f9f1e9;
-            border-radius: 20px;
+            background: #1A1612;
+            border-radius: var(--radius);
             padding: 1rem;
             margin-bottom: 1rem;
             cursor: pointer;
+            border: 1px solid #2A2520;
+            transition: var(--transition);
         }
+        .payment-option:hover { border-color: var(--gold); }
+
+        /* ============ FOOTER ============ */
         .footer {
-            background: #1e1912;
-            color: #e2cfb5;
+            background: #000;
+            color: var(--gray);
             text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
+            padding: 2.5rem;
+            margin-top: 3rem;
             font-size: 0.85rem;
+            border-top: 1px solid #1A1612;
         }
-        @media (max-width: 680px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-bar { flex-direction: column; gap: 0.8rem; }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; letter-spacing: 3px; }
+            .hero { height: 70vh; }
+            .hero-content { padding: 2rem 1.5rem; }
+            .nav-bar { flex-direction: column; gap: 0.8rem; padding: 1rem; }
+            .nav-links { gap: 1rem; }
             .cart-panel { width: 100%; right: -100%; }
             .event-card { flex-direction: column; text-align: center; }
+            .category-title { font-size: 1.6rem; }
+            .events-section { margin-top: -40px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .menu-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<!-- HERO with restaurant ambience image -->
-<div class="hero">
-    <div class="hero-content">
-        <h1>LANTICA 1960</h1>
-        <p style="font-size: 1.3rem; letter-spacing: 2px;">Cafe & Restaurant</p>
-        <p>Ethiopian soul • Modern elegance • Timeless taste</p>
-    </div>
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+    <i class="fas fa-clock"></i> Open Daily: <span>9am – 11pm</span> &nbsp;|&nbsp; <i class="fas fa-map-marker-alt"></i> Bole, Addis Ababa &nbsp;|&nbsp; <i class="fas fa-phone"></i> <span>+251 98 1960 1960</span>
 </div>
 
+<!-- ============ NAVIGATION ============ -->
 <nav class="nav-bar">
-    <div class="logo">Lantica 1960 <span>restaurant</span></div>
+    <div class="logo">LANTICA 1960 <span>RESTAURANT</span></div>
     <ul class="nav-links">
         <li><a href="#breakfast">Breakfast</a></li>
-        <li><a href="#signatures">Signature</a></li>
+        <li><a href="#signatures">Signatures</a></li>
         <li><a href="#pizza">Pizza</a></li>
         <li><a href="#beverages">Drinks</a></li>
     </ul>
     <div class="cart-badge" onclick="toggleCart()">
-        <i class="fas fa-shopping-bag"></i> <span id="cartCounter">0</span>
+        <i class="fas fa-shopping-bag"></i> Order <span id="cartCounter">0</span>
     </div>
 </nav>
 
-<!-- NEW EVENT CARD - Demo phone # for events / calls -->
+<!-- ============ HERO ============ -->
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">✦ Established 1960 ✦</div>
+        <h1>LANTICA 1960</h1>
+        <p class="hero-subtitle">Cafe & Restaurant</p>
+        <p class="hero-desc">Ethiopian soul • Modern elegance • Timeless taste</p>
+    </div>
+</div>
+
+<!-- ============ EVENT CARD ============ -->
 <div class="events-section">
     <div class="event-card">
         <div class="event-text">
             <h2><i class="fas fa-calendar-alt"></i> Private Events & Celebrations</h2>
             <p>Host your special moments at Lantica 1960. Birthdays, anniversaries, corporate gatherings or traditional coffee ceremonies. Our team will tailor the experience.</p>
-            <p><i class="fas fa-phone-alt"></i> <strong>Call our event manager (demo line)</strong> — quick support & custom menu planning.</p>
+            <p><i class="fas fa-phone-alt"></i> <strong>Call our event manager</strong> — quick support & custom menu planning.</p>
             <div class="demo-contact">
                 <i class="fas fa-clock"></i> Mon–Sun: 9am – 11pm
             </div>
         </div>
         <div>
             <button class="call-demo-btn" id="demoCallBtn">
-                <i class="fas fa-phone-volume"></i> Call Demo: +251 98 1960 1960
+                <i class="fas fa-phone-volume"></i> Call: +251 98 1960 1960
             </button>
-            <p style="color:#fef3e4; font-size:0.7rem; margin-top: 0.8rem;">📞 Demo number — click to simulate call inquiry</p>
+            <p style="color:#9B8A74; font-size:0.75rem; margin-top:0.8rem;">📞 Click to simulate call inquiry</p>
         </div>
     </div>
 </div>
 
 <div class="container">
-    <!-- BREAKFAST -->
     <div id="breakfast" class="category"><div class="category-title">☀️ Breakfast & Brunch</div><div id="breakfast-grid" class="menu-grid"></div></div>
-    <!-- APPETIZERS -->
     <div class="category"><div class="category-title">🍢 Appetizers & Small Plates</div><div id="appetizers-grid" class="menu-grid"></div></div>
-    <!-- SOUPS & SALADS -->
     <div class="category"><div class="category-title">🥗 Soups & Salads</div><div id="salads-grid" class="menu-grid"></div></div>
-    <!-- TRADITIONAL SIGNATURES -->
     <div id="signatures" class="category"><div class="category-title">🔥 Traditional Signatures</div><div id="signature-grid" class="menu-grid"></div></div>
-    <!-- FAST CASUAL -->
     <div class="category"><div class="category-title">🍛 Fast Casual</div><div id="fastcasual-grid" class="menu-grid"></div></div>
-    <!-- BURGERS & SANDWICHES -->
     <div class="category"><div class="category-title">🍔 Burgers & Sandwiches</div><div id="burgers-grid" class="menu-grid"></div></div>
-    <!-- SIDES -->
     <div class="category"><div class="category-title">🍟 Sides</div><div id="sides-grid" class="menu-grid"></div></div>
-    <!-- PORK SELECTIONS -->
     <div class="category"><div class="category-title">🥘 Pork & Vegetable Selections</div><div id="pork-grid" class="menu-grid"></div></div>
-    <!-- PASTA -->
     <div class="category"><div class="category-title">🍝 Spaghetti & Rice</div><div id="pasta-grid" class="menu-grid"></div></div>
-    <!-- PIZZA SECTION -->
     <div id="pizza" class="category"><div class="category-title">🍕 Artisan Pizza</div><div id="pizza-grid" class="menu-grid"></div></div>
-    <!-- BEVERAGES -->
     <div id="beverages" class="category"><div class="category-title">🥤 Fresh Juices</div><div id="juices-grid" class="menu-grid"></div></div>
     <div class="category"><div class="category-title">🧊 Cold Drinks</div><div id="cold-grid" class="menu-grid"></div></div>
     <div class="category"><div class="category-title">🍺 Beer & Draft</div><div id="beer-grid" class="menu-grid"></div></div>
@@ -463,30 +584,31 @@
 </div>
 
 <footer class="footer">
-    <p>Lantica 1960 Cafe & Restaurant — Where tradition meets flavor</p>
-    <p style="margin-top: 0.5rem;">✧ All prices in local currency | 15% VAT not included ✧</p>
-    <p>📍 Bole, Addis Ababa | 📞 +251-98-1960-1960 (Demo Event Line)</p>
+    <p style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--gold);">Lantica 1960</p>
+    <p>Cafe & Restaurant — Where tradition meets flavor</p>
+    <p style="margin-top:0.5rem;">✧ All prices in local currency | 15% VAT not included ✧</p>
+    <p>📍 Bole, Addis Ababa | 📞 +251-98-1960-1960</p>
 </footer>
 
 <!-- Cart Overlay & Sidebar -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-panel" id="cartPanel">
-    <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> Your Order</h3><button class="close-cart" onclick="toggleCart()" style="background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;">&times;</button></div>
-    <div class="cart-items-list" id="cartList"><p style="text-align:center;color:#9b8a74;">Cart is empty</p></div>
-    <div class="cart-total-area"><h4>Subtotal: <span id="cartSubtotal">0</span> ETB</h4><p style="font-size:0.75rem;">+15% VAT added at checkout</p><button class="checkout-demo" onclick="showPaymentOptions()"><i class="fas fa-receipt"></i> Proceed to Payment (Demo)</button></div>
+    <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> Your Order</h3><button class="close-cart" onclick="toggleCart()" style="background:none;border:none;color:var(--gold);font-size:1.8rem;cursor:pointer;">&times;</button></div>
+    <div class="cart-items-list" id="cartList"><p style="text-align:center;color:var(--gray);">Cart is empty</p></div>
+    <div class="cart-total-area"><h4>Subtotal: <span id="cartSubtotal">0</span> ETB</h4><p style="font-size:0.75rem;color:var(--gray);">+15% VAT added at checkout</p><button class="checkout-demo" onclick="showPaymentOptions()"><i class="fas fa-receipt"></i> Proceed to Payment</button></div>
 </div>
 
-<!-- Payment Modal (Demo) -->
+<!-- Payment Modal -->
 <div class="payment-modal" id="paymentModal">
-    <h3 style="margin-bottom:1rem;">💳 Choose payment method</h3>
-    <div class="payment-option" onclick="choosePayment('telebirr')"><strong>📱 Telebirr (Demo)</strong><br><span style="font-size:0.8rem;">Pay via mobile money</span></div>
-    <div class="payment-option" onclick="choosePayment('bank')"><strong>🏦 Bank Transfer (Demo)</strong><br><span style="font-size:0.8rem;">Commercial Bank of Ethiopia</span></div>
-    <button style="margin-top:1rem;background:#e9dfd3;border:none;padding:0.7rem;width:100%;border-radius:60px;cursor:pointer;" onclick="closePaymentModal()">Cancel</button>
-    <div id="paymentDetailsDemo" style="margin-top:1rem;font-size:0.85rem;background:#f9f1e9;padding:1rem;border-radius:20px;display:none;"></div>
+    <h3 style="margin-bottom:1rem; color:var(--gold);">💳 Choose payment method</h3>
+    <div class="payment-option" onclick="choosePayment('telebirr')"><strong>📱 Telebirr</strong><br><span style="font-size:0.8rem;color:var(--gray);">Pay via mobile money</span></div>
+    <div class="payment-option" onclick="choosePayment('bank')"><strong>🏦 Bank Transfer</strong><br><span style="font-size:0.8rem;color:var(--gray);">Commercial Bank of Ethiopia</span></div>
+    <button style="margin-top:1rem;background:#2A2520;border:1px solid #3D3630;color:#C4B8A8;padding:0.7rem;width:100%;border-radius:60px;cursor:pointer;" onclick="closePaymentModal()">Cancel</button>
+    <div id="paymentDetailsDemo" style="margin-top:1rem;font-size:0.85rem;background:#1A1612;padding:1rem;border-radius:20px;display:none;"></div>
 </div>
 
 <script>
-    // ---------- DATABASE WITH REAL MENU + FREE IMAGES (preserved) ----------
+    // ========== DATABASE ==========
     const itemsDatabase = [];
     function addMenuItem(categoryId, name, price, desc = "Authentic flavor") {
         const imagesMap = {
@@ -524,7 +646,7 @@
         itemsDatabase.push({ id: itemsDatabase.length, categoryId, name, price, desc, image: imageUrl });
     }
 
-    // ========== REAL 1960 MENU (preserved exactly as you gave) ==========
+    // ========== REAL MENU DATA ==========
     addMenuItem("breakfast","Combo Fasting Platter",250,"Hearty vegan platter");
     addMenuItem("breakfast","Egg with Meat",250,"Scrambled eggs & minced beef");
     addMenuItem("breakfast","Special Fetera",350,"Layered pancake honey cheese");
@@ -577,12 +699,12 @@
     const wineP = [900,720,800,1100,1200];
     wines.forEach((w,i)=> addMenuItem("wine", w, wineP[i], "Ethiopian premium vintage"));
 
-    // Render helpers
+    // ========== RENDER FUNCTIONS ==========
     function renderGrid(categoryId, containerId) {
         const items = itemsDatabase.filter(i => i.categoryId === categoryId);
         const container = document.getElementById(containerId);
         if (!container) return;
-        if (items.length === 0) { container.innerHTML = '<p style="opacity:0.6">Coming soon</p>'; return; }
+        if (items.length === 0) { container.innerHTML = '<p style="opacity:0.6;color:var(--gray);">Coming soon</p>'; return; }
         let html = '';
         items.forEach(item => {
             html += `<div class="menu-card"><img class="card-img" src="${item.image}" alt="${item.name}" loading="lazy"><div class="card-body"><div class="item-title"><span class="item-name">${item.name}</span><span class="item-price">${item.price} ETB</span></div><div class="item-desc">${item.desc}</div><div class="qty-wrapper"><button class="qty-btn" onclick="changeCardQty(this, -1)">−</button><input type="number" class="qty-input" value="1" min="1" max="20"><button class="qty-btn" onclick="changeCardQty(this, 1)">+</button></div><button class="add-btn" onclick="addToCartFromCard(this)"><i class="fas fa-plus-circle"></i> Add to Order</button></div></div>`;
@@ -594,7 +716,7 @@
         if (!container) return;
         let html = '';
         pizzaList.forEach(p => {
-            html += `<div class="menu-card"><img class="card-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300" alt="${p.name}"><div class="card-body"><div class="item-title"><span class="item-name">${p.name}</span></div><div class="pizza-prices">🍕 Large ${p.large} ETB &nbsp; Medium ${p.medium} ETB</div><div class="item-desc">Wood fired crust, fresh toppings</div><div class="qty-wrapper"><button class="qty-btn" onclick="changeCardQty(this, -1)">−</button><input type="number" class="qty-input" value="1" min="1" max="20"><button class="qty-btn" onclick="changeCardQty(this, 1)">+</button></div><button class="add-btn" onclick="addPizzaToCart('${p.name} (Large)', ${p.large})"><i class="fas fa-plus-circle"></i> Add Large Pizza</button><button class="add-btn" style="margin-top:6px;background:#cfb38f;" onclick="addPizzaToCart('${p.name} (Medium)', ${p.medium})">+ Add Medium</button></div></div>`;
+            html += `<div class="menu-card"><img class="card-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300" alt="${p.name}"><div class="card-body"><div class="item-title"><span class="item-name">${p.name}</span></div><div class="pizza-prices">🍕 Large ${p.large} ETB &nbsp; Medium ${p.medium} ETB</div><div class="item-desc">Wood fired crust, fresh toppings</div><div class="qty-wrapper"><button class="qty-btn" onclick="changeCardQty(this, -1)">−</button><input type="number" class="qty-input" value="1" min="1" max="20"><button class="qty-btn" onclick="changeCardQty(this, 1)">+</button></div><button class="add-btn" onclick="addPizzaToCart('${p.name} (Large)', ${p.large})"><i class="fas fa-plus-circle"></i> Add Large Pizza</button><button class="add-btn add-btn--gold" style="margin-top:6px;" onclick="addPizzaToCart('${p.name} (Medium)', ${p.medium})">+ Add Medium</button></div></div>`;
         });
         container.innerHTML = html;
     }
@@ -633,9 +755,9 @@
         cartItems.forEach((item, idx) => {
             totalItems += item.qty;
             subtotal += item.price * item.qty;
-            html += `<div class="cart-item"><div><strong>${item.name}</strong><br>${item.price} ETB each</div><div class="cart-actions"><button class="cart-qty-btn" onclick="updateCartQty(${idx}, -1)">-</button><span style="width:28px;text-align:center;">${item.qty}</span><button class="cart-qty-btn" onclick="updateCartQty(${idx}, 1)">+</button><button class="cart-qty-btn" style="background:#c0392b;color:white;" onclick="removeCartItem(${idx})">x</button></div></div>`;
+            html += `<div class="cart-item"><div><strong>${item.name}</strong><br>${item.price} ETB each</div><div class="cart-actions"><button class="cart-qty-btn" onclick="updateCartQty(${idx}, -1)">-</button><span style="width:28px;text-align:center;">${item.qty}</span><button class="cart-qty-btn" onclick="updateCartQty(${idx}, 1)">+</button><button class="cart-qty-btn" style="background:#c0392b;color:white;border:none;" onclick="removeCartItem(${idx})">x</button></div></div>`;
         });
-        if (cartItems.length === 0) html = '<p style="text-align:center;">🛒 Cart is empty</p>';
+        if (cartItems.length === 0) html = '<p style="text-align:center;color:var(--gray);">🛒 Cart is empty</p>';
         cartListDiv.innerHTML = html;
         subtotalSpan.innerText = subtotal;
         counterSpan.innerText = totalItems;
@@ -649,16 +771,16 @@
         const total = cartItems.reduce((s,i)=> s+(i.price*i.qty),0);
         const grand = total + (total*0.15);
         let d = document.getElementById("paymentDetailsDemo");
-        if(method==="telebirr") d.innerHTML = `<strong>📱 Telebirr (DEMO)</strong><br>Number: 09XX-19601960<br>Total: ${grand.toFixed(2)} ETB<br><button class="checkout-demo" onclick="finalizeDemoOrder()">Confirm Demo Order</button>`;
-        else d.innerHTML = `<strong>🏦 CBE (DEMO)</strong><br>Account: 100019601960<br>Amount: ${grand.toFixed(2)} ETB<br><button class="checkout-demo" onclick="finalizeDemoOrder()">Complete Demo</button>`;
+        if(method==="telebirr") d.innerHTML = `<strong>📱 Telebirr</strong><br>Number: 09XX-19601960<br>Total: ${grand.toFixed(2)} ETB<br><button class="checkout-demo" onclick="finalizeDemoOrder()">Confirm Order</button>`;
+        else d.innerHTML = `<strong>🏦 CBE</strong><br>Account: 100019601960<br>Amount: ${grand.toFixed(2)} ETB<br><button class="checkout-demo" onclick="finalizeDemoOrder()">Complete Order</button>`;
         d.style.display="block";
     };
-    window.finalizeDemoOrder = () => { alert("✅ DEMO ORDER at Lantica 1960!\nThank you! We'll call you soon."); cartItems=[]; updateCartUI(); closePaymentModal(); toggleCart(); };
-    // EVENT CALL DEMO
+    window.finalizeDemoOrder = () => { alert("✅ ORDER PLACED at Lantica 1960!\nThank you! We'll call you soon."); cartItems=[]; updateCartUI(); closePaymentModal(); toggleCart(); };
     document.getElementById("demoCallBtn")?.addEventListener("click", () => {
-        alert("📞 DEMO CALL TO LANTICA 1960 EVENT LINE: +251 98 1960 1960\n(Simulated) Our event coordinator will reach you shortly for bookings & custom menus.");
+        alert("📞 CALLING LANTICA 1960 EVENT LINE: +251 98 1960 1960\n(Simulated) Our event coordinator will reach you shortly for bookings & custom menus.");
     });
-    // INITIAL RENDER
+
+    // ========== INITIAL RENDER ==========
     renderGrid("breakfast","breakfast-grid"); renderGrid("appetizers","appetizers-grid"); renderGrid("salads","salads-grid");
     renderGrid("signature","signature-grid"); renderGrid("fastcasual","fastcasual-grid"); renderGrid("burgers","burgers-grid");
     renderGrid("sides","sides-grid"); renderGrid("pork","pork-grid"); renderGrid("pasta","pasta-grid"); renderPizzaGrid();
