@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>1960 Restaurant & Café | Authentic Flavors</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (free icons) -->
+    <title>Lantica 1960 | Cafe & Restaurant | Authentic Ethiopian Cuisine</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -14,65 +13,52 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background: #fef7f0;
             color: #2a2418;
             scroll-behavior: smooth;
         }
-
-        /* Vintage elegant theme */
         :root {
             --gold: #c8a45d;
             --dark-bg: #1e1912;
             --warm-bg: #fef3e4;
             --accent-red: #b45f3b;
-            --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
         }
-
-        /* Header Hero */
+        /* HERO SECTION with custom image */
         .hero {
-            background: linear-gradient(135deg, #1e1912 0%, #2c241a 100%);
-            color: white;
-            text-align: center;
-            padding: 4rem 2rem 5rem;
             position: relative;
-            overflow: hidden;
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600');
+            background-size: cover;
+            background-position: center 30%;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
         }
-
-        .hero::before {
-            content: "1960";
-            font-family: 'Playfair Display', serif;
-            font-size: 12rem;
-            opacity: 0.05;
-            position: absolute;
-            bottom: -2rem;
-            right: 0;
-            font-weight: bold;
-            pointer-events: none;
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
         }
-
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 5rem;
+            font-size: 4.5rem;
             letter-spacing: 4px;
             margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
-
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             max-width: 550px;
             margin: 1rem auto 0;
-            opacity: 0.85;
-            font-weight: 300;
+            font-weight: 400;
         }
-
-        .hero div:first-child {
-            position: relative;
-            z-index: 2;
-        }
-
         /* Navigation */
         .nav-bar {
             background: white;
@@ -86,36 +72,30 @@
             padding: 0.9rem 2rem;
             flex-wrap: wrap;
         }
-
         .logo {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.5rem;
             letter-spacing: 1px;
             color: #b45f3b;
         }
-
         .logo span {
             color: #c8a45d;
-            font-weight: 400;
+            font-weight: 500;
         }
-
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-
         .nav-links a {
             text-decoration: none;
             font-weight: 500;
             color: #2c241a;
             transition: 0.2s;
         }
-
         .nav-links a:hover {
             color: #b45f3b;
         }
-
         .cart-badge {
             background: #1e1912;
             color: white;
@@ -126,25 +106,82 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+        .cart-badge:hover { background: #b45f3b; }
+
+        /* EVENT CARD (new card with demo phone) */
+        .events-section {
+            max-width: 1300px;
+            margin: 2rem auto 1rem;
+            padding: 0 2rem;
+        }
+        .event-card {
+            background: linear-gradient(135deg, #2c241a 0%, #1e1912 100%);
+            border-radius: 48px;
+            padding: 2rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.25);
+            margin-bottom: 2rem;
+        }
+        .event-text {
+            flex: 2;
+            color: #fef3e4;
+        }
+        .event-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .event-text p {
+            opacity: 0.9;
+            line-height: 1.5;
+            margin: 0.5rem 0;
+        }
+        .call-demo-btn {
+            background: var(--gold);
+            border: none;
+            padding: 1rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e1912;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
             transition: 0.2s;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        }
+        .call-demo-btn:hover {
+            background: #b8833a;
+            transform: scale(1.02);
+            color: white;
+        }
+        .demo-contact {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            background: rgba(255,255,240,0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
         }
 
-        .cart-badge:hover {
-            background: #b45f3b;
-        }
-
-        /* Main container */
+        /* Container & menu grids */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 2rem 3rem;
+            padding: 1rem 2rem 3rem;
         }
-
-        /* category section */
         .category {
             margin-bottom: 4rem;
         }
-
         .category-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
@@ -154,15 +191,12 @@
             padding-left: 1rem;
             color: #2a2418;
         }
-
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 2rem;
             margin-top: 1.5rem;
         }
-
-        /* Card design with image & order */
         .menu-card {
             background: white;
             border-radius: 28px;
@@ -172,26 +206,22 @@
             display: flex;
             flex-direction: column;
         }
-
         .menu-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.2);
         }
-
         .card-img {
-            height: 180px;
+            height: 190px;
             width: 100%;
             object-fit: cover;
             background: #e9dfd3;
         }
-
         .card-body {
-            padding: 1.2rem 1.2rem 1.2rem;
+            padding: 1.2rem;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-
         .item-title {
             font-weight: 700;
             font-size: 1.2rem;
@@ -199,33 +229,21 @@
             justify-content: space-between;
             align-items: baseline;
             flex-wrap: wrap;
-            gap: 0.5rem;
         }
-
-        .item-name {
-            color: #2c241a;
-        }
-
-        .item-price {
-            color: #b45f3b;
-            font-weight: 800;
-            font-size: 1.2rem;
-        }
-
+        .item-name { color: #2c241a; }
+        .item-price { color: #b45f3b; font-weight: 800; font-size: 1.2rem; }
         .item-desc {
             font-size: 0.8rem;
             color: #6b5a48;
             margin: 0.6rem 0 1rem;
             line-height: 1.4;
         }
-
         .qty-wrapper {
             display: flex;
             align-items: center;
             gap: 0.6rem;
             margin-bottom: 1rem;
         }
-
         .qty-btn {
             background: #f0e3d4;
             border: none;
@@ -235,18 +253,15 @@
             font-weight: bold;
             font-size: 1.2rem;
             cursor: pointer;
-            transition: 0.1s;
         }
-
         .qty-input {
-            width: 48px;
+            width: 52px;
             text-align: center;
             border: 1px solid #e2d4c8;
             border-radius: 30px;
             padding: 0.3rem;
             font-weight: 500;
         }
-
         .add-btn {
             background: #1e1912;
             color: white;
@@ -261,26 +276,15 @@
             justify-content: center;
             gap: 8px;
         }
-
-        .add-btn:hover {
-            background: #b45f3b;
-        }
-
-        /* Pizza specific (size) */
-        .pizza-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.4rem;
-        }
-
+        .add-btn:hover { background: #b45f3b; }
         .pizza-prices {
             font-size: 0.85rem;
             background: #f3ede7;
             border-radius: 40px;
             padding: 0.2rem 0.8rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
         }
-
         /* Cart Sidebar */
         .cart-overlay {
             position: fixed;
@@ -292,7 +296,6 @@
             z-index: 1000;
             display: none;
         }
-
         .cart-panel {
             position: fixed;
             right: -450px;
@@ -306,11 +309,7 @@
             flex-direction: column;
             box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
         }
-
-        .cart-panel.open {
-            right: 0;
-        }
-
+        .cart-panel.open { right: 0; }
         .cart-header {
             background: #1e1912;
             color: white;
@@ -319,13 +318,7 @@
             justify-content: space-between;
             align-items: center;
         }
-
-        .cart-items-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-        }
-
+        .cart-items-list { flex: 1; overflow-y: auto; padding: 1rem; }
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -333,31 +326,20 @@
             padding: 0.8rem;
             border-bottom: 1px solid #eee;
         }
-
-        .cart-item-details {
-            flex: 2;
-        }
-
-        .cart-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
+        .cart-actions { display: flex; gap: 0.5rem; align-items: center; }
         .cart-qty-btn {
             background: #f0e3d4;
             border: none;
             width: 28px;
             border-radius: 50%;
             font-weight: bold;
+            cursor: pointer;
         }
-
         .cart-total-area {
             padding: 1.5rem;
             border-top: 2px solid #f0e3d4;
             background: #fefaf5;
         }
-
         .checkout-demo {
             background: #c8a45d;
             color: #1e1912;
@@ -370,8 +352,6 @@
             font-size: 1rem;
             cursor: pointer;
         }
-
-        /* payment modal */
         .payment-modal {
             position: fixed;
             top: 50%;
@@ -386,44 +366,42 @@
             display: none;
             box-shadow: 0 30px 45px rgba(0, 0, 0, 0.2);
         }
-
         .payment-option {
             background: #f9f1e9;
             border-radius: 20px;
             padding: 1rem;
             margin-bottom: 1rem;
             cursor: pointer;
-            transition: 0.1s;
         }
-
         .footer {
             background: #1e1912;
             color: #e2cfb5;
             text-align: center;
             padding: 2rem;
-            margin-top: 3rem;
+            margin-top: 2rem;
             font-size: 0.85rem;
         }
-
         @media (max-width: 680px) {
-            .hero h1 { font-size: 3rem; }
+            .hero h1 { font-size: 2.5rem; }
             .nav-bar { flex-direction: column; gap: 0.8rem; }
             .cart-panel { width: 100%; right: -100%; }
+            .event-card { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
+<!-- HERO with restaurant ambience image -->
 <div class="hero">
-    <div>
-        <h1>1960</h1>
-        <p style="font-size: 1.2rem; letter-spacing: 2px;">RESTAURANT & CAFÉ</p>
-        <p>Authentic flavors · Timeless elegance · In the heart of the city</p>
+    <div class="hero-content">
+        <h1>LANTICA 1960</h1>
+        <p style="font-size: 1.3rem; letter-spacing: 2px;">Cafe & Restaurant</p>
+        <p>Ethiopian soul • Modern elegance • Timeless taste</p>
     </div>
 </div>
 
 <nav class="nav-bar">
-    <div class="logo">1960 <span>restaurant</span></div>
+    <div class="logo">Lantica 1960 <span>restaurant</span></div>
     <ul class="nav-links">
         <li><a href="#breakfast">Breakfast</a></li>
         <li><a href="#signatures">Signature</a></li>
@@ -435,116 +413,82 @@
     </div>
 </nav>
 
+<!-- NEW EVENT CARD - Demo phone # for events / calls -->
+<div class="events-section">
+    <div class="event-card">
+        <div class="event-text">
+            <h2><i class="fas fa-calendar-alt"></i> Private Events & Celebrations</h2>
+            <p>Host your special moments at Lantica 1960. Birthdays, anniversaries, corporate gatherings or traditional coffee ceremonies. Our team will tailor the experience.</p>
+            <p><i class="fas fa-phone-alt"></i> <strong>Call our event manager (demo line)</strong> — quick support & custom menu planning.</p>
+            <div class="demo-contact">
+                <i class="fas fa-clock"></i> Mon–Sun: 9am – 11pm
+            </div>
+        </div>
+        <div>
+            <button class="call-demo-btn" id="demoCallBtn">
+                <i class="fas fa-phone-volume"></i> Call Demo: +251 98 1960 1960
+            </button>
+            <p style="color:#fef3e4; font-size:0.7rem; margin-top: 0.8rem;">📞 Demo number — click to simulate call inquiry</p>
+        </div>
+    </div>
+</div>
+
 <div class="container">
-    <!-- ========================= BREAKFAST & BRUNCH ========================= -->
-    <div id="breakfast" class="category">
-        <div class="category-title">☀️ Breakfast & Brunch</div>
-        <div class="menu-grid" id="breakfast-grid"></div>
-    </div>
-
-    <!-- ========================= APPETIZERS ========================= -->
-    <div class="category">
-        <div class="category-title">🍢 Appetizers & Small Plates</div>
-        <div class="menu-grid" id="appetizers-grid"></div>
-    </div>
-
-    <!-- ========================= SOUPS & SALADS ========================= -->
-    <div class="category">
-        <div class="category-title">🥗 Soups & Salads</div>
-        <div class="menu-grid" id="salads-grid"></div>
-    </div>
-
-    <!-- ========================= TRADITIONAL SIGNATURES ========================= -->
-    <div id="signatures" class="category">
-        <div class="category-title">🔥 Traditional Signatures</div>
-        <div class="menu-grid" id="signature-grid"></div>
-    </div>
-
-    <!-- ========================= FAST CASUAL ========================= -->
-    <div class="category">
-        <div class="category-title">🍛 Fast Casual</div>
-        <div class="menu-grid" id="fastcasual-grid"></div>
-    </div>
-
-    <!-- ========================= BURGERS ========================= -->
-    <div class="category">
-        <div class="category-title">🍔 Burgers & Sandwiches</div>
-        <div class="menu-grid" id="burgers-grid"></div>
-    </div>
-
-    <!-- ========================= PORK SELECTIONS ========================= -->
-    <div class="category">
-        <div class="category-title">🥘 Pork & Vegetable Selections</div>
-        <div class="menu-grid" id="pork-grid"></div>
-    </div>
-
-    <!-- ========================= SPAGHETTI & PIZZA ========================= -->
-    <div class="category">
-        <div class="category-title">🍝 Pasta & Rice</div>
-        <div class="menu-grid" id="pasta-grid"></div>
-    </div>
-
-    <div id="pizza" class="category">
-        <div class="category-title">🍕 Artisan Pizza</div>
-        <div class="menu-grid" id="pizza-grid"></div>
-    </div>
-
-    <!-- ========================= BEVERAGES ========================= -->
-    <div id="beverages" class="category">
-        <div class="category-title">🥤 Beverages</div>
-        <div class="menu-grid" id="juices-grid"></div>
-        <div class="menu-grid" id="cold-grid"></div>
-        <div class="menu-grid" id="beer-grid"></div>
-        <div class="menu-grid" id="hot-grid"></div>
-        <div class="menu-grid" id="wine-grid"></div>
-    </div>
+    <!-- BREAKFAST -->
+    <div id="breakfast" class="category"><div class="category-title">☀️ Breakfast & Brunch</div><div id="breakfast-grid" class="menu-grid"></div></div>
+    <!-- APPETIZERS -->
+    <div class="category"><div class="category-title">🍢 Appetizers & Small Plates</div><div id="appetizers-grid" class="menu-grid"></div></div>
+    <!-- SOUPS & SALADS -->
+    <div class="category"><div class="category-title">🥗 Soups & Salads</div><div id="salads-grid" class="menu-grid"></div></div>
+    <!-- TRADITIONAL SIGNATURES -->
+    <div id="signatures" class="category"><div class="category-title">🔥 Traditional Signatures</div><div id="signature-grid" class="menu-grid"></div></div>
+    <!-- FAST CASUAL -->
+    <div class="category"><div class="category-title">🍛 Fast Casual</div><div id="fastcasual-grid" class="menu-grid"></div></div>
+    <!-- BURGERS & SANDWICHES -->
+    <div class="category"><div class="category-title">🍔 Burgers & Sandwiches</div><div id="burgers-grid" class="menu-grid"></div></div>
+    <!-- SIDES -->
+    <div class="category"><div class="category-title">🍟 Sides</div><div id="sides-grid" class="menu-grid"></div></div>
+    <!-- PORK SELECTIONS -->
+    <div class="category"><div class="category-title">🥘 Pork & Vegetable Selections</div><div id="pork-grid" class="menu-grid"></div></div>
+    <!-- PASTA -->
+    <div class="category"><div class="category-title">🍝 Spaghetti & Rice</div><div id="pasta-grid" class="menu-grid"></div></div>
+    <!-- PIZZA SECTION -->
+    <div id="pizza" class="category"><div class="category-title">🍕 Artisan Pizza</div><div id="pizza-grid" class="menu-grid"></div></div>
+    <!-- BEVERAGES -->
+    <div id="beverages" class="category"><div class="category-title">🥤 Fresh Juices</div><div id="juices-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title">🧊 Cold Drinks</div><div id="cold-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title">🍺 Beer & Draft</div><div id="beer-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title">☕ Hot Beverages</div><div id="hot-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title">🍷 Wine List</div><div id="wine-grid" class="menu-grid"></div></div>
 </div>
 
 <footer class="footer">
-    <p>1960 Restaurant & Café — Where tradition meets flavor</p>
+    <p>Lantica 1960 Cafe & Restaurant — Where tradition meets flavor</p>
     <p style="margin-top: 0.5rem;">✧ All prices in local currency | 15% VAT not included ✧</p>
-    <p>📍 Addis Ababa | 📞 +251-900-19601960</p>
+    <p>📍 Bole, Addis Ababa | 📞 +251-98-1960-1960 (Demo Event Line)</p>
 </footer>
 
-<!-- Cart Sidebar -->
+<!-- Cart Overlay & Sidebar -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-panel" id="cartPanel">
-    <div class="cart-header">
-        <h3><i class="fas fa-shopping-bag"></i> Your Order</h3>
-        <button class="close-cart" onclick="toggleCart()" style="background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer;">&times;</button>
-    </div>
-    <div class="cart-items-list" id="cartList">
-        <p style="text-align: center; color: #9b8a74;">Cart is empty</p>
-    </div>
-    <div class="cart-total-area">
-        <h4>Subtotal: <span id="cartSubtotal">0</span> ETB</h4>
-        <p style="font-size: 0.75rem;">+15% VAT added at checkout</p>
-        <button class="checkout-demo" onclick="showPaymentOptions()"><i class="fas fa-receipt"></i> Proceed to Payment (Demo)</button>
-    </div>
+    <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> Your Order</h3><button class="close-cart" onclick="toggleCart()" style="background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;">&times;</button></div>
+    <div class="cart-items-list" id="cartList"><p style="text-align:center;color:#9b8a74;">Cart is empty</p></div>
+    <div class="cart-total-area"><h4>Subtotal: <span id="cartSubtotal">0</span> ETB</h4><p style="font-size:0.75rem;">+15% VAT added at checkout</p><button class="checkout-demo" onclick="showPaymentOptions()"><i class="fas fa-receipt"></i> Proceed to Payment (Demo)</button></div>
 </div>
 
-<!-- Payment modal (demo telegram + bank) -->
+<!-- Payment Modal (Demo) -->
 <div class="payment-modal" id="paymentModal">
-    <h3 style="margin-bottom: 1rem;">💳 Choose payment method</h3>
-    <div class="payment-option" onclick="choosePayment('telebirr')">
-        <strong>📱 Telebirr (Demo)</strong><br>
-        <span style="font-size: 0.8rem;">Pay fast via mobile money</span>
-    </div>
-    <div class="payment-option" onclick="choosePayment('bank')">
-        <strong>🏦 Bank Transfer (Demo)</strong><br>
-        <span style="font-size: 0.8rem;">Commercial Bank of Ethiopia</span>
-    </div>
-    <button style="margin-top: 1rem; background:#e9dfd3; border: none; padding: 0.7rem; width:100%; border-radius: 60px; cursor: pointer;" onclick="closePaymentModal()">Cancel</button>
-    <div id="paymentDetailsDemo" style="margin-top: 1rem; font-size: 0.85rem; background: #f9f1e9; padding: 1rem; border-radius: 20px; display: none;"></div>
+    <h3 style="margin-bottom:1rem;">💳 Choose payment method</h3>
+    <div class="payment-option" onclick="choosePayment('telebirr')"><strong>📱 Telebirr (Demo)</strong><br><span style="font-size:0.8rem;">Pay via mobile money</span></div>
+    <div class="payment-option" onclick="choosePayment('bank')"><strong>🏦 Bank Transfer (Demo)</strong><br><span style="font-size:0.8rem;">Commercial Bank of Ethiopia</span></div>
+    <button style="margin-top:1rem;background:#e9dfd3;border:none;padding:0.7rem;width:100%;border-radius:60px;cursor:pointer;" onclick="closePaymentModal()">Cancel</button>
+    <div id="paymentDetailsDemo" style="margin-top:1rem;font-size:0.85rem;background:#f9f1e9;padding:1rem;border-radius:20px;display:none;"></div>
 </div>
 
 <script>
-    // --------------------------------------------------------------
-    // COMPLETE MENU DATA with free food images (Unsplash & placeholder)
-    // --------------------------------------------------------------
+    // ---------- DATABASE WITH REAL MENU + FREE IMAGES (preserved) ----------
     const itemsDatabase = [];
-
-    function addMenuItem(categoryId, name, price, desc, imgKeyword = "food") {
+    function addMenuItem(categoryId, name, price, desc = "Authentic flavor") {
         const imagesMap = {
             "Fasting": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300",
             "Egg": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=300",
@@ -558,6 +502,9 @@
             "Juice": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=300",
             "Coffee": "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=300",
             "Beer": "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=300",
+            "Fries": "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=300",
+            "Pasta": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300",
+            "Wine": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=300",
             default: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300"
         };
         let imageUrl = imagesMap.default;
@@ -568,58 +515,45 @@
         if (name.includes("Burger") || name.includes("Sandwich")) imageUrl = imagesMap.Burger;
         if (name.includes("Pizza")) imageUrl = imagesMap.Pizza;
         if (name.includes("Juice")) imageUrl = imagesMap.Juice;
-        if (name.includes("Coffee") || name.includes("Latte")) imageUrl = imagesMap.Coffee;
-        if (name.includes("Beer") || name.includes("Bedla")) imageUrl = imagesMap.Beer;
-        if (name.includes("Fasting") && name.includes("Platter")) imageUrl = imagesMap.Fasting;
-        if (name.includes("Fetera")) imageUrl = imagesMap.Fetera;
+        if (name.includes("Coffee") || name.includes("Latte") || name.includes("Macchiato")) imageUrl = imagesMap.Coffee;
+        if (name.includes("Beer")) imageUrl = imagesMap.Beer;
+        if (name.includes("Fries")) imageUrl = imagesMap.Fries;
+        if (name.includes("Spaghetti")) imageUrl = imagesMap.Pasta;
+        if (name.includes("Axmite") || name.includes("Wine")) imageUrl = imagesMap.Wine;
+        if (name.includes("Fasting Platter")) imageUrl = imagesMap.Fasting;
         itemsDatabase.push({ id: itemsDatabase.length, categoryId, name, price, desc, image: imageUrl });
     }
 
-    // Helper to create multiple
-    function addPrice(cat, name, price, desc = "") { addMenuItem(cat, name, price, desc); }
-
-    // Breakfast
-    addPrice("breakfast", "Combo Fasting Platter", 250, "Hearty vegan combo with lentils & veggies");
-    addPrice("breakfast", "Egg with Meat", 250, "Scrambled eggs with minced beef & spices");
-    addPrice("breakfast", "Special Fetera", 350, "Layered pancake with honey & cheese");
-    addPrice("breakfast", "Classic Fetera", 200, "Crispy folded pancake");
-    addPrice("breakfast", "Egg Sandwich", 200, "Toasted bread with omelette");
-
-    // Appetizers
-    const apps = ["Kiba Firfir", "Shiro Bekibe", "Dulet", "Tomato Lebleb", "Mesere", "Noma Firfir"];
-    const appPrices = [210,300,330,180,250,180];
-    apps.forEach((n,i)=> addPrice("appetizers", n, appPrices[i], "Traditional ethiopian starter"));
-    
-    // Soups & salads
-    addPrice("salads", "Vegetable Soup", 180, "Seasonal veg broth");
-    addPrice("salads", "Mixed Garden Salad", 200, "Fresh tomato, onion, lettuce");
-    addPrice("salads", "Rice & Chicken Salad", 400, "Grilled chicken with rice");
-    addPrice("salads", "Pork & Vegetable Soup", 6500, "Deluxe hearty soup (serves 4)");
-    
-    // Traditional Signatures
-    const sigNames = ["Lamb Tibs", "Lamb Tibs Tefresho", "Okle", "Chikena Tibs", "Chikena Tefresho", "Kito", "Quanta Firfir", "Tibes Firfir", "Derkosh Firfir Bäseg", "Bozena Shiro", "Mahberawi (Mixed Platter)", "Yefisk Agelgel", "Gomen Kitto"];
+    // ========== REAL 1960 MENU (preserved exactly as you gave) ==========
+    addMenuItem("breakfast","Combo Fasting Platter",250,"Hearty vegan platter");
+    addMenuItem("breakfast","Egg with Meat",250,"Scrambled eggs & minced beef");
+    addMenuItem("breakfast","Special Fetera",350,"Layered pancake honey cheese");
+    addMenuItem("breakfast","Classic Fetera",200,"Crispy folded pancake");
+    addMenuItem("breakfast","Egg Sandwich",200,"Toasted omelette sandwich");
+    addMenuItem("appetizers","Kiba Firfir",210,"Spiced butter firfir");
+    addMenuItem("appetizers","Shiro Bekibe",300,"Rich chickpea stew");
+    addMenuItem("appetizers","Dulet",330,"Minced meat with spices");
+    addMenuItem("appetizers","Tomato Lebleb",180,"Fresh tomato salad");
+    addMenuItem("appetizers","Mesere",250,"Red lentil stew");
+    addMenuItem("appetizers","Noma Firfir",180,"Traditional firfir");
+    addMenuItem("salads","Vegetable Soup",180,"Seasonal veg broth");
+    addMenuItem("salads","Mixed Garden Salad",200,"Tomato, onion, lettuce");
+    addMenuItem("salads","Rice & Chicken Salad",400,"Grilled chicken with rice");
+    addMenuItem("salads","Pork & Vegetable Soup",6500,"Deluxe hearty soup");
+    const sigNames = ["Lamb Tibs","Lamb Tibs Tefresho","Okle","Chikena Tibs","Chikena Tefresho","Kito","Quanta Firfir","Tibes Firfir","Derkosh Firfir Bäseg","Bozena Shiro","Mahberawi (Mixed Platter)","Yefisk Agelgel","Gomen Kitto"];
     const sigPrices = [680,700,600,600,650,1200,370,370,380,350,1200,1000,300];
-    sigNames.forEach((n,i)=> addPrice("signature", n, sigPrices[i], "Authentic house specialty"));
-    
-    // Fast casual
-    const fastItems = ["Special Lantica Fasting", "Shiro", "Tegabino", "Derkosh Firfir Fasting", "Hafe Hafe"];
+    sigNames.forEach((n,i)=> addMenuItem("signature", n, sigPrices[i], "House specialty"));
+    const fastItems = ["Special Lantica Fasting","Shiro","Tegabino","Derkosh Firfir Fasting","Hafe Hafe"];
     const fastPrices = [500,275,300,220,280];
-    fastItems.forEach((n,i)=> addPrice("fastcasual", n, fastPrices[i], "Quick & satisfying"));
-    
-    // Burgers
-    const burgs = ["Noma Burger", "Cheese Burger", "Noma Nica", "Club Sandwich", "Tuna Sandwich", "Vegetable Sandwich", "Chicken Shawarma"];
+    fastItems.forEach((n,i)=> addMenuItem("fastcasual", n, fastPrices[i], "Quick & delicious"));
+    const burgs = ["Noma Burger","Cheese Burger","Noma Nica","Club Sandwich","Tuna Sandwich","Vegetable Sandwich","Chicken Shawarma"];
     const burgPrices = [300,350,380,360,350,160,600];
-    burgs.forEach((n,i)=> addPrice("burgers", n, burgPrices[i], "Served with fries option"));
-    
-    // Pork
-    const porkStyles = ["Pork & Vegetables – Style A", "Style B", "Style C", "Style D", "Style E", "Style F"];
+    burgs.forEach((n,i)=> addMenuItem("burgers", n, burgPrices[i], "Served with fries option"));
+    addMenuItem("sides","French Fries",180,"Crispy golden fries");
+    const porkStyles = ["Pork & Vegetables – Style A","Style B","Style C","Style D","Style E","Style F"];
     const porkPrice = [320,570,200,400,380,400];
-    porkStyles.forEach((n,i)=> addPrice("pork", n, porkPrice[i], "Savory pork medley"));
-    
-    // Pasta
-    addPrice("pasta", "Spaghetti with Vegetables", 230, "Tomato sauce, fresh veg");
-    
-    // PIZZA (special handling)
+    porkStyles.forEach((n,i)=> addMenuItem("pork", n, porkPrice[i], "Savory pork selection"));
+    addMenuItem("pasta","Spaghetti with Vegetables",230,"Tomato sauce, fresh veg");
     const pizzaList = [
         { name: "Special Lentic Pizza", large: 580, medium: 550 },
         { name: "Tuna Pizza", large: 550, medium: 500 },
@@ -628,30 +562,22 @@
         { name: "Margarita Pizza", large: 450, medium: 400 },
         { name: "Vegetable Pizza", large: 400, medium: 370 }
     ];
-    // Store pizza as two variants for simplicity, but we'll show in grid with both prices.
-    
-    // Beverages
-    const juices = ["Papaya Juice", "Avocado Juice", "Mango Juice", "Tella Juice"];
-    juices.forEach(j => addPrice("juices", j, j === "Tella Juice" ? 200 : 160, "Freshly squeezed"));
-    
-    const coldDrinks = ["Mineral Water (1/4 L)","Mineral Water (1/2 L)","Mineral Water (1 L)","Mineral Water (2 L)","Soft Drink","Ambo Water","Plastic Soft Drink","Tonic Water"];
-    const coldPrices = [20,35,55,75,60,65,80,65];
-    coldDrinks.forEach((d,i)=> addPrice("cold", d, coldPrices[i], "Refreshing"));
-    
-    const beers = ["Normal Beer", "Big Bedla", "Hicnek Beer", "Arada Beer", "Janibo", "Single Draft"];
-    const beerPrices = [100,120,125,130,145,65];
-    beers.forEach((b,i)=> addPrice("beer", b, beerPrices[i], "Chill draft or bottle"));
-    
-    const hots = ["Tea", "Coffee", "Milk", "Latte", "Macchiato", "Spires (Orange Infusion)", "Lewis Tea", "Kesher", "Flavor Tea", "Special Tea", "Fasting Macchiato", "Hot Chocolate", "Qeshir with Coffee", "House Special", "House Brew"];
-    const hotPrices = [30,60,80,70,75,60,50,45,65,150,85,80,65,60,40];
-    hots.forEach((h,i)=> addPrice("hot", h, hotPrices[i], "Hot beverage"));
-    
-    const wines = ["Axmite", "Guder Big", "Kmila Big", "Gebeta", "Aksejar"];
-    const winePrices = [900,720,800,1100,1200];
-    wines.forEach((w,i)=> addPrice("wine", w, winePrices[i], "Ethiopian premium vintage"));
-    
+    const juicesList = ["Papaya Juice","Avocado Juice","Mango Juice","Tella Juice"];
+    juicesList.forEach(j => addMenuItem("juices", j, j==="Tella Juice"?200:160, "Freshly squeezed"));
+    const cold = ["Mineral Water (1/4 L)","Mineral Water (1/2 L)","Mineral Water (1 L)","Mineral Water (2 L)","Soft Drink","Ambo Water","Plastic Soft Drink","Tonic Water"];
+    const coldP = [20,35,55,75,60,65,80,65];
+    cold.forEach((c,i)=> addMenuItem("cold", c, coldP[i], "Refreshing"));
+    const beers = ["Normal Beer","Big Bedla","Hicnek Beer","Arada Beer","Janibo","Single Draft"];
+    const beerP = [100,120,125,130,145,65];
+    beers.forEach((b,i)=> addMenuItem("beer", b, beerP[i], "Chilled"));
+    const hots = ["Tea","Coffee","Milk","Latte","Macchiato","Spires","Lewis Tea","Kesher","Flavor Tea","Special Tea","Fasting Macchiato","Hot Chocolate","Qeshir with Coffee","House Special","House Brew"];
+    const hotP = [30,60,80,70,75,60,50,45,65,150,85,80,65,60,40];
+    hots.forEach((h,i)=> addMenuItem("hot", h, hotP[i], "Freshly brewed"));
+    const wines = ["Axmite","Guder Big","Kmila Big","Gebeta","Aksejar"];
+    const wineP = [900,720,800,1100,1200];
+    wines.forEach((w,i)=> addMenuItem("wine", w, wineP[i], "Ethiopian premium vintage"));
 
-    // ----- render all grids dynamically -----
+    // Render helpers
     function renderGrid(categoryId, containerId) {
         const items = itemsDatabase.filter(i => i.categoryId === categoryId);
         const container = document.getElementById(containerId);
@@ -659,51 +585,16 @@
         if (items.length === 0) { container.innerHTML = '<p style="opacity:0.6">Coming soon</p>'; return; }
         let html = '';
         items.forEach(item => {
-            html += `
-                <div class="menu-card">
-                    <img class="card-img" src="${item.image}" alt="${item.name}" loading="lazy">
-                    <div class="card-body">
-                        <div class="item-title">
-                            <span class="item-name">${item.name}</span>
-                            <span class="item-price">${item.price} ETB</span>
-                        </div>
-                        <div class="item-desc">${item.desc || "Authentic flavor"}</div>
-                        <div class="qty-wrapper">
-                            <button class="qty-btn" onclick="changeCardQty(this, -1)">−</button>
-                            <input type="number" class="qty-input" value="1" min="1" max="20" step="1">
-                            <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
-                        </div>
-                        <button class="add-btn" onclick="addToCartFromCard(this)"><i class="fas fa-plus-circle"></i> Add to Order</button>
-                    </div>
-                </div>
-            `;
+            html += `<div class="menu-card"><img class="card-img" src="${item.image}" alt="${item.name}" loading="lazy"><div class="card-body"><div class="item-title"><span class="item-name">${item.name}</span><span class="item-price">${item.price} ETB</span></div><div class="item-desc">${item.desc}</div><div class="qty-wrapper"><button class="qty-btn" onclick="changeCardQty(this, -1)">−</button><input type="number" class="qty-input" value="1" min="1" max="20"><button class="qty-btn" onclick="changeCardQty(this, 1)">+</button></div><button class="add-btn" onclick="addToCartFromCard(this)"><i class="fas fa-plus-circle"></i> Add to Order</button></div></div>`;
         });
         container.innerHTML = html;
     }
-
-    // pizza special:
     function renderPizzaGrid() {
         const container = document.getElementById("pizza-grid");
         if (!container) return;
         let html = '';
         pizzaList.forEach(p => {
-            html += `
-                <div class="menu-card">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300" alt="${p.name}">
-                    <div class="card-body">
-                        <div class="item-title"><span class="item-name">${p.name}</span></div>
-                        <div class="pizza-prices">🍕 Large ${p.large} ETB &nbsp;&nbsp; Medium ${p.medium} ETB</div>
-                        <div class="item-desc">Wood fired crust, fresh toppings</div>
-                        <div class="qty-wrapper">
-                            <button class="qty-btn" onclick="changeCardQty(this, -1)">−</button>
-                            <input type="number" class="qty-input" value="1" min="1" max="20">
-                            <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
-                        </div>
-                        <button class="add-btn" onclick="addPizzaToCart('${p.name}', ${p.large})"><i class="fas fa-plus-circle"></i> Add Large Pizza</button>
-                        <button class="add-btn" style="margin-top: 6px; background:#cfb38f;" onclick="addPizzaToCart('${p.name} (Medium)', ${p.medium})">+ Add Medium</button>
-                    </div>
-                </div>
-            `;
+            html += `<div class="menu-card"><img class="card-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300" alt="${p.name}"><div class="card-body"><div class="item-title"><span class="item-name">${p.name}</span></div><div class="pizza-prices">🍕 Large ${p.large} ETB &nbsp; Medium ${p.medium} ETB</div><div class="item-desc">Wood fired crust, fresh toppings</div><div class="qty-wrapper"><button class="qty-btn" onclick="changeCardQty(this, -1)">−</button><input type="number" class="qty-input" value="1" min="1" max="20"><button class="qty-btn" onclick="changeCardQty(this, 1)">+</button></div><button class="add-btn" onclick="addPizzaToCart('${p.name} (Large)', ${p.large})"><i class="fas fa-plus-circle"></i> Add Large Pizza</button><button class="add-btn" style="margin-top:6px;background:#cfb38f;" onclick="addPizzaToCart('${p.name} (Medium)', ${p.medium})">+ Add Medium</button></div></div>`;
         });
         container.innerHTML = html;
     }
@@ -715,7 +606,6 @@
         val = Math.min(20, Math.max(1, val + delta));
         input.value = val;
     };
-
     window.addToCartFromCard = function(btn) {
         const card = btn.closest('.menu-card');
         const name = card.querySelector('.item-name').innerText;
@@ -724,108 +614,55 @@
         const qty = parseInt(card.querySelector('.qty-input').value);
         addItemToCartInternal(name, price, qty);
     };
-
-    window.addPizzaToCart = function(pizzaName, price) {
-        addItemToCartInternal(pizzaName, price, 1);
-    };
+    window.addPizzaToCart = function(pizzaName, price) { addItemToCartInternal(pizzaName, price, 1); };
 
     let cartItems = [];
-    function addItemToCartInternal(name, price, qty = 1) {
+    function addItemToCartInternal(name, price, qty=1) {
         const existing = cartItems.find(i => i.name === name);
         if (existing) existing.qty += qty;
         else cartItems.push({ name, price, qty });
         updateCartUI();
         toggleCart(true);
     }
-
     function updateCartUI() {
         const cartListDiv = document.getElementById("cartList");
         const subtotalSpan = document.getElementById("cartSubtotal");
         const counterSpan = document.getElementById("cartCounter");
-        let totalItems = 0;
-        let subtotal = 0;
+        let totalItems = 0, subtotal = 0;
         let html = '';
         cartItems.forEach((item, idx) => {
             totalItems += item.qty;
             subtotal += item.price * item.qty;
-            html += `
-                <div class="cart-item">
-                    <div class="cart-item-details"><strong>${item.name}</strong><br>${item.price} ETB each</div>
-                    <div class="cart-actions">
-                        <button class="cart-qty-btn" onclick="updateCartQty(${idx}, -1)">-</button>
-                        <span style="width: 28px; text-align: center;">${item.qty}</span>
-                        <button class="cart-qty-btn" onclick="updateCartQty(${idx}, 1)">+</button>
-                        <button class="cart-qty-btn" style="background:#c0392b; color:white;" onclick="removeCartItem(${idx})">x</button>
-                    </div>
-                </div>
-            `;
+            html += `<div class="cart-item"><div><strong>${item.name}</strong><br>${item.price} ETB each</div><div class="cart-actions"><button class="cart-qty-btn" onclick="updateCartQty(${idx}, -1)">-</button><span style="width:28px;text-align:center;">${item.qty}</span><button class="cart-qty-btn" onclick="updateCartQty(${idx}, 1)">+</button><button class="cart-qty-btn" style="background:#c0392b;color:white;" onclick="removeCartItem(${idx})">x</button></div></div>`;
         });
         if (cartItems.length === 0) html = '<p style="text-align:center;">🛒 Cart is empty</p>';
         cartListDiv.innerHTML = html;
         subtotalSpan.innerText = subtotal;
         counterSpan.innerText = totalItems;
     }
-
-    window.updateCartQty = (idx, delta) => {
-        let newQty = cartItems[idx].qty + delta;
-        if (newQty <= 0) cartItems.splice(idx,1);
-        else cartItems[idx].qty = newQty;
-        updateCartUI();
-    };
+    window.updateCartQty = (idx, delta) => { let nq = cartItems[idx].qty + delta; if (nq <= 0) cartItems.splice(idx,1); else cartItems[idx].qty = nq; updateCartUI(); };
     window.removeCartItem = (idx) => { cartItems.splice(idx,1); updateCartUI(); };
-
-    function toggleCart(forceOpen = false) {
-        const panel = document.getElementById("cartPanel");
-        const overlay = document.getElementById("cartOverlay");
-        if (panel.classList.contains("open") && !forceOpen) {
-            panel.classList.remove("open");
-            overlay.style.display = "none";
-        } else {
-            panel.classList.add("open");
-            overlay.style.display = "block";
-        }
-    }
-
-    function showPaymentOptions() {
-        if (cartItems.length === 0) { alert("Add items to your order first"); return; }
-        document.getElementById("paymentModal").style.display = "block";
-    }
-    window.closePaymentModal = () => { document.getElementById("paymentModal").style.display = "none"; document.getElementById("paymentDetailsDemo").style.display = "none"; };
+    function toggleCart(force=false) { const p = document.getElementById("cartPanel"); const o = document.getElementById("cartOverlay"); if (p.classList.contains("open") && !force) { p.classList.remove("open"); o.style.display = "none"; } else { p.classList.add("open"); o.style.display = "block"; } }
+    function showPaymentOptions() { if(cartItems.length===0){ alert("Add items first"); return; } document.getElementById("paymentModal").style.display="block"; }
+    window.closePaymentModal = () => { document.getElementById("paymentModal").style.display="none"; document.getElementById("paymentDetailsDemo").style.display="none"; };
     window.choosePayment = (method) => {
-        const total = cartItems.reduce((s,i)=> s + (i.price * i.qty),0);
-        const vat = total * 0.15;
-        const grand = total + vat;
-        let details = document.getElementById("paymentDetailsDemo");
-        if (method === "telebirr") {
-            details.innerHTML = `<strong>📱 Telebirr (DEMO)</strong><br>Number: 09XX-19601960<br>Account: 1960 Restaurant<br>Total amount: ${grand.toFixed(2)} ETB (incl VAT)<br><br>✅ Demo order sent to Telegram (simulated).<br><button class="checkout-demo" style="margin-top:8px;" onclick="finalizeDemoOrder()">Confirm Demo Order</button>`;
-        } else {
-            details.innerHTML = `<strong>🏦 Bank of Ethiopia (DEMO)</strong><br>Account: 100019601960<br>Name: 1960 Restaurant<br>Amount: ${grand.toFixed(2)} ETB<br><br>✅ Demo reference ready.<br><button class="checkout-demo" style="margin-top:8px;" onclick="finalizeDemoOrder()">Complete Demo Payment</button>`;
-        }
-        details.style.display = "block";
+        const total = cartItems.reduce((s,i)=> s+(i.price*i.qty),0);
+        const grand = total + (total*0.15);
+        let d = document.getElementById("paymentDetailsDemo");
+        if(method==="telebirr") d.innerHTML = `<strong>📱 Telebirr (DEMO)</strong><br>Number: 09XX-19601960<br>Total: ${grand.toFixed(2)} ETB<br><button class="checkout-demo" onclick="finalizeDemoOrder()">Confirm Demo Order</button>`;
+        else d.innerHTML = `<strong>🏦 CBE (DEMO)</strong><br>Account: 100019601960<br>Amount: ${grand.toFixed(2)} ETB<br><button class="checkout-demo" onclick="finalizeDemoOrder()">Complete Demo</button>`;
+        d.style.display="block";
     };
-    window.finalizeDemoOrder = () => {
-        alert("✅ DEMO ORDER PLACED!\nThank you for ordering from 1960 Restaurant.\n(Real orders would be sent to restaurant via Telegram)\n\nThis is a demo — no actual charge.");
-        cartItems = [];
-        updateCartUI();
-        closePaymentModal();
-        toggleCart();
-    };
-
-    // render everything
-    renderGrid("breakfast","breakfast-grid");
-    renderGrid("appetizers","appetizers-grid");
-    renderGrid("salads","salads-grid");
-    renderGrid("signature","signature-grid");
-    renderGrid("fastcasual","fastcasual-grid");
-    renderGrid("burgers","burgers-grid");
-    renderGrid("pork","pork-grid");
-    renderGrid("pasta","pasta-grid");
-    renderPizzaGrid();
-    renderGrid("juices","juices-grid");
-    renderGrid("cold","cold-grid");
-    renderGrid("beer","beer-grid");
-    renderGrid("hot","hot-grid");
-    renderGrid("wine","wine-grid");
+    window.finalizeDemoOrder = () => { alert("✅ DEMO ORDER at Lantica 1960!\nThank you! We'll call you soon."); cartItems=[]; updateCartUI(); closePaymentModal(); toggleCart(); };
+    // EVENT CALL DEMO
+    document.getElementById("demoCallBtn")?.addEventListener("click", () => {
+        alert("📞 DEMO CALL TO LANTICA 1960 EVENT LINE: +251 98 1960 1960\n(Simulated) Our event coordinator will reach you shortly for bookings & custom menus.");
+    });
+    // INITIAL RENDER
+    renderGrid("breakfast","breakfast-grid"); renderGrid("appetizers","appetizers-grid"); renderGrid("salads","salads-grid");
+    renderGrid("signature","signature-grid"); renderGrid("fastcasual","fastcasual-grid"); renderGrid("burgers","burgers-grid");
+    renderGrid("sides","sides-grid"); renderGrid("pork","pork-grid"); renderGrid("pasta","pasta-grid"); renderPizzaGrid();
+    renderGrid("juices","juices-grid"); renderGrid("cold","cold-grid"); renderGrid("beer","beer-grid"); renderGrid("hot","hot-grid"); renderGrid("wine","wine-grid");
 </script>
 </body>
 </html>
