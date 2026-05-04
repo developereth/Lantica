@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Lantica 1960 | Cafe & Restaurant | Authentic Ethiopian Cuisine</title>
-    <meta name="description" content="Lantica 1960 - Ethiopian soul, modern elegance, timeless taste. Premium cafe & restaurant in Addis Ababa.">
+    <meta name="description" content="Lantica 1960 - Ethiopian soul, modern elegance, timeless taste. Premium cafe & restaurant in Addis Ababa since 1996.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -27,7 +27,10 @@
             --shadow: 0 4px 20px rgba(0,0,0,0.3);
             --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
             --shadow-xl: 0 20px 60px rgba(0,0,0,0.5);
+            --shadow-gold: 0 8px 30px rgba(201,169,110,0.25);
+            --shadow-red: 0 8px 30px rgba(180,95,59,0.3);
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,6 +41,47 @@
             background: var(--dark);
             color: #E8E0D5;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ SCROLL ANIMATIONS ============ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes glowPulse {
+            0%,100% { box-shadow: 0 0 20px rgba(201,169,110,0.3), 0 0 40px rgba(201,169,110,0.1); }
+            50% { box-shadow: 0 0 35px rgba(201,169,110,0.5), 0 0 70px rgba(201,169,110,0.2); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes floatSlow {
+            0%,100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-slow);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* ============ TOP BAR ============ */
@@ -74,7 +118,9 @@
             letter-spacing: 1px;
             color: var(--gold);
             font-family: 'Playfair Display', serif;
+            transition: var(--transition);
         }
+        .logo:hover { color: var(--gold-dark); }
         .logo span {
             color: var(--red);
             font-weight: 500;
@@ -94,8 +140,22 @@
             transition: var(--transition);
             font-size: 0.9rem;
             letter-spacing: 0.5px;
+            position: relative;
+            padding: 5px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+            border-radius: 2px;
         }
         .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
         .cart-badge {
             background: var(--red);
             color: white;
@@ -108,20 +168,22 @@
             gap: 8px;
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(180,95,59,0.3);
+            animation: glowPulse 3s infinite;
         }
-        .cart-badge:hover { background: var(--red-dark); transform: scale(1.03); }
+        .cart-badge:hover { background: var(--red-dark); transform: scale(1.05); }
 
         /* ============ HERO ============ */
         .hero {
             position: relative;
-            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%),
-                url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80') center/cover no-repeat;
-            height: 90vh;
+            background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 100%),
+                url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
+            height: 95vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
+            background-attachment: fixed;
         }
         .hero::after {
             content: '';
@@ -136,51 +198,61 @@
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
-            padding: 3rem;
-            background: rgba(0,0,0,0.4);
+            max-width: 850px;
+            padding: 3.5rem;
+            background: rgba(0,0,0,0.45);
             border-radius: var(--radius-xl);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(201,169,110,0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(201,169,110,0.25);
+            animation: scaleIn 1s ease forwards;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
         }
         .hero-badge {
             display: inline-block;
             background: var(--red);
             color: white;
-            padding: 8px 22px;
+            padding: 8px 24px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 0.85rem;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
+            letter-spacing: 3px;
+            margin-bottom: 22px;
             text-transform: uppercase;
+            box-shadow: var(--shadow-red);
+            animation: glowPulse 3s infinite;
         }
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            letter-spacing: 6px;
+            font-size: 5rem;
+            letter-spacing: 8px;
             margin-bottom: 0.3rem;
-            text-shadow: 2px 2px 20px rgba(0,0,0,0.6);
+            text-shadow: 2px 4px 30px rgba(0,0,0,0.7);
             color: var(--gold);
+            background: linear-gradient(135deg, var(--gold) 0%, #E8D5A3 50%, var(--gold) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
         }
         .hero-subtitle {
-            font-size: 1.3rem;
-            letter-spacing: 4px;
+            font-size: 1.4rem;
+            letter-spacing: 6px;
             color: var(--gray-light);
             margin-bottom: 0.5rem;
             font-weight: 300;
         }
         .hero-desc {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: #AAA;
-            max-width: 450px;
+            max-width: 480px;
             margin: 0 auto;
         }
 
         /* ============ EVENT CARD ============ */
         .events-section {
             max-width: 1300px;
-            margin: -60px auto 2rem;
+            margin: -70px auto 2rem;
             padding: 0 2rem;
             position: relative;
             z-index: 3;
@@ -188,14 +260,18 @@
         .event-card {
             background: linear-gradient(135deg, #1E1B17 0%, #2A2520 100%);
             border-radius: var(--radius-xl);
-            padding: 2.5rem 2.5rem;
+            padding: 2.8rem 2.8rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 2rem;
+            gap: 2.5rem;
             box-shadow: var(--shadow-xl);
             border: 1px solid rgba(201,169,110,0.2);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
         .event-text h2 {
             font-family: 'Playfair Display', serif;
@@ -215,7 +291,7 @@
         .call-demo-btn {
             background: var(--gold);
             border: none;
-            padding: 1rem 2.2rem;
+            padding: 1.1rem 2.4rem;
             border-radius: 60px;
             font-size: 1.1rem;
             font-weight: 700;
@@ -225,12 +301,25 @@
             align-items: center;
             gap: 12px;
             transition: var(--transition);
-            box-shadow: 0 8px 25px rgba(201,169,110,0.3);
+            box-shadow: var(--shadow-gold);
+            position: relative;
+            overflow: hidden;
         }
+        .call-demo-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .call-demo-btn:hover::before { left: 100%; }
         .call-demo-btn:hover {
             background: var(--gold-dark);
-            transform: scale(1.03);
-            box-shadow: 0 12px 35px rgba(201,169,110,0.4);
+            transform: scale(1.04);
+            box-shadow: 0 15px 40px rgba(201,169,110,0.4);
         }
         .demo-contact {
             margin-top: 1rem;
@@ -250,7 +339,7 @@
         }
 
         /* ============ CATEGORY ============ */
-        .category { margin-bottom: 4rem; }
+        .category { margin-bottom: 4.5rem; }
         .category-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
@@ -259,6 +348,7 @@
             border-left: 5px solid var(--gold);
             padding-left: 1.2rem;
             color: var(--gold);
+            transition: var(--transition);
         }
 
         /* ============ MENU GRID ============ */
@@ -279,8 +369,8 @@
             border: 1px solid #2A2520;
         }
         .menu-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl), 0 0 30px rgba(201,169,110,0.08);
             border-color: var(--gold);
         }
         .card-img {
@@ -288,7 +378,9 @@
             width: 100%;
             object-fit: cover;
             background: #1A1612;
+            transition: var(--transition-slow);
         }
+        .menu-card:hover .card-img { transform: scale(1.05); }
         .card-body {
             padding: 1.4rem;
             flex: 1;
@@ -371,13 +463,13 @@
             font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(180,95,59,0.2);
         }
-        .add-btn:hover { background: var(--red-dark); box-shadow: 0 8px 25px rgba(180,95,59,0.3); }
+        .add-btn:hover { background: var(--red-dark); box-shadow: var(--shadow-red); transform: translateY(-2px); }
         .add-btn--gold {
             background: var(--gold);
             color: var(--dark);
             box-shadow: 0 4px 15px rgba(201,169,110,0.2);
         }
-        .add-btn--gold:hover { background: var(--gold-dark); }
+        .add-btn--gold:hover { background: var(--gold-dark); box-shadow: var(--shadow-gold); }
 
         /* ============ CART ============ */
         .cart-overlay {
@@ -398,10 +490,10 @@
             height: 100%;
             background: var(--dark-card);
             z-index: 1001;
-            transition: right 0.3s ease;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+            box-shadow: -10px 0 50px rgba(0,0,0,0.6);
             border-left: 1px solid #2A2520;
         }
         .cart-panel.open { right: 0; }
@@ -454,6 +546,7 @@
             font-size: 1rem;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: var(--shadow-gold);
         }
         .checkout-demo:hover { background: var(--gold-dark); }
 
@@ -473,6 +566,7 @@
             box-shadow: var(--shadow-xl);
             border: 1px solid #2A2520;
             color: #E8E0D5;
+            animation: scaleIn 0.3s ease;
         }
         .payment-option {
             background: #1A1612;
@@ -483,7 +577,7 @@
             border: 1px solid #2A2520;
             transition: var(--transition);
         }
-        .payment-option:hover { border-color: var(--gold); }
+        .payment-option:hover { border-color: var(--gold); background: #25201A; }
 
         /* ============ FOOTER ============ */
         .footer {
@@ -495,22 +589,36 @@
             font-size: 0.85rem;
             border-top: 1px solid #1A1612;
         }
+        .footer__credit {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .footer__credit a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        .footer__credit a:hover { color: var(--red); }
+        .footer__credit i { margin: 0 4px; font-size: 0.7rem; }
 
         /* ============ RESPONSIVE ============ */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; letter-spacing: 3px; }
-            .hero { height: 70vh; }
+            .hero h1 { font-size: 2.8rem; letter-spacing: 4px; }
+            .hero { height: 75vh; background-attachment: scroll; }
             .hero-content { padding: 2rem 1.5rem; }
             .nav-bar { flex-direction: column; gap: 0.8rem; padding: 1rem; }
             .nav-links { gap: 1rem; }
             .cart-panel { width: 100%; right: -100%; }
-            .event-card { flex-direction: column; text-align: center; }
+            .event-card { flex-direction: column; text-align: center; padding: 2rem; }
             .category-title { font-size: 1.6rem; }
             .events-section { margin-top: -40px; }
         }
         @media (max-width: 480px) {
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.2rem; letter-spacing: 3px; }
             .menu-grid { grid-template-columns: 1fr; }
+            .hero-badge { font-size: 0.7rem; letter-spacing: 2px; padding: 6px 16px; }
         }
     </style>
 </head>
@@ -538,7 +646,7 @@
 <!-- ============ HERO ============ -->
 <div class="hero">
     <div class="hero-content">
-        <div class="hero-badge">✦ Established 1960 ✦</div>
+        <div class="hero-badge">✦ Established 1996 ✦</div>
         <h1>LANTICA 1960</h1>
         <p class="hero-subtitle">Cafe & Restaurant</p>
         <p class="hero-desc">Ethiopian soul • Modern elegance • Timeless taste</p>
@@ -566,28 +674,34 @@
 </div>
 
 <div class="container">
-    <div id="breakfast" class="category"><div class="category-title">☀️ Breakfast & Brunch</div><div id="breakfast-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🍢 Appetizers & Small Plates</div><div id="appetizers-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🥗 Soups & Salads</div><div id="salads-grid" class="menu-grid"></div></div>
-    <div id="signatures" class="category"><div class="category-title">🔥 Traditional Signatures</div><div id="signature-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🍛 Fast Casual</div><div id="fastcasual-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🍔 Burgers & Sandwiches</div><div id="burgers-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🍟 Sides</div><div id="sides-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🥘 Pork & Vegetable Selections</div><div id="pork-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🍝 Spaghetti & Rice</div><div id="pasta-grid" class="menu-grid"></div></div>
-    <div id="pizza" class="category"><div class="category-title">🍕 Artisan Pizza</div><div id="pizza-grid" class="menu-grid"></div></div>
-    <div id="beverages" class="category"><div class="category-title">🥤 Fresh Juices</div><div id="juices-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🧊 Cold Drinks</div><div id="cold-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🍺 Beer & Draft</div><div id="beer-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">☕ Hot Beverages</div><div id="hot-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title">🍷 Wine List</div><div id="wine-grid" class="menu-grid"></div></div>
+    <div id="breakfast" class="category"><div class="category-title reveal">☀️ Breakfast & Brunch</div><div id="breakfast-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🍢 Appetizers & Small Plates</div><div id="appetizers-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🥗 Soups & Salads</div><div id="salads-grid" class="menu-grid"></div></div>
+    <div id="signatures" class="category"><div class="category-title reveal">🔥 Traditional Signatures</div><div id="signature-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🍛 Fast Casual</div><div id="fastcasual-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🍔 Burgers & Sandwiches</div><div id="burgers-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🍟 Sides</div><div id="sides-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🥘 Pork & Vegetable Selections</div><div id="pork-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🍝 Spaghetti & Rice</div><div id="pasta-grid" class="menu-grid"></div></div>
+    <div id="pizza" class="category"><div class="category-title reveal">🍕 Artisan Pizza</div><div id="pizza-grid" class="menu-grid"></div></div>
+    <div id="beverages" class="category"><div class="category-title reveal">🥤 Fresh Juices</div><div id="juices-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🧊 Cold Drinks</div><div id="cold-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🍺 Beer & Draft</div><div id="beer-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">☕ Hot Beverages</div><div id="hot-grid" class="menu-grid"></div></div>
+    <div class="category"><div class="category-title reveal">🍷 Wine List</div><div id="wine-grid" class="menu-grid"></div></div>
 </div>
 
 <footer class="footer">
     <p style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--gold);">Lantica 1960</p>
-    <p>Cafe & Restaurant — Where tradition meets flavor</p>
+    <p>Cafe & Restaurant — Where tradition meets flavor since 1996</p>
     <p style="margin-top:0.5rem;">✧ All prices in local currency | 15% VAT not included ✧</p>
     <p>📍 Bole, Addis Ababa | 📞 +251-98-1960-1960</p>
+    <p class="footer__credit">
+        Designed & Developed by
+        <a href="https://addispower.pages.dev" target="_blank" rel="noopener">
+            <i class="fas fa-bolt"></i> AddisPower <i class="fas fa-bolt"></i>
+        </a>
+    </p>
 </footer>
 
 <!-- Cart Overlay & Sidebar -->
@@ -608,6 +722,18 @@
 </div>
 
 <script>
+    // ========== SCROLL REVEAL ==========
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => observer.observe(el));
+
     // ========== DATABASE ==========
     const itemsDatabase = [];
     function addMenuItem(categoryId, name, price, desc = "Authentic flavor") {
