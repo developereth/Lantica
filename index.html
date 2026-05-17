@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Lantica 1960 | Ethiopian Restaurant & Cafe</title>
+    <title>Lantica 1960 | Complete Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -97,7 +97,6 @@
             transform: scale(1.02);
         }
         
-        /* Hero Section with Beautiful Restaurant Image */
         .hero {
             background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 100%),
                 url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
@@ -255,7 +254,6 @@
     <a href="tel:+2519819601960" class="contact-btn"><i class="fas fa-phone"></i> Call & Book</a>
 </header>
 
-<!-- Hero Section with Beautiful Restaurant Image -->
 <section class="hero">
     <div class="hero-content">
         <div class="hero-badge">✦ ESTABLISHED 1996 ✦</div>
@@ -273,7 +271,7 @@
 </footer>
 
 <script>
-    // ========== MENU DATA WITH YOUR IMAGE URLS ==========
+    // ========== COMPLETE MENU WITH ALL ITEMS ==========
     const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
     
     const menuData = {
@@ -291,15 +289,22 @@
             { name: "Dulet", price: 330, img: "dulet-minced-tripe.jpeg" },
             { name: "Tomato Lebleb", price: 180, img: "tomato-lebleb.jpg" },
             { name: "Mesere", price: 250, img: "mesere-red-lentil.jpeg" },
-            { name: "Mixed Garden Salad", price: 200, img: "mixed-garden-salad-2.jpg" }
+            { name: "Noma Firfir", price: 180, img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400" },
+            { name: "Mixed Garden Salad", price: 200, img: "mixed-garden-salad-2.jpg" },
+            { name: "Vegetable Soup", price: 180, img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" }
         ],
         "🔥 Signatures": [
             { name: "Lamb Tibs", price: 680, img: "lamb-tibs.jpg" },
             { name: "Lamb Tibs Tefresho", price: 700, img: "lamb-tibs-tefersho.jpg" },
+            { name: "Chikena Tibs", price: 600, img: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400" },
+            { name: "Chikena Tefresho", price: 650, img: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400" },
             { name: "Quanta Firfir", price: 370, img: "kuanta-firfir.jpeg" },
             { name: "Tibes Firfir", price: 370, img: "tibis-firfir.jpg" },
+            { name: "Bozena Shiro", price: 350, img: "shiro.jpg" },
             { name: "Mahberawi Mixed Platter", price: 1200, img: "mahberawi-mixed-platter.jpeg" },
+            { name: "Yefisk Agelgel", price: 1000, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400" },
             { name: "Gomen Kitto", price: 300, img: "gomen-kitfo.jpg" },
+            { name: "Special Lantica Fasting", price: 500, img: "combo-fasting-platter.jpg" },
             { name: "Tegabino", price: 300, img: "tegabino.jpg" }
         ],
         "🍕 Pizza": [
@@ -314,6 +319,33 @@
             { name: "Spaghetti with Vegetables", price: 230, img: "pasta-with-veggies-25.jpg" },
             { name: "Spaghetti with Meat Sauce", price: 350, img: "Spaghetti-with-meat-sauce.jpg" }
         ],
+        "🍔 Fast Casual": [
+            { name: "Special Lantica Fasting", price: 500, img: "combo-fasting-platter.jpg" },
+            { name: "Shiro", price: 275, img: "shiro.jpg" },
+            { name: "Tegabino", price: 300, img: "tegabino.jpg" },
+            { name: "Derkosh Firfir Fasting", price: 220, img: "kiba-firfir.webp" },
+            { name: "Hafe Hafe", price: 280, img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400" }
+        ],
+        "🍔 Burgers & Sandwiches": [
+            { name: "Noma Burger", price: 300, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
+            { name: "Cheese Burger", price: 350, img: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400" },
+            { name: "Noma Nica", price: 380, img: "https://images.unsplash.com/photo-1550507992-eb63ffee0847?w=400" },
+            { name: "Club Sandwich", price: 360, img: "egg-sandwich.jpg" },
+            { name: "Tuna Sandwich", price: 350, img: "https://images.unsplash.com/photo-1585515325310-159c6f2b4ffb?w=400" },
+            { name: "Vegetable Sandwich", price: 160, img: "https://images.unsplash.com/photo-1525059696034-4967a55787ff?w=400" },
+            { name: "Chicken Shawarma", price: 600, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400" }
+        ],
+        "🍟 Sides": [
+            { name: "French Fries", price: 180, img: "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=400" }
+        ],
+        "🥘 Pork Selections": [
+            { name: "Pork & Vegetables Style A", price: 320, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { name: "Style B", price: 570, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { name: "Style C", price: 200, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { name: "Style D", price: 400, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { name: "Style E", price: 380, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { name: "Style F", price: 400, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" }
+        ],
         "🥤 Juices": [
             { name: "Papaya Juice", price: 160, img: "papaya-juice.jpg" },
             { name: "Avocado Juice", price: 160, img: "avocado-juice.png" },
@@ -322,20 +354,47 @@
             { name: "Mixed Fruit Juice", price: 180, img: "mixed-fruit-juice-500x500.jpg" }
         ],
         "🧊 Cold Drinks": [
-            { name: "Mineral Water", price: 55, img: "ambo-water.jpeg" },
-            { name: "Soft Drink", price: 60, img: "soft-drink.jpeg" },
+            { name: "Mineral Water (1/4 L)", price: 20, img: "ambo-water.jpeg" },
+            { name: "Mineral Water (1/2 L)", price: 35, img: "ambo-water.jpeg" },
+            { name: "Mineral Water (1 L)", price: 55, img: "ambo-water.jpeg" },
+            { name: "Mineral Water (2 L)", price: 75, img: "ambo-water.jpeg" },
+            { name: "Soft Drink (Can)", price: 60, img: "soft-drink.jpeg" },
             { name: "Ambo Water", price: 65, img: "ambo-water.jpeg" },
+            { name: "Plastic Soft Drink", price: 80, img: "soft-drink.jpeg" },
             { name: "Tonic Water", price: 65, img: "https://images.unsplash.com/photo-1622484211976-b6e7d6b8b7a1?w=400" },
             { name: "Ice Tea", price: 80, img: "ice-tea-1200x1800-1.jpeg" }
         ],
+        "🍺 Beer & Draft": [
+            { name: "Normal Beer", price: 100, img: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400" },
+            { name: "Big Bedla", price: 120, img: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400" },
+            { name: "Hicnek Beer", price: 125, img: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400" },
+            { name: "Arada Beer", price: 130, img: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400" },
+            { name: "Janibo", price: 145, img: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400" },
+            { name: "Single Draft", price: 65, img: "https://images.unsplash.com/photo-1566633806327-68e152aaf26d?w=400" }
+        ],
         "☕ Hot Beverages": [
-            { name: "Ethiopian Coffee", price: 60, img: "ethiopian-coffee-Buna.jpeg" },
             { name: "Tea", price: 30, img: "https://images.unsplash.com/photo-1597481499750-3e6b07537ed8?w=400" },
+            { name: "Coffee", price: 60, img: "ethiopian-coffee-Buna.jpeg" },
+            { name: "Milk", price: 80, img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400" },
             { name: "Latte", price: 70, img: "Latte.jpg" },
             { name: "Macchiato", price: 75, img: "mackiyato.jpg" },
-            { name: "Spiced Tea", price: 45, img: "spiced-tea-kesher.webp" },
+            { name: "Spires", price: 60, img: "spiced-tea-kesher.webp" },
+            { name: "Lewis Tea", price: 50, img: "https://images.unsplash.com/photo-1597481499750-3e6b07537ed8?w=400" },
+            { name: "Kesher", price: 45, img: "spiced-tea-kesher.webp" },
+            { name: "Flavor Tea", price: 65, img: "https://images.unsplash.com/photo-1597481499750-3e6b07537ed8?w=400" },
+            { name: "Special Tea", price: 150, img: "https://images.unsplash.com/photo-1597481499750-3e6b07537ed8?w=400" },
+            { name: "Fasting Macchiato", price: 85, img: "mackiyato.jpg" },
             { name: "Hot Chocolate", price: 80, img: "hot-chocolate.jpg" },
-            { name: "House Special Coffee", price: 150, img: "house-special-coffee.jpg" }
+            { name: "Qeshir with Coffee", price: 65, img: "ethiopian-coffee-Buna.jpeg" },
+            { name: "House Special", price: 60, img: "house-special-coffee.jpg" },
+            { name: "House Brew", price: 40, img: "ethiopian-coffee-Buna.jpeg" }
+        ],
+        "🍷 Wine List": [
+            { name: "Axmite", price: 900, img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400" },
+            { name: "Guder Big", price: 720, img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400" },
+            { name: "Kmila Big", price: 800, img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400" },
+            { name: "Gebeta", price: 1100, img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400" },
+            { name: "Aksejar", price: 1200, img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400" }
         ]
     };
     
@@ -344,13 +403,14 @@
         let html = '';
         
         for (const [category, items] of Object.entries(menuData)) {
+            if (!items || items.length === 0) continue;
+            
             html += `<div class="category">
                 <div class="category-title">${category}</div>
                 <div class="menu-grid">`;
             
             items.forEach(item => {
                 let imgUrl = item.img;
-                // If it's a relative path, add base URL
                 if (!imgUrl.startsWith('http')) {
                     imgUrl = baseImageUrl + imgUrl;
                 }
