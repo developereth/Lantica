@@ -3,936 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    
-    <!-- ============ OPEN GRAPH / SOCIAL MEDIA PREVIEW TAGS (FIXED) ============ -->
-    <title>Lantica 1960 | Cafe & Restaurant | Authentic Ethiopian Cuisine</title>
-    <meta name="title" content="Lantica 1960 - Ethiopian Soul, Modern Elegance">
-    <meta name="description" content="Lantica 1960 - Premium cafe & restaurant in Addis Ababa since 1996. Authentic Ethiopian cuisine, private events, and exceptional dining experience.">
-    <meta name="keywords" content="Ethiopian restaurant, Addis Ababa, cafe, traditional food, Lantica, Bole restaurant">
-    
-    <!-- Open Graph / Facebook / WhatsApp / Telegram / LinkedIn -->
-    <meta property="og:type" content="restaurant">
-    <meta property="og:url" content="https://imagetopdf-7ql.pages.dev/">
-    <meta property="og:title" content="Lantica 1960 | Ethiopian Soul, Modern Elegance">
-    <meta property="og:description" content="Authentic Ethiopian cuisine since 1996. Traditional signatures, artisan pizza, fresh juices & private events in Addis Ababa.">
-    <meta property="og:image" content="https://placehold.co/1200x630/C9A96E/0D0D0D?text=Lantica+1960+Restaurant">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Lantica 1960 Restaurant - Authentic Ethiopian Cuisine">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:site_name" content="Lantica 1960">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://imagetopdf-7ql.pages.dev/">
-    <meta name="twitter:title" content="Lantica 1960 | Cafe & Restaurant">
-    <meta name="twitter:description" content="Authentic Ethiopian cuisine since 1996. Traditional signatures, artisan pizza & private events.">
-    <meta name="twitter:image" content="https://placehold.co/1200x630/C9A96E/0D0D0D?text=Lantica+1960+Restaurant">
-    <meta name="twitter:image:alt" content="Lantica 1960 Restaurant">
-    
-    <!-- ============ FONTS & STYLES ============ -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <title>Lantica 1960 | Ethiopian Restaurant & Cafe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0A;
+            color: #E8E0D5;
+        }
         :root {
             --gold: #C9A96E;
             --gold-dark: #B8933F;
-            --gold-light: #F5EDDF;
             --red: #B45F3B;
-            --red-dark: #8B3A1F;
-            --dark: #0D0D0D;
-            --dark-light: #1A1A1A;
-            --dark-card: #1E1B17;
-            --white: #FFFFFF;
+            --dark-card: #1A1A1A;
             --gray: #9B8A74;
-            --gray-light: #C4B8A8;
-            --radius-sm: 8px;
-            --radius: 16px;
-            --radius-lg: 24px;
-            --radius-xl: 32px;
-            --shadow: 0 4px 20px rgba(0,0,0,0.3);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
-            --shadow-xl: 0 20px 60px rgba(0,0,0,0.5);
-            --shadow-gold: 0 8px 30px rgba(201,169,110,0.25);
-            --shadow-red: 0 8px 30px rgba(180,95,59,0.3);
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--dark);
-            color: #E8E0D5;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ============ SCROLL ANIMATIONS ============ */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInLeft {
-            from { opacity: 0; transform: translateX(-40px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(40px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes glowPulse {
-            0%,100% { box-shadow: 0 0 20px rgba(201,169,110,0.3), 0 0 40px rgba(201,169,110,0.1); }
-            50% { box-shadow: 0 0 35px rgba(201,169,110,0.5), 0 0 70px rgba(201,169,110,0.2); }
-        }
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--transition-slow);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ============ TOP BAR ============ */
+        
         .topbar {
             background: #000;
-            color: var(--gray-light);
             text-align: center;
             padding: 10px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            border-bottom: 1px solid rgba(201,169,110,0.2);
         }
-        .topbar i { color: var(--gold); margin: 0 6px; }
-        .topbar span { color: var(--gold); font-weight: 600; }
-
-        /* ============ NAVIGATION ============ */
-        .nav-bar {
-            background: rgba(13,13,13,0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 2px solid rgba(201,169,110,0.2);
+        .topbar i { color: var(--gold); }
+        .topbar span { color: var(--gold); font-weight: 700; }
+        
+        .header {
+            background: rgba(13,13,13,0.96);
+            backdrop-filter: blur(18px);
+            border-bottom: 2px solid var(--gold);
             position: sticky;
             top: 0;
             z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.9rem 2rem;
-            flex-wrap: wrap;
-            gap: 16px;
+            padding: 15px 20px;
+            text-align: center;
         }
         .logo {
-            font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            color: var(--gold);
             font-family: 'Playfair Display', serif;
-            transition: var(--transition);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
         }
-        .logo:hover { color: var(--gold-dark); }
-        .logo span {
-            color: var(--red);
-            font-weight: 500;
-            font-size: 0.85rem;
+        .logo span { color: var(--gold); }
+        .tagline {
+            font-size: 0.7rem;
+            color: var(--gray);
             letter-spacing: 2px;
         }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 500;
-            color: #C4B8A8;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            position: relative;
-            padding: 5px 0;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: var(--transition);
-            border-radius: 2px;
-        }
-        .nav-links a:hover { color: var(--gold); }
-        .nav-links a:hover::after { width: 100%; }
-        .cart-badge {
-            background: var(--red);
-            color: white;
-            padding: 0.6rem 1.4rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(180,95,59,0.3);
-            animation: glowPulse 3s infinite;
-        }
-        .cart-badge:hover { background: var(--red-dark); transform: scale(1.05); }
-
-        /* ============ HERO ============ */
+        
         .hero {
-            position: relative;
-            background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 100%),
-                url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
-            height: 95vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%),
+                url('https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg') center/cover no-repeat;
             text-align: center;
-            color: white;
-            background-attachment: fixed;
-        }
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(0deg, var(--dark) 0%, transparent 100%);
-            z-index: 1;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 850px;
-            padding: 3.5rem;
-            background: rgba(0,0,0,0.45);
-            border-radius: var(--radius-xl);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(201,169,110,0.25);
-            animation: scaleIn 1s ease forwards;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-        }
-        .hero-badge {
-            display: inline-block;
-            background: var(--red);
-            color: white;
-            padding: 8px 24px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            margin-bottom: 22px;
-            text-transform: uppercase;
-            box-shadow: var(--shadow-red);
-            animation: glowPulse 3s infinite;
+            padding: 80px 20px;
         }
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 5rem;
-            letter-spacing: 8px;
-            margin-bottom: 0.3rem;
-            text-shadow: 2px 4px 30px rgba(0,0,0,0.7);
-            color: var(--gold);
-            background: linear-gradient(135deg, var(--gold) 0%, #E8D5A3 50%, var(--gold) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 4s linear infinite;
+            font-size: 3rem;
+            color: white;
         }
-        .hero-subtitle {
-            font-size: 1.4rem;
-            letter-spacing: 6px;
-            color: var(--gray-light);
-            margin-bottom: 0.5rem;
-            font-weight: 300;
-        }
-        .hero-desc {
-            font-size: 1.05rem;
-            color: #AAA;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        /* ============ EVENT CARD ============ */
-        .events-section {
-            max-width: 1300px;
-            margin: -70px auto 2rem;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 3;
-        }
-        .event-card {
-            background: linear-gradient(135deg, #1E1B17 0%, #2A2520 100%);
-            border-radius: var(--radius-xl);
-            padding: 2.8rem 2.8rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2.5rem;
-            box-shadow: var(--shadow-xl);
-            border: 1px solid rgba(201,169,110,0.2);
-            animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 0.3s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-        .event-text h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .event-text p {
-            opacity: 0.85;
-            line-height: 1.6;
-            margin: 0.5rem 0;
-            color: #C4B8A8;
-        }
-        .call-demo-btn {
-            background: var(--gold);
-            border: none;
-            padding: 1.1rem 2.4rem;
-            border-radius: 60px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--dark);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            transition: var(--transition);
-            box-shadow: var(--shadow-gold);
-            position: relative;
-            overflow: hidden;
-        }
-        .call-demo-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        .call-demo-btn:hover::before { left: 100%; }
-        .call-demo-btn:hover {
-            background: var(--gold-dark);
-            transform: scale(1.04);
-            box-shadow: 0 15px 40px rgba(201,169,110,0.4);
-        }
-        .demo-contact {
-            margin-top: 1rem;
-            font-size: 0.8rem;
-            background: rgba(201,169,110,0.1);
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            display: inline-block;
-            color: var(--gold);
-        }
-
-        /* ============ CONTAINER ============ */
+        .hero h1 span { color: var(--gold); }
+        
         .container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 1rem 2rem 3rem;
+            padding: 0 20px;
         }
-
-        /* ============ CATEGORY ============ */
-        .category { margin-bottom: 4.5rem; }
+        
+        .category {
+            margin-bottom: 50px;
+        }
         .category-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            border-left: 5px solid var(--gold);
-            padding-left: 1.2rem;
+            font-size: 1.8rem;
             color: var(--gold);
-            transition: var(--transition);
+            margin-bottom: 25px;
+            border-left: 4px solid var(--gold);
+            padding-left: 15px;
         }
-
-        /* ============ MENU GRID ============ */
+        
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 1.8rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
         }
+        
         .menu-card {
             background: var(--dark-card);
-            border-radius: var(--radius-lg);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #2A2520;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #2C2823;
         }
         .menu-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl), 0 0 30px rgba(201,169,110,0.08);
+            transform: translateY(-5px);
             border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(201,169,110,0.15);
         }
-        .card-img {
+        
+        .menu-img {
+            width: 100%;
             height: 200px;
-            width: 100%;
             object-fit: cover;
-            background: #1A1612;
-            transition: var(--transition-slow);
         }
-        .menu-card:hover .card-img { transform: scale(1.05); }
-        .card-body {
-            padding: 1.4rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .item-title {
-            font-weight: 700;
-            font-size: 1.15rem;
+        
+        .menu-info {
+            padding: 18px;
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .item-name { color: #E8E0D5; }
-        .item-price {
-            color: var(--gold);
-            font-weight: 800;
-            font-size: 1.2rem;
-            font-family: 'Playfair Display', serif;
-        }
-        .item-desc {
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin: 0.6rem 0 1rem;
-            line-height: 1.5;
-        }
-        .pizza-prices {
-            font-size: 0.85rem;
-            background: rgba(201,169,110,0.1);
-            border-radius: 40px;
-            padding: 0.3rem 1rem;
-            margin-bottom: 0.8rem;
-            display: inline-block;
-            color: var(--gold);
-        }
-        .qty-wrapper {
-            display: flex;
             align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
         }
-        .qty-btn {
-            background: #2A2520;
-            border: 1px solid #3D3630;
-            color: #C4B8A8;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .qty-btn:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
-        .qty-input {
-            width: 52px;
-            text-align: center;
-            border: 1px solid #3D3630;
-            border-radius: 30px;
-            padding: 0.3rem;
-            font-weight: 500;
-            background: #1A1612;
-            color: #E8E0D5;
-        }
-        .add-btn {
-            background: var(--red);
-            color: white;
-            border: none;
-            padding: 0.7rem;
-            border-radius: 60px;
+        .menu-name {
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 15px rgba(180,95,59,0.2);
-        }
-        .add-btn:hover { background: var(--red-dark); box-shadow: var(--shadow-red); transform: translateY(-2px); }
-        .add-btn--gold {
-            background: var(--gold);
-            color: var(--dark);
-            box-shadow: 0 4px 15px rgba(201,169,110,0.2);
-        }
-        .add-btn--gold:hover { background: var(--gold-dark); box-shadow: var(--shadow-gold); }
-
-        /* ============ CART ============ */
-        .cart-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            display: none;
-        }
-        .cart-panel {
-            position: fixed;
-            right: -450px;
-            top: 0;
-            width: 420px;
-            height: 100%;
-            background: var(--dark-card);
-            z-index: 1001;
-            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            box-shadow: -10px 0 50px rgba(0,0,0,0.6);
-            border-left: 1px solid #2A2520;
-        }
-        .cart-panel.open { right: 0; }
-        .cart-header {
-            background: #1A1612;
-            color: var(--gold);
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #2A2520;
-        }
-        .cart-items-list { flex: 1; overflow-y: auto; padding: 1rem; }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem;
-            border-bottom: 1px solid #2A2520;
-            color: #C4B8A8;
-        }
-        .cart-actions { display: flex; gap: 0.5rem; align-items: center; }
-        .cart-qty-btn {
-            background: #2A2520;
-            border: 1px solid #3D3630;
-            color: #C4B8A8;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            font-weight: bold;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .cart-qty-btn:hover { background: var(--gold); color: var(--dark); }
-        .cart-total-area {
-            padding: 1.5rem;
-            border-top: 2px solid #2A2520;
-            background: #1A1612;
-        }
-        .cart-total-area h4 { color: #E8E0D5; }
-        .checkout-demo {
-            background: var(--gold);
-            color: var(--dark);
-            border: none;
-            padding: 1rem;
-            width: 100%;
-            font-weight: 700;
-            border-radius: 60px;
-            margin-top: 1rem;
             font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow-gold);
         }
-        .checkout-demo:hover { background: var(--gold-dark); }
-
-        /* ============ PAYMENT MODAL ============ */
-        .payment-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--dark-card);
-            border-radius: var(--radius-xl);
-            width: 90%;
-            max-width: 440px;
-            padding: 1.8rem;
-            z-index: 1100;
-            display: none;
-            box-shadow: var(--shadow-xl);
-            border: 1px solid #2A2520;
-            color: #E8E0D5;
-            animation: scaleIn 0.3s ease;
-        }
-        .payment-option {
-            background: #1A1612;
-            border-radius: var(--radius);
-            padding: 1rem;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            border: 1px solid #2A2520;
-            transition: var(--transition);
-        }
-        .payment-option:hover { border-color: var(--gold); background: #25201A; }
-
-        /* ============ FOOTER ============ */
-        .footer {
-            background: #000;
-            color: var(--gray);
-            text-align: center;
-            padding: 2.5rem;
-            margin-top: 3rem;
-            font-size: 0.85rem;
-            border-top: 1px solid #1A1612;
-        }
-        .footer__credit {
-            margin-top: 10px;
-            font-size: 0.8rem;
-            color: #666;
-        }
-        .footer__credit a {
+        .menu-price {
             color: var(--gold);
-            text-decoration: none;
-            transition: var(--transition);
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
-        .footer__credit a:hover { color: var(--red); }
-        .footer__credit i { margin: 0 4px; font-size: 0.7rem; }
-
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; letter-spacing: 4px; }
-            .hero { height: 75vh; background-attachment: scroll; }
-            .hero-content { padding: 2rem 1.5rem; }
-            .nav-bar { flex-direction: column; gap: 0.8rem; padding: 1rem; }
-            .nav-links { gap: 1rem; }
-            .cart-panel { width: 100%; right: -100%; }
-            .event-card { flex-direction: column; text-align: center; padding: 2rem; }
-            .category-title { font-size: 1.6rem; }
-            .events-section { margin-top: -40px; }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #020202;
+            margin-top: 40px;
         }
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 2.2rem; letter-spacing: 3px; }
+        .footer p {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        
+        @media (max-width: 700px) {
             .menu-grid { grid-template-columns: 1fr; }
-            .hero-badge { font-size: 0.7rem; letter-spacing: 2px; padding: 6px 16px; }
+            .hero h1 { font-size: 2rem; }
+            .category-title { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- ============ TOP BAR ============ -->
 <div class="topbar">
-    <i class="fas fa-clock"></i> Open Daily: <span>9am – 11pm</span> &nbsp;|&nbsp; <i class="fas fa-map-marker-alt"></i> Bole, Addis Ababa &nbsp;|&nbsp; <i class="fas fa-phone"></i> <span>+251 98 1960 1960</span>
+    <i class="fas fa-clock"></i> Open Daily: <span>9am – 11pm</span> &nbsp;|&nbsp;
+    <i class="fas fa-map-marker-alt"></i> Bole, Addis Ababa &nbsp;|&nbsp;
+    <i class="fas fa-phone"></i> <span>+251 98 1960 1960</span>
 </div>
 
-<!-- ============ NAVIGATION ============ -->
-<nav class="nav-bar">
-    <div class="logo">LANTICA 1960 <span>RESTAURANT</span></div>
-    <ul class="nav-links">
-        <li><a href="#breakfast">Breakfast</a></li>
-        <li><a href="#signatures">Signatures</a></li>
-        <li><a href="#pizza">Pizza</a></li>
-        <li><a href="#beverages">Drinks</a></li>
-    </ul>
-    <div class="cart-badge" onclick="toggleCart()">
-        <i class="fas fa-shopping-bag"></i> Order <span id="cartCounter">0</span>
-    </div>
-</nav>
+<header class="header">
+    <div class="logo">LANTICA <span>1960</span></div>
+    <div class="tagline">ETHIOPIAN SOUL · MODERN ELEGANCE</div>
+</header>
 
-<!-- ============ HERO ============ -->
-<div class="hero">
-    <div class="hero-content">
-        <div class="hero-badge">✦ Established 1996 ✦</div>
-        <h1>LANTICA 1960</h1>
-        <p class="hero-subtitle">Cafe & Restaurant</p>
-        <p class="hero-desc">Ethiopian soul • Modern elegance • Timeless taste</p>
-    </div>
-</div>
+<section class="hero">
+    <h1>LANTICA <span>1960</span></h1>
+    <p style="color: #D1C5B5; margin-top: 10px;">Cafe & Restaurant — Since 1996</p>
+</section>
 
-<!-- ============ EVENT CARD ============ -->
-<div class="events-section">
-    <div class="event-card">
-        <div class="event-text">
-            <h2><i class="fas fa-calendar-alt"></i> Private Events & Celebrations</h2>
-            <p>Host your special moments at Lantica 1960. Birthdays, anniversaries, corporate gatherings or traditional coffee ceremonies. Our team will tailor the experience.</p>
-            <p><i class="fas fa-phone-alt"></i> <strong>Call our event manager</strong> — quick support & custom menu planning.</p>
-            <div class="demo-contact">
-                <i class="fas fa-clock"></i> Mon–Sun: 9am – 11pm
-            </div>
-        </div>
-        <div>
-            <button class="call-demo-btn" id="demoCallBtn">
-                <i class="fas fa-phone-volume"></i> Call: +251 98 1960 1960
-            </button>
-            <p style="color:#9B8A74; font-size:0.75rem; margin-top:0.8rem;">📞 Click to simulate call inquiry</p>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div id="breakfast" class="category"><div class="category-title reveal">☀️ Breakfast & Brunch</div><div id="breakfast-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🍢 Appetizers & Small Plates</div><div id="appetizers-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🥗 Soups & Salads</div><div id="salads-grid" class="menu-grid"></div></div>
-    <div id="signatures" class="category"><div class="category-title reveal">🔥 Traditional Signatures</div><div id="signature-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🍛 Fast Casual</div><div id="fastcasual-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🍔 Burgers & Sandwiches</div><div id="burgers-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🍟 Sides</div><div id="sides-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🥘 Pork & Vegetable Selections</div><div id="pork-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🍝 Spaghetti & Rice</div><div id="pasta-grid" class="menu-grid"></div></div>
-    <div id="pizza" class="category"><div class="category-title reveal">🍕 Artisan Pizza</div><div id="pizza-grid" class="menu-grid"></div></div>
-    <div id="beverages" class="category"><div class="category-title reveal">🥤 Fresh Juices</div><div id="juices-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🧊 Cold Drinks</div><div id="cold-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🍺 Beer & Draft</div><div id="beer-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">☕ Hot Beverages</div><div id="hot-grid" class="menu-grid"></div></div>
-    <div class="category"><div class="category-title reveal">🍷 Wine List</div><div id="wine-grid" class="menu-grid"></div></div>
-</div>
+<div class="container" id="menuContainer"></div>
 
 <footer class="footer">
-    <p style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--gold);">Lantica 1960</p>
-    <p>Cafe & Restaurant — Where tradition meets flavor since 1996</p>
-    <p style="margin-top:0.5rem;">✧ All prices in local currency | 15% VAT not included ✧</p>
-    <p>📍 Bole, Addis Ababa | 📞 +251-98-1960-1960</p>
-    <p class="footer__credit">
-        Designed & Developed by
-        <a href="https://addispower.pages.dev" target="_blank" rel="noopener">
-            <i class="fas fa-bolt"></i> AddisPower <i class="fas fa-bolt"></i>
-        </a>
-    </p>
+    <p>📍 Bole, Addis Ababa | 📞 +251 98 1960 1960</p>
+    <p style="margin-top: 10px;">Lantica 1960 — Where tradition meets flavor</p>
 </footer>
 
-<!-- Cart Overlay & Sidebar -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-panel" id="cartPanel">
-    <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> Your Order</h3><button class="close-cart" onclick="toggleCart()" style="background:none;border:none;color:var(--gold);font-size:1.8rem;cursor:pointer;">&times;</button></div>
-    <div class="cart-items-list" id="cartList"><p style="text-align:center;color:var(--gray);">Cart is empty</p></div>
-    <div class="cart-total-area"><h4>Subtotal: <span id="cartSubtotal">0</span> ETB</h4><p style="font-size:0.75rem;color:var(--gray);">+15% VAT added at checkout</p><button class="checkout-demo" onclick="showPaymentOptions()"><i class="fas fa-receipt"></i> Proceed to Payment</button></div>
-</div>
-
-<!-- Payment Modal -->
-<div class="payment-modal" id="paymentModal">
-    <h3 style="margin-bottom:1rem; color:var(--gold);">💳 Choose payment method</h3>
-    <div class="payment-option" onclick="choosePayment('telebirr')"><strong>📱 Telebirr</strong><br><span style="font-size:0.8rem;color:var(--gray);">Pay via mobile money</span></div>
-    <div class="payment-option" onclick="choosePayment('bank')"><strong>🏦 Bank Transfer</strong><br><span style="font-size:0.8rem;color:var(--gray);">Commercial Bank of Ethiopia</span></div>
-    <button style="margin-top:1rem;background:#2A2520;border:1px solid #3D3630;color:#C4B8A8;padding:0.7rem;width:100%;border-radius:60px;cursor:pointer;" onclick="closePaymentModal()">Cancel</button>
-    <div id="paymentDetailsDemo" style="margin-top:1rem;font-size:0.85rem;background:#1A1612;padding:1rem;border-radius:20px;display:none;"></div>
-</div>
-
 <script>
-    // ========== SCROLL REVEAL ==========
-    const revealElements = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-    revealElements.forEach(el => observer.observe(el));
-
-    // ========== DATABASE ==========
-    const itemsDatabase = [];
-    function addMenuItem(categoryId, name, price, desc = "Authentic flavor") {
-        const imagesMap = {
-            "Fasting": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300",
-            "Egg": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=300",
-            "Fetera": "https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=300",
-            "Sandwich": "https://images.unsplash.com/photo-1550507992-eb63ffee0847?w=300",
-            "Firfir": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300",
-            "Shiro": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300",
-            "Tibs": "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=300",
-            "Burger": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300",
-            "Pizza": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300",
-            "Juice": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=300",
-            "Coffee": "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=300",
-            "Beer": "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=300",
-            "Fries": "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=300",
-            "Pasta": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300",
-            "Wine": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=300",
-            default: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300"
-        };
-        let imageUrl = imagesMap.default;
-        if (name.includes("Egg")) imageUrl = imagesMap.Egg;
-        if (name.includes("Firfir")) imageUrl = imagesMap.Firfir;
-        if (name.includes("Tibs")) imageUrl = imagesMap.Tibs;
-        if (name.includes("Shiro")) imageUrl = imagesMap.Shiro;
-        if (name.includes("Burger") || name.includes("Sandwich")) imageUrl = imagesMap.Burger;
-        if (name.includes("Pizza")) imageUrl = imagesMap.Pizza;
-        if (name.includes("Juice")) imageUrl = imagesMap.Juice;
-        if (name.includes("Coffee") || name.includes("Latte") || name.includes("Macchiato")) imageUrl = imagesMap.Coffee;
-        if (name.includes("Beer")) imageUrl = imagesMap.Beer;
-        if (name.includes("Fries")) imageUrl = imagesMap.Fries;
-        if (name.includes("Spaghetti")) imageUrl = imagesMap.Pasta;
-        if (name.includes("Axmite") || name.includes("Wine")) imageUrl = imagesMap.Wine;
-        if (name.includes("Fasting Platter")) imageUrl = imagesMap.Fasting;
-        itemsDatabase.push({ id: itemsDatabase.length, categoryId, name, price, desc, image: imageUrl });
-    }
-
-    // ========== REAL MENU DATA ==========
-    addMenuItem("breakfast","Combo Fasting Platter",250,"Hearty vegan platter");
-    addMenuItem("breakfast","Egg with Meat",250,"Scrambled eggs & minced beef");
-    addMenuItem("breakfast","Special Fetera",350,"Layered pancake honey cheese");
-    addMenuItem("breakfast","Classic Fetera",200,"Crispy folded pancake");
-    addMenuItem("breakfast","Egg Sandwich",200,"Toasted omelette sandwich");
-    addMenuItem("appetizers","Kiba Firfir",210,"Spiced butter firfir");
-    addMenuItem("appetizers","Shiro Bekibe",300,"Rich chickpea stew");
-    addMenuItem("appetizers","Dulet",330,"Minced meat with spices");
-    addMenuItem("appetizers","Tomato Lebleb",180,"Fresh tomato salad");
-    addMenuItem("appetizers","Mesere",250,"Red lentil stew");
-    addMenuItem("appetizers","Noma Firfir",180,"Traditional firfir");
-    addMenuItem("salads","Vegetable Soup",180,"Seasonal veg broth");
-    addMenuItem("salads","Mixed Garden Salad",200,"Tomato, onion, lettuce");
-    addMenuItem("salads","Rice & Chicken Salad",400,"Grilled chicken with rice");
-    addMenuItem("salads","Pork & Vegetable Soup",6500,"Deluxe hearty soup");
-    const sigNames = ["Lamb Tibs","Lamb Tibs Tefresho","Okle","Chikena Tibs","Chikena Tefresho","Kito","Quanta Firfir","Tibes Firfir","Derkosh Firfir Bäseg","Bozena Shiro","Mahberawi (Mixed Platter)","Yefisk Agelgel","Gomen Kitto"];
-    const sigPrices = [680,700,600,600,650,1200,370,370,380,350,1200,1000,300];
-    sigNames.forEach((n,i)=> addMenuItem("signature", n, sigPrices[i], "House specialty"));
-    const fastItems = ["Special Lantica Fasting","Shiro","Tegabino","Derkosh Firfir Fasting","Hafe Hafe"];
-    const fastPrices = [500,275,300,220,280];
-    fastItems.forEach((n,i)=> addMenuItem("fastcasual", n, fastPrices[i], "Quick & delicious"));
-    const burgs = ["Noma Burger","Cheese Burger","Noma Nica","Club Sandwich","Tuna Sandwich","Vegetable Sandwich","Chicken Shawarma"];
-    const burgPrices = [300,350,380,360,350,160,600];
-    burgs.forEach((n,i)=> addMenuItem("burgers", n, burgPrices[i], "Served with fries option"));
-    addMenuItem("sides","French Fries",180,"Crispy golden fries");
-    const porkStyles = ["Pork & Vegetables – Style A","Style B","Style C","Style D","Style E","Style F"];
-    const porkPrice = [320,570,200,400,380,400];
-    porkStyles.forEach((n,i)=> addMenuItem("pork", n, porkPrice[i], "Savory pork selection"));
-    addMenuItem("pasta","Spaghetti with Vegetables",230,"Tomato sauce, fresh veg");
-    const pizzaList = [
-        { name: "Special Lentic Pizza", large: 580, medium: 550 },
-        { name: "Tuna Pizza", large: 550, medium: 500 },
-        { name: "Meat Pizza", large: 450, medium: 400 },
-        { name: "Chicken Pizza", large: 550, medium: 460 },
-        { name: "Margarita Pizza", large: 450, medium: 400 },
-        { name: "Vegetable Pizza", large: 400, medium: 370 }
-    ];
-    const juicesList = ["Papaya Juice","Avocado Juice","Mango Juice","Tella Juice"];
-    juicesList.forEach(j => addMenuItem("juices", j, j==="Tella Juice"?200:160, "Freshly squeezed"));
-    const cold = ["Mineral Water (1/4 L)","Mineral Water (1/2 L)","Mineral Water (1 L)","Mineral Water (2 L)","Soft Drink","Ambo Water","Plastic Soft Drink","Tonic Water"];
-    const coldP = [20,35,55,75,60,65,80,65];
-    cold.forEach((c,i)=> addMenuItem("cold", c, coldP[i], "Refreshing"));
-    const beers = ["Normal Beer","Big Bedla","Hicnek Beer","Arada Beer","Janibo","Single Draft"];
-    const beerP = [100,120,125,130,145,65];
-    beers.forEach((b,i)=> addMenuItem("beer", b, beerP[i], "Chilled"));
-    const hots = ["Tea","Coffee","Milk","Latte","Macchiato","Spires","Lewis Tea","Kesher","Flavor Tea","Special Tea","Fasting Macchiato","Hot Chocolate","Qeshir with Coffee","House Special","House Brew"];
-    const hotP = [30,60,80,70,75,60,50,45,65,150,85,80,65,60,40];
-    hots.forEach((h,i)=> addMenuItem("hot", h, hotP[i], "Freshly brewed"));
-    const wines = ["Axmite","Guder Big","Kmila Big","Gebeta","Aksejar"];
-    const wineP = [900,720,800,1100,1200];
-    wines.forEach((w,i)=> addMenuItem("wine", w, wineP[i], "Ethiopian premium vintage"));
-
-    // ========== RENDER FUNCTIONS ==========
-    function renderGrid(categoryId, containerId) {
-        const items = itemsDatabase.filter(i => i.categoryId === categoryId);
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        if (items.length === 0) { container.innerHTML = '<p style="opacity:0.6;color:var(--gray);">Coming soon</p>'; return; }
+    // ========== MENU DATA WITH YOUR IMAGE URLS (FIXED) ==========
+    const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
+    
+    const menuData = {
+        "☀️ Breakfast": [
+            { name: "Combo Fasting Platter", price: 250, img: "combo-fasting-platter.jpg" },
+            { name: "Egg with Minced Meat", price: 250, img: "egg-with-minced-meat.jpg" },
+            { name: "Special Fetera", price: 350, img: "special-fetera-honey-cheese.jpg" },
+            { name: "Classic Fetera", price: 200, img: "classic-fetera.webp" },
+            { name: "Egg Sandwich", price: 200, img: "egg-sandwich.jpg" },
+            { name: "Cheese Omelette", price: 220, img: "chese-omelette.jpg" }
+        ],
+        "🍢 Appetizers": [
+            { name: "Kiba Firfir", price: 210, img: "kiba-firfir.webp" },
+            { name: "Shiro Bekibe", price: 300, img: "shiro-bekibe.jpeg" },
+            { name: "Dulet", price: 330, img: "dulet-minced-tripe.jpeg" },
+            { name: "Tomato Lebleb", price: 180, img: "tomato-lebleb.jpg" },
+            { name: "Mesere", price: 250, img: "mesere-red-lentil.jpeg" },
+            { name: "Mixed Garden Salad", price: 200, img: "mixed-garden-salad-2.jpg" }
+        ],
+        "🔥 Signatures": [
+            { name: "Lamb Tibs", price: 680, img: "lamb-tibs.jpg" },
+            { name: "Lamb Tibs Tefresho", price: 700, img: "lamb-tibs-tefersho.jpg" },
+            { name: "Quanta Firfir", price: 370, img: "kuanta-firfir.jpeg" },
+            { name: "Mahberawi Mixed Platter", price: 1200, img: "mahberawi-mixed-platter.jpeg" },
+            { name: "Gomen Kitto", price: 300, img: "gomen-kitfo.jpg" },
+            { name: "Tegabino", price: 300, img: "tegabino.jpg" }
+        ],
+        "🍕 Pizza": [
+            { name: "Special Lentic Pizza", price: 580, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
+            { name: "Tuna Pizza", price: 550, img: "tuna-pizza.jpeg" },
+            { name: "Meat Pizza", price: 450, img: "meat-pizza.jpg" },
+            { name: "Chicken Pizza", price: 550, img: "chicken-pizza.jpeg" },
+            { name: "Margarita Pizza", price: 450, img: "margherita-pizza.jpg" },
+            { name: "Vegetable Pizza", price: 400, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400" }
+        ],
+        "🍝 Pasta": [
+            { name: "Spaghetti with Vegetables", price: 230, img: "pasta-with-veggies-25.jpg" },
+            { name: "Spaghetti with Meat Sauce", price: 350, img: "Spaghetti-with-meat-sauce.jpg" }
+        ],
+        "🥤 Juices": [
+            { name: "Papaya Juice", price: 160, img: "papaya-juice.jpg" },
+            { name: "Avocado Juice", price: 160, img: "avocado-juice.png" },
+            { name: "Mango Juice", price: 160, img: "mango-juice.jpeg" },
+            { name: "Tella Juice", price: 200, img: "tella-juice.webp" },
+            { name: "Mixed Fruit Juice", price: 180, img: "mixed-fruit-juice-500x500.jpg" }
+        ],
+        "🧊 Cold Drinks": [
+            { name: "Mineral Water", price: 55, img: "ambo-water.jpeg" },
+            { name: "Soft Drink", price: 60, img: "soft-drink.jpeg" },
+            { name: "Ambo Water", price: 65, img: "ambo-water.jpeg" },
+            { name: "Ice Tea", price: 80, img: "ice-tea-1200x1800-1.jpeg" }
+        ],
+        "☕ Hot Beverages": [
+            { name: "Ethiopian Coffee", price: 60, img: "ethiopian-coffee-Buna.jpeg" },
+            { name: "Tea", price: 30, img: "https://images.unsplash.com/photo-1597481499750-3e6b07537ed8?w=400" },
+            { name: "Latte", price: 70, img: "Latte.jpg" },
+            { name: "Macchiato", price: 75, img: "mackiyato.jpg" },
+            { name: "Spiced Tea", price: 45, img: "spiced-tea-kesher.webp" },
+            { name: "Hot Chocolate", price: 80, img: "hot-chocolate.jpg" },
+            { name: "House Special Coffee", price: 150, img: "house-special-coffee.jpg" }
+        ]
+    };
+    
+    function renderMenu() {
+        const container = document.getElementById("menuContainer");
         let html = '';
-        items.forEach(item => {
-            html += `<div class="menu-card"><img class="card-img" src="${item.image}" alt="${item.name}" loading="lazy"><div class="card-body"><div class="item-title"><span class="item-name">${item.name}</span><span class="item-price">${item.price} ETB</span></div><div class="item-desc">${item.desc}</div><div class="qty-wrapper"><button class="qty-btn" onclick="changeCardQty(this, -1)">−</button><input type="number" class="qty-input" value="1" min="1" max="20"><button class="qty-btn" onclick="changeCardQty(this, 1)">+</button></div><button class="add-btn" onclick="addToCartFromCard(this)"><i class="fas fa-plus-circle"></i> Add to Order</button></div></div>`;
-        });
+        
+        for (const [category, items] of Object.entries(menuData)) {
+            html += `<div class="category">
+                <div class="category-title">${category}</div>
+                <div class="menu-grid">`;
+            
+            items.forEach(item => {
+                let imgUrl = item.img;
+                // If it's a relative path (starts with http? no), add base URL
+                if (!imgUrl.startsWith('http')) {
+                    imgUrl = baseImageUrl + imgUrl;
+                }
+                
+                html += `
+                    <div class="menu-card">
+                        <img class="menu-img" src="${imgUrl}" alt="${item.name}" 
+                             onerror="this.src='https://placehold.co/400x200/1A1A1A/C9A96E?text=${encodeURIComponent(item.name)}'">
+                        <div class="menu-info">
+                            <span class="menu-name">${escapeHtml(item.name)}</span>
+                            <span class="menu-price">${item.price} ETB</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `</div></div>`;
+        }
+        
         container.innerHTML = html;
     }
-    function renderPizzaGrid() {
-        const container = document.getElementById("pizza-grid");
-        if (!container) return;
-        let html = '';
-        pizzaList.forEach(p => {
-            html += `<div class="menu-card"><img class="card-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300" alt="${p.name}"><div class="card-body"><div class="item-title"><span class="item-name">${p.name}</span></div><div class="pizza-prices">🍕 Large ${p.large} ETB &nbsp; Medium ${p.medium} ETB</div><div class="item-desc">Wood fired crust, fresh toppings</div><div class="qty-wrapper"><button class="qty-btn" onclick="changeCardQty(this, -1)">−</button><input type="number" class="qty-input" value="1" min="1" max="20"><button class="qty-btn" onclick="changeCardQty(this, 1)">+</button></div><button class="add-btn" onclick="addPizzaToCart('${p.name} (Large)', ${p.large})"><i class="fas fa-plus-circle"></i> Add Large Pizza</button><button class="add-btn add-btn--gold" style="margin-top:6px;" onclick="addPizzaToCart('${p.name} (Medium)', ${p.medium})">+ Add Medium</button></div></div>`;
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
         });
-        container.innerHTML = html;
     }
-
-    window.changeCardQty = function(btn, delta) {
-        const card = btn.closest('.menu-card');
-        const input = card.querySelector('.qty-input');
-        let val = parseInt(input.value) || 1;
-        val = Math.min(20, Math.max(1, val + delta));
-        input.value = val;
-    };
-    window.addToCartFromCard = function(btn) {
-        const card = btn.closest('.menu-card');
-        const name = card.querySelector('.item-name').innerText;
-        const priceSpan = card.querySelector('.item-price');
-        let price = priceSpan ? parseInt(priceSpan.innerText) : 0;
-        const qty = parseInt(card.querySelector('.qty-input').value);
-        addItemToCartInternal(name, price, qty);
-    };
-    window.addPizzaToCart = function(pizzaName, price) { addItemToCartInternal(pizzaName, price, 1); };
-
-    let cartItems = [];
-    function addItemToCartInternal(name, price, qty=1) {
-        const existing = cartItems.find(i => i.name === name);
-        if (existing) existing.qty += qty;
-        else cartItems.push({ name, price, qty });
-        updateCartUI();
-        toggleCart(true);
-    }
-    function updateCartUI() {
-        const cartListDiv = document.getElementById("cartList");
-        const subtotalSpan = document.getElementById("cartSubtotal");
-        const counterSpan = document.getElementById("cartCounter");
-        let totalItems = 0, subtotal = 0;
-        let html = '';
-        cartItems.forEach((item, idx) => {
-            totalItems += item.qty;
-            subtotal += item.price * item.qty;
-            html += `<div class="cart-item"><div><strong>${item.name}</strong><br>${item.price} ETB each</div><div class="cart-actions"><button class="cart-qty-btn" onclick="updateCartQty(${idx}, -1)">-</button><span style="width:28px;text-align:center;">${item.qty}</span><button class="cart-qty-btn" onclick="updateCartQty(${idx}, 1)">+</button><button class="cart-qty-btn" style="background:#c0392b;color:white;border:none;" onclick="removeCartItem(${idx})">x</button></div></div>`;
-        });
-        if (cartItems.length === 0) html = '<p style="text-align:center;color:var(--gray);">🛒 Cart is empty</p>';
-        cartListDiv.innerHTML = html;
-        subtotalSpan.innerText = subtotal;
-        counterSpan.innerText = totalItems;
-    }
-    window.updateCartQty = (idx, delta) => { let nq = cartItems[idx].qty + delta; if (nq <= 0) cartItems.splice(idx,1); else cartItems[idx].qty = nq; updateCartUI(); };
-    window.removeCartItem = (idx) => { cartItems.splice(idx,1); updateCartUI(); };
-    function toggleCart(force=false) { const p = document.getElementById("cartPanel"); const o = document.getElementById("cartOverlay"); if (p.classList.contains("open") && !force) { p.classList.remove("open"); o.style.display = "none"; } else { p.classList.add("open"); o.style.display = "block"; } }
-    function showPaymentOptions() { if(cartItems.length===0){ alert("Add items first"); return; } document.getElementById("paymentModal").style.display="block"; }
-    window.closePaymentModal = () => { document.getElementById("paymentModal").style.display="none"; document.getElementById("paymentDetailsDemo").style.display="none"; };
-    window.choosePayment = (method) => {
-        const total = cartItems.reduce((s,i)=> s+(i.price*i.qty),0);
-        const grand = total + (total*0.15);
-        let d = document.getElementById("paymentDetailsDemo");
-        if(method==="telebirr") d.innerHTML = `<strong>📱 Telebirr</strong><br>Number: 09XX-19601960<br>Total: ${grand.toFixed(2)} ETB<br><button class="checkout-demo" onclick="finalizeDemoOrder()">Confirm Order</button>`;
-        else d.innerHTML = `<strong>🏦 CBE</strong><br>Account: 100019601960<br>Amount: ${grand.toFixed(2)} ETB<br><button class="checkout-demo" onclick="finalizeDemoOrder()">Complete Order</button>`;
-        d.style.display="block";
-    };
-    window.finalizeDemoOrder = () => { alert("✅ ORDER PLACED at Lantica 1960!\nThank you! We'll call you soon."); cartItems=[]; updateCartUI(); closePaymentModal(); toggleCart(); };
-    document.getElementById("demoCallBtn")?.addEventListener("click", () => {
-        alert("📞 CALLING LANTICA 1960 EVENT LINE: +251 98 1960 1960\n(Simulated) Our event coordinator will reach you shortly for bookings & custom menus.");
-    });
-
-    // ========== INITIAL RENDER ==========
-    renderGrid("breakfast","breakfast-grid"); renderGrid("appetizers","appetizers-grid"); renderGrid("salads","salads-grid");
-    renderGrid("signature","signature-grid"); renderGrid("fastcasual","fastcasual-grid"); renderGrid("burgers","burgers-grid");
-    renderGrid("sides","sides-grid"); renderGrid("pork","pork-grid"); renderGrid("pasta","pasta-grid"); renderPizzaGrid();
-    renderGrid("juices","juices-grid"); renderGrid("cold","cold-grid"); renderGrid("beer","beer-grid"); renderGrid("hot","hot-grid"); renderGrid("wine","wine-grid");
+    
+    renderMenu();
 </script>
 </body>
 </html>
