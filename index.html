@@ -38,34 +38,117 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 15px 20px;
-            text-align: center;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
-        .logo {
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 15px rgba(201,169,110,0.3);
+        }
+        
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .logo-text {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: white;
         }
-        .logo span { color: var(--gold); }
-        .tagline {
-            font-size: 0.7rem;
+        
+        .logo-text span { color: var(--gold); }
+        
+        .tagline-small {
+            font-size: 0.6rem;
             color: var(--gray);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
         
-        .hero {
-            background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%),
-                url('https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg') center/cover no-repeat;
-            text-align: center;
-            padding: 80px 20px;
+        .contact-btn {
+            background: var(--gold);
+            color: #0A0A0A;
+            padding: 8px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.2s;
         }
+        
+        .contact-btn:hover {
+            background: var(--gold-dark);
+            transform: scale(1.02);
+        }
+        
+        /* Hero Section with Beautiful Restaurant Image */
+        .hero {
+            background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 100%),
+                url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(0deg, #0A0A0A 0%, transparent 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: var(--red);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 4rem;
+            font-weight: 900;
             color: white;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
         }
+        
         .hero h1 span { color: var(--gold); }
+        
+        .hero-sub {
+            font-size: 1.1rem;
+            color: #D1C5B5;
+            margin-top: 10px;
+        }
         
         .container {
             max-width: 1300px;
@@ -76,6 +159,7 @@
         .category {
             margin-bottom: 50px;
         }
+        
         .category-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
@@ -98,6 +182,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             border: 1px solid #2C2823;
         }
+        
         .menu-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold);
@@ -116,10 +201,12 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .menu-name {
             font-weight: 600;
             font-size: 1rem;
         }
+        
         .menu-price {
             color: var(--gold);
             font-weight: 700;
@@ -132,6 +219,7 @@
             background: #020202;
             margin-top: 40px;
         }
+        
         .footer p {
             color: var(--gray);
             font-size: 0.8rem;
@@ -139,8 +227,10 @@
         
         @media (max-width: 700px) {
             .menu-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.5rem; }
             .category-title { font-size: 1.4rem; }
+            .header { flex-direction: column; gap: 12px; text-align: center; }
+            .logo-container { justify-content: center; }
         }
     </style>
 </head>
@@ -153,24 +243,37 @@
 </div>
 
 <header class="header">
-    <div class="logo">LANTICA <span>1960</span></div>
-    <div class="tagline">ETHIOPIAN SOUL · MODERN ELEGANCE</div>
+    <div class="logo-container">
+        <div class="logo-circle">
+            <img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960 Logo" onerror="this.src='https://placehold.co/50x50/C9A96E/0D0D0D?text=L'">
+        </div>
+        <div>
+            <div class="logo-text">LANTICA <span>1960</span></div>
+            <div class="tagline-small">Cafe & Restaurant</div>
+        </div>
+    </div>
+    <a href="tel:+2519819601960" class="contact-btn"><i class="fas fa-phone"></i> Call & Book</a>
 </header>
 
+<!-- Hero Section with Beautiful Restaurant Image -->
 <section class="hero">
-    <h1>LANTICA <span>1960</span></h1>
-    <p style="color: #D1C5B5; margin-top: 10px;">Cafe & Restaurant — Since 1996</p>
+    <div class="hero-content">
+        <div class="hero-badge">✦ ESTABLISHED 1996 ✦</div>
+        <h1>LANTICA <span>1960</span></h1>
+        <p class="hero-sub">Ethiopian Soul · Modern Elegance</p>
+        <p style="color: #AAA; margin-top: 15px; font-size: 0.9rem;">Traditional Cuisine | Artisan Pizza | Fresh Juices | Private Events</p>
+    </div>
 </section>
 
 <div class="container" id="menuContainer"></div>
 
 <footer class="footer">
     <p>📍 Bole, Addis Ababa | 📞 +251 98 1960 1960</p>
-    <p style="margin-top: 10px;">Lantica 1960 — Where tradition meets flavor</p>
+    <p style="margin-top: 10px;">Lantica 1960 — Where tradition meets flavor since 1996</p>
 </footer>
 
 <script>
-    // ========== MENU DATA WITH YOUR IMAGE URLS (FIXED) ==========
+    // ========== MENU DATA WITH YOUR IMAGE URLS ==========
     const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
     
     const menuData = {
@@ -194,6 +297,7 @@
             { name: "Lamb Tibs", price: 680, img: "lamb-tibs.jpg" },
             { name: "Lamb Tibs Tefresho", price: 700, img: "lamb-tibs-tefersho.jpg" },
             { name: "Quanta Firfir", price: 370, img: "kuanta-firfir.jpeg" },
+            { name: "Tibes Firfir", price: 370, img: "tibis-firfir.jpg" },
             { name: "Mahberawi Mixed Platter", price: 1200, img: "mahberawi-mixed-platter.jpeg" },
             { name: "Gomen Kitto", price: 300, img: "gomen-kitfo.jpg" },
             { name: "Tegabino", price: 300, img: "tegabino.jpg" }
@@ -221,6 +325,7 @@
             { name: "Mineral Water", price: 55, img: "ambo-water.jpeg" },
             { name: "Soft Drink", price: 60, img: "soft-drink.jpeg" },
             { name: "Ambo Water", price: 65, img: "ambo-water.jpeg" },
+            { name: "Tonic Water", price: 65, img: "https://images.unsplash.com/photo-1622484211976-b6e7d6b8b7a1?w=400" },
             { name: "Ice Tea", price: 80, img: "ice-tea-1200x1800-1.jpeg" }
         ],
         "☕ Hot Beverages": [
@@ -245,7 +350,7 @@
             
             items.forEach(item => {
                 let imgUrl = item.img;
-                // If it's a relative path (starts with http? no), add base URL
+                // If it's a relative path, add base URL
                 if (!imgUrl.startsWith('http')) {
                     imgUrl = baseImageUrl + imgUrl;
                 }
