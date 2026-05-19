@@ -89,11 +89,9 @@
             text-decoration: none;
             font-weight: 500;
             transition: 0.3s;
-            cursor: pointer;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
+        .nav-links a:hover {
             color: var(--gold);
         }
 
@@ -143,8 +141,6 @@
             font-weight: 700;
             margin-top: 25px;
             transition: 0.3s;
-            cursor: pointer;
-            border: none;
         }
 
         .btn:hover {
@@ -246,7 +242,7 @@
             margin-bottom: 15px;
         }
 
-        /* ============ MODERN EVENTS CARDS WITH IMAGES ============ */
+        /* ============ MODERN EVENTS CARDS ============ */
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -257,14 +253,13 @@
             background: var(--dark-card);
             border-radius: 24px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s;
             border: 1px solid #2C2823;
         }
 
         .event-card-modern:hover {
             transform: translateY(-10px);
             border-color: var(--gold);
-            box-shadow: 0 20px 40px rgba(201,169,110,0.2);
         }
 
         .event-image-container {
@@ -294,7 +289,6 @@
             border-radius: 30px;
             font-size: 0.7rem;
             font-weight: 700;
-            z-index: 2;
         }
 
         .event-badge.hot {
@@ -411,7 +405,6 @@
         .play-store-btn:hover {
             background: var(--gold);
             color: #0A0A0A;
-            transform: scale(1.02);
         }
 
         /* ============ PAYMENT SECTION ============ */
@@ -516,14 +509,14 @@
 </head>
 <body>
 
-<!-- ============ FLOATING TELEGRAM ICON ============ -->
+<!-- FLOATING TELEGRAM ICON -->
 <a href="https://t.me/+251941270797" target="_blank" class="floating-telegram">
     <i class="fab fa-telegram-plane"></i>
 </a>
 
-<!-- ============ NAVIGATION ============ -->
+<!-- NAVIGATION -->
 <nav class="navbar">
-    <a href="#" onclick="showPage('home'); return false;" class="logo">
+    <a href="index.html" class="logo">
         <div class="logo-circle">
             <img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960">
         </div>
@@ -533,159 +526,143 @@
         <i class="fas fa-bars"></i>
     </div>
     <ul class="nav-links" id="navLinks">
-        <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
-        <li><a href="#" onclick="showPage('menu')">Menu</a></li>
-        <li><a href="#" onclick="showPage('about')">About</a></li>
-        <li><a href="#" onclick="showPage('events')">Events</a></li>
-        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
 
-<!-- ============ HOME PAGE ============ -->
-<div id="homePage">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>LANTICA <span>1960</span></h1>
-            <p>Ethiopian Soul · Modern Elegance</p>
-            <p>📍 Arat Kilo, Addis Ababa</p>
-            <button class="btn" onclick="showPage('menu')">Explore Menu</button>
-        </div>
-    </section>
-
-    <div class="container">
-        <h2 class="section-title">Our <span>Signature Dishes</span></h2>
-        <div class="cards-grid" id="homeCards"></div>
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>LANTICA <span>1960</span></h1>
+        <p>Ethiopian Soul · Modern Elegance</p>
+        <p>📍 Arat Kilo, Addis Ababa</p>
+        <a href="menu.html" class="btn">Explore Menu</a>
     </div>
+</section>
 
-    <!-- Music Player Section -->
-    <div class="container">
-        <div class="music-section">
-            <i class="fas fa-headphones" style="font-size: 3rem; color: var(--gold);"></i>
-            <h3 style="margin: 15px 0;">🎵 Lantica 1960 Playlist</h3>
-            <p style="margin-bottom: 20px;">Enjoy Ethiopian vibes while you dine</p>
-            <a href="https://play.google.com/store/music" target="_blank" class="play-store-btn">
-                <i class="fab fa-google-play"></i> Listen on Google Play Music
-            </a>
+<!-- SIGNATURE DISHES SECTION -->
+<div class="container">
+    <h2 class="section-title">Our <span>Signature Dishes</span></h2>
+    <div class="cards-grid" id="homeCards"></div>
+</div>
+
+<!-- MUSIC SECTION -->
+<div class="container">
+    <div class="music-section">
+        <i class="fas fa-headphones" style="font-size: 3rem; color: var(--gold);"></i>
+        <h3 style="margin: 15px 0;">🎵 Lantica 1960 Playlist</h3>
+        <p style="margin-bottom: 20px;">Enjoy Ethiopian vibes while you dine</p>
+        <a href="https://play.google.com/store/music" target="_blank" class="play-store-btn">
+            <i class="fab fa-google-play"></i> Listen on Google Play Music
+        </a>
+    </div>
+</div>
+
+<!-- ABOUT SECTION -->
+<div id="about" class="container">
+    <h2 class="section-title">About <span>Lantica 1960</span></h2>
+    <div class="about-grid">
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" alt="Lantica Restaurant">
+        </div>
+        <div class="about-text">
+            <h3>Since 1996</h3>
+            <p>Lantica 1960 has been serving authentic Ethiopian cuisine with modern elegance. Located in the heart of Arat Kilo, Addis Ababa, we bring traditional flavors to your table.</p>
+            <p>Our chefs use family recipes passed down through generations, ensuring every dish tells a story of Ethiopian heritage.</p>
+            <h3>Our Mission</h3>
+            <p>To provide an unforgettable dining experience where tradition meets innovation, and every guest feels like family.</p>
+            <a href="#contact" class="btn">Visit Us</a>
         </div>
     </div>
 </div>
 
-<!-- ============ MENU PAGE ============ -->
-<div id="menuPage" style="display: none;">
-    <div class="container">
-        <h2 class="section-title">Our <span>Complete Menu</span></h2>
-        <div id="fullMenuContainer"></div>
-    </div>
+<!-- EVENTS SECTION -->
+<div id="events" class="container">
+    <h2 class="section-title">Upcoming <span>Events</span></h2>
+    <p style="text-align: center; margin-bottom: 40px; color: var(--gray-light);">Experience authentic Ethiopian hospitality at our special events</p>
+    <div class="events-grid" id="eventsGrid"></div>
 </div>
 
-<!-- ============ ABOUT PAGE ============ -->
-<div id="aboutPage" style="display: none;">
-    <div class="container">
-        <h2 class="section-title">About <span>Lantica 1960</span></h2>
-        <div class="about-grid">
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" alt="Lantica Restaurant">
-            </div>
-            <div class="about-text">
-                <h3>Since 1996</h3>
-                <p>Lantica 1960 has been serving authentic Ethiopian cuisine with modern elegance. Located in the heart of Arat Kilo, Addis Ababa, we bring traditional flavors to your table.</p>
-                <p>Our chefs use family recipes passed down through generations, ensuring every dish tells a story of Ethiopian heritage.</p>
-                <h3>Our Mission</h3>
-                <p>To provide an unforgettable dining experience where tradition meets innovation, and every guest feels like family.</p>
-                <button class="btn" onclick="showPage('contact')">Visit Us</button>
-            </div>
+<!-- CONTACT SECTION -->
+<div id="contact" class="container">
+    <h2 class="section-title">Contact <span>Us</span></h2>
+    <div class="contact-grid">
+        <div class="contact-info">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Location</h3>
+            <p>Arat Kilo, Addis Ababa, Ethiopia</p>
+            <p>Near Arat Kilo Square</p>
+        </div>
+        <div class="contact-info">
+            <i class="fas fa-phone"></i>
+            <h3>Call Us</h3>
+            <a href="tel:+251941270797">📞 +251 94 1270 797</a>
+        </div>
+        <div class="contact-info">
+            <i class="fab fa-telegram"></i>
+            <h3>Telegram</h3>
+            <a href="https://t.me/+251941270797" target="_blank">@Lantica1960</a>
+            <p>Click to chat with us</p>
+        </div>
+        <div class="contact-info">
+            <i class="fas fa-clock"></i>
+            <h3>Hours</h3>
+            <p>Monday - Sunday: 9am - 11pm</p>
+            <p>Friday & Saturday: till 1am</p>
         </div>
     </div>
-</div>
 
-<!-- ============ EVENTS PAGE WITH MODERN IMAGE CARDS ============ -->
-<div id="eventsPage" style="display: none;">
-    <div class="container">
-        <h2 class="section-title">Upcoming <span>Events</span></h2>
-        <p style="text-align: center; margin-bottom: 40px; color: var(--gray-light);">Experience authentic Ethiopian hospitality at our special events</p>
-        <div class="events-grid" id="eventsGrid"></div>
+    <!-- Google Map -->
+    <div class="map-container">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.442308578515!2d38.752919!3d9.030847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8567cdf4b385%3A0x8b5e3b9b6f5e4a3!2sArat%20Kilo%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
     </div>
-</div>
 
-<!-- ============ CONTACT PAGE ============ -->
-<div id="contactPage" style="display: none;">
-    <div class="container">
-        <h2 class="section-title">Contact <span>Us</span></h2>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <i class="fas fa-map-marker-alt"></i>
-                <h3>Location</h3>
-                <p>Arat Kilo, Addis Ababa, Ethiopia</p>
-                <p>Near Arat Kilo Square</p>
+    <!-- Payment Section -->
+    <div class="payment-section">
+        <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
+        <div class="payment-grid">
+            <div class="payment-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h4>Telebirr</h4>
+                <p>Merchant ID: <strong>1565432</strong></p>
             </div>
-            <div class="contact-info">
-                <i class="fas fa-phone"></i>
-                <h3>Call Us</h3>
-                <a href="tel:+2519819601960">📞 +251 98 1960 1960</a><br>
-                <a href="tel:+251941270797">📞 +251 94 1270 797</a>
+            <div class="payment-card">
+                <i class="fas fa-university"></i>
+                <h4>Bank Transfer</h4>
+                <p>Account: <strong>1000234567</strong></p>
             </div>
-            <div class="contact-info">
-                <i class="fab fa-telegram"></i>
-                <h3>Telegram</h3>
-                <a href="https://t.me/+251941270797" target="_blank">@Lantica1960</a>
-                <p>Click to chat with us</p>
-            </div>
-            <div class="contact-info">
-                <i class="fas fa-clock"></i>
-                <h3>Hours</h3>
-                <p>Monday - Sunday: 9am - 11pm</p>
-                <p>Friday & Saturday: till 1am</p>
-            </div>
-        </div>
-
-        <!-- Google Map - Arat Kilo, Addis Ababa -->
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.442308578515!2d38.752919!3d9.030847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8567cdf4b385%3A0x8b5e3b9b6f5e4a3!2sArat%20Kilo%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-
-        <!-- Payment Section -->
-        <div class="payment-section">
-            <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
-            <div class="payment-grid">
-                <div class="payment-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h4>Telebirr</h4>
-                    <p>Merchant ID: <strong>1565432</strong></p>
-                </div>
-                <div class="payment-card">
-                    <i class="fas fa-university"></i>
-                    <h4>Bank Transfer</h4>
-                    <p>Account: <strong>1000234567</strong></p>
-                </div>
-                <div class="payment-card">
-                    <i class="fas fa-money-bill-wave"></i>
-                    <h4>Cash & Card</h4>
-                    <p>Accepted at counter</p>
-                </div>
+            <div class="payment-card">
+                <i class="fas fa-money-bill-wave"></i>
+                <h4>Cash & Card</h4>
+                <p>Accepted at counter</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ============ FOOTER ============ -->
+<!-- FOOTER -->
 <footer class="footer">
-    <p>📍 Arat Kilo, Addis Ababa | 📞 +251 98 1960 1960</p>
+    <p>📍 Arat Kilo, Addis Ababa | 📞 +251 94 1270 797</p>
     <p style="margin-top: 10px;">
-        Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a>
-    </p>
+     </p>
     <p style="margin-top: 5px; font-size: 0.7rem;">© 2026 Lantica 1960 — Ethiopian Soul · Modern Elegance</p>
 </footer>
 
 <script>
-    // ========== IMAGE BASE URL ==========
     const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
+            Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a>
 
-    // ========== 8 MODERN CARDS FOR HOME PAGE ==========
+
+    // 8 Signature Dishes
     const coreMenuItems = [
         { name: "Lamb Tibs", price: "680 ETB", desc: "Tender lamb sautéed with berbere", image: "lamb-tibs.jpg" },
         { name: "Mahberawi Platter", price: "1200 ETB", desc: "Mixed platter for sharing", image: "mahberawi-mixed-platter.jpeg" },
@@ -697,7 +674,7 @@
         { name: "Fresh Juice", price: "160 ETB", desc: "Papaya, mango, or avocado", image: "papaya-juice.jpg" }
     ];
 
-    // ========== EVENTS DATA WITH IMAGES ==========
+    // Events Data
     const eventsData = [
         {
             title: "Traditional Coffee Ceremony",
@@ -705,7 +682,7 @@
             desc: "Experience authentic Ethiopian coffee ritual with popcorn and incense",
             image: "ethiopian-coffee-Buna.jpeg",
             badge: "Daily",
-            badgeHot: false
+            hot: false
         },
         {
             title: "Birthday Celebration",
@@ -713,7 +690,7 @@
             desc: "Celebrate your special day with free dessert and traditional song",
             image: "https://images.unsplash.com/photo-1464349153735-7db50ed83c5e?w=400",
             badge: "Special Offer",
-            badgeHot: true
+            hot: true
         },
         {
             title: "Corporate Events",
@@ -721,7 +698,7 @@
             desc: "Business meetings, team building, and corporate dining",
             image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400",
             badge: "Book Now",
-            badgeHot: false
+            hot: false
         },
         {
             title: "Private Dining",
@@ -729,51 +706,10 @@
             desc: "Intimate setting for up to 50 guests, custom menu available",
             image: "mahberawi-mixed-platter.jpeg",
             badge: "Exclusive",
-            badgeHot: true
+            hot: true
         }
     ];
 
-    // ========== COMPLETE MENU DATA ==========
-    const fullMenu = {
-        "☀️ Breakfast": [
-            "Combo Fasting - 250 ETB", "Egg w/ meat - 250 ETB", "Special Fetora - 350 ETB",
-            "Normal Fetora - 200 ETB", "Special Chech - 250 ETB", "Normal Foul - 180 ETB",
-            "Special Foul - 250 ETB", "Tomato Cheese - 170 ETB", "Egg Sandwich - 200 ETB"
-        ],
-        "🔥 Traditional Food": [
-            "Lamb Tibs - 680 ETB", "Lamb Tibs Tefresho - 700 ETB", "Okie - 600 ETB",
-            "Chikena Tibs - 600 ETB", "Chikena Tefresho - 650 ETB", "Kitto - 1200 ETB",
-            "Quanta Firfir - 370 ETB", "Kiba Firfir - 210 ETB", "Tibes Firfir - 320 ETB",
-            "Shiro Bekibe - 300 ETB", "Dullet - 330 ETB", "Derkosh Firfir Beseg - 380 ETB",
-            "Bozena Shiro - 350 ETB", "Mahberawi - 1200 ETB", "Yefisk Agelgel - 1000 ETB",
-            "Gomen Kitto - 300 ETB"
-        ],
-        "🍕 Pizza": [
-            "Special Lentic Pizza Large - 580 ETB", "Special Lentic Pizza Medium - 550 ETB",
-            "Chicken Pizza Large - 550 ETB", "Chicken Pizza Medium - 460 ETB",
-            "Margarita Large - 450 ETB", "Margarita Medium - 400 ETB", "Vegetable Pizza Large - 370 ETB"
-        ],
-        "🍔 Burgers & Sandwiches": [
-            "Noma Burger - 305 ETB", "Cheese Burger - 350 ETB", "Noma Ketchup - 380 ETB",
-            "Club Sandwich - 360 ETB", "Tuna Sandwich - 350 ETB", "Vegetable Sandwich - 160 ETB",
-            "Chicken Shawarma - 600 ETB", "French Fries - 180 ETB"
-        ],
-        "🥤 Juices & Drinks": [
-            "Papaya Juice - 160 ETB", "Avocado Juice - 160 ETB", "Mango Juice - 160 ETB",
-            "Telba Juice - 200 ETB", "Soft Drink - 60 ETB", "Ambo Water - 65 ETB",
-            "Mineral Water 1L - 55 ETB"
-        ],
-        "☕ Hot Beverages": [
-            "Tea - 30 ETB", "Coffee - 60 ETB", "Latte - 70 ETB", "Macchiato - 75 ETB",
-            "Hot Chocolate - 80 ETB", "Special Tea - 150 ETB"
-        ],
-        "🍺 Beer & Wine": [
-            "Normal Beer - 100 ETB", "Big Bedla - 120 ETB", "Single Draft - 65 ETB",
-            "Axmite Wine - 900 ETB", "Guder Big - 720 ETB", "Gebeta - 1100 ETB"
-        ]
-    };
-
-    // Render Home Cards
     function renderHomeCards() {
         const container = document.getElementById("homeCards");
         if (!container) return;
@@ -781,7 +717,7 @@
         coreMenuItems.forEach(item => {
             let imgUrl = item.image.startsWith('http') ? item.image : baseImageUrl + item.image;
             html += `
-                <div class="menu-card" onclick="showPage('menu')">
+                <div class="menu-card" onclick="location.href='menu.html'">
                     <img class="card-image" src="${imgUrl}" alt="${item.name}" onerror="this.src='https://placehold.co/400x220/1A1A1A/C9A96E?text=${item.name}'">
                     <div class="card-content">
                         <h3>${item.name}</h3>
@@ -794,8 +730,7 @@
         container.innerHTML = html;
     }
 
-    // Render Events Cards
-    function renderEventsCards() {
+    function renderEvents() {
         const container = document.getElementById("eventsGrid");
         if (!container) return;
         let html = "";
@@ -805,13 +740,13 @@
                 <div class="event-card-modern">
                     <div class="event-image-container">
                         <img class="event-image" src="${imgUrl}" alt="${event.title}" onerror="this.src='https://placehold.co/400x220/1A1A1A/C9A96E?text=${event.title}'">
-                        <span class="event-badge ${event.badgeHot ? 'hot' : ''}">${event.badge}</span>
+                        <span class="event-badge ${event.hot ? 'hot' : ''}">${event.badge}</span>
                     </div>
                     <div class="event-content">
                         <h3 class="event-title">${event.title}</h3>
                         <div class="event-time"><i class="fas fa-clock"></i> ${event.time}</div>
                         <p class="event-desc">${event.desc}</p>
-                        <button class="event-btn" onclick="showPage('contact')">Book Now →</button>
+                        <button class="event-btn" onclick="location.href='#contact'">Book Now →</button>
                     </div>
                 </div>
             `;
@@ -819,64 +754,12 @@
         container.innerHTML = html;
     }
 
-    // Render Full Menu Page
-    function renderFullMenu() {
-        const container = document.getElementById("fullMenuContainer");
-        if (!container) return;
-        let html = "";
-        for (const [category, items] of Object.entries(fullMenu)) {
-            html += `<div style="margin-bottom: 40px;">
-                <h2 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); border-left: 4px solid var(--gold); padding-left: 15px; margin-bottom: 20px;">${category}</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px;">`;
-            items.forEach(item => {
-                let parts = item.split(" - ");
-                let name = parts[0];
-                let price = parts[1];
-                html += `<div style="background: var(--dark-card); padding: 15px 20px; border-radius: 16px; display: flex; justify-content: space-between; border: 1px solid #2C2823;">
-                    <span>${name}</span>
-                    <span style="color: var(--gold); font-weight: 700;">${price}</span>
-                </div>`;
-            });
-            html += `</div></div>`;
-        }
-        container.innerHTML = html;
-    }
-
-    // Page Navigation
-    function showPage(page) {
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("menuPage").style.display = "none";
-        document.getElementById("aboutPage").style.display = "none";
-        document.getElementById("eventsPage").style.display = "none";
-        document.getElementById("contactPage").style.display = "none";
-        
-        if (page === "home") document.getElementById("homePage").style.display = "block";
-        if (page === "menu") document.getElementById("menuPage").style.display = "block";
-        if (page === "about") document.getElementById("aboutPage").style.display = "block";
-        if (page === "events") document.getElementById("eventsPage").style.display = "block";
-        if (page === "contact") document.getElementById("contactPage").style.display = "block";
-        
-        // Update active nav link
-        document.querySelectorAll(".nav-links a").forEach(link => {
-            link.classList.remove("active");
-        });
-        if (event && event.target) {
-            event.target.classList.add("active");
-        }
-        
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
     function toggleMenu() {
-        const navLinks = document.getElementById("navLinks");
-        if (navLinks) navLinks.classList.toggle("show");
+        document.getElementById("navLinks").classList.toggle("show");
     }
 
-    // Initialize
     renderHomeCards();
-    renderEventsCards();
-    renderFullMenu();
+    renderEvents();
 </script>
 </body>
 </html>
