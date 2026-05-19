@@ -43,7 +43,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
         }
 
         .logo {
@@ -97,12 +96,92 @@
 
         .mobile-menu-btn {
             display: none;
-            font-size: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
             color: var(--gold);
             cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* ============ HERO SECTION ============ */
+        /* ============ MOBILE SLIDE MENU ============ */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: #0D0D0D;
+            border-right: 2px solid var(--gold);
+            z-index: 1101;
+            transition: left 0.3s ease;
+            padding: 80px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mobile-nav.open {
+            left: 0;
+        }
+
+        .mobile-nav a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px 15px;
+            border-radius: 12px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-nav a i {
+            width: 25px;
+            color: var(--gold);
+        }
+
+        .mobile-nav a:hover {
+            background: rgba(201,169,110,0.1);
+            color: var(--gold);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--gold);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* ============ HERO ============ */
         .hero {
             background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%),
                 url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
@@ -141,6 +220,8 @@
             font-weight: 700;
             margin-top: 25px;
             transition: 0.3s;
+            cursor: pointer;
+            border: none;
         }
 
         .btn:hover {
@@ -148,14 +229,12 @@
             transform: scale(1.02);
         }
 
-        /* ============ CONTAINER ============ */
         .container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 60px 20px;
         }
 
-        /* ============ SECTION TITLES ============ */
         .section-title {
             text-align: center;
             font-family: 'Playfair Display', serif;
@@ -168,7 +247,7 @@
             color: white;
         }
 
-        /* ============ 8 MODERN CARDS ============ */
+        /* Cards Grid */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -218,7 +297,7 @@
             font-size: 1.2rem;
         }
 
-        /* ============ ABOUT SECTION ============ */
+        /* About */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -242,118 +321,42 @@
             margin-bottom: 15px;
         }
 
-        /* ============ MODERN EVENTS CARDS ============ */
+        /* Events */
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
 
-        .event-card-modern {
+        .event-card {
             background: var(--dark-card);
             border-radius: 24px;
             overflow: hidden;
-            transition: all 0.4s;
+            transition: 0.3s;
             border: 1px solid #2C2823;
         }
 
-        .event-card-modern:hover {
-            transform: translateY(-10px);
+        .event-card:hover {
+            transform: translateY(-5px);
             border-color: var(--gold);
-        }
-
-        .event-image-container {
-            overflow: hidden;
-            position: relative;
-            height: 220px;
         }
 
         .event-image {
             width: 100%;
-            height: 100%;
+            height: 200px;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .event-card-modern:hover .event-image {
-            transform: scale(1.05);
-        }
-
-        .event-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--gold);
-            color: #0A0A0A;
-            padding: 5px 12px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-
-        .event-badge.hot {
-            background: var(--red);
-            color: white;
         }
 
         .event-content {
-            padding: 25px;
+            padding: 20px;
         }
 
-        .event-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+        .event-content h3 {
+            color: var(--gold);
             margin-bottom: 10px;
-            color: var(--gold);
         }
 
-        .event-time {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--gray);
-            font-size: 0.8rem;
-            margin-bottom: 12px;
-        }
-
-        .event-desc {
-            color: var(--gray-light);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .event-btn {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .event-btn:hover {
-            background: var(--gold);
-            color: #0A0A0A;
-        }
-
-        /* ============ GOOGLE MAP ============ */
-        .map-container {
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid var(--gold);
-            margin-top: 20px;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 350px;
-            border: 0;
-        }
-
-        /* ============ CONTACT SECTION ============ */
+        /* Contact */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -379,13 +382,26 @@
             text-decoration: none;
         }
 
-        /* ============ MUSIC PLAYER ============ */
+        /* Map */
+        .map-container {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--gold);
+            margin-top: 30px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 350px;
+            border: 0;
+        }
+
+        /* Music */
         .music-section {
             background: linear-gradient(135deg, #1E1B17 0%, #15120F 100%);
             border-radius: 24px;
             padding: 40px;
             text-align: center;
-            margin: 40px 0;
         }
 
         .play-store-btn {
@@ -407,7 +423,7 @@
             color: #0A0A0A;
         }
 
-        /* ============ PAYMENT SECTION ============ */
+        /* Payment */
         .payment-section {
             background: linear-gradient(135deg, #1A1A1A 0%, #0D0D0D 100%);
             border-radius: 24px;
@@ -429,7 +445,7 @@
             border-radius: 16px;
         }
 
-        /* ============ FLOATING TELEGRAM ICON ============ */
+        /* Floating Telegram */
         .floating-telegram {
             position: fixed;
             bottom: 30px;
@@ -455,7 +471,7 @@
             background: #0077b3;
         }
 
-        /* ============ FOOTER ============ */
+        /* Footer */
         .footer {
             background: #020202;
             text-align: center;
@@ -466,26 +482,14 @@
         .footer a {
             color: var(--gold);
             text-decoration: none;
-            transition: 0.3s;
         }
 
-        .footer a:hover {
-            color: white;
-        }
-
-        /* ============ RESPONSIVE ============ */
+        /* Responsive */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
             .nav-links {
                 display: none;
-                width: 100%;
-                flex-direction: column;
-                text-align: center;
-                padding: 20px 0;
             }
-            .nav-links.show {
+            .mobile-menu-btn {
                 display: flex;
             }
             .hero-content h1 {
@@ -496,6 +500,9 @@
             }
             .section-title {
                 font-size: 1.8rem;
+            }
+            .cards-grid, .events-grid, .contact-grid {
+                grid-template-columns: 1fr;
             }
             .floating-telegram {
                 width: 50px;
@@ -509,12 +516,25 @@
 </head>
 <body>
 
-<!-- FLOATING TELEGRAM ICON -->
+<!-- FLOATING TELEGRAM -->
 <a href="https://t.me/+251941270797" target="_blank" class="floating-telegram">
     <i class="fab fa-telegram-plane"></i>
 </a>
 
-<!-- NAVIGATION -->
+<!-- MOBILE MENU -->
+<div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+<div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" onclick="closeMobileMenu()">✕</button>
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="menu.html"><i class="fas fa-utensils"></i> Menu</a>
+    <a href="gallery.html"><i class="fas fa-images"></i> Food Gallery</a>
+    <a href="heritage.html"><i class="fas fa-landmark"></i> Heritage</a>
+    <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+    <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+    <a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a>
+</div>
+
+<!-- NAVBAR -->
 <nav class="navbar">
     <a href="index.html" class="logo">
         <div class="logo-circle">
@@ -522,20 +542,21 @@
         </div>
         <div class="logo-text">LANTICA <span>1960</span></div>
     </a>
-    <div class="mobile-menu-btn" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-    </div>
-    <ul class="nav-links" id="navLinks">
+    <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="menu.html">Menu</a></li>
         <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="heritage.html">Heritage</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="mobile-menu-btn" onclick="openMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
 </nav>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero">
     <div class="hero-content">
         <h1>LANTICA <span>1960</span></h1>
@@ -545,13 +566,13 @@
     </div>
 </section>
 
-<!-- SIGNATURE DISHES SECTION -->
+<!-- SIGNATURE DISHES -->
 <div class="container">
     <h2 class="section-title">Our <span>Signature Dishes</span></h2>
     <div class="cards-grid" id="homeCards"></div>
 </div>
 
-<!-- MUSIC SECTION -->
+<!-- MUSIC -->
 <div class="container">
     <div class="music-section">
         <i class="fas fa-headphones" style="font-size: 3rem; color: var(--gold);"></i>
@@ -563,7 +584,7 @@
     </div>
 </div>
 
-<!-- ABOUT SECTION -->
+<!-- ABOUT -->
 <div id="about" class="container">
     <h2 class="section-title">About <span>Lantica 1960</span></h2>
     <div class="about-grid">
@@ -575,20 +596,19 @@
             <p>Lantica 1960 has been serving authentic Ethiopian cuisine with modern elegance. Located in the heart of Arat Kilo, Addis Ababa, we bring traditional flavors to your table.</p>
             <p>Our chefs use family recipes passed down through generations, ensuring every dish tells a story of Ethiopian heritage.</p>
             <h3>Our Mission</h3>
-            <p>To provide an unforgettable dining experience where tradition meets innovation, and every guest feels like family.</p>
+            <p>To provide an unforgettable dining experience where tradition meets innovation.</p>
             <a href="#contact" class="btn">Visit Us</a>
         </div>
     </div>
 </div>
 
-<!-- EVENTS SECTION -->
+<!-- EVENTS -->
 <div id="events" class="container">
     <h2 class="section-title">Upcoming <span>Events</span></h2>
-    <p style="text-align: center; margin-bottom: 40px; color: var(--gray-light);">Experience authentic Ethiopian hospitality at our special events</p>
     <div class="events-grid" id="eventsGrid"></div>
 </div>
 
-<!-- CONTACT SECTION -->
+<!-- CONTACT -->
 <div id="contact" class="container">
     <h2 class="section-title">Contact <span>Us</span></h2>
     <div class="contact-grid">
@@ -596,7 +616,6 @@
             <i class="fas fa-map-marker-alt"></i>
             <h3>Location</h3>
             <p>Arat Kilo, Addis Ababa, Ethiopia</p>
-            <p>Near Arat Kilo Square</p>
         </div>
         <div class="contact-info">
             <i class="fas fa-phone"></i>
@@ -607,62 +626,37 @@
             <i class="fab fa-telegram"></i>
             <h3>Telegram</h3>
             <a href="https://t.me/+251941270797" target="_blank">@Lantica1960</a>
-            <p>Click to chat with us</p>
         </div>
         <div class="contact-info">
             <i class="fas fa-clock"></i>
             <h3>Hours</h3>
-            <p>Monday - Sunday: 9am - 11pm</p>
-            <p>Friday & Saturday: till 1am</p>
+            <p>Mon-Sun: 9am - 11pm<br>Fri-Sat: till 1am</p>
         </div>
     </div>
 
-    <!-- Google Map -->
     <div class="map-container">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.442308578515!2d38.752919!3d9.030847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8567cdf4b385%3A0x8b5e3b9b6f5e4a3!2sArat%20Kilo%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
-            allowfullscreen="" 
-            loading="lazy">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.442308578515!2d38.752919!3d9.030847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8567cdf4b385%3A0x8b5e3b9b6f5e4a3!2sArat%20Kilo%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen loading="lazy"></iframe>
     </div>
 
-    <!-- Payment Section -->
     <div class="payment-section">
         <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
         <div class="payment-grid">
-            <div class="payment-card">
-                <i class="fas fa-mobile-alt"></i>
-                <h4>Telebirr</h4>
-                <p>Merchant ID: <strong>1565432</strong></p>
-            </div>
-            <div class="payment-card">
-                <i class="fas fa-university"></i>
-                <h4>Bank Transfer</h4>
-                <p>Account: <strong>1000234567</strong></p>
-            </div>
-            <div class="payment-card">
-                <i class="fas fa-money-bill-wave"></i>
-                <h4>Cash & Card</h4>
-                <p>Accepted at counter</p>
-            </div>
+            <div class="payment-card"><i class="fas fa-mobile-alt"></i><h4>Telebirr</h4><p>1565432</p></div>
+            <div class="payment-card"><i class="fas fa-university"></i><h4>Bank Transfer</h4><p>1000234567</p></div>
+            <div class="payment-card"><i class="fas fa-money-bill-wave"></i><h4>Cash & Card</h4><p>Accepted</p></div>
         </div>
     </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
     <p>📍 Arat Kilo, Addis Ababa | 📞 +251 94 1270 797</p>
-    <p style="margin-top: 10px;">
-     </p>
-    <p style="margin-top: 5px; font-size: 0.7rem;">© 2026 Lantica 1960 — Ethiopian Soul · Modern Elegance</p>
+    <p>Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
+    <p style="font-size: 0.7rem;">© 2026 Lantica 1960 — Ethiopian Soul · Modern Elegance</p>
 </footer>
 
 <script>
     const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
-            Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a>
-
-
-    // 8 Signature Dishes
+    
     const coreMenuItems = [
         { name: "Lamb Tibs", price: "680 ETB", desc: "Tender lamb sautéed with berbere", image: "lamb-tibs.jpg" },
         { name: "Mahberawi Platter", price: "1200 ETB", desc: "Mixed platter for sharing", image: "mahberawi-mixed-platter.jpeg" },
@@ -674,40 +668,11 @@
         { name: "Fresh Juice", price: "160 ETB", desc: "Papaya, mango, or avocado", image: "papaya-juice.jpg" }
     ];
 
-    // Events Data
     const eventsData = [
-        {
-            title: "Traditional Coffee Ceremony",
-            time: "Daily at 4:00 PM",
-            desc: "Experience authentic Ethiopian coffee ritual with popcorn and incense",
-            image: "ethiopian-coffee-Buna.jpeg",
-            badge: "Daily",
-            hot: false
-        },
-        {
-            title: "Birthday Celebration",
-            time: "Book Any Day",
-            desc: "Celebrate your special day with free dessert and traditional song",
-            image: "https://images.unsplash.com/photo-1464349153735-7db50ed83c5e?w=400",
-            badge: "Special Offer",
-            hot: true
-        },
-        {
-            title: "Corporate Events",
-            time: "Custom Schedule",
-            desc: "Business meetings, team building, and corporate dining",
-            image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400",
-            badge: "Book Now",
-            hot: false
-        },
-        {
-            title: "Private Dining",
-            time: "Evenings by Reservation",
-            desc: "Intimate setting for up to 50 guests, custom menu available",
-            image: "mahberawi-mixed-platter.jpeg",
-            badge: "Exclusive",
-            hot: true
-        }
+        { title: "Traditional Coffee Ceremony", time: "Daily at 4:00 PM", desc: "Authentic Ethiopian coffee ritual with popcorn", image: "ethiopian-coffee-Buna.jpeg" },
+        { title: "Birthday Celebration", time: "Book Any Day", desc: "Free dessert and traditional song", image: "https://images.unsplash.com/photo-1464349153735-7db50ed83c5e?w=400" },
+        { title: "Corporate Events", time: "Custom Schedule", desc: "Business meetings and team building", image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400" },
+        { title: "Private Dining", time: "Evenings by Reservation", desc: "Intimate setting for up to 50 guests", image: "mahberawi-mixed-platter.jpeg" }
     ];
 
     function renderHomeCards() {
@@ -716,16 +681,10 @@
         let html = "";
         coreMenuItems.forEach(item => {
             let imgUrl = item.image.startsWith('http') ? item.image : baseImageUrl + item.image;
-            html += `
-                <div class="menu-card" onclick="location.href='menu.html'">
-                    <img class="card-image" src="${imgUrl}" alt="${item.name}" onerror="this.src='https://placehold.co/400x220/1A1A1A/C9A96E?text=${item.name}'">
-                    <div class="card-content">
-                        <h3>${item.name}</h3>
-                        <p>${item.desc}</p>
-                        <span class="card-price">${item.price}</span>
-                    </div>
-                </div>
-            `;
+            html += `<div class="menu-card" onclick="location.href='menu.html'">
+                <img class="card-image" src="${imgUrl}" alt="${item.name}" onerror="this.src='https://placehold.co/400x220/1A1A1A/C9A96E?text=${item.name}'">
+                <div class="card-content"><h3>${item.name}</h3><p>${item.desc}</p><span class="card-price">${item.price}</span></div>
+            </div>`;
         });
         container.innerHTML = html;
     }
@@ -736,27 +695,27 @@
         let html = "";
         eventsData.forEach(event => {
             let imgUrl = event.image.startsWith('http') ? event.image : baseImageUrl + event.image;
-            html += `
-                <div class="event-card-modern">
-                    <div class="event-image-container">
-                        <img class="event-image" src="${imgUrl}" alt="${event.title}" onerror="this.src='https://placehold.co/400x220/1A1A1A/C9A96E?text=${event.title}'">
-                        <span class="event-badge ${event.hot ? 'hot' : ''}">${event.badge}</span>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">${event.title}</h3>
-                        <div class="event-time"><i class="fas fa-clock"></i> ${event.time}</div>
-                        <p class="event-desc">${event.desc}</p>
-                        <button class="event-btn" onclick="location.href='#contact'">Book Now →</button>
-                    </div>
-                </div>
-            `;
+            html += `<div class="event-card">
+                <img class="event-image" src="${imgUrl}" alt="${event.title}" onerror="this.src='https://placehold.co/400x200/1A1A1A/C9A96E?text=${event.title}'">
+                <div class="event-content"><h3>${event.title}</h3><p><i class="fas fa-clock"></i> ${event.time}</p><p>${event.desc}</p><button class="btn" style="margin-top:10px; padding:8px 20px;" onclick="location.href='#contact'">Book Now</button></div>
+            </div>`;
         });
         container.innerHTML = html;
     }
 
-    function toggleMenu() {
-        document.getElementById("navLinks").classList.toggle("show");
+    function openMobileMenu() {
+        document.getElementById("mobileNav").classList.add("open");
+        document.getElementById("mobileOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
     }
+
+    function closeMobileMenu() {
+        document.getElementById("mobileNav").classList.remove("open");
+        document.getElementById("mobileOverlay").classList.remove("active");
+        document.body.style.overflow = "auto";
+    }
+
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMobileMenu(); });
 
     renderHomeCards();
     renderEvents();
