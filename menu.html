@@ -3,42 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Lantica 1960 | Arat Kilo | Ethiopian Restaurant & Cafe</title>
+    <title>Lantica 1960 | Complete Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: #0A0A0A;
             color: #E8E0D5;
-            overflow-x: hidden;
         }
-
         :root {
             --gold: #C9A96E;
             --gold-dark: #B8933F;
             --red: #B45F3B;
-            --red-dark: #8B3A1F;
             --dark-card: #1A1A1A;
-            --dark-elevated: #24201B;
             --gray: #9B8A74;
             --gray-light: #D1C5B5;
         }
 
-        /* ============ NAVIGATION ============ */
         .navbar {
             background: rgba(13,13,13,0.95);
             backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--gold);
-            position: fixed;
+            position: sticky;
             top: 0;
-            width: 100%;
             z-index: 1000;
             padding: 15px 30px;
             display: flex;
@@ -51,6 +40,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            text-decoration: none;
         }
 
         .logo-circle {
@@ -74,9 +64,7 @@
             color: white;
         }
 
-        .logo-text span {
-            color: var(--gold);
-        }
+        .logo-text span { color: var(--gold); }
 
         .nav-links {
             display: flex;
@@ -91,644 +79,313 @@
             transition: 0.3s;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--gold);
-        }
+        .nav-links a:hover { color: var(--gold); }
 
-        .mobile-menu-btn {
-            display: none;
-            font-size: 1.5rem;
-            color: var(--gold);
-            cursor: pointer;
-        }
-
-        /* ============ HERO SECTION ============ */
-        .hero {
+        .menu-header {
             background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%),
                 url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
-            height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             text-align: center;
-            margin-top: 75px;
+            padding: 80px 20px;
         }
 
-        .hero-content h1 {
+        .menu-header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             font-weight: 900;
             color: white;
         }
 
-        .hero-content h1 span {
-            color: var(--gold);
-        }
+        .menu-header h1 span { color: var(--gold); }
 
-        .hero-content p {
-            font-size: 1.2rem;
-            color: var(--gray-light);
-            margin-top: 10px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--gold);
-            color: #0A0A0A;
-            padding: 12px 30px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 700;
-            margin-top: 25px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background: var(--gold-dark);
-            transform: scale(1.02);
-        }
-
-        /* ============ CONTAINER ============ */
         .container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
-        /* ============ SECTION TITLES ============ */
-        .section-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
+        .search-bar {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            padding: 14px 20px;
+            width: 350px;
+            background: var(--dark-card);
+            border: 1px solid #2C2823;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
             margin-bottom: 40px;
         }
 
-        .section-title span {
-            color: white;
-        }
-
-        /* ============ 8 MODERN CARDS (HOME PAGE) ============ */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .menu-card {
+        .filter-btn {
             background: var(--dark-card);
-            border-radius: 24px;
-            overflow: hidden;
-            transition: 0.3s;
             border: 1px solid #2C2823;
-            cursor: pointer;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--gold);
-            box-shadow: 0 15px 40px rgba(201,169,110,0.15);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .card-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
-
-        .card-content p {
-            color: var(--gray);
-            font-size: 0.85rem;
-            margin-bottom: 12px;
-        }
-
-        .card-price {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        /* ============ ABOUT SECTION ============ */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 24px;
-        }
-
-        .about-text h3 {
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .about-text p {
+            padding: 8px 20px;
+            border-radius: 40px;
             color: var(--gray-light);
-            line-height: 1.6;
-            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* ============ FULL MENU PAGE ============ */
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gold);
+            color: #0A0A0A;
+        }
+
         .menu-category {
             margin-bottom: 50px;
         }
 
-        .menu-category h2 {
+        .category-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             color: var(--gold);
+            margin-bottom: 25px;
             border-left: 4px solid var(--gold);
             padding-left: 15px;
-            margin-bottom: 25px;
         }
 
-        .menu-items-grid {
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 15px;
         }
 
-        .menu-item-row {
+        .menu-item {
             background: var(--dark-card);
-            padding: 15px 20px;
+            padding: 18px 22px;
             border-radius: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border: 1px solid #2C2823;
-        }
-
-        .menu-item-row:hover {
-            border-color: var(--gold);
-        }
-
-        /* ============ EVENTS SECTION ============ */
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .event-card {
-            background: var(--dark-card);
-            border-radius: 24px;
-            padding: 30px;
-            text-align: center;
-            border: 1px solid var(--gold);
-        }
-
-        .event-card i {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        /* ============ MUSIC PLAYER ============ */
-        .music-section {
-            background: linear-gradient(135deg, #1E1B17 0%, #15120F 100%);
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .play-store-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: #0A0A0A;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid var(--gold);
             transition: 0.3s;
         }
 
-        .play-store-btn:hover {
-            background: var(--gold);
-            color: #0A0A0A;
-            transform: scale(1.02);
+        .menu-item:hover {
+            border-color: var(--gold);
+            transform: translateX(5px);
         }
 
-        /* ============ CONTACT SECTION ============ */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
+        .item-name { font-weight: 500; }
+        .item-price { color: var(--gold); font-weight: 700; }
 
-        .contact-info {
-            background: var(--dark-card);
-            padding: 30px;
-            border-radius: 24px;
+        .stats {
             text-align: center;
-        }
-
-        .contact-info i {
-            font-size: 2rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        /* ============ PAYMENT SECTION ============ */
-        .payment-section {
-            background: linear-gradient(135deg, #1A1A1A 0%, #0D0D0D 100%);
-            border-radius: 24px;
-            padding: 30px;
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .payment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .payment-card {
-            background: #0A0A0A;
             padding: 20px;
-            border-radius: 16px;
+            background: var(--dark-card);
+            border-radius: 20px;
+            margin-top: 30px;
         }
 
-        /* ============ FOOTER ============ */
         .footer {
             background: #020202;
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px;
             margin-top: 40px;
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .social-links a {
+        .footer a {
             color: var(--gold);
-            font-size: 1.3rem;
-            transition: 0.3s;
+            text-decoration: none;
         }
 
-        .social-links a:hover {
+        .floating-telegram {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #0088cc;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
             color: white;
-            transform: translateY(-3px);
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            z-index: 999;
+            border: 2px solid white;
         }
 
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            .nav-links {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                text-align: center;
-                padding: 20px 0;
-            }
-            .nav-links.show {
-                display: flex;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
+        .floating-telegram:hover {
+            transform: scale(1.1);
+            background: #0077b3;
+        }
+
+        @media (max-width: 700px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .menu-header h1 { font-size: 2rem; }
+            .category-title { font-size: 1.4rem; }
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- ============ NAVIGATION ============ -->
+<a href="https://t.me/+251941270797" target="_blank" class="floating-telegram">
+    <i class="fab fa-telegram-plane"></i>
+</a>
+
 <nav class="navbar">
-    <div class="logo">
+    <a href="index.html" class="logo">
         <div class="logo-circle">
-            <img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Logo">
+            <img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960">
         </div>
         <div class="logo-text">LANTICA <span>1960</span></div>
-    </div>
-    <div class="mobile-menu-btn" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-    </div>
-    <ul class="nav-links" id="navLinks">
-        <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
-        <li><a href="#" onclick="showPage('menu')">Menu</a></li>
-        <li><a href="#" onclick="showPage('about')">About</a></li>
-        <li><a href="#" onclick="showPage('events')">Events</a></li>
-        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+    </a>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html" style="color: var(--gold);">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#events">Events</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
     </ul>
 </nav>
 
-<!-- ============ HOME PAGE ============ -->
-<div id="homePage">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>LANTICA <span>1960</span></h1>
-            <p>Ethiopian Soul · Modern Elegance</p>
-            <p>📍 Arat Kilo, Addis Ababa</p>
-            <a href="#" onclick="showPage('menu'); return false;" class="btn">Explore Menu</a>
-        </div>
-    </section>
+<section class="menu-header">
+    <h1>Our <span>Complete Menu</span></h1>
+    <p style="color: var(--gray-light); margin-top: 10px;">📍 Arat Kilo, Addis Ababa | Since 1996</p>
+</section>
 
-    <div class="container">
-        <h2 class="section-title">Our <span>Signature Dishes</span></h2>
-        <div class="cards-grid" id="homeCards"></div>
+<div class="container">
+    <div class="search-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search menu items...">
     </div>
 
-    <!-- Music Player Section -->
-    <div class="container">
-        <div class="music-section">
-            <i class="fas fa-headphones" style="font-size: 3rem; color: var(--gold);"></i>
-            <h3 style="margin: 15px 0;">🎵 Lantica 1960 Playlist</h3>
-            <p style="margin-bottom: 20px;">Enjoy Ethiopian vibes while you dine</p>
-            <a href="https://play.google.com/store/music" target="_blank" class="play-store-btn">
-                <i class="fab fa-google-play"></i> Listen on Google Play Music
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- ============ MENU PAGE ============ -->
-<div id="menuPage" style="display: none;">
-    <div class="container">
-        <h2 class="section-title">Our <span>Complete Menu</span></h2>
-        <div id="fullMenuContainer"></div>
-    </div>
-</div>
-
-<!-- ============ ABOUT PAGE ============ -->
-<div id="aboutPage" style="display: none;">
-    <div class="container">
-        <h2 class="section-title">About <span>Lantica 1960</span></h2>
-        <div class="about-grid">
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" alt="Lantica Restaurant">
-            </div>
-            <div class="about-text">
-                <h3>Since 1996</h3>
-                <p>Lantica 1960 has been serving authentic Ethiopian cuisine with modern elegance. Located in the heart of Arat Kilo, Addis Ababa, we bring traditional flavors to your table.</p>
-                <p>Our chefs use family recipes passed down through generations, ensuring every dish tells a story of Ethiopian heritage.</p>
-                <h3>Our Mission</h3>
-                <p>To provide an unforgettable dining experience where tradition meets innovation, and every guest feels like family.</p>
-                <a href="#" onclick="showPage('contact'); return false;" class="btn">Visit Us</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ============ EVENTS PAGE ============ -->
-<div id="eventsPage" style="display: none;">
-    <div class="container">
-        <h2 class="section-title">Upcoming <span>Events</span></h2>
-        <div class="events-grid">
-            <div class="event-card">
-                <i class="fas fa-coffee"></i>
-                <h3>Traditional Coffee Ceremony</h3>
-                <p>Daily at 4PM</p>
-                <p style="color: var(--gray);">Experience authentic Ethiopian coffee ritual</p>
-            </div>
-            <div class="event-card">
-                <i class="fas fa-birthday-cake"></i>
-                <h3>Birthday Celebrations</h3>
-                <p>Book your special day</p>
-                <p style="color: var(--gray);">Free dessert for birthday guests</p>
-            </div>
-            <div class="event-card">
-                <i class="fas fa-champagne-glasses"></i>
-                <h3>Corporate Events</h3>
-                <p>Custom catering available</p>
-                <p style="color: var(--gray);">Perfect for meetings & celebrations</p>
-            </div>
-            <div class="event-card">
-                <i class="fas fa-utensils"></i>
-                <h3>Private Dining</h3>
-                <p>Up to 50 guests</p>
-                <p style="color: var(--gray);">Intimate setting for any occasion</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ============ CONTACT PAGE ============ -->
-<div id="contactPage" style="display: none;">
-    <div class="container">
-        <h2 class="section-title">Contact <span>Us</span></h2>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <i class="fas fa-map-marker-alt"></i>
-                <h3>Location</h3>
-                <p>Arat Kilo, Addis Ababa, Ethiopia</p>
-                <p>Near Arat Kilo Square</p>
-            </div>
-            <div class="contact-info">
-                <i class="fas fa-phone"></i>
-                <h3>Phone</h3>
-                <p>+251 98 1960 1960</p>
-                <p>+251 91 1960 1960</p>
-            </div>
-            <div class="contact-info">
-                <i class="fas fa-envelope"></i>
-                <h3>Email</h3>
-                <p>info@lantica1960.com</p>
-                <p>events@lantica1960.com</p>
-            </div>
-            <div class="contact-info">
-                <i class="fas fa-clock"></i>
-                <h3>Hours</h3>
-                <p>Monday - Sunday: 9am - 11pm</p>
-                <p>Friday & Saturday: till 1am</p>
-            </div>
-        </div>
-
-        <!-- Payment Section -->
-        <div class="payment-section">
-            <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
-            <div class="payment-grid">
-                <div class="payment-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h4>Telebirr</h4>
-                    <p>Merchant ID: <strong>1565432</strong></p>
-                </div>
-                <div class="payment-card">
-                    <i class="fas fa-university"></i>
-                    <h4>Bank Transfer</h4>
-                    <p>Account: <strong>1000234567</strong></p>
-                </div>
-                <div class="payment-card">
-                    <i class="fas fa-money-bill-wave"></i>
-                    <h4>Cash & Card</h4>
-                    <p>Accepted at counter</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="category-filter" id="categoryFilters"></div>
+    <div id="menuContainer"></div>
+    <div class="stats" id="stats"></div>
 </div>
 
 <footer class="footer">
-    <div class="social-links">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-telegram"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
-    </div>
-    <p>📍 Arat Kilo, Addis Ababa | 📞 +251 98 1960 1960</p>
-    <p>© 2026 Lantica 1960 — Ethiopian Soul · Modern Elegance</p>
+    <p>📍 Arat Kilo, Addis Ababa | 📞 +251 94 1270 797</p>
+    <p style="margin-top: 10px;">Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
 </footer>
 
 <script>
-    // ========== IMAGE BASE URL ==========
-    const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
-
-    // ========== 8 MODERN CARDS FOR HOME PAGE ==========
-    const coreMenuItems = [
-        { name: "Lamb Tibs", price: "680 ETB", desc: "Tender lamb sautéed with berbere", image: "lamb-tibs.jpg" },
-        { name: "Mahberawi Platter", price: "1200 ETB", desc: "Mixed platter for sharing", image: "mahberawi-mixed-platter.jpeg" },
-        { name: "Special Lentic Pizza", price: "580 ETB", desc: "Wood-fired lentic crust", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
-        { name: "Yefisk Agelgel", price: "1000 ETB", desc: "Signature chicken stew", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400" },
-        { name: "Ethiopian Coffee", price: "60 ETB", desc: "Traditional buna ceremony", image: "ethiopian-coffee-Buna.jpeg" },
-        { name: "Combo Fasting", price: "250 ETB", desc: "Hearty vegan platter", image: "combo-fasting-platter.jpg" },
-        { name: "Shiro Bekibe", price: "300 ETB", desc: "Rich chickpea stew", image: "shiro-bekibe.jpeg" },
-        { name: "Fresh Juice", price: "160 ETB", desc: "Papaya, mango, or avocado", image: "papaya-juice.jpg" }
-    ];
-
-    // ========== COMPLETE MENU DATA ==========
-    const fullMenu = {
+    const menuData = {
         "☀️ Breakfast": [
-            "Combo Fasting - 250 ETB", "Egg w/ meat - 250 ETB", "Special Fetora - 350 ETB",
-            "Normal Fetora - 200 ETB", "Special Chech - 250 ETB", "Normal Foul - 180 ETB",
-            "Special Foul - 250 ETB", "Tomato Cheese - 170 ETB", "Egg Sandwich - 200 ETB"
+            "Combo Fasting - 250", "Egg w/ meat - 250", "Special Fetora - 350",
+            "Normal Fetora - 200", "Special Chech - 250", "Normal Foul - 180",
+            "Special Foul - 250", "Tomato Cheese - 170", "Egg Sandwich - 200"
         ],
         "🔥 Traditional Food": [
-            "Lamb Tibs - 680 ETB", "Lamb Tibs Tefresho - 700 ETB", "Okie - 600 ETB",
-            "Chikena Tibs - 600 ETB", "Chikena Tefresho - 650 ETB", "Kitto - 1200 ETB",
-            "Quanta Firfir - 370 ETB", "Kiba Firfir - 210 ETB", "Tibes Firfir - 320 ETB",
-            "Shiro Bekibe - 300 ETB", "Dullet - 330 ETB", "Derkosh Firfir Beseg - 380 ETB",
-            "Bozena Shiro - 350 ETB", "Mahberawi - 1200 ETB", "Yefisk Agelgel - 1000 ETB",
-            "Gomen Kitto - 300 ETB"
+            "Lamb Tibs - 680", "Lamb Tibs Tefresho - 700", "Okie - 600",
+            "Chikena Tibs - 600", "Chikena Tefresho - 650", "Kitto - 1200",
+            "Quanta Firfir - 370", "Kiba Firfir - 210", "Tibes Firfir - 320",
+            "Shiro Bekibe - 300", "Dullet - 330", "Derkosh Firfir Beseg - 380",
+            "Bozena Shiro - 350", "Mahberawi - 1200", "Yefisk Agelgel - 1000", "Gomen Kitto - 300"
         ],
         "🍕 Pizza": [
-            "Special Lentic Pizza Large - 580 ETB", "Special Lentic Pizza Medium - 550 ETB",
-            "Chicken Pizza Large - 550 ETB", "Chicken Pizza Medium - 460 ETB",
-            "Margarita Large - 450 ETB", "Margarita Medium - 400 ETB", "Vegetable Pizza Large - 370 ETB"
+            "Special Lentic Pizza Large - 580", "Special Lentic Pizza Medium - 550",
+            "Chicken Pizza Large - 550", "Chicken Pizza Medium - 460",
+            "Margarita Large - 450", "Margarita Medium - 400", "Vegetable Pizza Large - 370"
         ],
+        "🍝 Spaghetti & Rice": ["Spaghetti with Vegetables - 230", "Rice - 400"],
         "🍔 Burgers & Sandwiches": [
-            "Noma Burger - 305 ETB", "Cheese Burger - 350 ETB", "Noma Ketchup - 380 ETB",
-            "Club Sandwich - 360 ETB", "Tuna Sandwich - 350 ETB", "Vegetable Sandwich - 160 ETB",
-            "Chicken Shawarma - 600 ETB", "French Fries - 180 ETB"
+            "Noma Burger - 305", "Cheese Burger - 350", "Noma Ketchup - 380",
+            "Club Sandwich - 360", "Tuna Sandwich - 350", "Vegetable Sandwich - 160",
+            "Chicken Shawarma - 600", "French Fries - 180"
         ],
-        "🥤 Juices & Drinks": [
-            "Papaya Juice - 160 ETB", "Avocado Juice - 160 ETB", "Mango Juice - 160 ETB",
-            "Telba Juice - 200 ETB", "Soft Drink - 60 ETB", "Ambo Water - 65 ETB",
-            "Mineral Water 1L - 55 ETB"
+        "🥩 Pork Selections": [
+            "Pork Chop - 320", "Pork Sausage - 180", "Pork Steak - 570",
+            "Pork Loin - 200", "Pork Ribs - 400", "Pork Belly - 380", "Pork Shoulder - 400"
         ],
+        "🥗 Soup & Salad": ["Vegetable Soup - 180", "Mixed Salad - 200", "Chicken Salad - 300"],
+        "🍲 Fast Food": [
+            "Special Lantica Fasting - 500", "Normal Firfir - 180", "Shiro - 275",
+            "Tegabino - 300", "Derkosh Firfir Fasting - 220", "Mesere - 250", "Hafe Hafe - 280"
+        ],
+        "🥤 Fresh Juices": ["Papaya Juice - 160", "Avocado Juice - 160", "Mango Juice - 160", "Telba Juice - 200"],
+        "🧊 Cold Drinks": [
+            "1/4 Water - 20", "1/2 Water - 35", "1 Liter Water - 55", "2 Liter Water - 75",
+            "Soft Drink - 60", "Ambo Water - 65", "Plastic Soft Drink - 70", "Tonic Water - 80"
+        ],
+        "🍺 Beer & Draft": ["Normal Beer - 100", "Big Bedla - 120", "Hicnek Beer - 125", "Arada Beer - 130", "Janibo - 145", "Single Draft - 65"],
+        "🍷 Wine List": ["Axmite - 900", "Guder Big - 720", "Kmila Big - 800", "Gebeta - 1100", "Aksejar - 1200"],
         "☕ Hot Beverages": [
-            "Tea - 30 ETB", "Coffee - 60 ETB", "Latte - 70 ETB", "Macchiato - 75 ETB",
-            "Hot Chocolate - 80 ETB", "Special Tea - 150 ETB"
-        ],
-        "🍺 Beer & Wine": [
-            "Normal Beer - 100 ETB", "Big Bedla - 120 ETB", "Single Draft - 65 ETB",
-            "Axmite Wine - 900 ETB", "Guder Big - 720 ETB", "Gebeta - 1100 ETB"
+            "Tea - 30", "Coffee - 60", "Milk - 80", "Latte - 70", "Macchiato - 75",
+            "Spires - 60", "Lewis Tea - 75", "Kesher - 50", "Tea with Lemon - 45",
+            "Flavor Tea - 65", "Special Tea - 150", "Fasting Macchiato - 85", "Hot Chocolate - 80"
         ]
     };
 
-    // Render Home Cards
-    function renderHomeCards() {
-        const container = document.getElementById("homeCards");
-        let html = "";
-        coreMenuItems.forEach(item => {
-            let imgUrl = item.image.startsWith('http') ? item.image : baseImageUrl + item.image;
-            html += `
-                <div class="menu-card" onclick="showPage('menu')">
-                    <img class="card-image" src="${imgUrl}" alt="${item.name}" onerror="this.src='https://placehold.co/400x220/1A1A1A/C9A96E?text=${item.name}'">
-                    <div class="card-content">
-                        <h3>${item.name}</h3>
-                        <p>${item.desc}</p>
-                        <span class="card-price">${item.price}</span>
-                    </div>
-                </div>
-            `;
+    let currentFilter = "all";
+    let currentSearch = "";
+
+    function getCategories() { return Object.keys(menuData); }
+
+    function renderFilters() {
+        const categories = getCategories();
+        let html = `<button class="filter-btn ${currentFilter === "all" ? "active" : ""}" onclick="setFilter('all')">All</button>`;
+        categories.forEach(cat => {
+            html += `<button class="filter-btn ${currentFilter === cat ? "active" : ""}" onclick="setFilter('${cat}')">${cat}</button>`;
         });
-        container.innerHTML = html;
+        document.getElementById("categoryFilters").innerHTML = html;
     }
 
-    // Render Full Menu Page
-    function renderFullMenu() {
-        const container = document.getElementById("fullMenuContainer");
+    function setFilter(category) {
+        currentFilter = category;
+        renderFilters();
+        renderMenu();
+    }
+
+    function setSearch() {
+        currentSearch = document.getElementById("searchInput").value.toLowerCase();
+        renderMenu();
+    }
+
+    function renderMenu() {
+        const container = document.getElementById("menuContainer");
+        const categories = getCategories();
+        let totalItems = 0;
         let html = "";
-        for (const [category, items] of Object.entries(fullMenu)) {
-            html += `<div class="menu-category">
-                <h2>${category}</h2>
-                <div class="menu-items-grid">`;
-            items.forEach(item => {
+
+        for (const category of categories) {
+            if (currentFilter !== "all" && currentFilter !== category) continue;
+            const items = menuData[category];
+            let filteredItems = currentSearch ? items.filter(item => item.toLowerCase().includes(currentSearch)) : items;
+            if (filteredItems.length === 0) continue;
+
+            html += `<div class="menu-category"><div class="category-title">${category}</div><div class="menu-grid">`;
+            filteredItems.forEach(item => {
+                totalItems++;
                 let parts = item.split(" - ");
-                let name = parts[0];
-                let price = parts[1];
-                html += `<div class="menu-item-row">
-                    <span>${name}</span>
-                    <span class="card-price">${price}</span>
-                </div>`;
+                html += `<div class="menu-item"><span class="item-name">${parts[0]}</span><span class="item-price">${parts[1]} ETB</span></div>`;
             });
             html += `</div></div>`;
         }
+
+        if (html === "") html = `<div style="text-align:center;padding:50px;"><i class="fas fa-search" style="font-size:3rem;color:var(--gold);"></i><h3>No items found</h3></div>`;
         container.innerHTML = html;
+        document.getElementById("stats").innerHTML = `<i class="fas fa-list"></i> Showing ${totalItems} menu items | 📞 Order: +251 94 1270 797`;
     }
 
-    // Page Navigation
-    function showPage(page) {
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("menuPage").style.display = "none";
-        document.getElementById("aboutPage").style.display = "none";
-        document.getElementById("eventsPage").style.display = "none";
-        document.getElementById("contactPage").style.display = "none";
-        
-        if (page === "home") document.getElementById("homePage").style.display = "block";
-        if (page === "menu") document.getElementById("menuPage").style.display = "block";
-        if (page === "about") document.getElementById("aboutPage").style.display = "block";
-        if (page === "events") document.getElementById("eventsPage").style.display = "block";
-        if (page === "contact") document.getElementById("contactPage").style.display = "block";
-        
-        // Update active nav link
-        document.querySelectorAll(".nav-links a").forEach(link => {
-            link.classList.remove("active");
-        });
-        event.target.classList.add("active");
-        
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function toggleMenu() {
-        document.getElementById("navLinks").classList.toggle("show");
-    }
-
-    // Initialize
-    renderHomeCards();
-    renderFullMenu();
+    document.getElementById("searchInput").addEventListener("keyup", setSearch);
+    renderFilters();
+    renderMenu();
 </script>
 </body>
 </html>
