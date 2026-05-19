@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Lantica 1960 | Arat Kilo | Ethiopian Restaurant & Cafe</title>
     <meta name="description" content="Lantica 1960 - Authentic Ethiopian cuisine since 1996. Located at Arat Kilo, Addis Ababa. Traditional dishes, coffee ceremony, private events.">
-    <meta name="keywords" content="Ethiopian restaurant, Arat Kilo, Addis Ababa, traditional food, coffee ceremony, Lantica">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -447,11 +446,11 @@
             font-size: 0.85rem;
         }
 
-        /* Music Section */
+        /* Music Section - Vintage Player */
         .music-section {
             background: linear-gradient(135deg, #1E1B17 0%, #15120F 100%);
-            border-radius: 28px;
-            padding: 45px 30px;
+            border-radius: 32px;
+            padding: 40px 25px;
             text-align: center;
             border: 1px solid rgba(201,169,110,0.2);
             transition: 0.3s;
@@ -462,12 +461,181 @@
             box-shadow: 0 10px 30px rgba(201,169,110,0.1);
         }
 
-        .music-embed {
+        /* Vintage Radio Player */
+        .vintage-player {
+            background: linear-gradient(145deg, #2C2418 0%, #1A1510 100%);
+            border-radius: 32px;
+            padding: 22px;
+            max-width: 550px;
+            margin: 0 auto;
+            border: 1px solid var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+
+        .vintage-player:hover {
+            box-shadow: 0 25px 50px rgba(201,169,110,0.15);
+            border-color: var(--gold);
+        }
+
+        .vintage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(201,169,110,0.3);
+            margin-bottom: 15px;
+        }
+
+        .vintage-display {
+            background: #0A0A0A;
             border-radius: 20px;
-            overflow: hidden;
-            max-width: 800px;
-            margin: 20px auto 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #3D3525;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .display-screen {
+            background: #111108;
+            border-radius: 14px;
+            padding: 15px;
+            color: #D4C9A8;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px rgba(201,169,110,0.3);
+        }
+
+        .station-name {
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .frequency {
+            font-size: 0.65rem;
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            height: 40px;
+            margin: 10px 0;
+        }
+
+        .visualizer span {
+            width: 5px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 3px;
+            transition: height 0.1s ease;
+        }
+
+        .now-playing {
+            font-size: 0.7rem;
+            text-align: center;
+            color: var(--gray-light);
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(201,169,110,0.2);
+        }
+
+        .vintage-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .vintage-btn {
+            background: #2C2418;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vintage-btn:hover {
+            background: var(--gold);
+            color: #0A0A0A;
+            transform: scale(1.05);
+        }
+
+        .volume-knob {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #0A0A0A;
+            padding: 8px 15px;
+            border-radius: 40px;
+            border: 1px solid #3D3525;
+        }
+
+        .volume-knob i {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .volume-knob input {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #3D3525;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .volume-knob input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+        }
+
+        .signal-strength {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0A0A0A;
+            padding: 8px 15px;
+            border-radius: 40px;
+            border: 1px solid #3D3525;
+            font-size: 0.7rem;
+        }
+
+        .signal-strength i {
+            color: var(--gold);
+        }
+
+        .vintage-footer {
+            text-align: center;
+            font-size: 0.6rem;
+            color: var(--gray);
+            letter-spacing: 1px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(201,169,110,0.2);
         }
 
         /* Contact Grid */
@@ -615,57 +783,26 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .mobile-menu-btn {
-                display: flex;
-            }
-            .hero {
-                height: 70vh;
-                margin-top: 69px;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .hero-content p {
-                font-size: 0.9rem;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            .cards-grid, .events-grid, .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            .container {
-                padding: 50px 20px;
-            }
-            .floating-telegram {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-                bottom: 20px;
-                left: 20px;
-            }
-            .music-embed iframe {
-                height: 180px;
-            }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .hero { height: 70vh; margin-top: 69px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 0.9rem; }
+            .section-title { font-size: 1.8rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .cards-grid, .events-grid, .contact-grid { grid-template-columns: 1fr; }
+            .container { padding: 50px 20px; }
+            .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; bottom: 20px; left: 20px; }
+            .vintage-controls { justify-content: center; }
+            .volume-knob input { width: 80px; }
         }
 
         @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-            .btn {
-                padding: 10px 24px;
-                font-size: 0.8rem;
-            }
-            .section-title {
-                font-size: 1.5rem;
-            }
+            .hero-content h1 { font-size: 2rem; }
+            .btn { padding: 10px 24px; font-size: 0.8rem; }
+            .section-title { font-size: 1.5rem; }
+            .vintage-player { padding: 15px; }
+            .station-name { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -729,25 +866,56 @@
     <div class="cards-grid" id="homeCards"></div>
 </div>
 
-<!-- MUSIC SECTION - YOUR ETHIOPIAN CLASSICAL PLAYLIST -->
+<!-- MUSIC SECTION - VINTAGE RADIO PLAYER -->
 <div class="container">
     <div class="music-section">
-        <i class="fas fa-music" style="font-size: 3rem; color: var(--gold);"></i>
-        <h3 style="margin: 15px 0;">🎵 Ethiopian Classical Music Collection</h3>
-        <p style="margin-bottom: 20px; color: var(--gray-light);">Relaxing Ethiopian classical & instrumental melodies for your dining experience</p>
-        
-        <div class="music-embed">
-            <iframe width="100%" height="315" 
-                src="https://www.youtube.com/embed/videoseries?list=PLQFIfg3XqAGJaZBbBeBy8yr0Sscr9oQYP&autoplay=0&loop=1&color=white&modestbranding=1&rel=0" 
-                title="Ethiopian Classical Music Collection" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+        <div class="vintage-player">
+            <div class="vintage-header">
+                <i class="fas fa-broadcast-tower"></i>
+                <span>LAN TUNER 1960</span>
+                <i class="fas fa-signal"></i>
+            </div>
+            
+            <div class="vintage-display">
+                <div class="display-screen">
+                    <div class="station-name">RADIO SWISS JAZZ</div>
+                    <div class="frequency">FM 88.9 MHz | STEREO</div>
+                    <div class="visualizer" id="visualizer">
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="now-playing" id="nowPlaying">
+                        <i class="fas fa-music"></i> Smooth Jazz Instrumental
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vintage-controls">
+                <button id="playPauseBtn" class="vintage-btn" onclick="togglePlayPause()">
+                    <i class="fas fa-play"></i>
+                </button>
+                <div class="volume-knob">
+                    <i class="fas fa-volume-down"></i>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+                <div class="signal-strength">
+                    <i class="fas fa-wifi"></i>
+                    <span id="connectionStatus">Connected</span>
+                </div>
+            </div>
+            
+            <div class="vintage-footer">
+                <span>✦ LIVE FROM SWITZERLAND ✦</span>
+            </div>
         </div>
         
-        <p style="margin-top: 18px; font-size: 0.7rem; color: var(--gray);">
-            🎧 Ethiopian Classical Music for relaxation, stress relief, and ambiance | No account needed | Click play to enjoy
+        <audio id="radioPlayer" style="display: none;" preload="none">
+            <source src="https://stream.srg-ssr.ch/m/rsj/mp3_128" type="audio/mpeg">
+        </audio>
+        
+        <p style="margin-top: 20px; font-size: 0.65rem; color: var(--gray); text-align: center;">
+            🎧 Smooth jazz instrumental | No sign-in required | Perfect dining ambiance
         </p>
     </div>
 </div>
@@ -854,6 +1022,83 @@
 </footer>
 
 <script>
+    // Radio Player Elements
+    const audio = document.getElementById('radioPlayer');
+    const playBtn = document.getElementById('playPauseBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const connectionStatus = document.getElementById('connectionStatus');
+    const visualizerBars = document.querySelectorAll('#visualizer span');
+    const nowPlayingElement = document.getElementById('nowPlaying');
+
+    let isPlaying = false;
+    let visualizerInterval = null;
+
+    // Visualizer animation
+    function startVisualizer() {
+        if (visualizerInterval) clearInterval(visualizerInterval);
+        visualizerInterval = setInterval(() => {
+            if (isPlaying) {
+                visualizerBars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 25) + 5;
+                    bar.style.height = randomHeight + 'px';
+                });
+            } else {
+                visualizerBars.forEach(bar => {
+                    bar.style.height = '8px';
+                });
+            }
+        }, 150);
+    }
+
+    // Toggle Play/Pause
+    function togglePlayPause() {
+        if (isPlaying) {
+            audio.pause();
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            isPlaying = false;
+            connectionStatus.innerHTML = 'Paused';
+            nowPlayingElement.innerHTML = '<i class="fas fa-pause-circle"></i> Radio paused';
+        } else {
+            audio.play().then(() => {
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                isPlaying = true;
+                connectionStatus.innerHTML = 'Connected';
+                nowPlayingElement.innerHTML = '<i class="fas fa-music"></i> Radio Swiss Jazz - Smooth Instrumental';
+            }).catch(error => {
+                console.log('Playback error:', error);
+                connectionStatus.innerHTML = 'Click play';
+                nowPlayingElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Click play to start';
+            });
+        }
+    }
+
+    // Volume control
+    volumeSlider.addEventListener('input', (e) => {
+        audio.volume = e.target.value / 100;
+    });
+
+    // Handle when audio starts playing
+    audio.addEventListener('play', () => {
+        isPlaying = true;
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        connectionStatus.innerHTML = 'Connected';
+        nowPlayingElement.innerHTML = '<i class="fas fa-music"></i> Radio Swiss Jazz - Smooth Instrumental';
+    });
+
+    audio.addEventListener('pause', () => {
+        isPlaying = false;
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        connectionStatus.innerHTML = 'Paused';
+    });
+
+    audio.addEventListener('error', () => {
+        connectionStatus.innerHTML = 'Retrying...';
+        nowPlayingElement.innerHTML = '<i class="fas fa-sync-alt"></i> Reconnecting...';
+    });
+
+    // Start visualizer
+    startVisualizer();
+
     // Image Base URL
     const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
     
