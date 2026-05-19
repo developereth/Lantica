@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Lantica 1960 | Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0A;
+            color: #E8E0D5;
+        }
+        :root {
+            --gold: #C9A96E;
+            --gold-dark: #B8933F;
+            --dark-card: #1A1A1A;
+            --gray: #9B8A74;
+            --gray-light: #D1C5B5;
+        }
+
+        .navbar {
+            background: rgba(13,13,13,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .logo-text span { color: var(--gold); }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .gallery-header {
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%),
+                url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .gallery-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .gallery-header h1 span { color: var(--gold); }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            background: var(--dark-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.3s;
+            border: 1px solid #2C2823;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(201,169,110,0.2);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+            color: var(--gray-light);
+        }
+
+        /* Lightbox Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 16px;
+            border: 2px solid var(--gold);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .footer {
+            background: #020202;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .floating-telegram {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #0088cc;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            z-index: 999;
+            border: 2px solid white;
+        }
+
+        .floating-telegram:hover {
+            transform: scale(1.1);
+            background: #0077b3;
+        }
+
+        @media (max-width: 700px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-header h1 { font-size: 2rem; }
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="https://t.me/+251941270797" target="_blank" class="floating-telegram">
+    <i class="fab fa-telegram-plane"></i>
+</a>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <div class="logo-circle">
+            <img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960">
+        </div>
+        <div class="logo-text">LANTICA <span>1960</span></div>
+    </a>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="gallery.html" style="color: var(--gold);">Gallery</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#events">Events</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="gallery-header">
+    <h1>Our <span>Gallery</span></h1>
+    <p style="color: var(--gray-light); margin-top: 10px;">Experience the ambiance and flavors of Lantica 1960</p>
+</section>
+
+<div class="container">
+    <div class="gallery-grid" id="galleryGrid"></div>
+</div>
+
+<div class="modal" id="imageModal" onclick="closeModal()">
+    <span class="modal-close">&times;</span>
+    <img id="modalImage" src="">
+</div>
+
+<footer class="footer">
+    <p>📍 Arat Kilo, Addis Ababa | 📞 +251 94 1270 797</p>
+    <p style="margin-top: 10px;">Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
+</footer>
+
+<script>
+    const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
+
+    const galleryImages = [
+        { name: "Lamb Tibs", image: "lamb-tibs.jpg" },
+        { name: "Mahberawi Mixed Platter", image: "mahberawi-mixed-platter.jpeg" },
+        { name: "Ethiopian Coffee", image: "ethiopian-coffee-Buna.jpeg" },
+        { name: "Combo Fasting Platter", image: "combo-fasting-platter.jpg" },
+        { name: "Shiro Bekibe", image: "shiro-bekibe.jpeg" },
+        { name: "Papaya Juice", image: "papaya-juice.jpg" },
+        { name: "Avocado Juice", image: "avocado-juice.png" },
+        { name: "Mango Juice", image: "mango-juice.jpeg" },
+        { name: "Latte", image: "Latte.jpg" },
+        { name: "Macchiato", image: "mackiyato.jpg" },
+        { name: "Tibes Firfir", image: "tibis-firfir.jpg" },
+        { name: "Gomen Kitto", image: "gomen-kitfo.jpg" },
+        { name: "Tegabino", image: "tegabino.jpg" },
+        { name: "Telba Juice", image: "tella-juice.webp" },
+        { name: "Spaghetti with Meat Sauce", image: "Spaghetti-with-meat-sauce.jpg" },
+        { name: "Pasta with Vegetables", image: "pasta-with-veggies-25.jpg" },
+        { name: "Mixed Fruit Juice", image: "mixed-fruit-juice-500x500.jpg" },
+        { name: "Mixed Garden Salad", image: "mixed-garden-salad-2.jpg" },
+        { name: "Kiba Firfir", image: "kiba-firfir.webp" },
+        { name: "Dulet", image: "dulet-minced-tripe.jpeg" },
+        { name: "Tomato Lebleb", image: "tomato-lebleb.jpg" },
+        { name: "Hot Chocolate", image: "hot-chocolate.jpg" },
+        { name: "House Special Coffee", image: "house-special-coffee.jpg" },
+        { name: "Ambo Water", image: "ambo-water.jpeg" },
+        { name: "Soft Drink", image: "soft-drink.jpeg" },
+        { name: "Ice Tea", image: "ice-tea-1200x1800-1.jpeg" }
+    ];
+
+    function renderGallery() {
+        const container = document.getElementById("galleryGrid");
+        let html = "";
+        galleryImages.forEach(item => {
+            let imgUrl = item.image.startsWith('http') ? item.image : baseImageUrl + item.image;
+            html += `
+                <div class="gallery-item" onclick="openModal('${imgUrl}')">
+                    <img class="gallery-image" src="${imgUrl}" alt="${item.name}" onerror="this.src='https://placehold.co/400x250/1A1A1A/C9A96E?text=${item.name}'">
+                    <div class="gallery-caption">${item.name}</div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    function openModal(imgSrc) {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        modal.style.display = "flex";
+        modalImg.src = imgSrc;
+    }
+
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+
+    renderGallery();
+</script>
+</body>
+</html>
