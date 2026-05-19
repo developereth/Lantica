@@ -16,7 +16,6 @@
         :root {
             --gold: #C9A96E;
             --gold-dark: #B8933F;
-            --red: #B45F3B;
             --dark-card: #1A1A1A;
             --gray: #9B8A74;
             --gray-light: #D1C5B5;
@@ -33,7 +32,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
         }
 
         .logo {
@@ -81,16 +79,93 @@
 
         .nav-links a:hover { color: var(--gold); }
 
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--gold);
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: #0D0D0D;
+            border-right: 2px solid var(--gold);
+            z-index: 1101;
+            transition: left 0.3s ease;
+            padding: 80px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mobile-nav.open { left: 0; }
+
+        .mobile-nav a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px 15px;
+            border-radius: 12px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-nav a i { width: 25px; color: var(--gold); }
+        .mobile-nav a:hover { background: rgba(201,169,110,0.1); color: var(--gold); }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--gold);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
         .menu-header {
             background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%),
                 url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
             text-align: center;
-            padding: 80px 20px;
+            padding: 100px 20px 60px;
         }
 
         .menu-header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 900;
             color: white;
         }
@@ -104,14 +179,15 @@
         }
 
         .search-bar {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: center;
         }
 
         .search-input {
             padding: 14px 20px;
-            width: 350px;
+            width: 100%;
+            max-width: 400px;
             background: var(--dark-card);
             border: 1px solid #2C2823;
             border-radius: 50px;
@@ -142,21 +218,17 @@
             transition: 0.3s;
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
+        .filter-btn:hover, .filter-btn.active {
             background: var(--gold);
             color: #0A0A0A;
         }
 
-        .menu-category {
-            margin-bottom: 50px;
-        }
-
+        .menu-category { margin-bottom: 50px; }
         .category-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--gold);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-left: 4px solid var(--gold);
             padding-left: 15px;
         }
@@ -194,18 +266,6 @@
             margin-top: 30px;
         }
 
-        .footer {
-            background: #020202;
-            text-align: center;
-            padding: 30px;
-            margin-top: 40px;
-        }
-
-        .footer a {
-            color: var(--gold);
-            text-decoration: none;
-        }
-
         .floating-telegram {
             position: fixed;
             bottom: 30px;
@@ -231,13 +291,22 @@
             background: #0077b3;
         }
 
-        @media (max-width: 700px) {
-            .menu-grid { grid-template-columns: 1fr; }
+        .footer {
+            background: #020202;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .footer a { color: var(--gold); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: flex; }
             .menu-header h1 { font-size: 2rem; }
-            .category-title { font-size: 1.4rem; }
-            .navbar { flex-direction: column; gap: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
-            .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; }
+            .category-title { font-size: 1.3rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; bottom: 20px; left: 20px; }
         }
     </style>
 </head>
@@ -247,21 +316,33 @@
     <i class="fab fa-telegram-plane"></i>
 </a>
 
+<div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+<div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" onclick="closeMobileMenu()">✕</button>
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="menu.html"><i class="fas fa-utensils"></i> Menu</a>
+    <a href="gallery.html"><i class="fas fa-images"></i> Food Gallery</a>
+    <a href="heritage.html"><i class="fas fa-landmark"></i> Heritage</a>
+    <a href="index.html#about"><i class="fas fa-info-circle"></i> About</a>
+    <a href="index.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
+    <a href="index.html#contact"><i class="fas fa-phone-alt"></i> Contact</a>
+</div>
+
 <nav class="navbar">
     <a href="index.html" class="logo">
-        <div class="logo-circle">
-            <img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960">
-        </div>
+        <div class="logo-circle"><img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960"></div>
         <div class="logo-text">LANTICA <span>1960</span></div>
     </a>
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="menu.html" style="color: var(--gold);">Menu</a></li>
         <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="heritage.html">Heritage</a></li>
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#events">Events</a></li>
         <li><a href="index.html#contact">Contact</a></li>
     </ul>
+    <button class="mobile-menu-btn" onclick="openMobileMenu()"><i class="fas fa-bars"></i></button>
 </nav>
 
 <section class="menu-header">
@@ -270,10 +351,7 @@
 </section>
 
 <div class="container">
-    <div class="search-bar">
-        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search menu items...">
-    </div>
-
+    <div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="🔍 Search menu items..."></div>
     <div class="category-filter" id="categoryFilters"></div>
     <div id="menuContainer"></div>
     <div class="stats" id="stats"></div>
@@ -281,55 +359,17 @@
 
 <footer class="footer">
     <p>📍 Arat Kilo, Addis Ababa | 📞 +251 94 1270 797</p>
-    <p style="margin-top: 10px;">Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
+    <p>Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
 </footer>
 
 <script>
     const menuData = {
-        "☀️ Breakfast": [
-            "Combo Fasting - 250", "Egg w/ meat - 250", "Special Fetora - 350",
-            "Normal Fetora - 200", "Special Chech - 250", "Normal Foul - 180",
-            "Special Foul - 250", "Tomato Cheese - 170", "Egg Sandwich - 200"
-        ],
-        "🔥 Traditional Food": [
-            "Lamb Tibs - 680", "Lamb Tibs Tefresho - 700", "Okie - 600",
-            "Chikena Tibs - 600", "Chikena Tefresho - 650", "Kitto - 1200",
-            "Quanta Firfir - 370", "Kiba Firfir - 210", "Tibes Firfir - 320",
-            "Shiro Bekibe - 300", "Dullet - 330", "Derkosh Firfir Beseg - 380",
-            "Bozena Shiro - 350", "Mahberawi - 1200", "Yefisk Agelgel - 1000", "Gomen Kitto - 300"
-        ],
-        "🍕 Pizza": [
-            "Special Lentic Pizza Large - 580", "Special Lentic Pizza Medium - 550",
-            "Chicken Pizza Large - 550", "Chicken Pizza Medium - 460",
-            "Margarita Large - 450", "Margarita Medium - 400", "Vegetable Pizza Large - 370"
-        ],
-        "🍝 Spaghetti & Rice": ["Spaghetti with Vegetables - 230", "Rice - 400"],
-        "🍔 Burgers & Sandwiches": [
-            "Noma Burger - 305", "Cheese Burger - 350", "Noma Ketchup - 380",
-            "Club Sandwich - 360", "Tuna Sandwich - 350", "Vegetable Sandwich - 160",
-            "Chicken Shawarma - 600", "French Fries - 180"
-        ],
-        "🥩 Pork Selections": [
-            "Pork Chop - 320", "Pork Sausage - 180", "Pork Steak - 570",
-            "Pork Loin - 200", "Pork Ribs - 400", "Pork Belly - 380", "Pork Shoulder - 400"
-        ],
-        "🥗 Soup & Salad": ["Vegetable Soup - 180", "Mixed Salad - 200", "Chicken Salad - 300"],
-        "🍲 Fast Food": [
-            "Special Lantica Fasting - 500", "Normal Firfir - 180", "Shiro - 275",
-            "Tegabino - 300", "Derkosh Firfir Fasting - 220", "Mesere - 250", "Hafe Hafe - 280"
-        ],
-        "🥤 Fresh Juices": ["Papaya Juice - 160", "Avocado Juice - 160", "Mango Juice - 160", "Telba Juice - 200"],
-        "🧊 Cold Drinks": [
-            "1/4 Water - 20", "1/2 Water - 35", "1 Liter Water - 55", "2 Liter Water - 75",
-            "Soft Drink - 60", "Ambo Water - 65", "Plastic Soft Drink - 70", "Tonic Water - 80"
-        ],
-        "🍺 Beer & Draft": ["Normal Beer - 100", "Big Bedla - 120", "Hicnek Beer - 125", "Arada Beer - 130", "Janibo - 145", "Single Draft - 65"],
-        "🍷 Wine List": ["Axmite - 900", "Guder Big - 720", "Kmila Big - 800", "Gebeta - 1100", "Aksejar - 1200"],
-        "☕ Hot Beverages": [
-            "Tea - 30", "Coffee - 60", "Milk - 80", "Latte - 70", "Macchiato - 75",
-            "Spires - 60", "Lewis Tea - 75", "Kesher - 50", "Tea with Lemon - 45",
-            "Flavor Tea - 65", "Special Tea - 150", "Fasting Macchiato - 85", "Hot Chocolate - 80"
-        ]
+        "☀️ Breakfast": ["Combo Fasting - 250", "Egg w/ meat - 250", "Special Fetora - 350", "Normal Fetora - 200", "Egg Sandwich - 200"],
+        "🔥 Traditional Food": ["Lamb Tibs - 680", "Lamb Tibs Tefresho - 700", "Chikena Tibs - 600", "Mahberawi - 1200", "Yefisk Agelgel - 1000", "Gomen Kitto - 300"],
+        "🍕 Pizza": ["Special Lentic Pizza Large - 580", "Chicken Pizza Large - 550", "Margarita Large - 450"],
+        "🍔 Burgers": ["Noma Burger - 305", "Cheese Burger - 350", "Chicken Shawarma - 600", "French Fries - 180"],
+        "🥤 Juices": ["Papaya Juice - 160", "Avocado Juice - 160", "Mango Juice - 160"],
+        "☕ Hot Beverages": ["Tea - 30", "Coffee - 60", "Latte - 70", "Macchiato - 75", "Hot Chocolate - 80"]
     };
 
     let currentFilter = "all";
@@ -338,54 +378,33 @@
     function getCategories() { return Object.keys(menuData); }
 
     function renderFilters() {
-        const categories = getCategories();
         let html = `<button class="filter-btn ${currentFilter === "all" ? "active" : ""}" onclick="setFilter('all')">All</button>`;
-        categories.forEach(cat => {
-            html += `<button class="filter-btn ${currentFilter === cat ? "active" : ""}" onclick="setFilter('${cat}')">${cat}</button>`;
-        });
+        getCategories().forEach(cat => { html += `<button class="filter-btn ${currentFilter === cat ? "active" : ""}" onclick="setFilter('${cat}')">${cat}</button>`; });
         document.getElementById("categoryFilters").innerHTML = html;
     }
 
-    function setFilter(category) {
-        currentFilter = category;
-        renderFilters();
-        renderMenu();
-    }
-
-    function setSearch() {
-        currentSearch = document.getElementById("searchInput").value.toLowerCase();
-        renderMenu();
-    }
+    function setFilter(category) { currentFilter = category; renderFilters(); renderMenu(); }
+    function setSearch() { currentSearch = document.getElementById("searchInput").value.toLowerCase(); renderMenu(); }
 
     function renderMenu() {
-        const container = document.getElementById("menuContainer");
-        const categories = getCategories();
-        let totalItems = 0;
-        let html = "";
-
-        for (const category of categories) {
+        let totalItems = 0, html = "";
+        for (const [category, items] of Object.entries(menuData)) {
             if (currentFilter !== "all" && currentFilter !== category) continue;
-            const items = menuData[category];
-            let filteredItems = currentSearch ? items.filter(item => item.toLowerCase().includes(currentSearch)) : items;
+            let filteredItems = currentSearch ? items.filter(i => i.toLowerCase().includes(currentSearch)) : items;
             if (filteredItems.length === 0) continue;
-
             html += `<div class="menu-category"><div class="category-title">${category}</div><div class="menu-grid">`;
-            filteredItems.forEach(item => {
-                totalItems++;
-                let parts = item.split(" - ");
-                html += `<div class="menu-item"><span class="item-name">${parts[0]}</span><span class="item-price">${parts[1]} ETB</span></div>`;
-            });
+            filteredItems.forEach(item => { totalItems++; let p = item.split(" - "); html += `<div class="menu-item"><span class="item-name">${p[0]}</span><span class="item-price">${p[1]} ETB</span></div>`; });
             html += `</div></div>`;
         }
-
-        if (html === "") html = `<div style="text-align:center;padding:50px;"><i class="fas fa-search" style="font-size:3rem;color:var(--gold);"></i><h3>No items found</h3></div>`;
-        container.innerHTML = html;
+        document.getElementById("menuContainer").innerHTML = html || '<div style="text-align:center;padding:50px;"><i class="fas fa-search" style="font-size:3rem;color:var(--gold);"></i><h3>No items found</h3></div>';
         document.getElementById("stats").innerHTML = `<i class="fas fa-list"></i> Showing ${totalItems} menu items | 📞 Order: +251 94 1270 797`;
     }
 
+    function openMobileMenu() { document.getElementById("mobileNav").classList.add("open"); document.getElementById("mobileOverlay").classList.add("active"); document.body.style.overflow = "hidden"; }
+    function closeMobileMenu() { document.getElementById("mobileNav").classList.remove("open"); document.getElementById("mobileOverlay").classList.remove("active"); document.body.style.overflow = "auto"; }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
     document.getElementById("searchInput").addEventListener("keyup", setSearch);
-    renderFilters();
-    renderMenu();
+    renderFilters(); renderMenu();
 </script>
 </body>
 </html>
