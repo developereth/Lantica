@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Lantica 1960 | Heritage Gallery | Memory & Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0A;
+            color: #E8E0D5;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --gold: #C9A96E;
+            --gold-dark: #B8933F;
+            --red: #B45F3B;
+            --dark-card: #1A1A1A;
+            --dark-elevated: #24201B;
+            --gray: #9B8A74;
+            --gray-light: #D1C5B5;
+        }
+
+        /* ============ VINTAGE BACKGROUND ============ */
+        .vintage-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(201,169,110,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ============ NAVIGATION - DESKTOP ============ */
+        .navbar {
+            background: rgba(13,13,13,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .logo-text span {
+            color: var(--gold);
+        }
+
+        /* Desktop Navigation */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        /* ============ MOBILE MENU BUTTON ============ */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--gold);
+            cursor: pointer;
+            z-index: 1002;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(201,169,110,0.1);
+        }
+
+        /* ============ SLIDE-OUT MOBILE MENU ============ */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: #0D0D0D;
+            border-right: 2px solid var(--gold);
+            z-index: 1101;
+            transition: left 0.3s ease;
+            padding: 80px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-nav.open {
+            left: 0;
+        }
+
+        .mobile-nav a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 12px 15px;
+            border-radius: 12px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-nav a i {
+            width: 25px;
+            color: var(--gold);
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+            background: rgba(201,169,110,0.1);
+            color: var(--gold);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--gold);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* ============ HERITAGE HERO ============ */
+        .heritage-hero {
+            background: linear-gradient(135deg, #0A0A0A 0%, #1a1612 100%);
+            text-align: center;
+            padding: 100px 20px 60px;
+            position: relative;
+            border-bottom: 1px solid rgba(201,169,110,0.3);
+        }
+
+        .heritage-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .heritage-hero h1 span {
+            color: white;
+        }
+
+        .heritage-hero p {
+            color: var(--gray-light);
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .quote {
+            font-style: italic;
+            margin-top: 30px;
+            padding: 20px;
+            border-left: 3px solid var(--gold);
+            background: rgba(201,169,110,0.05);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============ CONTAINER ============ */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* ============ SECTION TITLES ============ */
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 15px auto 0;
+        }
+
+        /* ============ HERITAGE GRID ============ */
+        .heritage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 35px;
+        }
+
+        .heritage-card {
+            background: var(--dark-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #2C2823;
+            cursor: pointer;
+        }
+
+        .heritage-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(201,169,110,0.2);
+        }
+
+        .card-image-container {
+            overflow: hidden;
+            position: relative;
+            height: 280px;
+        }
+
+        .heritage-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .heritage-card:hover .heritage-image {
+            transform: scale(1.05);
+        }
+
+        .vintage-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: #0A0A0A;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .vintage-badge.rare {
+            background: var(--red);
+            color: white;
+        }
+
+        .card-content {
+            padding: 22px;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .card-story {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card-memory {
+            background: rgba(201,169,110,0.08);
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 12px;
+            border-left: 2px solid var(--gold);
+        }
+
+        .card-memory i {
+            color: var(--gold);
+            margin-right: 8px;
+        }
+
+        .card-memory p {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* ============ STORY SECTION ============ */
+        .story-section {
+            background: linear-gradient(135deg, #1a1612 0%, #0A0A0A 100%);
+            border-radius: 24px;
+            padding: 50px;
+            margin-top: 40px;
+            text-align: center;
+            border: 1px solid rgba(201,169,110,0.2);
+        }
+
+        .story-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .story-text {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            color: var(--gray-light);
+        }
+
+        /* ============ MODAL ============ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .modal-content {
+            max-width: 700px;
+            width: 100%;
+            background: var(--dark-card);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--gold);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .modal-story {
+            color: var(--gray-light);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-memory {
+            background: rgba(201,169,110,0.1);
+            padding: 15px;
+            border-radius: 16px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: var(--gold);
+            color: #0A0A0A;
+        }
+
+        /* ============ FLOATING TELEGRAM ============ */
+        .floating-telegram {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #0088cc;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            z-index: 999;
+            border: 2px solid white;
+        }
+
+        .floating-telegram:hover {
+            transform: scale(1.1);
+            background: #0077b3;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: #020202;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .heritage-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .heritage-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .story-section {
+                padding: 30px 20px;
+            }
+            
+            .floating-telegram {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 20px;
+                left: 20px;
+            }
+            
+            .modal {
+                padding: 20px;
+            }
+            
+            .modal-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="vintage-pattern"></div>
+
+<!-- FLOATING TELEGRAM -->
+<a href="https://t.me/+251941270797" target="_blank" class="floating-telegram">
+    <i class="fab fa-telegram-plane"></i>
+</a>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- MOBILE SLIDE MENU -->
+<div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" onclick="closeMobileMenu()">✕</button>
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="menu.html"><i class="fas fa-utensils"></i> Menu</a>
+    <a href="gallery.html"><i class="fas fa-images"></i> Food Gallery</a>
+    <a href="heritage.html" class="active"><i class="fas fa-landmark"></i> Heritage</a>
+    <a href="index.html#about"><i class="fas fa-info-circle"></i> About</a>
+    <a href="index.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
+    <a href="index.html#contact"><i class="fas fa-phone-alt"></i> Contact</a>
+</div>
+
+<!-- DESKTOP NAVIGATION -->
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <div class="logo-circle">
+            <img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960">
+        </div>
+        <div class="logo-text">LANTICA <span>1960</span></div>
+    </a>
+    
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="gallery.html">Food Gallery</a></li>
+        <li><a href="heritage.html" class="active">🏛️ Heritage</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#events">Events</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    
+    <button class="mobile-menu-btn" onclick="openMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+</nav>
+
+<!-- HERITAGE HERO -->
+<section class="heritage-hero">
+    <h1>🏛️ Heritage <span>Gallery</span></h1>
+    <p>Step into the memory of Lantica 1960 — a journey through time, vintage treasures, and stories that shaped our soul.</p>
+    <div class="quote">
+        <i class="fas fa-quote-left" style="color: var(--gold); margin-right: 10px;"></i>
+        Every artifact tells a story. Every memory lives here.
+    </div>
+</section>
+
+<div class="container">
+    <h2 class="section-title">Vintage Collection</h2>
+    <div class="heritage-grid" id="heritageGrid"></div>
+</div>
+
+<!-- MEMORY & STORY SECTION -->
+<div class="container">
+    <div class="story-section">
+        <i class="fas fa-history" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; display: inline-block;"></i>
+        <h3>The Memory of Lantica 1960</h3>
+        <div class="story-text">
+            <p>These vintage treasures are more than objects — they are witnesses to history. Each piece has been carefully preserved, carrying whispers of conversations, laughter, and moments that defined generations.</p>
+            <p style="margin-top: 15px;">From the Emperor's era to modern Ethiopia, Lantica 1960 has stood as a silent observer, collecting not just artifacts, but memories. Today, we share them with you.</p>
+            <p style="margin-top: 15px; color: var(--gold);"><i class="fas fa-hand-sparkles"></i> Every item has a story — click on any card to read more.</p>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL FOR FULL STORY -->
+<div class="modal" id="heritageModal" onclick="closeModal(event)">
+    <div class="close-modal" onclick="closeModal()">&times;</div>
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <img class="modal-image" id="modalImage" src="">
+        <div class="modal-body">
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-story" id="modalStory"></p>
+            <div class="modal-memory" id="modalMemory"></div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>📍 Arat Kilo, Addis Ababa | 📞 +251 94 1270 797</p>
+    <p style="margin-top: 10px;">Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
+    <p style="margin-top: 5px; font-size: 0.7rem;">Lantica 1960 — Where History Lives</p>
+</footer>
+
+<script>
+    // ========== MOBILE MENU FUNCTIONS ==========
+    function openMobileMenu() {
+        document.getElementById("mobileNav").classList.add("open");
+        document.getElementById("mobileOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMobileMenu() {
+        document.getElementById("mobileNav").classList.remove("open");
+        document.getElementById("mobileOverlay").classList.remove("active");
+        document.body.style.overflow = "auto";
+    }
+
+    // Close mobile menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeMobileMenu();
+            closeModal();
+        }
+    });
+
+    // ========== HERITAGE COLLECTION DATA ==========
+    const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
+    
+    const heritageItems = [
+        {
+            title: "Vintage Camera Collection",
+            image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400",
+            story: "A collection of classic film cameras from the 1950s-1970s. These cameras captured countless memories of Ethiopian celebrations, family gatherings, and historic moments within these walls.",
+            memory: "Old staff member Tekle recalls: 'Every Sunday, someone would bring a camera to document the coffee ceremony. These cameras witnessed three generations of our loyal customers.'",
+            badge: "Collection"
+        },
+        {
+            title: "Vintage Record Player",
+            image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400",
+            story: "This gramophone player from the 1960s filled Lantica with Ethiopian jazz and traditional melodies. Restored and still functional, it represents the soul of our entertainment history.",
+            memory: "The sound of vinyl crackling alongside coffee brewing — that was the signature ambiance of early Lantica mornings.",
+            badge: "Rare"
+        },
+        {
+            title: "Emperor Haile Selassie I Portrait",
+            image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Haile_Selassie_in_full_dress_portrait_%28cropped%29.jpg",
+            story: "An original framed photograph of His Imperial Majesty Emperor Haile Selassie I. This portrait has hung in Lantica since our early days, symbolizing respect for Ethiopian heritage.",
+            memory: "Veteran customers remember the Emperor's visit to this very neighborhood. This photo serves as a tribute to that golden era of Ethiopian history.",
+            badge: "Historical"
+        },
+        {
+            title: "Antique Rotary Telephone",
+            image: "https://images.unsplash.com/photo-1585842378054-ee2e52f94ba2?w=400",
+            story: "A working rotary dial telephone from the 1940s. Before mobile phones, this was how reservations were made, families were called, and connections were built.",
+            memory: "'Ring once for coffee, twice for food' — the code our staff used to identify orders by the ring pattern.",
+            badge: "Vintage"
+        },
+        {
+            title: "Old Disk Player Collection",
+            image: "https://images.unsplash.com/photo-1587731556938-38755b4803a6?w=400",
+            story: "Multiple disc players and jukebox components spanning from the 1950s through 1980s. Each machine played a different genre, from Ethiopian classics to international hits.",
+            memory: "Friday nights meant the jukebox came alive. Customers would queue up their favorite songs on vinyl — a ritual long before Spotify playlists.",
+            badge: "Collection"
+        },
+        {
+            title: "Traditional Ethiopian Production Materials",
+            image: "https://images.unsplash.com/photo-1542647293-88a3cec22a13?w=400",
+            story: "Original kitchen tools, spice grinders, and coffee production equipment used in the early days of Lantica. These tools shaped the authentic flavors we still serve today.",
+            memory: "The heavy stone grinder was operated by hand for over 20 years. Every spice blend was crafted right here, with patience and tradition.",
+            badge: "Original"
+        },
+        {
+            title: "Vintage Display Cases & Counters",
+            image: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=400",
+            story: "Original wooden display cabinets and service counters from 1996. Hand-carved by local artisans, these pieces represent Ethiopian craftsmanship.",
+            memory: "The main counter has hosted thousands of conversations — from first dates to business deals. Its surface holds the stories of a lifetime.",
+            badge: "Original"
+        },
+        {
+            title: "Old Cash Register Collection",
+            image: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=400",
+            story: "Manual cash registers from different decades. These mechanical calculators recorded every transaction before digital systems arrived.",
+            memory: "The 'cha-ching' sound of this register was music to the owner's ears — a sign of another happy customer served.",
+            badge: "Vintage"
+        },
+        {
+            title: "Historical Guest Books",
+            image: "https://images.unsplash.com/photo-1535905555198-2063cdd1c6f2?w=400",
+            story: "Leather-bound guest books containing signatures and messages from customers spanning 1996 to present day.",
+            memory: "Pages include notes from diplomats, artists, athletes, and families who made Lantica their second home.",
+            badge: "Memory"
+        },
+        {
+            title: "Vintage Coffee Equipment",
+            image: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=400",
+            story: "Original Jebena clay pots, coffee roasters, and serving sets from the 1960s-1980s. These pieces continue the tradition of Ethiopian coffee ceremonies.",
+            memory: "The oldest Jebena in our collection has brewed coffee for over 50,000 guests. It's retired now, but its spirit lives on in every cup we serve.",
+            badge: "Sacred"
+        }
+    ];
+
+    function getImageUrl(title, defaultImage) {
+        if (defaultImage && defaultImage.startsWith('http')) return defaultImage;
+        return baseImageUrl + defaultImage;
+    }
+
+    function renderHeritageGallery() {
+        const container = document.getElementById("heritageGrid");
+        let html = "";
+        
+        heritageItems.forEach((item, index) => {
+            let imgUrl = getImageUrl(item.title, item.image);
+            html += `
+                <div class="heritage-card" onclick="openHeritageModal(${index})">
+                    <div class="card-image-container">
+                        <img class="heritage-image" src="${imgUrl}" alt="${item.title}" 
+                             onerror="this.src='https://placehold.co/400x280/1A1A1A/C9A96E?text=${encodeURIComponent(item.title)}'">
+                        <span class="vintage-badge ${item.badge === 'Rare' || item.badge === 'Historical' ? 'rare' : ''}">${item.badge}</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${item.title}</h3>
+                        <p class="card-story">${item.story.substring(0, 100)}...</p>
+                        <div class="card-memory">
+                            <i class="fas fa-book-open"></i>
+                            <p>📖 ${item.memory.substring(0, 80)}...</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+    }
+
+    function openHeritageModal(index) {
+        const item = heritageItems[index];
+        const modal = document.getElementById("heritageModal");
+        const modalImg = document.getElementById("modalImage");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalStory = document.getElementById("modalStory");
+        const modalMemory = document.getElementById("modalMemory");
+        
+        let imgUrl = getImageUrl(item.title, item.image);
+        
+        modalImg.src = imgUrl;
+        modalTitle.innerHTML = item.title;
+        modalStory.innerHTML = item.story;
+        modalMemory.innerHTML = `<i class="fas fa-history" style="color: var(--gold); margin-right: 10px;"></i> ${item.memory}`;
+        
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(event) {
+        const modal = document.getElementById("heritageModal");
+        if (event && event.target !== modal && !event.target.classList?.contains('close-modal')) return;
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    renderHeritageGallery();
+</script>
+</body>
+</html>
