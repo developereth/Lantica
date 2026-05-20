@@ -164,27 +164,48 @@
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 15px;
+            gap: 20px;
         }
 
-        .menu-item {
+        /* Menu Card with Image */
+        .menu-card {
             background: var(--dark-card);
-            padding: 18px 22px;
-            border-radius: 16px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #2C2823;
+            transition: all 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 25px rgba(201,169,110,0.15);
+        }
+
+        .menu-card-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #0D0D0D;
+        }
+
+        .menu-card-content {
+            padding: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #2C2823;
-            transition: 0.3s;
         }
 
-        .menu-item:hover {
-            border-color: var(--gold);
-            transform: translateX(5px);
+        .menu-card-name {
+            font-weight: 500;
+            font-size: 0.95rem;
         }
 
-        .item-name { font-weight: 500; }
-        .item-price { color: var(--gold); font-weight: 700; }
+        .menu-card-price {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1rem;
+        }
 
         .stats {
             text-align: center;
@@ -285,50 +306,134 @@
 </footer>
 
 <script>
+    // GitHub RAW Base URL for your images
+    const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/developereth/Lantica/main/";
+    
+    // Placeholder image for items without specific image
+    const PLACEHOLDER_IMAGE = "https://placehold.co/400x160/1A1A1A/C9A96E?text=Lantica+1960";
+    
+    // Menu Data with Images (Food images from your GitHub)
     const menuData = {
         "☀️ Breakfast": [
-            "Combo Fasting - 250", "Egg w/ meat - 250", "Special Fetora - 350",
-            "Normal Fetora - 200", "Special Chech - 250", "Normal Foul - 180",
-            "Special Foul - 250", "Tomato Cheese - 170", "Egg Sandwich - 200"
+            { name: "Combo Fasting", price: 250, image: "combo-fasting-platter.jpg" },
+            { name: "Egg w/ meat", price: 250, image: "egg-with-minced-meat.jpg" },
+            { name: "Special Fetora", price: 350, image: "special-fetera-honey-cheese.jpg" },
+            { name: "Normal Fetora", price: 200, image: "classic-fetera.webp" },
+            { name: "Special Chech", price: 250, image: "" },
+            { name: "Normal Foul", price: 180, image: "" },
+            { name: "Special Foul", price: 250, image: "" },
+            { name: "Tomato Cheese", price: 170, image: "tomato-lebleb.jpg" },
+            { name: "Egg Sandwich", price: 200, image: "egg-sandwich.jpg" }
         ],
         "🔥 Traditional Food": [
-            "Lamb Tibs - 680", "Lamb Tibs Tefresho - 700", "Okie - 600",
-            "Chikena Tibs - 600", "Chikena Tefresho - 650", "Kitto - 1200",
-            "Quanta Firfir - 370", "Kiba Firfir - 210", "Tibes Firfir - 320",
-            "Shiro Bekibe - 300", "Dullet - 330", "Derkosh Firfir Beseg - 380",
-            "Bozena Shiro - 350", "Mahberawi - 1200", "Yefisk Agelgel - 1000", "Gomen Kitto - 300"
+            { name: "Lamb Tibs", price: 680, image: "lamb-tibs.jpg" },
+            { name: "Lamb Tibs Tefresho", price: 700, image: "lamb-tibs-tefersho.jpg" },
+            { name: "Okie", price: 600, image: "" },
+            { name: "Chikena Tibs", price: 600, image: "" },
+            { name: "Chikena Tefresho", price: 650, image: "" },
+            { name: "Kitto", price: 1200, image: "" },
+            { name: "Quanta Firfir", price: 370, image: "kuanta-firfir.jpeg" },
+            { name: "Kiba Firfir", price: 210, image: "kiba-firfir.webp" },
+            { name: "Tibes Firfir", price: 320, image: "tibis-firfir.jpg" },
+            { name: "Shiro Bekibe", price: 300, image: "shiro-bekibe.jpeg" },
+            { name: "Dullet", price: 330, image: "dulet-minced-tripe.jpeg" },
+            { name: "Derkosh Firfir Beseg", price: 380, image: "" },
+            { name: "Bozena Shiro", price: 350, image: "shiro.jpg" },
+            { name: "Mahberawi", price: 1200, image: "mahberawi-mixed-platter.jpeg" },
+            { name: "Yefisk Agelgel", price: 1000, image: "" },
+            { name: "Gomen Kitto", price: 300, image: "gomen-kitfo.jpg" }
         ],
         "🍕 Pizza": [
-            "Special Lentic Pizza Large - 580", "Special Lentic Pizza Medium - 550",
-            "Chicken Pizza Large - 550", "Chicken Pizza Medium - 460",
-            "Margarita Large - 450", "Margarita Medium - 400", "Vegetable Pizza Large - 370"
+            { name: "Special Lentic Pizza Large", price: 580, image: "" },
+            { name: "Special Lentic Pizza Medium", price: 550, image: "" },
+            { name: "Chicken Pizza Large", price: 550, image: "chicken-pizza.jpeg" },
+            { name: "Chicken Pizza Medium", price: 460, image: "chicken-pizza.jpeg" },
+            { name: "Margarita Large", price: 450, image: "margherita-pizza.jpg" },
+            { name: "Margarita Medium", price: 400, image: "margherita-pizza.jpg" },
+            { name: "Vegetable Pizza Large", price: 370, image: "" }
         ],
-        "🍝 Spaghetti & Rice": ["Spaghetti with Vegetables - 230", "Rice - 400"],
+        "🍝 Spaghetti & Rice": [
+            { name: "Spaghetti with Vegetables", price: 230, image: "pasta-with-veggies-25.jpg" },
+            { name: "Rice", price: 400, image: "" }
+        ],
         "🍔 Burgers & Sandwiches": [
-            "Noma Burger - 305", "Cheese Burger - 350", "Noma Ketchup - 380",
-            "Club Sandwich - 360", "Tuna Sandwich - 350", "Vegetable Sandwich - 160",
-            "Chicken Shawarma - 600", "French Fries - 180"
+            { name: "Noma Burger", price: 305, image: "" },
+            { name: "Cheese Burger", price: 350, image: "" },
+            { name: "Noma Ketchup", price: 380, image: "" },
+            { name: "Club Sandwich", price: 360, image: "" },
+            { name: "Tuna Sandwich", price: 350, image: "" },
+            { name: "Vegetable Sandwich", price: 160, image: "" },
+            { name: "Chicken Shawarma", price: 600, image: "" },
+            { name: "French Fries", price: 180, image: "" }
         ],
         "🥩 Pork Selections": [
-            "Pork Chop - 320", "Pork Sausage - 180", "Pork Steak - 570",
-            "Pork Loin - 200", "Pork Ribs - 400", "Pork Belly - 380", "Pork Shoulder - 400"
+            { name: "Pork Chop", price: 320, image: "" },
+            { name: "Pork Sausage", price: 180, image: "" },
+            { name: "Pork Steak", price: 570, image: "" },
+            { name: "Pork Loin", price: 200, image: "" },
+            { name: "Pork Ribs", price: 400, image: "" },
+            { name: "Pork Belly", price: 380, image: "" },
+            { name: "Pork Shoulder", price: 400, image: "" }
         ],
-        "🥗 Soup & Salad": ["Vegetable Soup - 180", "Mixed Salad - 200", "Chicken Salad - 300"],
+        "🥗 Soup & Salad": [
+            { name: "Vegetable Soup", price: 180, image: "" },
+            { name: "Mixed Salad", price: 200, image: "mixed-garden-salad-2.jpg" },
+            { name: "Chicken Salad", price: 300, image: "" }
+        ],
         "🍲 Fast Food": [
-            "Special Lantica Fasting - 500", "Normal Firfir - 180", "Shiro - 275",
-            "Tegabino - 300", "Derkosh Firfir Fasting - 220", "Mesere - 250", "Hafe Hafe - 280"
+            { name: "Special Lantica Fasting", price: 500, image: "" },
+            { name: "Normal Firfir", price: 180, image: "" },
+            { name: "Shiro", price: 275, image: "shiro.jpg" },
+            { name: "Tegabino", price: 300, image: "tegabino.jpg" },
+            { name: "Derkosh Firfir Fasting", price: 220, image: "" },
+            { name: "Mesere", price: 250, image: "mesere-red-lentil.jpeg" },
+            { name: "Hafe Hafe", price: 280, image: "" }
         ],
-        "🥤 Fresh Juices": ["Papaya Juice - 160", "Avocado Juice - 160", "Mango Juice - 160", "Telba Juice - 200"],
+        "🥤 Fresh Juices": [
+            { name: "Papaya Juice", price: 160, image: "papaya-juice.jpg" },
+            { name: "Avocado Juice", price: 160, image: "avocado-juice.png" },
+            { name: "Mango Juice", price: 160, image: "mango-juice.jpeg" },
+            { name: "Telba Juice", price: 200, image: "tella-juice.webp" }
+        ],
         "🧊 Cold Drinks": [
-            "1/4 Water - 20", "1/2 Water - 35", "1 Liter Water - 55", "2 Liter Water - 75",
-            "Soft Drink - 60", "Ambo Water - 65", "Plastic Soft Drink - 70", "Tonic Water - 80"
+            { name: "1/4 Water", price: 20, image: "" },
+            { name: "1/2 Water", price: 35, image: "" },
+            { name: "1 Liter Water", price: 55, image: "ambo-water.jpeg" },
+            { name: "2 Liter Water", price: 75, image: "ambo-water.jpeg" },
+            { name: "Soft Drink", price: 60, image: "soft-drink.jpeg" },
+            { name: "Ambo Water", price: 65, image: "ambo-water.jpeg" },
+            { name: "Plastic Soft Drink", price: 70, image: "soft-drink.jpeg" },
+            { name: "Tonic Water", price: 80, image: "" }
         ],
-        "🍺 Beer & Draft": ["Normal Beer - 100", "Big Bedla - 120", "Hicnek Beer - 125", "Arada Beer - 130", "Janibo - 145", "Single Draft - 65"],
-        "🍷 Wine List": ["Axmite - 900", "Guder Big - 720", "Kmila Big - 800", "Gebeta - 1100", "Aksejar - 1200"],
+        "🍺 Beer & Draft": [
+            { name: "Normal Beer", price: 100, image: "" },
+            { name: "Big Bedla", price: 120, image: "" },
+            { name: "Hicnek Beer", price: 125, image: "" },
+            { name: "Arada Beer", price: 130, image: "" },
+            { name: "Janibo", price: 145, image: "" },
+            { name: "Single Draft", price: 65, image: "" }
+        ],
+        "🍷 Wine List": [
+            { name: "Axmite", price: 900, image: "" },
+            { name: "Guder Big", price: 720, image: "" },
+            { name: "Kmila Big", price: 800, image: "" },
+            { name: "Gebeta", price: 1100, image: "" },
+            { name: "Aksejar", price: 1200, image: "" }
+        ],
         "☕ Hot Beverages": [
-            "Tea - 30", "Coffee - 60", "Milk - 80", "Latte - 70", "Macchiato - 75",
-            "Spires - 60", "Lewis Tea - 75", "Kesher - 50", "Tea with Lemon - 45",
-            "Flavor Tea - 65", "Special Tea - 150", "Fasting Macchiato - 85", "Hot Chocolate - 80"
+            { name: "Tea", price: 30, image: "" },
+            { name: "Coffee", price: 60, image: "ethiopian-coffee-Buna.jpeg" },
+            { name: "Milk", price: 80, image: "" },
+            { name: "Latte", price: 70, image: "Latte.jpg" },
+            { name: "Macchiato", price: 75, image: "mackiyato.jpg" },
+            { name: "Spires", price: 60, image: "" },
+            { name: "Lewis Tea", price: 75, image: "" },
+            { name: "Kesher", price: 50, image: "" },
+            { name: "Tea with Lemon", price: 45, image: "" },
+            { name: "Flavor Tea", price: 65, image: "" },
+            { name: "Special Tea", price: 150, image: "" },
+            { name: "Fasting Macchiato", price: 85, image: "" },
+            { name: "Hot Chocolate", price: 80, image: "hot-chocolate.jpg" }
         ]
     };
 
@@ -357,6 +462,16 @@
         renderMenu();
     }
 
+    function getImageUrl(imageName) {
+        if (!imageName || imageName === "") {
+            return PLACEHOLDER_IMAGE;
+        }
+        if (imageName.startsWith('http')) {
+            return imageName;
+        }
+        return GITHUB_RAW_BASE + imageName;
+    }
+
     function renderMenu() {
         const container = document.getElementById("menuContainer");
         const categories = getCategories();
@@ -366,21 +481,41 @@
         for (const category of categories) {
             if (currentFilter !== "all" && currentFilter !== category) continue;
             const items = menuData[category];
-            let filteredItems = currentSearch ? items.filter(item => item.toLowerCase().includes(currentSearch)) : items;
+            let filteredItems = currentSearch ? items.filter(item => item.name.toLowerCase().includes(currentSearch)) : items;
             if (filteredItems.length === 0) continue;
 
             html += `<div class="menu-category"><div class="category-title">${category}</div><div class="menu-grid">`;
+            
             filteredItems.forEach(item => {
                 totalItems++;
-                let parts = item.split(" - ");
-                html += `<div class="menu-item"><span class="item-name">${parts[0]}</span><span class="item-price">${parts[1]} ETB</span></div>`;
+                const imgUrl = getImageUrl(item.image);
+                html += `
+                    <div class="menu-card">
+                        <img class="menu-card-image" src="${imgUrl}" alt="${item.name}" 
+                             onerror="this.src='${PLACEHOLDER_IMAGE}'">
+                        <div class="menu-card-content">
+                            <span class="menu-card-name">${escapeHtml(item.name)}</span>
+                            <span class="menu-card-price">${item.price} ETB</span>
+                        </div>
+                    </div>
+                `;
             });
+            
             html += `</div></div>`;
         }
 
         if (html === "") html = `<div style="text-align:center;padding:50px;"><i class="fas fa-search" style="font-size:3rem;color:var(--gold);"></i><h3>No items found</h3></div>`;
         container.innerHTML = html;
         document.getElementById("stats").innerHTML = `<i class="fas fa-list"></i> Showing ${totalItems} menu items | 📞 Order: +251 94 1270 797`;
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
     }
 
     document.getElementById("searchInput").addEventListener("keyup", setSearch);
