@@ -4,34 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lantica 1960 | Live Menu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0A0A0A; color: #E8E0D5; padding: 20px; }
-        :root { --gold: #C9A96E; --dark-card: #1A1A1A; --gray: #9B8A74; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #0A0A0A; color: #E8E0D5; padding: 20px; }
         .container { max-width: 1200px; margin: 0 auto; }
-        h1 { font-family: 'Playfair Display', serif; text-align: center; color: var(--gold); font-size: 2.5rem; }
-        .sub { text-align: center; color: var(--gray); margin-bottom: 40px; }
+        h1 { font-family: 'Georgia', serif; text-align: center; color: #C9A96E; font-size: 2.5rem; }
+        .sub { text-align: center; color: #9B8A74; margin-bottom: 40px; }
         .category { margin-bottom: 40px; }
-        .category-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); border-left: 3px solid var(--gold); padding-left: 15px; margin-bottom: 20px; }
+        .category-title { font-size: 1.5rem; color: #C9A96E; border-left: 3px solid #C9A96E; padding-left: 15px; margin-bottom: 20px; }
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
-        .item { background: var(--dark-card); padding: 15px 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2C2823; transition: 0.2s; }
-        .item:hover { border-color: var(--gold); }
-        .item-name { font-weight: 500; }
-        .item-price { color: var(--gold); font-weight: 700; }
-        .footer { text-align: center; margin-top: 40px; padding: 20px; color: var(--gray); font-size: 0.7rem; }
+        .item { background: #1A1A1A; padding: 15px 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2C2823; }
+        .item:hover { border-color: #C9A96E; }
+        .item-price { color: #C9A96E; font-weight: 700; }
+        .footer { text-align: center; margin-top: 40px; padding: 20px; color: #9B8A74; font-size: 0.7rem; }
         @media (max-width: 600px) { .menu-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>LANTICA <span style="color:var(--gold);">1960</span></h1>
+        <h1>LANTICA <span style="color:#C9A96E;">1960</span></h1>
         <p class="sub">📍 Arat Kilo, Addis Ababa | Since 1996 | ☕ Traditional Coffee Ceremony</p>
-        <div id="menu"></div>
+        <div id="menu">Loading...</div>
         <div class="footer">📞 +251 94 1270 797 | Powered by AddisPower</div>
     </div>
     <script>
-        const WORKER_URL = "https://lantica-github-proxy.your-subdomain.workers.dev";
+        const WORKER_URL = "https://YOUR_WORKER_URL.workers.dev"; // REPLACE WITH YOUR WORKER URL
         
         async function loadMenu() {
             try {
@@ -44,11 +41,11 @@
                 let html = '';
                 for (const [cat, catItems] of Object.entries(grouped)) {
                     html += `<div class="category"><div class="category-title">${cat}</div><div class="menu-grid">`;
-                    catItems.forEach(item => { html += `<div class="item"><span class="item-name">${escapeHtml(item.name)}</span><span class="item-price">${item.price} ETB</span></div>`; });
+                    catItems.forEach(item => { html += `<div class="item"><span>${escapeHtml(item.name)}</span><span class="item-price">${item.price} ETB</span></div>`; });
                     html += `</div></div>`;
                 }
                 document.getElementById('menu').innerHTML = html;
-            } catch(e) { document.getElementById('menu').innerHTML = '<p style="text-align:center;">🍽️ Loading menu...</p>'; }
+            } catch(e) { document.getElementById('menu').innerHTML = '<p style="text-align:center;">Loading menu...</p>'; }
         }
         
         function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
