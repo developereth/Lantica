@@ -1,89 +1,313 @@
-// Cloudflare Worker - Lantica 1960 Menu API
-// GitHub token stored as Environment Variable - NEVER exposed
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lantica 1960 | Secure Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #0A0A0A; color: #E8E0D5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card { background: #1A1A1A; border-radius: 20px; padding: 25px; margin-bottom: 25px; border: 1px solid #C9A96E; }
+        .login-card { max-width: 400px; margin: 100px auto; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; background: #0D0D0D; border: 1px solid #2C2823; border-radius: 10px; color: white; }
+        button { background: #C9A96E; color: #0A0A0A; padding: 12px 24px; border-radius: 40px; border: none; font-weight: bold; cursor: pointer; margin: 5px; }
+        .btn-red { background: #B45F3B; color: white; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 12px; background: #0D0D0D; color: #C9A96E; }
+        td { padding: 10px 12px; border-top: 1px solid #2C2823; }
+        .edit-btn, .delete-btn { padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; margin: 0 3px; }
+        .edit-btn { background: #C9A96E; color: #0A0A0A; }
+        .delete-btn { background: #B45F3B; color: white; }
+        .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+        .hidden { display: none; }
+        .form-row { display: flex; gap: 15px; flex-wrap: wrap; }
+        .form-row > * { flex: 1; }
+        h1, h2 { color: #C9A96E; margin-bottom: 15px; }
+        @media (max-width: 768px) { .form-row { flex-direction: column; } }
+    </style>
+</head>
+<body>
 
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const path = url.pathname;
-    
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Key',
-    };
-    
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
-    }
-    
-    const adminKey = request.headers.get('X-Admin-Key');
-    const isAdmin = adminKey === env.ADMIN_PASSWORD;
-    
-    // GET /api/menu - Read menu
-    if (path === '/api/menu' && request.method === 'GET') {
-      try {
-        const githubUrl = `https://api.github.com/repos/${env.GITHUB_REPO}/contents/menu.json`;
-        const response = await fetch(githubUrl, {
-          headers: { 'Authorization': `Bearer ${env.GITHUB_TOKEN}` }
-        });
+<div class="container">
+    <!-- Login Box -->
+    <div id="loginBox" class="card login-card">
+        <h1 style="text-align: center;">Lantica 1960</h1>
+        <p style="text-align: center; margin-bottom: 20px;">Secure Admin Panel</p>
+        <input type="password" id="adminPassword" placeholder="Admin Password">
+        <input type="text" id="workerUrl" placeholder="Worker URL (e.g., https://xxx.workers.dev)">
+        <button onclick="login()" style="width: 100%;">Login</button>
+    </div>
+
+    <!-- Admin Panel (hidden until login) -->
+    <div id="adminPanel" class="hidden">
+        <div class="card">
+            <h1>🍽️ Lantica 1960 Secure Admin</h1>
+            <div id="statusMsg" class="status">✅ Connected - Menu is LIVE</div>
+            <button class="btn-red" onclick="logout()" style="float: right;">Logout</button>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="card">
+            <h2>➕ Add New Menu Item</h2>
+            <div class="form-row">
+                <input type="text" id="itemName" placeholder="Item Name (e.g., Lamb Tibs)">
+                <input type="number" id="itemPrice" placeholder="Price (ETB)">
+            </div>
+            <div class="form-row">
+                <select id="itemCategory">
+                    <option value="Breakfast">☀️ Breakfast</option>
+                    <option value="Signatures">🔥 Signatures</option>
+                    <option value="Pizza">🍕 Pizza</option>
+                    <option value="Pasta">🍝 Pasta</option>
+                    <option value="Burgers">🍔 Burgers</option>
+                    <option value="Juices">🥤 Juices</option>
+                    <option value="Cold Drinks">🧊 Cold Drinks</option>
+                    <option value="Hot Beverages">☕ Hot Beverages</option>
+                </select>
+                <input type="text" id="itemImage" placeholder="Image URL (Cloudinary)">
+            </div>
+            <textarea id="itemDesc" rows="2" placeholder="Description (optional)"></textarea>
+            <button onclick="saveItem()">💾 Save Item</button>
+            <button id="cancelBtn" class="btn-red" onclick="cancelEdit()" style="display: none;">❌ Cancel Edit</button>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+                <input type="text" id="searchInput" placeholder="🔍 Search..." style="flex: 2;">
+                <select id="categoryFilter" style="flex: 1;">
+                    <option value="all">All Categories</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Signatures">Signatures</option>
+                    <option value="Pizza">Pizza</option>
+                    <option value="Pasta">Pasta</option>
+                    <option value="Burgers">Burgers</option>
+                    <option value="Juices">Juices</option>
+                    <option value="Cold Drinks">Cold Drinks</option>
+                    <option value="Hot Beverages">Hot Beverages</option>
+                </select>
+                <button onclick="loadMenu()">🔄 Refresh</button>
+                <button class="btn-red" onclick="resetToDefault()">↺ Reset Default</button>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table id="menuTable">
+                    <thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Description</th><th>Actions</th></tr></thead>
+                    <tbody id="menuTableBody"><tr><td colspan="5" style="text-align:center;">Login to access menu...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let WORKER_URL = "";
+    let ADMIN_PASSWORD = "";
+    let menuItems = [];
+    let editId = null;
+
+    function login() {
+        WORKER_URL = document.getElementById("workerUrl").value.trim();
+        ADMIN_PASSWORD = document.getElementById("adminPassword").value;
         
-        if (!response.ok) throw new Error('GitHub API error');
-        const data = await response.json();
-        const content = JSON.parse(atob(data.content));
-        
-        return new Response(JSON.stringify(content), {
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        });
-      } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders });
-      }
-    }
-    
-    // POST /api/menu - Update menu (requires admin password)
-    if (path === '/api/menu' && request.method === 'POST') {
-      if (!isAdmin) {
-        return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders });
-      }
-      
-      try {
-        const newMenu = await request.json();
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(newMenu, null, 2))));
-        
-        const getUrl = `https://api.github.com/repos/${env.GITHUB_REPO}/contents/menu.json`;
-        const getResponse = await fetch(getUrl, {
-          headers: { 'Authorization': `Bearer ${env.GITHUB_TOKEN}` }
-        });
-        
-        let sha = null;
-        if (getResponse.ok) {
-          const data = await getResponse.json();
-          sha = data.sha;
+        if (!WORKER_URL || !ADMIN_PASSWORD) {
+            alert("Enter Worker URL and Password");
+            return;
         }
         
-        const putResponse = await fetch(getUrl, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: 'Menu update via Cloudflare Worker',
-            content: content,
-            sha: sha,
-            branch: 'main'
-          })
-        });
+        // Save to sessionStorage (clears when browser closes - more secure)
+        sessionStorage.setItem("worker_url", WORKER_URL);
+        sessionStorage.setItem("admin_key", ADMIN_PASSWORD);
         
-        if (!putResponse.ok) throw new Error('Failed to save');
-        
-        return new Response(JSON.stringify({ success: true }), {
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        });
-      } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders });
-      }
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("adminPanel").classList.remove("hidden");
+        loadMenu();
     }
-    
-    return new Response('Lantica 1960 API - Running', { status: 200, headers: corsHeaders });
-  }
-};
+
+    function logout() {
+        sessionStorage.removeItem("worker_url");
+        sessionStorage.removeItem("admin_key");
+        location.reload();
+    }
+
+    async function loadMenu() {
+        try {
+            const res = await fetch(`${WORKER_URL}/api/menu`);
+            const data = await res.json();
+            menuItems = data.items || [];
+            renderTable();
+            document.getElementById("statusMsg").innerHTML = "✅ Connected - Menu is LIVE";
+        } catch(e) {
+            document.getElementById("statusMsg").innerHTML = "❌ Connection error - check Worker URL";
+        }
+    }
+
+    async function saveItem() {
+        const name = document.getElementById("itemName").value.trim();
+        const price = parseFloat(document.getElementById("itemPrice").value);
+        const category = document.getElementById("itemCategory").value;
+        const image = document.getElementById("itemImage").value;
+        const description = document.getElementById("itemDesc").value;
+        
+        if (!name || isNaN(price)) {
+            alert("Please enter name and price");
+            return;
+        }
+        
+        if (editId) {
+            const index = menuItems.findIndex(i => i.id === editId);
+            if (index !== -1) {
+                menuItems[index] = { ...menuItems[index], name, price, category, image, description, active: true };
+            }
+            editId = null;
+            document.getElementById("cancelBtn").style.display = "none";
+        } else {
+            const newId = Math.max(...menuItems.map(i => i.id), 0) + 1;
+            menuItems.push({ id: newId, name, price, category, image, description, active: true });
+        }
+        
+        await saveToWorker();
+        
+        document.getElementById("itemName").value = "";
+        document.getElementById("itemPrice").value = "";
+        document.getElementById("itemImage").value = "";
+        document.getElementById("itemDesc").value = "";
+        renderTable();
+    }
+
+    async function saveToWorker() {
+        const menuData = { items: menuItems };
+        try {
+            const res = await fetch(`${WORKER_URL}/api/menu`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Admin-Key': ADMIN_PASSWORD
+                },
+                body: JSON.stringify(menuData)
+            });
+            
+            if (res.ok) {
+                document.getElementById("statusMsg").innerHTML = "✅ Saved! Menu updated for all customers";
+                setTimeout(() => {
+                    document.getElementById("statusMsg").innerHTML = "✅ Connected - Menu is LIVE";
+                }, 2000);
+                return true;
+            } else if (res.status === 401) {
+                alert("Unauthorized - Wrong admin password");
+                logout();
+                return false;
+            } else {
+                throw new Error("Save failed");
+            }
+        } catch(e) {
+            alert("Error saving: " + e.message);
+            return false;
+        }
+    }
+
+    function editItem(id) {
+        const item = menuItems.find(i => i.id === id);
+        if (!item) return;
+        editId = id;
+        document.getElementById("itemName").value = item.name;
+        document.getElementById("itemPrice").value = item.price;
+        document.getElementById("itemCategory").value = item.category;
+        document.getElementById("itemImage").value = item.image || "";
+        document.getElementById("itemDesc").value = item.description || "";
+        document.getElementById("cancelBtn").style.display = "inline-block";
+    }
+
+    async function deleteItem(id) {
+        if (confirm("Delete this item? All customers will see the change immediately.")) {
+            menuItems = menuItems.filter(i => i.id !== id);
+            await saveToWorker();
+            renderTable();
+            if (editId === id) cancelEdit();
+        }
+    }
+
+    function cancelEdit() {
+        editId = null;
+        document.getElementById("itemName").value = "";
+        document.getElementById("itemPrice").value = "";
+        document.getElementById("itemImage").value = "";
+        document.getElementById("itemDesc").value = "";
+        document.getElementById("cancelBtn").style.display = "none";
+    }
+
+    async function resetToDefault() {
+        if (confirm("Reset to default menu? All changes will be lost!")) {
+            menuItems = [
+                { id: 1, name: "Combo Fasting Platter", price: 250, category: "Breakfast", image: "", description: "Hearty vegan platter", active: true },
+                { id: 2, name: "Lamb Tibs", price: 680, category: "Signatures", image: "", description: "Tender lamb sautéed with berbere", active: true },
+                { id: 3, name: "Special Lentic Pizza", price: 580, category: "Pizza", image: "", description: "Wood-fired lentic crust", active: true },
+                { id: 4, name: "Papaya Juice", price: 160, category: "Juices", image: "", description: "Freshly squeezed papaya", active: true },
+                { id: 5, name: "Ethiopian Coffee", price: 60, category: "Hot Beverages", image: "", description: "Traditional buna ceremony", active: true }
+            ];
+            await saveToWorker();
+            renderTable();
+        }
+    }
+
+    function renderTable() {
+        const search = document.getElementById("searchInput").value.toLowerCase();
+        const filter = document.getElementById("categoryFilter").value;
+        
+        let filtered = menuItems.filter(item => {
+            const matchSearch = item.name.toLowerCase().includes(search);
+            const matchCategory = filter === "all" || item.category === filter;
+            return matchSearch && matchCategory;
+        });
+        
+        const tbody = document.getElementById("menuTableBody");
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">No menu items found. Add one above!</td></tr>';
+            return;
+        }
+        
+        let html = "";
+        filtered.forEach(item => {
+            html += `
+                <tr>
+                    <td data-label="Name"><strong>${escapeHtml(item.name)}</strong></td>
+                    <td data-label="Category"><span style="background:rgba(201,169,110,0.2); padding:4px 10px; border-radius:20px;">${item.category}</span></td>
+                    <td data-label="Price" style="color:#C9A96E; font-weight:700;">${item.price} ETB</td>
+                    <td data-label="Description">${escapeHtml(item.description || '—')}</td>
+                    <td data-label="Actions">
+                        <button class="edit-btn" onclick="editItem(${item.id})">✏️ Edit</button>
+                        <button class="delete-btn" onclick="deleteItem(${item.id})">🗑️ Delete</button>
+                    </td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Event listeners
+    document.getElementById("searchInput").addEventListener("keyup", () => renderTable());
+    document.getElementById("categoryFilter").addEventListener("change", () => renderTable());
+
+    // Check for existing session
+    if (sessionStorage.getItem("worker_url") && sessionStorage.getItem("admin_key")) {
+        WORKER_URL = sessionStorage.getItem("worker_url");
+        ADMIN_PASSWORD = sessionStorage.getItem("admin_key");
+        document.getElementById("workerUrl").value = WORKER_URL;
+        document.getElementById("adminPassword").value = ADMIN_PASSWORD;
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("adminPanel").classList.remove("hidden");
+        loadMenu();
+    }
+</script>
+</body>
+</html>
