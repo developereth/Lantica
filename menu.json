@@ -1,0 +1,113 @@
+{
+  "categories": ["Breakfast", "Signatures", "Pizza", "Pasta", "Burgers", "Juices", "Cold Drinks", "Hot Beverages"],
+  "items": [
+    {
+      "id": 1,
+      "name": "Combo Fasting Platter",
+      "price": 250,
+      "category": "Breakfast",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/breakfast/combo-fasting",
+      "description": "Hearty vegan platter with injera",
+      "active": true
+    },
+    {
+      "id": 2,
+      "name": "Egg with Minced Meat",
+      "price": 250,
+      "category": "Breakfast",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/breakfast/egg-with-meat",
+      "description": "Scrambled eggs with seasoned beef",
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "Special Fetora",
+      "price": 350,
+      "category": "Breakfast",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/breakfast/special-fetera",
+      "description": "Layered pancake with honey and cheese",
+      "active": true
+    },
+    {
+      "id": 4,
+      "name": "Lamb Tibs",
+      "price": 680,
+      "category": "Signatures",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/signatures/lamb-tibs",
+      "description": "Tender lamb sautéed with berbere",
+      "active": true
+    },
+    {
+      "id": 5,
+      "name": "Mahberawi Mixed Platter",
+      "price": 1200,
+      "category": "Signatures",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/signatures/mahberawi",
+      "description": "Combination of 5 dishes for sharing",
+      "active": true
+    },
+    {
+      "id": 6,
+      "name": "Yefisk Agelgel",
+      "price": 1000,
+      "category": "Signatures",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/signatures/yefisk-agelgel",
+      "description": "Signature chicken stew with egg",
+      "active": true
+    },
+    {
+      "id": 7,
+      "name": "Special Lentic Pizza",
+      "price": 580,
+      "category": "Pizza",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/pizza/lentic-pizza",
+      "description": "Lentic crust special pizza",
+      "active": true
+    },
+    {
+      "id": 8,
+      "name": "Chicken Pizza",
+      "price": 550,
+      "category": "Pizza",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/pizza/chicken-pizza",
+      "description": "Grilled chicken pizza",
+      "active": true
+    },
+    {
+      "id": 9,
+      "name": "Papaya Juice",
+      "price": 160,
+      "category": "Juices",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/juices/papaya-juice",
+      "description": "Freshly squeezed papaya",
+      "active": true
+    },
+    {
+      "id": 10,
+      "name": "Avocado Juice",
+      "price": 160,
+      "category": "Juices",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/juices/avocado-juice",
+      "description": "Creamy fresh avocado",
+      "active": true
+    },
+    {
+      "id": 11,
+      "name": "Ethiopian Coffee",
+      "price": 60,
+      "category": "Hot Beverages",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/beverages/coffee-ceremony",
+      "description": "Traditional buna ceremony",
+      "active": true
+    },
+    {
+      "id": 12,
+      "name": "Mineral Water",
+      "price": 55,
+      "category": "Cold Drinks",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/menu/cold/water",
+      "description": "1 Liter premium water",
+      "active": true
+    }
+  ]
+}
