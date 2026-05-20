@@ -10,27 +10,235 @@
     },
     {
       "id": 2,
-      "name": "Combo Fasting Platter",
-      "price": 250,
-      "category": "Breakfast",
-      "image": "",
-      "description": "Hearty vegan platter"
+      "name": "Mahberawi Mixed Platter",
+      "price": 1200,
+      "category": "Signatures",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/mahberawi-mixed-platter",
+      "description": "Combination of 5 dishes for sharing"
     },
     {
       "id": 3,
-      "name": "Papaya Juice",
-      "price": 160,
-      "category": "Juices",
-      "image": "",
-      "description": "Freshly squeezed papaya"
+      "name": "Yefisk Agelgel",
+      "price": 1000,
+      "category": "Signatures",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/yefisk-agelgel",
+      "description": "Signature chicken stew with egg"
     },
     {
       "id": 4,
+      "name": "Combo Fasting Platter",
+      "price": 250,
+      "category": "Breakfast",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/combo-fasting-platter",
+      "description": "Hearty vegan platter with injera"
+    },
+    {
+      "id": 5,
+      "name": "Egg with Minced Meat",
+      "price": 250,
+      "category": "Breakfast",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/egg-with-minced-meat",
+      "description": "Scrambled eggs with seasoned beef"
+    },
+    {
+      "id": 6,
+      "name": "Special Fetora",
+      "price": 350,
+      "category": "Breakfast",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/special-fetera-honey-cheese",
+      "description": "Layered pancake with honey and cheese"
+    },
+    {
+      "id": 7,
+      "name": "Classic Fetora",
+      "price": 200,
+      "category": "Breakfast",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/classic-fetera",
+      "description": "Crispy folded Ethiopian pancake"
+    },
+    {
+      "id": 8,
+      "name": "Egg Sandwich",
+      "price": 200,
+      "category": "Breakfast",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/egg-sandwich",
+      "description": "Toasted bread with omelette"
+    },
+    {
+      "id": 9,
+      "name": "Kiba Firfir",
+      "price": 210,
+      "category": "Appetizers",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/kiba-firfir",
+      "description": "Spiced butter firfir"
+    },
+    {
+      "id": 10,
+      "name": "Shiro Bekibe",
+      "price": 300,
+      "category": "Appetizers",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/shiro-bekibe",
+      "description": "Rich chickpea stew with butter"
+    },
+    {
+      "id": 11,
+      "name": "Dulet",
+      "price": 330,
+      "category": "Appetizers",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/dulet-minced-tripe",
+      "description": "Minced meat with spices"
+    },
+    {
+      "id": 12,
+      "name": "Tomato Lebleb",
+      "price": 180,
+      "category": "Appetizers",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/tomato-lebleb",
+      "description": "Fresh tomato salad"
+    },
+    {
+      "id": 13,
+      "name": "Mesere",
+      "price": 250,
+      "category": "Appetizers",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/mesere-red-lentil",
+      "description": "Red lentil stew"
+    },
+    {
+      "id": 14,
+      "name": "Mixed Garden Salad",
+      "price": 200,
+      "category": "Appetizers",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/mixed-garden-salad",
+      "description": "Fresh tomato, onion, lettuce"
+    },
+    {
+      "id": 15,
+      "name": "Quanta Firfir",
+      "price": 370,
+      "category": "Signatures",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/kuanta-firfir",
+      "description": "Dried beef firfir"
+    },
+    {
+      "id": 16,
+      "name": "Special Lentic Pizza",
+      "price": 580,
+      "category": "Pizza",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lentic-pizza",
+      "description": "Lentic crust special pizza"
+    },
+    {
+      "id": 17,
+      "name": "Chicken Pizza",
+      "price": 550,
+      "category": "Pizza",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/chicken-pizza",
+      "description": "Grilled chicken pizza"
+    },
+    {
+      "id": 18,
+      "name": "Margarita Pizza",
+      "price": 450,
+      "category": "Pizza",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/margherita-pizza",
+      "description": "Classic cheese and tomato"
+    },
+    {
+      "id": 19,
+      "name": "Vegetable Pizza",
+      "price": 400,
+      "category": "Pizza",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/vegetable-pizza",
+      "description": "Fresh veggie pizza"
+    },
+    {
+      "id": 20,
+      "name": "Spaghetti with Vegetables",
+      "price": 230,
+      "category": "Pasta",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/pasta-with-veggies",
+      "description": "Tomato sauce with fresh vegetables"
+    },
+    {
+      "id": 21,
+      "name": "Papaya Juice",
+      "price": 160,
+      "category": "Juices",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/papaya-juice",
+      "description": "Freshly squeezed papaya"
+    },
+    {
+      "id": 22,
+      "name": "Avocado Juice",
+      "price": 160,
+      "category": "Juices",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/avocado-juice",
+      "description": "Creamy fresh avocado"
+    },
+    {
+      "id": 23,
+      "name": "Mango Juice",
+      "price": 160,
+      "category": "Juices",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/mango-juice",
+      "description": "Sweet fresh mango"
+    },
+    {
+      "id": 24,
+      "name": "Telba Juice",
+      "price": 200,
+      "category": "Juices",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/tella-juice",
+      "description": "Traditional Ethiopian drink"
+    },
+    {
+      "id": 25,
       "name": "Ethiopian Coffee",
       "price": 60,
       "category": "Hot Beverages",
-      "image": "",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/ethiopian-coffee-Buna",
       "description": "Traditional buna ceremony"
+    },
+    {
+      "id": 26,
+      "name": "Latte",
+      "price": 70,
+      "category": "Hot Beverages",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/Latte",
+      "description": "Espresso with steamed milk"
+    },
+    {
+      "id": 27,
+      "name": "Macchiato",
+      "price": 75,
+      "category": "Hot Beverages",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/mackiyato",
+      "description": "Espresso with milk foam"
+    },
+    {
+      "id": 28,
+      "name": "Hot Chocolate",
+      "price": 80,
+      "category": "Hot Beverages",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/hot-chocolate",
+      "description": "Rich creamy hot chocolate"
+    },
+    {
+      "id": 29,
+      "name": "Mineral Water",
+      "price": 55,
+      "category": "Cold Drinks",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/ambo-water",
+      "description": "1 Liter premium water"
+    },
+    {
+      "id": 30,
+      "name": "Soft Drink",
+      "price": 60,
+      "category": "Cold Drinks",
+      "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/soft-drink",
+      "description": "Assorted sodas"
     }
   ]
 }
