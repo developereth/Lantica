@@ -6,26 +6,23 @@
       "price": 680,
       "category": "Signatures",
       "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/photo_5794060648273612539_y_1_l4nywy.jpg",
-      "description": "Tender lamb sautéed with berbere",
-      "active": true
+      "description": "Tender lamb sautéed with berbere"
     },
     {
       "id": 2,
       "name": "Combo Fasting Platter",
       "price": 250,
       "category": "Breakfast",
-      "image": "https://placehold.co/400x200/1A1A1A/C9A96E?text=Combo+Fasting",
-      "description": "Hearty vegan platter",
-      "active": true
+      "image": "",
+      "description": "Hearty vegan platter"
     },
     {
       "id": 3,
       "name": "Papaya Juice",
       "price": 160,
       "category": "Juices",
-      "image": "https://placehold.co/400x200/1A1A1A/C9A96E?text=Papaya+Juice",
-      "description": "Freshly squeezed papaya",
-      "active": true
+      "image": "",
+      "description": "Freshly squeezed papaya"
     }
   ]
 }
