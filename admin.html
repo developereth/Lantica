@@ -22,7 +22,6 @@
         .form-row > * { flex: 1; }
         .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
         .hidden { display: none; }
-        .status-error { background: rgba(180,95,59,0.2); color: #B45F3B; }
         @media (max-width: 700px) { .form-row { flex-direction: column; } }
     </style>
 </head>
@@ -30,7 +29,7 @@
 
 <div id="loginSection" class="login-card card">
     <h2 style="color: #C9A96E;">Lantica 1960 Admin</h2>
-    <input type="password" id="adminPassword" placeholder="Enter Password">
+    <input type="password" id="adminPassword" placeholder="Password">
     <button onclick="login()">Login</button>
 </div>
 
@@ -53,7 +52,7 @@
                 <option>Pasta</option><option>Burgers</option><option>Juices</option>
                 <option>Cold Drinks</option><option>Hot Beverages</option>
             </select>
-            <input type="text" id="itemImage" placeholder="Cloudinary Image URL or public ID">
+            <input type="text" id="itemImage" placeholder="Cloudinary Image URL">
         </div>
         <textarea id="itemDesc" rows="2" placeholder="Description"></textarea>
         <button onclick="saveItem()">💾 Save Item</button>
@@ -69,21 +68,19 @@
                 <option>Juices</option><option>Hot Beverages</option>
             </select>
             <button onclick="loadMenu()">🔄 Refresh</button>
-            <button class="btn-red" onclick="resetToDefault()">Reset Default</button>
         </div>
         
         <div style="overflow-x: auto;">
             <table id="menuTable">
                 <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
-                <tbody id="menuTableBody"><tr><td colspan="5">Login to view menu...</td></tr</tbody>
+                <tbody id="menuTableBody"></td></tbody>
             </table>
         </div>
     </div>
 </div>
 
 <script>
-    const GITHUB_TOKEN = "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";
-    const GITHUB_REPO = "developereth/Lantica";
+    const WORKER_URL = "https://lanticaadminpage.developeraddis.workers.dev";
     const ADMIN_PASSWORD = "lantica1960admin";
     
     let menuItems = [];
@@ -107,101 +104,27 @@
     }
     
     async function loadMenu() {
-        const statusDiv = document.getElementById("statusMsg");
-        statusDiv.innerHTML = "⏳ Loading menu from GitHub...";
-        statusDiv.className = "status";
-        
         try {
-            const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/menu.json`;
-            const res = await fetch(url, {
-                headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
-            });
-            
-            if (res.status === 404) {
-                statusDiv.innerHTML = "⚠️ menu.json not found. Creating default...";
-                statusDiv.className = "status status-error";
-                await createDefaultMenu();
-                return loadMenu();
-            }
-            
-            if (!res.ok) {
-                throw new Error(`HTTP ${res.status}`);
-            }
-            
+            const res = await fetch(`${WORKER_URL}/api/menu`);
             const data = await res.json();
-            const content = JSON.parse(atob(data.content));
-            menuItems = content.items || [];
+            menuItems = data.items || [];
             renderTable();
-            statusDiv.innerHTML = `✅ Menu loaded successfully (${menuItems.length} items)`;
-            statusDiv.className = "status";
+            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${menuItems.length} items`;
         } catch(e) {
-            statusDiv.innerHTML = `❌ Error: ${e.message}. Make sure menu.json exists on GitHub.`;
-            statusDiv.className = "status status-error";
+            document.getElementById("statusMsg").innerHTML = "❌ Error loading menu";
         }
-    }
-    
-    async function saveToGitHub() {
-        const menuData = { items: menuItems };
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(menuData, null, 2))));
-        const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/menu.json`;
-        
-        let sha = null;
-        const getRes = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
-        if (getRes.ok) {
-            const data = await getRes.json();
-            sha = data.sha;
-        }
-        
-        const res = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${GITHUB_TOKEN}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: "Menu update",
-                content: content,
-                sha: sha,
-                branch: "main"
-            })
-        });
-        
-        return res.ok;
-    }
-    
-    async function createDefaultMenu() {
-        const defaultMenu = {
-            items: [
-                { id: 1, name: "Lamb Tibs", price: 680, category: "Signatures", image: "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/photo_5794060648273612539_y_1_l4nywy.jpg", description: "Tender lamb sautéed with berbere" },
-                { id: 2, name: "Combo Fasting Platter", price: 250, category: "Breakfast", image: "", description: "Hearty vegan platter" },
-                { id: 3, name: "Papaya Juice", price: 160, category: "Juices", image: "", description: "Freshly squeezed papaya" }
-            ]
-        };
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(defaultMenu, null, 2))));
-        const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/menu.json`;
-        
-        await fetch(url, {
-            method: 'PUT',
-            headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: "Create default menu", content: content, branch: "main" })
-        });
     }
     
     async function saveItem() {
         const name = document.getElementById("itemName").value.trim();
         const price = parseFloat(document.getElementById("itemPrice").value);
         const category = document.getElementById("itemCategory").value;
-        let image = document.getElementById("itemImage").value.trim();
+        const image = document.getElementById("itemImage").value.trim();
         const description = document.getElementById("itemDesc").value.trim();
         
         if (!name || isNaN(price)) {
-            alert("Please enter name and price");
+            alert("Enter name and price");
             return;
-        }
-        
-        // If user entered only the public ID, construct full Cloudinary URL
-        if (image && !image.startsWith('http')) {
-            image = `https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/${image}.jpg`;
         }
         
         if (editId) {
@@ -216,18 +139,24 @@
             menuItems.push({ id: newId, name, price, category, image, description });
         }
         
-        const statusDiv = document.getElementById("statusMsg");
-        statusDiv.innerHTML = "⏳ Saving to GitHub...";
+        const res = await fetch(`${WORKER_URL}/api/menu`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Admin-Key': ADMIN_PASSWORD
+            },
+            body: JSON.stringify({ items: menuItems })
+        });
         
-        if (await saveToGitHub()) {
-            statusDiv.innerHTML = "✅ Saved successfully!";
+        if (res.ok) {
+            document.getElementById("statusMsg").innerHTML = "✅ Saved!";
             document.getElementById("itemName").value = "";
             document.getElementById("itemPrice").value = "";
             document.getElementById("itemImage").value = "";
             document.getElementById("itemDesc").value = "";
             loadMenu();
         } else {
-            statusDiv.innerHTML = "❌ Save failed!";
+            document.getElementById("statusMsg").innerHTML = "❌ Save failed";
         }
     }
     
@@ -238,21 +167,20 @@
         document.getElementById("itemName").value = item.name;
         document.getElementById("itemPrice").value = item.price;
         document.getElementById("itemCategory").value = item.category;
-        // Extract just the public ID from full URL if needed
-        let imageValue = item.image || "";
-        if (imageValue.includes('cloudinary')) {
-            const parts = imageValue.split('/');
-            imageValue = parts[parts.length - 1].replace('.jpg', '');
-        }
-        document.getElementById("itemImage").value = imageValue;
+        document.getElementById("itemImage").value = item.image || "";
         document.getElementById("itemDesc").value = item.description || "";
         document.getElementById("cancelBtn").style.display = "inline-block";
     }
     
     async function deleteItem(id) {
-        if (confirm("Delete this item?")) {
+        if (confirm("Delete?")) {
             menuItems = menuItems.filter(i => i.id !== id);
-            if (await saveToGitHub()) {
+            const res = await fetch(`${WORKER_URL}/api/menu`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Admin-Key': ADMIN_PASSWORD },
+                body: JSON.stringify({ items: menuItems })
+            });
+            if (res.ok) {
                 loadMenu();
                 if (editId === id) cancelEdit();
             }
@@ -268,13 +196,6 @@
         document.getElementById("cancelBtn").style.display = "none";
     }
     
-    async function resetToDefault() {
-        if (confirm("Reset to default menu? All changes will be lost!")) {
-            await createDefaultMenu();
-            loadMenu();
-        }
-    }
-    
     function renderTable() {
         const search = document.getElementById("searchInput").value.toLowerCase();
         const filter = document.getElementById("categoryFilter").value;
@@ -287,7 +208,7 @@
         
         const tbody = document.getElementById("menuTableBody");
         if (filtered.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">No items found. Add one above!</td></tr';
+            tbody.innerHTML = '<tr><td colspan="5">No items</tr';
             return;
         }
         
@@ -296,30 +217,19 @@
             const imgPreview = item.image ? 
                 `<img src="${item.image}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" onerror="this.src='https://placehold.co/40x40/1A1A1A/C9A96E'">` : 
                 "—";
-            html += `
-                <tr>
-                    <td>${imgPreview}</td>
-                    <td><strong>${escapeHtml(item.name)}</strong></td>
-                    <td>${item.category}</td>
-                    <td style="color:#C9A96E; font-weight:700;">${item.price} ETB</td>
-                    <td>
-                        <button class="edit-btn" onclick="editItem(${item.id})">✏️ Edit</button>
-                        <button class="delete-btn" onclick="deleteItem(${item.id})">🗑️ Delete</button>
-                    </td>
-                </tr>
-            `;
+            html += `<tr>
+                <td>${imgPreview}</td>
+                <td><strong>${escapeHtml(item.name)}</strong><br><small>${item.category}</small></td>
+                <td style="color:#C9A96E;">${item.price} ETB</td>
+                <td><button class="edit-btn" onclick="editItem(${item.id})">✏️</button><button class="delete-btn" onclick="deleteItem(${item.id})">🗑️</button></td>
+            </tr>`;
         });
         tbody.innerHTML = html;
     }
     
     function escapeHtml(str) {
         if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
+        return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
     }
     
     document.getElementById("searchInput")?.addEventListener("keyup", () => renderTable());
