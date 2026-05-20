@@ -3,65 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Lantica 1960 | Heritage Gallery | Memory & Story</title>
+    <title>Lantica 1960 | Heritage Gallery</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0A0A0A; color: #E8E0D5; overflow-x: hidden; }
-        :root {
-            --gold: #C9A96E; --gold-dark: #B8933F; --red: #B45F3B;
-            --dark-card: #1A1A1A; --gray: #9B8A74; --gray-light: #D1C5B5;
-        }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1A1A1A; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
-
-        .navbar {
-            background: rgba(13,13,13,0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 2px solid var(--gold);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 12px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        body { font-family: 'Inter', sans-serif; background: #0A0A0A; color: #E8E0D5; }
+        :root { --gold: #C9A96E; --dark-card: #1A1A1A; --gray: #9B8A74; --gray-light: #D1C5B5; }
+        
+        .navbar { background: rgba(13,13,13,0.95); backdrop-filter: blur(20px); border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-circle { width: 45px; height: 45px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); transition: 0.3s; }
-        .logo-circle:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(201,169,110,0.4); }
+        .logo-circle { width: 45px; height: 45px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
         .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: white; }
         .logo-text span { color: var(--gold); }
         .nav-links { display: flex; gap: 25px; list-style: none; }
-        .nav-links a { color: var(--gray-light); text-decoration: none; font-weight: 500; transition: 0.3s; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--gold); transition: 0.3s; }
-        .nav-links a:hover::after { width: 100%; }
+        .nav-links a { color: var(--gray-light); text-decoration: none; font-weight: 500; transition: 0.3s; }
         .nav-links a:hover { color: var(--gold); }
-        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--gold); cursor: pointer; width: 45px; height: 45px; border-radius: 50%; align-items: center; justify-content: center; transition: 0.3s; }
-        .mobile-menu-btn:hover { background: rgba(201,169,110,0.1); }
-
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--gold); cursor: pointer; }
+        
         .mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1100; opacity: 0; visibility: hidden; transition: 0.3s ease; }
         .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
-        .mobile-nav { position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: #0D0D0D; border-right: 2px solid var(--gold); z-index: 1101; transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 80px 20px 30px; display: flex; flex-direction: column; gap: 12px; }
+        .mobile-nav { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #0D0D0D; border-right: 2px solid var(--gold); z-index: 1101; transition: left 0.3s ease; padding: 80px 20px 30px; display: flex; flex-direction: column; gap: 15px; }
         .mobile-nav.open { left: 0; }
-        .mobile-nav a { color: var(--gray-light); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 12px 15px; border-radius: 12px; transition: 0.3s; display: flex; align-items: center; gap: 12px; }
+        .mobile-nav a { color: var(--gray-light); text-decoration: none; font-size: 1rem; padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 12px; }
         .mobile-nav a i { width: 25px; color: var(--gold); }
         .mobile-nav a:hover { background: rgba(201,169,110,0.1); color: var(--gold); }
         .mobile-nav-close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; color: var(--gold); cursor: pointer; background: none; border: none; }
-
-        .heritage-hero { background: linear-gradient(135deg, #0A0A0A 0%, #1a1612 100%); text-align: center; padding: 100px 20px 60px; border-bottom: 1px solid rgba(201,169,110,0.3); }
+        
+        .heritage-hero { background: linear-gradient(135deg, #0A0A0A 0%, #1a1612 100%); text-align: center; padding: 80px 20px; border-bottom: 1px solid rgba(201,169,110,0.3); }
         .heritage-hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: var(--gold); }
         .heritage-hero h1 span { color: white; }
-        .heritage-hero p { color: var(--gray-light); max-width: 700px; margin: 20px auto 0; }
-        .quote { font-style: italic; margin-top: 30px; padding: 20px; border-left: 3px solid var(--gold); background: rgba(201,169,110,0.05); max-width: 600px; margin-left: auto; margin-right: auto; }
-
+        
         .container { max-width: 1300px; margin: 0 auto; padding: 60px 20px; }
-        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); margin-bottom: 50px; position: relative; }
+        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); margin-bottom: 50px; }
         .section-title:after { content: ''; display: block; width: 60px; height: 2px; background: var(--gold); margin: 15px auto 0; }
-
+        
         .heritage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         .heritage-card { background: var(--dark-card); border-radius: 24px; overflow: hidden; transition: 0.4s; border: 1px solid #2C2823; cursor: pointer; }
         .heritage-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 20px 40px rgba(201,169,110,0.2); }
@@ -71,38 +48,29 @@
         .heritage-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 10px; color: var(--gold); }
         .heritage-story { color: var(--gray-light); font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
         .heritage-memory { background: rgba(201,169,110,0.08); padding: 12px; border-radius: 12px; border-left: 2px solid var(--gold); }
-        .heritage-memory i { color: var(--gold); margin-right: 8px; }
         .heritage-memory p { font-size: 0.8rem; color: var(--gray); font-style: italic; }
-
+        
         .story-section { background: linear-gradient(135deg, #1a1612 0%, #0A0A0A 100%); border-radius: 24px; padding: 50px; margin-top: 40px; text-align: center; border: 1px solid rgba(201,169,110,0.2); }
-        .story-section h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 20px; }
-        .story-text { max-width: 800px; margin: 0 auto; line-height: 1.8; color: var(--gray-light); }
-
-        .floating-telegram { position: fixed; bottom: 30px; left: 30px; background: #0088cc; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; text-decoration: none; box-shadow: 0 5px 25px rgba(0,0,0,0.4); transition: 0.3s; z-index: 999; border: 2px solid white; }
+        
+        .floating-telegram { position: fixed; bottom: 30px; left: 30px; background: #0088cc; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; text-decoration: none; z-index: 999; border: 2px solid white; transition: 0.3s; }
         .floating-telegram:hover { transform: scale(1.1); background: #0077b3; }
-
-        .footer { background: #020202; text-align: center; padding: 40px 20px; margin-top: 40px; border-top: 1px solid #1A1A1A; }
+        .footer { background: #020202; text-align: center; padding: 40px 20px; margin-top: 40px; }
         .footer a { color: var(--gold); text-decoration: none; }
-        .footer a:hover { color: white; }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; overflow-y: auto; padding: 40px; }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; padding: 40px; }
         .modal-content { max-width: 700px; width: 100%; background: var(--dark-card); border-radius: 24px; overflow: hidden; border: 1px solid var(--gold); }
         .modal-image { width: 100%; height: 350px; object-fit: cover; }
         .modal-body { padding: 30px; }
         .modal-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 15px; }
-        .modal-story { color: var(--gray-light); line-height: 1.6; margin-bottom: 20px; }
         .modal-memory { background: rgba(201,169,110,0.1); padding: 15px; border-radius: 16px; border-left: 3px solid var(--gold); }
         .close-modal { position: absolute; top: 20px; right: 30px; font-size: 2rem; color: white; cursor: pointer; background: rgba(0,0,0,0.5); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .close-modal:hover { background: var(--gold); color: #0A0A0A; }
-
+        
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: flex; }
             .heritage-hero h1 { font-size: 2rem; }
             .heritage-grid { grid-template-columns: 1fr; }
-            .section-title { font-size: 1.5rem; }
-            .story-section { padding: 30px 20px; }
-            .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; bottom: 20px; left: 20px; }
+            .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -124,7 +92,7 @@
 
 <nav class="navbar">
     <a href="index.html" class="logo">
-        <div class="logo-circle"><img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960"></div>
+        <div class="logo-circle"><img src="https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960/logo/logo.jpg" alt="Lantica 1960"></div>
         <div class="logo-text">LANTICA <span>1960</span></div>
     </a>
     <ul class="nav-links">
@@ -141,8 +109,7 @@
 
 <section class="heritage-hero">
     <h1>🏛️ Heritage <span>Gallery</span></h1>
-    <p>Step into the memory of Lantica 1960 — a journey through time, vintage treasures, and stories that shaped our soul.</p>
-    <div class="quote"><i class="fas fa-quote-left" style="color: var(--gold); margin-right: 10px;"></i> Every artifact tells a story. Every memory lives here.</div>
+    <p style="color: var(--gray-light); margin-top: 10px;">Step into the memory of Lantica 1960 — a journey through time, vintage treasures, and stories that shaped our soul.</p>
 </section>
 
 <div class="container">
@@ -152,13 +119,9 @@
 
 <div class="container">
     <div class="story-section">
-        <i class="fas fa-history" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; display: inline-block;"></i>
-        <h3>The Memory of Lantica 1960</h3>
-        <div class="story-text">
-            <p>These vintage treasures are more than objects — they are witnesses to history. Each piece has been carefully preserved, carrying whispers of conversations, laughter, and moments that defined generations.</p>
-            <p style="margin-top: 15px;">From the Emperor's era to modern Ethiopia, Lantica 1960 has stood as a silent observer, collecting not just artifacts, but memories. Today, we share them with you.</p>
-            <p style="margin-top: 15px; color: var(--gold);"><i class="fas fa-hand-sparkles"></i> Every item has a story — click on any card to read more.</p>
-        </div>
+        <i class="fas fa-history" style="font-size: 2.5rem; color: var(--gold);"></i>
+        <h3 style="margin-top: 15px;">The Memory of Lantica 1960</h3>
+        <p style="margin-top: 15px;">These vintage treasures are more than objects — they are witnesses to history. Each piece has been carefully preserved, carrying whispers of conversations, laughter, and moments that defined generations.</p>
     </div>
 </div>
 
@@ -168,7 +131,7 @@
         <img class="modal-image" id="modalImage" src="">
         <div class="modal-body">
             <h2 class="modal-title" id="modalTitle"></h2>
-            <p class="modal-story" id="modalStory"></p>
+            <p id="modalStory" style="line-height: 1.6; margin-bottom: 20px;"></p>
             <div class="modal-memory" id="modalMemory"></div>
         </div>
     </div>
@@ -176,100 +139,51 @@
 
 <footer class="footer">
     <p>📍 Arat Kilo, Addis Ababa | 📞 +251 94 1270 797</p>
-    <p style="margin-top: 10px;">Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
-    <p style="margin-top: 5px; font-size: 0.7rem;">Lantica 1960 — Where History Lives</p>
+    <p>Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
 </footer>
 
 <script>
-    const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
-
-    // ========== YOUR 6 HERITAGE IMAGES ==========
+    const cloudinaryBase = "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/lantica1960";
+    
     const heritageItems = [
-        { 
-            title: "Emperor Haile Selassie I Portrait", 
-            image: "emperial1.jpg",
-            story: "An original framed photograph of His Imperial Majesty Emperor Haile Selassie I. This portrait has hung in Lantica since our early days, symbolizing respect for Ethiopian heritage.",
-            memory: "Veteran customers remember the Emperor's visit to this very neighborhood. This photo serves as a tribute to that golden era of Ethiopian history.",
-            badge: "Historical"
-        },
-        { 
-            title: "Vintage Camera Collection", 
-            image: "old-camera1.jpg",
-            story: "A collection of classic film cameras from the 1950s-1970s. These cameras captured countless memories of Ethiopian celebrations, family gatherings, and historic moments within these walls.",
-            memory: "Old staff member Tekle recalls: 'Every Sunday, someone would bring a camera to document the coffee ceremony. These cameras witnessed three generations of our loyal customers.'",
-            badge: "Collection"
-        },
-        { 
-            title: "Vintage DJ Mixer", 
-            image: "old-dj-mixer.jpg",
-            story: "A classic DJ mixer and sound system from the 1970s. This machine brought music to life at Lantica, playing Ethiopian hits and international classics.",
-            memory: "The mixer was used for special events and celebrations. The sound of vinyl crackling through this mixer created unforgettable Friday night vibes.",
-            badge: "Rare"
-        },
-        { 
-            title: "Old Record Player", 
-            image: "old-player.jpg",
-            story: "This gramophone player from the 1960s filled Lantica with Ethiopian jazz and traditional melodies. Restored and still functional, it represents the soul of our entertainment history.",
-            memory: "The sound of vinyl crackling alongside coffee brewing — that was the signature ambiance of early Lantica mornings.",
-            badge: "Vintage"
-        },
-        { 
-            title: "Antique Telescope", 
-            image: "old-telescop.jpg",
-            story: "A beautiful antique brass telescope from the early 1900s. This piece represents the spirit of exploration and discovery that Lantica embraces.",
-            memory: "Customers would gaze through this telescope at the Arat Kilo skyline, dreaming of adventures while enjoying their coffee.",
-            badge: "Rare"
-        },
-        { 
-            title: "Vintage Pocket Watch", 
-            image: "old-watch1.jpg",
-            story: "An elegant mechanical pocket watch from the 1940s. Time has stood still at Lantica while traditions continue to flourish.",
-            memory: "This watch belonged to the original owner, who carried it every day for over 30 years. It reminds us that some things are worth preserving forever.",
-            badge: "Memory"
-        }
+        { title: "Emperor Haile Selassie I Portrait", image: `${cloudinaryBase}/heritage/emperial1`, story: "An original framed photograph of His Imperial Majesty Emperor Haile Selassie I. This portrait has hung in Lantica since our early days, symbolizing respect for Ethiopian heritage.", memory: "Veteran customers remember the Emperor's visit to this very neighborhood. This photo serves as a tribute to that golden era of Ethiopian history." },
+        { title: "Vintage Camera Collection", image: `${cloudinaryBase}/heritage/old-camera1`, story: "A collection of classic film cameras from the 1950s-1970s. These cameras captured countless memories of Ethiopian celebrations.", memory: "Every Sunday, someone would bring a camera to document the coffee ceremony. These cameras witnessed three generations of loyal customers." },
+        { title: "Vintage DJ Mixer", image: `${cloudinaryBase}/heritage/old-dj-mixer`, story: "A classic DJ mixer and sound system from the 1970s. This machine brought music to life at Lantica.", memory: "The mixer was used for special events and celebrations. The sound of vinyl through this mixer created unforgettable Friday night vibes." },
+        { title: "Old Record Player", image: `${cloudinaryBase}/heritage/old-player`, story: "This gramophone player from the 1960s filled Lantica with Ethiopian jazz and traditional melodies.", memory: "The sound of vinyl crackling alongside coffee brewing — that was the signature ambiance of early Lantica mornings." },
+        { title: "Antique Telescope", image: `${cloudinaryBase}/heritage/old-telescop`, story: "A beautiful antique brass telescope from the early 1900s. This piece represents the spirit of exploration.", memory: "Customers would gaze through this telescope at the Arat Kilo skyline, dreaming of adventures while enjoying their coffee." },
+        { title: "Vintage Pocket Watch", image: `${cloudinaryBase}/heritage/old-watch1`, story: "An elegant mechanical pocket watch from the 1940s. Time has stood still at Lantica while traditions continue to flourish.", memory: "This watch belonged to the original owner, who carried it every day for over 30 years." }
     ];
 
-    function renderHeritageGallery() {
+    function renderHeritage() {
         const container = document.getElementById("heritageGrid");
         if (!container) return;
         let html = "";
         heritageItems.forEach((item, index) => {
-            let imgUrl = baseImageUrl + item.image;
-            html += `
-                <div class="heritage-card" onclick="openHeritageModal(${index})">
-                    <img class="heritage-image" src="${imgUrl}" alt="${item.title}" onerror="this.src='https://placehold.co/400x260/1A1A1A/C9A96E?text=${encodeURIComponent(item.title)}'">
-                    <div class="heritage-content">
-                        <h3 class="heritage-title">${item.title}</h3>
-                        <p class="heritage-story">${item.story.substring(0, 100)}...</p>
-                        <div class="heritage-memory"><i class="fas fa-book-open"></i><p>📖 ${item.memory.substring(0, 80)}...</p></div>
-                    </div>
+            html += `<div class="heritage-card" onclick="openModal(${index})">
+                <img class="heritage-image" src="${item.image}" alt="${item.title}" onerror="this.src='https://placehold.co/400x260/1A1A1A/C9A96E?text=${item.title}'">
+                <div class="heritage-content">
+                    <h3 class="heritage-title">${item.title}</h3>
+                    <p class="heritage-story">${item.story.substring(0, 100)}...</p>
+                    <div class="heritage-memory"><i class="fas fa-book-open"></i><p>📖 ${item.memory.substring(0, 80)}...</p></div>
                 </div>
-            `;
+            </div>`;
         });
         container.innerHTML = html;
     }
 
-    function openHeritageModal(index) {
+    function openModal(index) {
         const item = heritageItems[index];
-        const modal = document.getElementById("heritageModal");
-        const modalImg = document.getElementById("modalImage");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalStory = document.getElementById("modalStory");
-        const modalMemory = document.getElementById("modalMemory");
-        
-        let imgUrl = baseImageUrl + item.image;
-        modalImg.src = imgUrl;
-        modalTitle.innerHTML = item.title;
-        modalStory.innerHTML = item.story;
-        modalMemory.innerHTML = `<i class="fas fa-history" style="color: var(--gold); margin-right: 10px;"></i> ${item.memory}`;
-        modal.style.display = "flex";
+        document.getElementById("modalImage").src = item.image;
+        document.getElementById("modalTitle").innerHTML = item.title;
+        document.getElementById("modalStory").innerHTML = item.story;
+        document.getElementById("modalMemory").innerHTML = `<i class="fas fa-history" style="color: var(--gold); margin-right: 10px;"></i> ${item.memory}`;
+        document.getElementById("heritageModal").style.display = "flex";
         document.body.style.overflow = "hidden";
     }
 
     function closeModal(event) {
-        const modal = document.getElementById("heritageModal");
-        if (event && event.target !== modal && !event.target.classList?.contains('close-modal')) return;
-        modal.style.display = "none";
+        if (event && event.target !== document.getElementById("heritageModal") && !event.target.classList?.contains('close-modal')) return;
+        document.getElementById("heritageModal").style.display = "none";
         document.body.style.overflow = "auto";
     }
 
@@ -277,7 +191,7 @@
     function closeMobileMenu() { document.getElementById("mobileNav").classList.remove("open"); document.getElementById("mobileOverlay").classList.remove("active"); document.body.style.overflow = "auto"; }
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeMobileMenu(); closeModal(); } });
 
-    renderHeritageGallery();
+    renderHeritage();
 </script>
 </body>
 </html>
