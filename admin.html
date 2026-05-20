@@ -29,8 +29,7 @@
 
 <div id="loginSection" class="login-card card">
     <h2 style="color: #C9A96E;">Lantica 1960 Admin</h2>
-    <input type="password" id="adminPassword" placeholder="Password">
-    <input type="text" id="workerUrl" placeholder="Worker URL (e.g., https://xxx.workers.dev)">
+    <input type="password" id="adminPassword" placeholder="Enter Password">
     <button onclick="login()">Login</button>
 </div>
 
@@ -40,7 +39,7 @@
             <h2 style="color: #C9A96E;">🍽️ Menu Manager</h2>
             <button class="btn-red" onclick="logout()">Logout</button>
         </div>
-        <div id="statusMsg" class="status">Connected</div>
+        <div id="statusMsg" class="status">Ready</div>
         
         <h3>➕ Add Item</h3>
         <div class="form-row">
@@ -50,12 +49,13 @@
         <div class="form-row">
             <select id="itemCategory">
                 <option>Breakfast</option><option>Signatures</option><option>Pizza</option>
-                <option>Juices</option><option>Hot Beverages</option>
+                <option>Pasta</option><option>Burgers</option><option>Juices</option>
+                <option>Cold Drinks</option><option>Hot Beverages</option>
             </select>
             <input type="text" id="itemImage" placeholder="Cloudinary Image URL">
         </div>
         <textarea id="itemDesc" rows="2" placeholder="Description"></textarea>
-        <button onclick="saveItem()">Save</button>
+        <button onclick="saveItem()">💾 Save Item</button>
         <button id="cancelBtn" class="btn-red" onclick="cancelEdit()" style="display:none">Cancel</button>
     </div>
     
@@ -63,54 +63,120 @@
         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
             <input type="text" id="searchInput" placeholder="Search..." style="flex:2">
             <select id="categoryFilter" style="flex:1">
-                <option value="all">All</option>
+                <option value="all">All Categories</option>
                 <option>Breakfast</option><option>Signatures</option><option>Pizza</option>
                 <option>Juices</option><option>Hot Beverages</option>
             </select>
-            <button onclick="loadMenu()">Refresh</button>
+            <button onclick="loadMenu()">🔄 Refresh</button>
+            <button class="btn-red" onclick="resetToDefault()">Reset Default</button>
         </div>
+        
         <div style="overflow-x: auto;">
             <table id="menuTable">
-                <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Actions</th></tr></thead>
-                <tbody id="menuTableBody"><tr><td colspan="4">Loading...</tr</tbody>
+                <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
+                <tbody id="menuTableBody"><tr><td colspan="5">Loading...</td></tr</tbody>
             </table>
         </div>
     </div>
 </div>
 
 <script>
-    let WORKER_URL = "", ADMIN_PASSWORD = "", menuItems = [], editId = null;
+    // ========== GITHUB CONFIGURATION ==========
+    const GITHUB_TOKEN = "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";
+    const GITHUB_REPO = "developereth/Lantica";
+    const ADMIN_PASSWORD = "lantica1960admin";
+    
+    let menuItems = [];
+    let editId = null;
     
     function login() {
-        WORKER_URL = document.getElementById("workerUrl").value.trim();
-        ADMIN_PASSWORD = document.getElementById("adminPassword").value;
-        if (!WORKER_URL || !ADMIN_PASSWORD) return alert("Enter Worker URL and Password");
-        sessionStorage.setItem("worker_url", WORKER_URL);
-        sessionStorage.setItem("admin_key", ADMIN_PASSWORD);
-        document.getElementById("loginSection").classList.add("hidden");
-        document.getElementById("adminSection").classList.remove("hidden");
-        loadMenu();
+        const pwd = document.getElementById("adminPassword").value;
+        if (pwd === ADMIN_PASSWORD) {
+            document.getElementById("loginSection").classList.add("hidden");
+            document.getElementById("adminSection").classList.remove("hidden");
+            loadMenu();
+        } else {
+            alert("Wrong password!");
+        }
     }
     
-    function logout() { sessionStorage.clear(); location.reload(); }
+    function logout() {
+        document.getElementById("loginSection").classList.remove("hidden");
+        document.getElementById("adminSection").classList.add("hidden");
+        document.getElementById("adminPassword").value = "";
+    }
     
     async function loadMenu() {
         try {
-            const res = await fetch(`${WORKER_URL}/api/menu`);
+            const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/menu.json`;
+            const res = await fetch(url, {
+                headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+            });
+            
+            if (res.status === 404) {
+                await createDefaultMenu();
+                return loadMenu();
+            }
+            
             const data = await res.json();
-            menuItems = data.items || [];
+            const content = JSON.parse(atob(data.content));
+            menuItems = content.items || [];
             renderTable();
-            document.getElementById("statusMsg").innerHTML = "✅ Menu loaded";
-        } catch(e) { document.getElementById("statusMsg").innerHTML = "❌ Error loading"; }
+            document.getElementById("statusMsg").innerHTML = "✅ Menu loaded successfully";
+        } catch(e) {
+            document.getElementById("statusMsg").innerHTML = "❌ Error loading menu";
+        }
     }
     
-    async function saveToWorker() {
-        const res = await fetch(`${WORKER_URL}/api/menu`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-Admin-Key': ADMIN_PASSWORD },
-            body: JSON.stringify({ items: menuItems })
+    async function saveToGitHub() {
+        const menuData = { items: menuItems };
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(menuData, null, 2))));
+        const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/menu.json`;
+        
+        let sha = null;
+        const getRes = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
+        if (getRes.ok) {
+            const data = await getRes.json();
+            sha = data.sha;
+        }
+        
+        const res = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: "Menu update",
+                content: content,
+                sha: sha,
+                branch: "main"
+            })
         });
-        return res.ok;
+        
+        if (res.ok) {
+            document.getElementById("statusMsg").innerHTML = "✅ Saved! Menu updated";
+            return true;
+        }
+        return false;
+    }
+    
+    async function createDefaultMenu() {
+        const defaultMenu = {
+            items: [
+                { id: 1, name: "Lamb Tibs", price: 680, category: "Signatures", image: "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/photo_5794060648273612539_y_1_l4nywy.jpg", description: "Tender lamb sautéed with berbere" },
+                { id: 2, name: "Combo Fasting Platter", price: 250, category: "Breakfast", image: "", description: "Hearty vegan platter" },
+                { id: 3, name: "Papaya Juice", price: 160, category: "Juices", image: "", description: "Freshly squeezed papaya" }
+            ]
+        };
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(defaultMenu, null, 2))));
+        const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/menu.json`;
+        
+        await fetch(url, {
+            method: 'PUT',
+            headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: "Create default menu", content: content, branch: "main" })
+        });
     }
     
     async function saveItem() {
@@ -119,11 +185,17 @@
         const category = document.getElementById("itemCategory").value;
         const image = document.getElementById("itemImage").value.trim();
         const description = document.getElementById("itemDesc").value.trim();
-        if (!name || isNaN(price)) return alert("Enter name and price");
+        
+        if (!name || isNaN(price)) {
+            alert("Please enter name and price");
+            return;
+        }
         
         if (editId) {
             const index = menuItems.findIndex(i => i.id === editId);
-            if (index !== -1) menuItems[index] = { ...menuItems[index], name, price, category, image, description };
+            if (index !== -1) {
+                menuItems[index] = { ...menuItems[index], name, price, category, image, description };
+            }
             editId = null;
             document.getElementById("cancelBtn").style.display = "none";
         } else {
@@ -131,13 +203,12 @@
             menuItems.push({ id: newId, name, price, category, image, description });
         }
         
-        if (await saveToWorker()) {
+        if (await saveToGitHub()) {
             document.getElementById("itemName").value = "";
             document.getElementById("itemPrice").value = "";
             document.getElementById("itemImage").value = "";
             document.getElementById("itemDesc").value = "";
             loadMenu();
-            document.getElementById("statusMsg").innerHTML = "✅ Saved!";
         }
     }
     
@@ -154,10 +225,12 @@
     }
     
     async function deleteItem(id) {
-        if (confirm("Delete?")) {
+        if (confirm("Delete this item?")) {
             menuItems = menuItems.filter(i => i.id !== id);
-            if (await saveToWorker()) loadMenu();
-            if (editId === id) cancelEdit();
+            if (await saveToGitHub()) {
+                loadMenu();
+                if (editId === id) cancelEdit();
+            }
         }
     }
     
@@ -170,39 +243,62 @@
         document.getElementById("cancelBtn").style.display = "none";
     }
     
+    async function resetToDefault() {
+        if (confirm("Reset to default menu? All changes will be lost!")) {
+            await createDefaultMenu();
+            loadMenu();
+        }
+    }
+    
     function renderTable() {
         const search = document.getElementById("searchInput").value.toLowerCase();
         const filter = document.getElementById("categoryFilter").value;
-        let filtered = menuItems.filter(i => (filter === "all" || i.category === filter) && i.name.toLowerCase().includes(search));
+        
+        let filtered = menuItems.filter(item => {
+            const matchSearch = item.name.toLowerCase().includes(search);
+            const matchCategory = filter === "all" || item.category === filter;
+            return matchSearch && matchCategory;
+        });
+        
         const tbody = document.getElementById("menuTableBody");
-        if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No items</tr'; return; }
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No items found</td></tr';
+            return;
+        }
+        
         let html = "";
         filtered.forEach(item => {
-            const imgPreview = item.image ? `<img src="${item.image}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" onerror="this.src='https://placehold.co/40x40/1A1A1A/C9A96E'">` : "—";
-            html += `<tr>
-                <td>${imgPreview}</td>
-                <td><strong>${escapeHtml(item.name)}</strong><br><small>${item.category}</small></td>
-                <td style="color:#C9A96E;">${item.price} ETB</td>
-                <td><button class="edit-btn" onclick="editItem(${item.id})">✏️</button><button class="delete-btn" onclick="deleteItem(${item.id})">🗑️</button></td>
-            </tr>`;
+            const imgPreview = item.image ? 
+                `<img src="${item.image}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" onerror="this.src='https://placehold.co/40x40/1A1A1A/C9A96E'">` : 
+                "—";
+            html += `
+                <tr>
+                    <td>${imgPreview}</td>
+                    <td><strong>${escapeHtml(item.name)}</strong></td>
+                    <td>${item.category}</td>
+                    <td style="color:#C9A96E;">${item.price} ETB</td>
+                    <td>
+                        <button class="edit-btn" onclick="editItem(${item.id})">✏️ Edit</button>
+                        <button class="delete-btn" onclick="deleteItem(${item.id})">🗑️ Delete</button>
+                    </td>
+                </tr>
+            `;
         });
         tbody.innerHTML = html;
     }
     
-    function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
     
     document.getElementById("searchInput")?.addEventListener("keyup", () => renderTable());
     document.getElementById("categoryFilter")?.addEventListener("change", () => renderTable());
-    
-    if (sessionStorage.getItem("worker_url") && sessionStorage.getItem("admin_key")) {
-        WORKER_URL = sessionStorage.getItem("worker_url");
-        ADMIN_PASSWORD = sessionStorage.getItem("admin_key");
-        document.getElementById("workerUrl").value = WORKER_URL;
-        document.getElementById("adminPassword").value = ADMIN_PASSWORD;
-        document.getElementById("loginSection").classList.add("hidden");
-        document.getElementById("adminSection").classList.remove("hidden");
-        loadMenu();
-    }
 </script>
 </body>
 </html>
