@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lantica 1960 | Secure Admin</title>
+    <title>Lantica 1960 | Admin</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: system-ui, -apple-system, sans-serif; background: #0A0A0A; color: #E8E0D5; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .card { background: #1A1A1A; border-radius: 20px; padding: 25px; margin-bottom: 25px; border: 1px solid #C9A96E; }
-        .login-card { max-width: 400px; margin: 100px auto; }
+        body { font-family: system-ui, sans-serif; background: #0A0A0A; color: #E8E0D5; padding: 20px; }
+        .card { background: #1A1A1A; border-radius: 20px; padding: 25px; margin-bottom: 25px; border: 1px solid #C9A96E; max-width: 1200px; margin: 20px auto; }
+        .login-card { max-width: 400px; margin: 100px auto; text-align: center; }
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; background: #0D0D0D; border: 1px solid #2C2823; border-radius: 10px; color: white; }
         button { background: #C9A96E; color: #0A0A0A; padding: 12px 24px; border-radius: 40px; border: none; font-weight: bold; cursor: pointer; margin: 5px; }
         .btn-red { background: #B45F3B; color: white; }
@@ -19,193 +18,129 @@
         .edit-btn, .delete-btn { padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; margin: 0 3px; }
         .edit-btn { background: #C9A96E; color: #0A0A0A; }
         .delete-btn { background: #B45F3B; color: white; }
-        .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
-        .hidden { display: none; }
         .form-row { display: flex; gap: 15px; flex-wrap: wrap; }
         .form-row > * { flex: 1; }
-        h1, h2 { color: #C9A96E; margin-bottom: 15px; }
-        @media (max-width: 768px) { .form-row { flex-direction: column; } }
+        .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+        .hidden { display: none; }
+        @media (max-width: 700px) { .form-row { flex-direction: column; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- Login Box -->
-    <div id="loginBox" class="card login-card">
-        <h1 style="text-align: center;">Lantica 1960</h1>
-        <p style="text-align: center; margin-bottom: 20px;">Secure Admin Panel</p>
-        <input type="password" id="adminPassword" placeholder="Admin Password">
-        <input type="text" id="workerUrl" placeholder="Worker URL (e.g., https://xxx.workers.dev)">
-        <button onclick="login()" style="width: 100%;">Login</button>
+<div id="loginSection" class="login-card card">
+    <h2 style="color: #C9A96E;">Lantica 1960 Admin</h2>
+    <input type="password" id="adminPassword" placeholder="Password">
+    <input type="text" id="workerUrl" placeholder="Worker URL (e.g., https://xxx.workers.dev)">
+    <button onclick="login()">Login</button>
+</div>
+
+<div id="adminSection" class="hidden">
+    <div class="card">
+        <div style="display: flex; justify-content: space-between;">
+            <h2 style="color: #C9A96E;">🍽️ Menu Manager</h2>
+            <button class="btn-red" onclick="logout()">Logout</button>
+        </div>
+        <div id="statusMsg" class="status">Connected</div>
+        
+        <h3>➕ Add Item</h3>
+        <div class="form-row">
+            <input type="text" id="itemName" placeholder="Name">
+            <input type="number" id="itemPrice" placeholder="Price">
+        </div>
+        <div class="form-row">
+            <select id="itemCategory">
+                <option>Breakfast</option><option>Signatures</option><option>Pizza</option>
+                <option>Juices</option><option>Hot Beverages</option>
+            </select>
+            <input type="text" id="itemImage" placeholder="Cloudinary Image URL">
+        </div>
+        <textarea id="itemDesc" rows="2" placeholder="Description"></textarea>
+        <button onclick="saveItem()">Save</button>
+        <button id="cancelBtn" class="btn-red" onclick="cancelEdit()" style="display:none">Cancel</button>
     </div>
-
-    <!-- Admin Panel (hidden until login) -->
-    <div id="adminPanel" class="hidden">
-        <div class="card">
-            <h1>🍽️ Lantica 1960 Secure Admin</h1>
-            <div id="statusMsg" class="status">✅ Connected - Menu is LIVE</div>
-            <button class="btn-red" onclick="logout()" style="float: right;">Logout</button>
-            <div style="clear: both;"></div>
+    
+    <div class="card">
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+            <input type="text" id="searchInput" placeholder="Search..." style="flex:2">
+            <select id="categoryFilter" style="flex:1">
+                <option value="all">All</option>
+                <option>Breakfast</option><option>Signatures</option><option>Pizza</option>
+                <option>Juices</option><option>Hot Beverages</option>
+            </select>
+            <button onclick="loadMenu()">Refresh</button>
         </div>
-
-        <div class="card">
-            <h2>➕ Add New Menu Item</h2>
-            <div class="form-row">
-                <input type="text" id="itemName" placeholder="Item Name (e.g., Lamb Tibs)">
-                <input type="number" id="itemPrice" placeholder="Price (ETB)">
-            </div>
-            <div class="form-row">
-                <select id="itemCategory">
-                    <option value="Breakfast">☀️ Breakfast</option>
-                    <option value="Signatures">🔥 Signatures</option>
-                    <option value="Pizza">🍕 Pizza</option>
-                    <option value="Pasta">🍝 Pasta</option>
-                    <option value="Burgers">🍔 Burgers</option>
-                    <option value="Juices">🥤 Juices</option>
-                    <option value="Cold Drinks">🧊 Cold Drinks</option>
-                    <option value="Hot Beverages">☕ Hot Beverages</option>
-                </select>
-                <input type="text" id="itemImage" placeholder="Image URL (Cloudinary)">
-            </div>
-            <textarea id="itemDesc" rows="2" placeholder="Description (optional)"></textarea>
-            <button onclick="saveItem()">💾 Save Item</button>
-            <button id="cancelBtn" class="btn-red" onclick="cancelEdit()" style="display: none;">❌ Cancel Edit</button>
-        </div>
-
-        <div class="card">
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
-                <input type="text" id="searchInput" placeholder="🔍 Search..." style="flex: 2;">
-                <select id="categoryFilter" style="flex: 1;">
-                    <option value="all">All Categories</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Signatures">Signatures</option>
-                    <option value="Pizza">Pizza</option>
-                    <option value="Pasta">Pasta</option>
-                    <option value="Burgers">Burgers</option>
-                    <option value="Juices">Juices</option>
-                    <option value="Cold Drinks">Cold Drinks</option>
-                    <option value="Hot Beverages">Hot Beverages</option>
-                </select>
-                <button onclick="loadMenu()">🔄 Refresh</button>
-                <button class="btn-red" onclick="resetToDefault()">↺ Reset Default</button>
-            </div>
-            
-            <div style="overflow-x: auto;">
-                <table id="menuTable">
-                    <thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Description</th><th>Actions</th></tr></thead>
-                    <tbody id="menuTableBody"><tr><td colspan="5" style="text-align:center;">Login to access menu...</td></tr></tbody>
-                </table>
-            </div>
+        <div style="overflow-x: auto;">
+            <table id="menuTable">
+                <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Actions</th></tr></thead>
+                <tbody id="menuTableBody"><tr><td colspan="4">Loading...</tr</tbody>
+            </table>
         </div>
     </div>
 </div>
 
 <script>
-    let WORKER_URL = "";
-    let ADMIN_PASSWORD = "";
-    let menuItems = [];
-    let editId = null;
-
+    let WORKER_URL = "", ADMIN_PASSWORD = "", menuItems = [], editId = null;
+    
     function login() {
         WORKER_URL = document.getElementById("workerUrl").value.trim();
         ADMIN_PASSWORD = document.getElementById("adminPassword").value;
-        
-        if (!WORKER_URL || !ADMIN_PASSWORD) {
-            alert("Enter Worker URL and Password");
-            return;
-        }
-        
-        // Save to sessionStorage (clears when browser closes - more secure)
+        if (!WORKER_URL || !ADMIN_PASSWORD) return alert("Enter Worker URL and Password");
         sessionStorage.setItem("worker_url", WORKER_URL);
         sessionStorage.setItem("admin_key", ADMIN_PASSWORD);
-        
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("adminPanel").classList.remove("hidden");
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("adminSection").classList.remove("hidden");
         loadMenu();
     }
-
-    function logout() {
-        sessionStorage.removeItem("worker_url");
-        sessionStorage.removeItem("admin_key");
-        location.reload();
-    }
-
+    
+    function logout() { sessionStorage.clear(); location.reload(); }
+    
     async function loadMenu() {
         try {
             const res = await fetch(`${WORKER_URL}/api/menu`);
             const data = await res.json();
             menuItems = data.items || [];
             renderTable();
-            document.getElementById("statusMsg").innerHTML = "✅ Connected - Menu is LIVE";
-        } catch(e) {
-            document.getElementById("statusMsg").innerHTML = "❌ Connection error - check Worker URL";
-        }
+            document.getElementById("statusMsg").innerHTML = "✅ Menu loaded";
+        } catch(e) { document.getElementById("statusMsg").innerHTML = "❌ Error loading"; }
     }
-
+    
+    async function saveToWorker() {
+        const res = await fetch(`${WORKER_URL}/api/menu`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Admin-Key': ADMIN_PASSWORD },
+            body: JSON.stringify({ items: menuItems })
+        });
+        return res.ok;
+    }
+    
     async function saveItem() {
         const name = document.getElementById("itemName").value.trim();
         const price = parseFloat(document.getElementById("itemPrice").value);
         const category = document.getElementById("itemCategory").value;
-        const image = document.getElementById("itemImage").value;
-        const description = document.getElementById("itemDesc").value;
-        
-        if (!name || isNaN(price)) {
-            alert("Please enter name and price");
-            return;
-        }
+        const image = document.getElementById("itemImage").value.trim();
+        const description = document.getElementById("itemDesc").value.trim();
+        if (!name || isNaN(price)) return alert("Enter name and price");
         
         if (editId) {
             const index = menuItems.findIndex(i => i.id === editId);
-            if (index !== -1) {
-                menuItems[index] = { ...menuItems[index], name, price, category, image, description, active: true };
-            }
+            if (index !== -1) menuItems[index] = { ...menuItems[index], name, price, category, image, description };
             editId = null;
             document.getElementById("cancelBtn").style.display = "none";
         } else {
             const newId = Math.max(...menuItems.map(i => i.id), 0) + 1;
-            menuItems.push({ id: newId, name, price, category, image, description, active: true });
+            menuItems.push({ id: newId, name, price, category, image, description });
         }
         
-        await saveToWorker();
-        
-        document.getElementById("itemName").value = "";
-        document.getElementById("itemPrice").value = "";
-        document.getElementById("itemImage").value = "";
-        document.getElementById("itemDesc").value = "";
-        renderTable();
-    }
-
-    async function saveToWorker() {
-        const menuData = { items: menuItems };
-        try {
-            const res = await fetch(`${WORKER_URL}/api/menu`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Admin-Key': ADMIN_PASSWORD
-                },
-                body: JSON.stringify(menuData)
-            });
-            
-            if (res.ok) {
-                document.getElementById("statusMsg").innerHTML = "✅ Saved! Menu updated for all customers";
-                setTimeout(() => {
-                    document.getElementById("statusMsg").innerHTML = "✅ Connected - Menu is LIVE";
-                }, 2000);
-                return true;
-            } else if (res.status === 401) {
-                alert("Unauthorized - Wrong admin password");
-                logout();
-                return false;
-            } else {
-                throw new Error("Save failed");
-            }
-        } catch(e) {
-            alert("Error saving: " + e.message);
-            return false;
+        if (await saveToWorker()) {
+            document.getElementById("itemName").value = "";
+            document.getElementById("itemPrice").value = "";
+            document.getElementById("itemImage").value = "";
+            document.getElementById("itemDesc").value = "";
+            loadMenu();
+            document.getElementById("statusMsg").innerHTML = "✅ Saved!";
         }
     }
-
+    
     function editItem(id) {
         const item = menuItems.find(i => i.id === id);
         if (!item) return;
@@ -217,16 +152,15 @@
         document.getElementById("itemDesc").value = item.description || "";
         document.getElementById("cancelBtn").style.display = "inline-block";
     }
-
+    
     async function deleteItem(id) {
-        if (confirm("Delete this item? All customers will see the change immediately.")) {
+        if (confirm("Delete?")) {
             menuItems = menuItems.filter(i => i.id !== id);
-            await saveToWorker();
-            renderTable();
+            if (await saveToWorker()) loadMenu();
             if (editId === id) cancelEdit();
         }
     }
-
+    
     function cancelEdit() {
         editId = null;
         document.getElementById("itemName").value = "";
@@ -235,77 +169,38 @@
         document.getElementById("itemDesc").value = "";
         document.getElementById("cancelBtn").style.display = "none";
     }
-
-    async function resetToDefault() {
-        if (confirm("Reset to default menu? All changes will be lost!")) {
-            menuItems = [
-                { id: 1, name: "Combo Fasting Platter", price: 250, category: "Breakfast", image: "", description: "Hearty vegan platter", active: true },
-                { id: 2, name: "Lamb Tibs", price: 680, category: "Signatures", image: "", description: "Tender lamb sautéed with berbere", active: true },
-                { id: 3, name: "Special Lentic Pizza", price: 580, category: "Pizza", image: "", description: "Wood-fired lentic crust", active: true },
-                { id: 4, name: "Papaya Juice", price: 160, category: "Juices", image: "", description: "Freshly squeezed papaya", active: true },
-                { id: 5, name: "Ethiopian Coffee", price: 60, category: "Hot Beverages", image: "", description: "Traditional buna ceremony", active: true }
-            ];
-            await saveToWorker();
-            renderTable();
-        }
-    }
-
+    
     function renderTable() {
         const search = document.getElementById("searchInput").value.toLowerCase();
         const filter = document.getElementById("categoryFilter").value;
-        
-        let filtered = menuItems.filter(item => {
-            const matchSearch = item.name.toLowerCase().includes(search);
-            const matchCategory = filter === "all" || item.category === filter;
-            return matchSearch && matchCategory;
-        });
-        
+        let filtered = menuItems.filter(i => (filter === "all" || i.category === filter) && i.name.toLowerCase().includes(search));
         const tbody = document.getElementById("menuTableBody");
-        if (filtered.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">No menu items found. Add one above!</td></tr>';
-            return;
-        }
-        
+        if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No items</tr'; return; }
         let html = "";
         filtered.forEach(item => {
-            html += `
-                <tr>
-                    <td data-label="Name"><strong>${escapeHtml(item.name)}</strong></td>
-                    <td data-label="Category"><span style="background:rgba(201,169,110,0.2); padding:4px 10px; border-radius:20px;">${item.category}</span></td>
-                    <td data-label="Price" style="color:#C9A96E; font-weight:700;">${item.price} ETB</td>
-                    <td data-label="Description">${escapeHtml(item.description || '—')}</td>
-                    <td data-label="Actions">
-                        <button class="edit-btn" onclick="editItem(${item.id})">✏️ Edit</button>
-                        <button class="delete-btn" onclick="deleteItem(${item.id})">🗑️ Delete</button>
-                    </td>
-                </tr>
-            `;
+            const imgPreview = item.image ? `<img src="${item.image}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" onerror="this.src='https://placehold.co/40x40/1A1A1A/C9A96E'">` : "—";
+            html += `<tr>
+                <td>${imgPreview}</td>
+                <td><strong>${escapeHtml(item.name)}</strong><br><small>${item.category}</small></td>
+                <td style="color:#C9A96E;">${item.price} ETB</td>
+                <td><button class="edit-btn" onclick="editItem(${item.id})">✏️</button><button class="delete-btn" onclick="deleteItem(${item.id})">🗑️</button></td>
+            </tr>`;
         });
         tbody.innerHTML = html;
     }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    // Event listeners
-    document.getElementById("searchInput").addEventListener("keyup", () => renderTable());
-    document.getElementById("categoryFilter").addEventListener("change", () => renderTable());
-
-    // Check for existing session
+    
+    function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+    
+    document.getElementById("searchInput")?.addEventListener("keyup", () => renderTable());
+    document.getElementById("categoryFilter")?.addEventListener("change", () => renderTable());
+    
     if (sessionStorage.getItem("worker_url") && sessionStorage.getItem("admin_key")) {
         WORKER_URL = sessionStorage.getItem("worker_url");
         ADMIN_PASSWORD = sessionStorage.getItem("admin_key");
         document.getElementById("workerUrl").value = WORKER_URL;
         document.getElementById("adminPassword").value = ADMIN_PASSWORD;
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("adminPanel").classList.remove("hidden");
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("adminSection").classList.remove("hidden");
         loadMenu();
     }
 </script>
