@@ -22,6 +22,7 @@
         .form-row > * { flex: 1; }
         .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
         .hidden { display: none; }
+        .status-error { background: rgba(180,95,59,0.2); color: #B45F3B; }
         @media (max-width: 700px) { .form-row { flex-direction: column; } }
     </style>
 </head>
@@ -52,7 +53,7 @@
                 <option>Pasta</option><option>Burgers</option><option>Juices</option>
                 <option>Cold Drinks</option><option>Hot Beverages</option>
             </select>
-            <input type="text" id="itemImage" placeholder="Cloudinary Image URL">
+            <input type="text" id="itemImage" placeholder="Cloudinary Image URL or public ID">
         </div>
         <textarea id="itemDesc" rows="2" placeholder="Description"></textarea>
         <button onclick="saveItem()">💾 Save Item</button>
@@ -74,14 +75,13 @@
         <div style="overflow-x: auto;">
             <table id="menuTable">
                 <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
-                <tbody id="menuTableBody"><tr><td colspan="5">Loading...</td></tr</tbody>
+                <tbody id="menuTableBody"><tr><td colspan="5">Login to view menu...</td></tr</tbody>
             </table>
         </div>
     </div>
 </div>
 
 <script>
-    // ========== GITHUB CONFIGURATION ==========
     const GITHUB_TOKEN = "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";
     const GITHUB_REPO = "developereth/Lantica";
     const ADMIN_PASSWORD = "lantica1960admin";
@@ -107,6 +107,10 @@
     }
     
     async function loadMenu() {
+        const statusDiv = document.getElementById("statusMsg");
+        statusDiv.innerHTML = "⏳ Loading menu from GitHub...";
+        statusDiv.className = "status";
+        
         try {
             const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/menu.json`;
             const res = await fetch(url, {
@@ -114,17 +118,25 @@
             });
             
             if (res.status === 404) {
+                statusDiv.innerHTML = "⚠️ menu.json not found. Creating default...";
+                statusDiv.className = "status status-error";
                 await createDefaultMenu();
                 return loadMenu();
+            }
+            
+            if (!res.ok) {
+                throw new Error(`HTTP ${res.status}`);
             }
             
             const data = await res.json();
             const content = JSON.parse(atob(data.content));
             menuItems = content.items || [];
             renderTable();
-            document.getElementById("statusMsg").innerHTML = "✅ Menu loaded successfully";
+            statusDiv.innerHTML = `✅ Menu loaded successfully (${menuItems.length} items)`;
+            statusDiv.className = "status";
         } catch(e) {
-            document.getElementById("statusMsg").innerHTML = "❌ Error loading menu";
+            statusDiv.innerHTML = `❌ Error: ${e.message}. Make sure menu.json exists on GitHub.`;
+            statusDiv.className = "status status-error";
         }
     }
     
@@ -154,11 +166,7 @@
             })
         });
         
-        if (res.ok) {
-            document.getElementById("statusMsg").innerHTML = "✅ Saved! Menu updated";
-            return true;
-        }
-        return false;
+        return res.ok;
     }
     
     async function createDefaultMenu() {
@@ -183,12 +191,17 @@
         const name = document.getElementById("itemName").value.trim();
         const price = parseFloat(document.getElementById("itemPrice").value);
         const category = document.getElementById("itemCategory").value;
-        const image = document.getElementById("itemImage").value.trim();
+        let image = document.getElementById("itemImage").value.trim();
         const description = document.getElementById("itemDesc").value.trim();
         
         if (!name || isNaN(price)) {
             alert("Please enter name and price");
             return;
+        }
+        
+        // If user entered only the public ID, construct full Cloudinary URL
+        if (image && !image.startsWith('http')) {
+            image = `https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/${image}.jpg`;
         }
         
         if (editId) {
@@ -203,12 +216,18 @@
             menuItems.push({ id: newId, name, price, category, image, description });
         }
         
+        const statusDiv = document.getElementById("statusMsg");
+        statusDiv.innerHTML = "⏳ Saving to GitHub...";
+        
         if (await saveToGitHub()) {
+            statusDiv.innerHTML = "✅ Saved successfully!";
             document.getElementById("itemName").value = "";
             document.getElementById("itemPrice").value = "";
             document.getElementById("itemImage").value = "";
             document.getElementById("itemDesc").value = "";
             loadMenu();
+        } else {
+            statusDiv.innerHTML = "❌ Save failed!";
         }
     }
     
@@ -219,7 +238,13 @@
         document.getElementById("itemName").value = item.name;
         document.getElementById("itemPrice").value = item.price;
         document.getElementById("itemCategory").value = item.category;
-        document.getElementById("itemImage").value = item.image || "";
+        // Extract just the public ID from full URL if needed
+        let imageValue = item.image || "";
+        if (imageValue.includes('cloudinary')) {
+            const parts = imageValue.split('/');
+            imageValue = parts[parts.length - 1].replace('.jpg', '');
+        }
+        document.getElementById("itemImage").value = imageValue;
         document.getElementById("itemDesc").value = item.description || "";
         document.getElementById("cancelBtn").style.display = "inline-block";
     }
@@ -262,7 +287,7 @@
         
         const tbody = document.getElementById("menuTableBody");
         if (filtered.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No items found</td></tr';
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">No items found. Add one above!</td></tr';
             return;
         }
         
@@ -276,7 +301,7 @@
                     <td>${imgPreview}</td>
                     <td><strong>${escapeHtml(item.name)}</strong></td>
                     <td>${item.category}</td>
-                    <td style="color:#C9A96E;">${item.price} ETB</td>
+                    <td style="color:#C9A96E; font-weight:700;">${item.price} ETB</td>
                     <td>
                         <button class="edit-btn" onclick="editItem(${item.id})">✏️ Edit</button>
                         <button class="delete-btn" onclick="deleteItem(${item.id})">🗑️ Delete</button>
