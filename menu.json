@@ -7,22 +7,6 @@
       "category": "Signatures",
       "image": "https://res.cloudinary.com/dwqgdpcnr/image/upload/v1/photo_5794060648273612539_y_1_l4nywy.jpg",
       "description": "Tender lamb sautéed with berbere"
-    },
-    {
-      "id": 2,
-      "name": "Combo Fasting Platter",
-      "price": 250,
-      "category": "Breakfast",
-      "image": "",
-      "description": "Hearty vegan platter"
-    },
-    {
-      "id": 3,
-      "name": "Papaya Juice",
-      "price": 160,
-      "category": "Juices",
-      "image": "",
-      "description": "Freshly squeezed papaya"
     }
   ]
 }
