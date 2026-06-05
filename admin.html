@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lantica 1960 | Complete Admin Dashboard</title>
+    <title>Lantica 1960 | Admin Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Cloudinary Upload Widget -->
     <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,7 +26,6 @@
 
         .container { max-width: 1400px; margin: 0 auto; }
         
-        /* Header */
         .header {
             background: linear-gradient(135deg, #1A1A1A 0%, #0D0D0D 100%);
             border-bottom: 2px solid var(--gold);
@@ -43,7 +41,6 @@
         .header h1 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.5rem; }
         .header p { font-size: 0.7rem; color: var(--gray); }
         
-        /* Cards */
         .card {
             background: var(--dark-card);
             border-radius: 20px;
@@ -53,7 +50,6 @@
         }
         .login-card { max-width: 400px; margin: 100px auto; text-align: center; }
         
-        /* Forms */
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-size: 0.85rem; color: var(--gray); }
         input, select, textarea {
@@ -68,7 +64,6 @@
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         
-        /* Buttons */
         .btn {
             padding: 12px 24px;
             border-radius: 40px;
@@ -85,32 +80,36 @@
         .btn-red { background: var(--red); color: white; }
         .btn-green { background: var(--green); color: white; }
         
-        /* Table */
-        .table-container { overflow-x: auto; }
+        .table-container { overflow-x: auto; max-height: 600px; overflow-y: auto; }
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 12px; background: #0D0D0D; color: var(--gold); }
+        th { 
+            text-align: left; 
+            padding: 12px; 
+            background: #0D0D0D; 
+            color: var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
         td { padding: 10px 12px; border-top: 1px solid #2C2823; }
         .edit-btn, .delete-btn { padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; border: none; margin: 0 3px; }
         .edit-btn { background: var(--gold); color: #0A0A0A; }
         .delete-btn { background: var(--red); color: white; }
         
-        /* Image preview */
         .img-preview { width: 40px; height: 40px; object-fit: cover; border-radius: 8px; background: #0D0D0D; }
         .img-preview-large { width: 60px; height: 60px; object-fit: cover; border-radius: 12px; }
         
-        /* Stats */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: #0D0D0D; padding: 15px; border-radius: 16px; text-align: center; }
         .stat-card h3 { font-size: 1.8rem; color: var(--gold); }
         
-        /* Search & Filter */
         .search-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
         .search-input { flex: 2; padding: 12px; background: var(--dark-card); border: 1px solid #2C2823; border-radius: 40px; color: white; }
         .filter-select { flex: 1; padding: 12px; background: var(--dark-card); border: 1px solid #2C2823; border-radius: 40px; color: white; }
         
-        /* Status */
         .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
         .status-error { background: rgba(180,95,59,0.2); color: var(--red); }
+        .status-warning { background: rgba(251,191,36,0.2); color: #FBBF24; }
         
         .hidden { display: none; }
         
@@ -206,7 +205,7 @@
                     <thead>
                         <tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Description</th><th>Actions</th></tr>
                     </thead>
-                    <tbody id="menuTableBody"><tr><td colspan="6" style="text-align:center; padding:40px;">Loading menu items...</td></tr></tbody>
+                    <tbody id="menuTableBody"><tr><td colspan="6" style="text-align:center; padding:40px;">Loading menu items...<div class="loader"></div></td></tr</tbody>
                 </table>
             </div>
         </div>
@@ -223,7 +222,6 @@
     
     let menuItems = [];
     let editId = null;
-    let currentImageUrl = "";
 
     // ========== AUTHENTICATION ==========
     function login() {
@@ -243,47 +241,78 @@
         document.getElementById("adminPassword").value = "";
     }
 
-    // ========== CLOUDINARY UPLOAD WIDGET ==========
+    // ========== CLOUDINARY UPLOAD WIDGET (NO CROPPING) ==========
     function openUploadWidget() {
         const widget = cloudinary.createUploadWidget({
             cloudName: CLOUDINARY_CLOUD_NAME,
             uploadPreset: CLOUDINARY_UPLOAD_PRESET,
             sources: ['local', 'camera', 'url'],
             multiple: false,
-            cropping: true,
-            croppingAspectRatio: 1.2,
+            cropping: false,           // ← NO CROPPING!
             showUploadMoreButton: false,
             clientAllowedFormats: ['images'],
             maxImageFileSize: 5000000, // 5MB
-            styles: { palette: { window: "#1A1A1A", button: "#C9A96E", text: "#FFFFFF" } }
+            styles: {
+                palette: {
+                    window: "#1A1A1A",
+                    windowBorder: "#C9A96E",
+                    tabIcon: "#C9A96E",
+                    menuIcons: "#C9A96E",
+                    textDark: "#FFFFFF",
+                    textLight: "#E8E0D5",
+                    link: "#C9A96E",
+                    action: "#C9A96E",
+                    inprogress: "#C9A96E",
+                    complete: "#2E7D32",
+                    error: "#B45F3B"
+                }
+            }
         }, (error, result) => {
             if (!error && result && result.event === "success") {
                 const imageUrl = result.info.secure_url;
                 document.getElementById("itemImage").value = imageUrl;
-                currentImageUrl = imageUrl;
                 document.getElementById("imagePreview").innerHTML = `<img src="${imageUrl}" class="img-preview-large" onerror="this.style.display='none'"> <span style="font-size:0.7rem; color:var(--gold);">✓ Uploaded!</span>`;
+                document.getElementById("statusMsg").innerHTML = "✅ Image uploaded successfully!";
+                document.getElementById("statusMsg").className = "status";
+                setTimeout(() => { document.getElementById("statusMsg").innerHTML = "Connected - Menu is LIVE"; }, 2000);
             }
         });
         widget.open();
     }
 
-    // ========== MENU CRUD OPERATIONS ==========
+    // ========== LOAD MENU FROM WORKER ==========
     async function loadMenu() {
         try {
+            document.getElementById("statusMsg").innerHTML = "🔄 Loading menu from server...";
+            document.getElementById("statusMsg").className = "status";
+            
             const res = await fetch(`${WORKER_URL}/api/menu`);
             const data = await res.json();
-            menuItems = data.items || [];
+            
+            if (data.items && Array.isArray(data.items)) {
+                menuItems = data.items;
+            } else if (Array.isArray(data)) {
+                menuItems = data;
+            } else {
+                menuItems = [];
+            }
+            
             renderTable();
             updateStats();
+            
             const cacheStatus = res.headers.get('X-Cache') || 'MISS';
-            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${menuItems.length} items | Cache: ${cacheStatus}`;
+            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${menuItems.length} menu items | Cache: ${cacheStatus}`;
             document.getElementById("statusMsg").className = "status";
         } catch(e) {
-            document.getElementById("statusMsg").innerHTML = "❌ Error loading menu";
+            console.error("Load error:", e);
+            document.getElementById("statusMsg").innerHTML = "❌ Error loading menu. Check Worker URL.";
             document.getElementById("statusMsg").className = "status status-error";
+            menuItems = [];
+            renderTable();
         }
     }
     
+    // ========== SAVE TO WORKER ==========
     async function saveToWorker() {
         const res = await fetch(`${WORKER_URL}/api/menu`, {
             method: 'POST',
@@ -293,12 +322,15 @@
         return res.ok;
     }
     
+    // ========== REFRESH CACHE ==========
     async function refreshCache() {
         document.getElementById("statusMsg").innerHTML = "🔄 Refreshing cache...";
-        await saveToWorker();
-        await loadMenu();
+        if (await saveToWorker()) {
+            await loadMenu();
+        }
     }
     
+    // ========== SAVE ITEM (ADD or EDIT) ==========
     async function saveItem() {
         const name = document.getElementById("itemName").value.trim();
         const price = parseFloat(document.getElementById("itemPrice").value);
@@ -334,9 +366,11 @@
             await loadMenu();
         } else {
             document.getElementById("statusMsg").innerHTML = "❌ Save failed";
+            document.getElementById("statusMsg").className = "status status-error";
         }
     }
     
+    // ========== EDIT ITEM ==========
     function editItem(id) {
         const item = menuItems.find(i => i.id === id);
         if (!item) return;
@@ -353,6 +387,7 @@
         document.getElementById("cancelBtn").style.display = "inline-block";
     }
     
+    // ========== DELETE ITEM ==========
     async function deleteItem(id) {
         if (confirm("Delete this item? All customers will see the change immediately.")) {
             menuItems = menuItems.filter(i => i.id !== id);
@@ -363,6 +398,7 @@
         }
     }
     
+    // ========== CANCEL EDIT ==========
     function cancelEdit() {
         editId = null;
         document.getElementById("itemName").value = "";
@@ -374,19 +410,21 @@
         document.getElementById("cancelBtn").style.display = "none";
     }
     
-    async function confirmReset() {
+    // ========== RESET TO DEFAULT ==========
+    function confirmReset() {
         if (confirm("⚠️ WARNING: This will reset ALL menu items to default. This cannot be undone. Continue?")) {
-            await resetToDefault();
+            resetToDefault();
         }
     }
     
     async function resetToDefault() {
-        // Your default menu items here (keeping your existing data)
+        // Default menu items - you can add more here
         menuItems = [
-            { id: 1, name: "Combo Fasting", price: 250, category: "Breakfast", image: "combo-fasting-platter.jpg", description: "" },
-            { id: 2, name: "Egg w/ meat", price: 250, category: "Breakfast", image: "egg-with-minced-meat.jpg", description: "" },
-            { id: 3, name: "Lamb Tibs", price: 680, category: "Signatures", image: "lamb-tibs.jpg", description: "" },
-            // ... add all your other default items here
+            { id: 1, name: "Combo Fasting", price: 250, category: "Breakfast", image: "combo-fasting-platter.jpg", description: "Hearty vegan platter" },
+            { id: 2, name: "Egg w/ meat", price: 250, category: "Breakfast", image: "egg-with-minced-meat.jpg", description: "Scrambled eggs with seasoned beef" },
+            { id: 3, name: "Lamb Tibs", price: 680, category: "Signatures", image: "lamb-tibs.jpg", description: "Tender lamb sautéed with berbere" },
+            { id: 4, name: "Papaya Juice", price: 160, category: "Juices", image: "papaya-juice.jpg", description: "Freshly squeezed papaya" },
+            { id: 5, name: "Ethiopian Coffee", price: 60, category: "Hot Beverages", image: "ethiopian-coffee-Buna.jpeg", description: "Traditional buna ceremony" }
         ];
         if (await saveToWorker()) {
             await loadMenu();
@@ -400,7 +438,7 @@
         document.getElementById("totalItems").innerText = menuItems.length;
         const categories = [...new Set(menuItems.map(i => i.category))];
         document.getElementById("totalCategories").innerText = categories.length;
-        const avg = menuItems.reduce((sum, i) => sum + i.price, 0) / menuItems.length;
+        const avg = menuItems.reduce((sum, i) => sum + i.price, 0) / (menuItems.length || 1);
         document.getElementById("avgPrice").innerText = Math.round(avg);
     }
     
