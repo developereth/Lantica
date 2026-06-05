@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lantica 1960 | Admin</title>
+    <title>Lantica 1960 | Admin Panel</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: system-ui, sans-serif; background: #0A0A0A; color: #E8E0D5; padding: 20px; }
-        .card { background: #1A1A1A; border-radius: 20px; padding: 25px; margin-bottom: 25px; border: 1px solid #C9A96E; max-width: 1200px; margin: 20px auto; }
+        .card { background: #1A1A1A; border-radius: 20px; padding: 25px; margin-bottom: 25px; border: 1px solid #C9A96E; max-width: 1400px; margin: 20px auto; }
         .login-card { max-width: 400px; margin: 100px auto; text-align: center; }
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; background: #0D0D0D; border: 1px solid #2C2823; border-radius: 10px; color: white; }
         button { background: #C9A96E; color: #0A0A0A; padding: 12px 24px; border-radius: 40px; border: none; font-weight: bold; cursor: pointer; margin: 5px; }
         .btn-red { background: #B45F3B; color: white; }
+        .btn-green { background: #2E7D32; color: white; }
         table { width: 100%; border-collapse: collapse; }
         th { text-align: left; padding: 12px; background: #0D0D0D; color: #C9A96E; }
         td { padding: 10px 12px; border-top: 1px solid #2C2823; }
@@ -22,7 +23,10 @@
         .form-row > * { flex: 1; }
         .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
         .hidden { display: none; }
-        @media (max-width: 700px) { .form-row { flex-direction: column; } }
+        .search-box { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .search-box input { flex: 2; }
+        .search-box select { flex: 1; }
+        @media (max-width: 700px) { .form-row { flex-direction: column; } .search-box { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -35,37 +39,45 @@
 
 <div id="adminSection" class="hidden">
     <div class="card">
-        <div style="display: flex; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
             <h2 style="color: #C9A96E;">🍽️ Menu Manager</h2>
-            <button class="btn-red" onclick="logout()">Logout</button>
+            <div>
+                <button class="btn-green" onclick="refreshCache()">🔄 Refresh Cache</button>
+                <button class="btn-red" onclick="logout()">Logout</button>
+            </div>
         </div>
-        <div id="statusMsg" class="status">Ready</div>
+        <div id="statusMsg" class="status">Connected</div>
         
-        <h3>➕ Add Item</h3>
+        <h3>➕ Add New Item</h3>
         <div class="form-row">
-            <input type="text" id="itemName" placeholder="Name">
-            <input type="number" id="itemPrice" placeholder="Price">
+            <input type="text" id="itemName" placeholder="Item Name">
+            <input type="number" id="itemPrice" placeholder="Price (ETB)">
         </div>
         <div class="form-row">
             <select id="itemCategory">
                 <option>Breakfast</option><option>Signatures</option><option>Pizza</option>
-                <option>Pasta</option><option>Burgers</option><option>Juices</option>
-                <option>Cold Drinks</option><option>Hot Beverages</option>
+                <option>Pasta</option><option>Burgers</option><option>Pork</option>
+                <option>Soups</option><option>Fast Food</option><option>Juices</option>
+                <option>Cold Drinks</option><option>Beer</option><option>Wine</option>
+                <option>Hot Beverages</option>
             </select>
-            <input type="text" id="itemImage" placeholder="Cloudinary Image URL">
+            <input type="text" id="itemImage" placeholder="Image filename (e.g., lamb-tibs.jpg)">
         </div>
-        <textarea id="itemDesc" rows="2" placeholder="Description"></textarea>
+        <textarea id="itemDesc" rows="2" placeholder="Description (optional)"></textarea>
         <button onclick="saveItem()">💾 Save Item</button>
-        <button id="cancelBtn" class="btn-red" onclick="cancelEdit()" style="display:none">Cancel</button>
+        <button id="cancelBtn" class="btn-red" onclick="cancelEdit()" style="display:none">Cancel Edit</button>
     </div>
     
     <div class="card">
-        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-            <input type="text" id="searchInput" placeholder="Search..." style="flex:2">
-            <select id="categoryFilter" style="flex:1">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Search items...">
+            <select id="categoryFilter">
                 <option value="all">All Categories</option>
                 <option>Breakfast</option><option>Signatures</option><option>Pizza</option>
-                <option>Juices</option><option>Hot Beverages</option>
+                <option>Pasta</option><option>Burgers</option><option>Pork</option>
+                <option>Soups</option><option>Fast Food</option><option>Juices</option>
+                <option>Cold Drinks</option><option>Beer</option><option>Wine</option>
+                <option>Hot Beverages</option>
             </select>
             <button onclick="loadMenu()">🔄 Refresh</button>
         </div>
@@ -73,7 +85,7 @@
         <div style="overflow-x: auto;">
             <table id="menuTable">
                 <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
-                <tbody id="menuTableBody"></td></tbody>
+                <tbody id="menuTableBody"><table><td colspan="5">Loading...</tr</tbody>
             </table>
         </div>
     </div>
@@ -82,6 +94,7 @@
 <script>
     const WORKER_URL = "https://lanticaadminpage.developeraddis.workers.dev";
     const ADMIN_PASSWORD = "lantica1960admin";
+    const GITHUB_RAW = "https://raw.githubusercontent.com/developereth/Lantica/main/";
     
     let menuItems = [];
     let editId = null;
@@ -109,17 +122,24 @@
             const data = await res.json();
             menuItems = data.items || [];
             renderTable();
-            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${menuItems.length} items`;
+            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${menuItems.length} items | Cache: ${res.headers.get('X-Cache') || 'MISS'}`;
         } catch(e) {
             document.getElementById("statusMsg").innerHTML = "❌ Error loading menu";
         }
+    }
+    
+    async function refreshCache() {
+        document.getElementById("statusMsg").innerHTML = "🔄 Clearing cache...";
+        // Clear Upstash cache
+        await fetch(`${WORKER_URL}/api/menu`, { method: 'POST', headers: { 'X-Admin-Key': ADMIN_PASSWORD }, body: JSON.stringify({ items: menuItems }) });
+        await loadMenu();
     }
     
     async function saveItem() {
         const name = document.getElementById("itemName").value.trim();
         const price = parseFloat(document.getElementById("itemPrice").value);
         const category = document.getElementById("itemCategory").value;
-        const image = document.getElementById("itemImage").value.trim();
+        let image = document.getElementById("itemImage").value.trim();
         const description = document.getElementById("itemDesc").value.trim();
         
         if (!name || isNaN(price)) {
@@ -141,15 +161,12 @@
         
         const res = await fetch(`${WORKER_URL}/api/menu`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Admin-Key': ADMIN_PASSWORD
-            },
+            headers: { 'Content-Type': 'application/json', 'X-Admin-Key': ADMIN_PASSWORD },
             body: JSON.stringify({ items: menuItems })
         });
         
         if (res.ok) {
-            document.getElementById("statusMsg").innerHTML = "✅ Saved!";
+            document.getElementById("statusMsg").innerHTML = "✅ Saved! Menu updated for all customers";
             document.getElementById("itemName").value = "";
             document.getElementById("itemPrice").value = "";
             document.getElementById("itemImage").value = "";
@@ -173,7 +190,7 @@
     }
     
     async function deleteItem(id) {
-        if (confirm("Delete?")) {
+        if (confirm("Delete this item? Changes appear immediately for all customers.")) {
             menuItems = menuItems.filter(i => i.id !== id);
             const res = await fetch(`${WORKER_URL}/api/menu`, {
                 method: 'POST',
@@ -208,20 +225,23 @@
         
         const tbody = document.getElementById("menuTableBody");
         if (filtered.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5">No items</tr';
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">No items found. Add one above!</td></tr>';
             return;
         }
         
         let html = "";
         filtered.forEach(item => {
-            const imgPreview = item.image ? 
-                `<img src="${item.image}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" onerror="this.src='https://placehold.co/40x40/1A1A1A/C9A96E'">` : 
-                "—";
+            const imgUrl = item.image ? (item.image.startsWith('http') ? item.image : GITHUB_RAW + item.image) : "";
+            const imgPreview = imgUrl ? `<img src="${imgUrl}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" onerror="this.src='https://placehold.co/40x40/1A1A1A/C9A96E'">` : "—";
             html += `<tr>
                 <td>${imgPreview}</td>
-                <td><strong>${escapeHtml(item.name)}</strong><br><small>${item.category}</small></td>
-                <td style="color:#C9A96E;">${item.price} ETB</td>
-                <td><button class="edit-btn" onclick="editItem(${item.id})">✏️</button><button class="delete-btn" onclick="deleteItem(${item.id})">🗑️</button></td>
+                <td><strong>${escapeHtml(item.name)}</strong></td>
+                <td>${item.category}</td>
+                <td style="color:#C9A96E; font-weight:700;">${item.price} ETB</td>
+                <td>
+                    <button class="edit-btn" onclick="editItem(${item.id})">✏️ Edit</button>
+                    <button class="delete-btn" onclick="deleteItem(${item.id})">🗑️ Delete</button>
+                </td>
             </tr>`;
         });
         tbody.innerHTML = html;
