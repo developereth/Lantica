@@ -31,12 +31,8 @@
             min-height: 100vh;
         }
 
-        .admin-container {
-            display: flex;
-            min-height: 100vh;
-        }
+        .admin-container { display: flex; min-height: 100vh; }
 
-        /* Sidebar */
         .sidebar {
             width: 280px;
             background: #0D0D0D;
@@ -56,98 +52,42 @@
             margin-bottom: 20px;
         }
 
-        .sidebar-logo h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            font-size: 1.5rem;
-        }
-
-        .sidebar-logo span {
-            color: white;
-            font-size: 0.8rem;
-            display: block;
-            margin-top: 5px;
-        }
-
+        .sidebar-logo h2 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.5rem; }
+        .sidebar-logo span { color: white; font-size: 0.8rem; display: block; margin-top: 5px; }
         .sidebar-menu { list-style: none; }
-
         .sidebar-menu li { margin-bottom: 5px; }
 
         .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: var(--gray-light);
-            text-decoration: none;
-            border-radius: 12px;
-            transition: 0.3s;
-            cursor: pointer;
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 15px; color: var(--gray-light);
+            text-decoration: none; border-radius: 12px; transition: 0.3s; cursor: pointer;
         }
 
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(201,169,110,0.1);
-            color: var(--gold);
-        }
-
+        .sidebar-menu a:hover, .sidebar-menu a.active { background: rgba(201,169,110,0.1); color: var(--gold); }
         .sidebar-menu a i { width: 20px; text-align: center; }
 
         .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: auto;
+            display: inline-block; padding: 4px 10px; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 600; margin-left: auto;
         }
-
         .status-badge.connected { background: rgba(46,204,113,0.2); color: var(--success); }
         .status-badge.disconnected { background: rgba(231,76,60,0.2); color: var(--danger); }
 
-        /* Main Content */
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            padding: 30px;
-            min-height: 100vh;
-        }
+        .main-content { margin-left: 280px; flex: 1; padding: 30px; min-height: 100vh; }
 
         .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; flex-wrap: wrap; gap: 15px;
         }
 
-        .admin-header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: white;
-        }
-
+        .admin-header h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: white; }
         .admin-header h1 span { color: var(--gold); }
+        .header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        /* Buttons */
         .btn {
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            padding: 10px 20px; border-radius: 30px; border: none; cursor: pointer;
+            font-weight: 600; font-size: 0.9rem; transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 8px;
         }
 
         .btn-gold { background: var(--gold); color: #0A0A0A; }
@@ -161,420 +101,214 @@
         .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
         .btn-cloudinary { background: var(--cloudinary-blue); color: white; }
         .btn-cloudinary:hover { background: #2a3db8; transform: translateY(-2px); }
+        .btn-camera { background: #E91E63; color: white; }
+        .btn-camera:hover { background: #C2185B; transform: translateY(-2px); }
 
         .btn-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
+            width: 35px; height: 35px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            border: none; cursor: pointer; transition: 0.3s;
         }
-
         .btn-icon.edit { background: rgba(201,169,110,0.2); color: var(--gold); }
         .btn-icon.edit:hover { background: var(--gold); color: #0A0A0A; }
         .btn-icon.delete { background: rgba(231,76,60,0.2); color: var(--danger); }
         .btn-icon.delete:hover { background: var(--danger); color: white; }
 
-        /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 30px; }
 
         .stat-card {
-            background: var(--dark-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
+            background: var(--dark-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 20px; text-align: center;
         }
-
         .stat-card i { font-size: 2rem; color: var(--gold); margin-bottom: 10px; display: block; }
         .stat-card .stat-value { font-size: 2rem; font-weight: 700; color: white; }
         .stat-card .stat-label { color: var(--gray); font-size: 0.8rem; margin-top: 5px; }
 
-        /* Tabs */
         .tabs {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            background: var(--dark-card);
-            padding: 5px;
-            border-radius: 40px;
-            border: 1px solid var(--border);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap;
+            background: var(--dark-card); padding: 5px; border-radius: 40px;
+            border: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch;
         }
 
         .tab-btn {
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: none;
-            background: transparent;
-            color: var(--gray-light);
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: 500;
-            white-space: nowrap;
-            flex-shrink: 0;
+            padding: 10px 18px; border-radius: 30px; border: none; background: transparent;
+            color: var(--gray-light); cursor: pointer; transition: 0.3s;
+            font-weight: 500; white-space: nowrap; flex-shrink: 0;
         }
-
         .tab-btn.active { background: var(--gold); color: #0A0A0A; }
         .tab-btn:hover:not(.active) { color: var(--gold); }
 
-        /* Sections */
         .section { display: none; }
         .section.active { display: block; }
 
-        /* Cards */
         .card {
-            background: var(--dark-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
+            background: var(--dark-card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 25px; margin-bottom: 20px;
         }
-
         .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
         }
+        .card-header h3 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.3rem; }
 
-        .card-header h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            font-size: 1.3rem;
-        }
-
-        /* Forms */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
         .form-group { margin-bottom: 15px; }
 
         .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--gray-light);
-            font-weight: 500;
-            font-size: 0.9rem;
+            display: block; margin-bottom: 5px; color: var(--gray-light);
+            font-weight: 500; font-size: 0.9rem;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            background: #0D0D0D;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: white;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            transition: 0.3s;
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 12px 15px; background: #0D0D0D;
+            border: 1px solid var(--border); border-radius: 12px; color: white;
+            font-family: 'Inter', sans-serif; font-size: 0.9rem; transition: 0.3s;
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
         }
-
         .form-group textarea { resize: vertical; min-height: 80px; }
 
-        /* Upload Zone - Beautiful & Mobile Friendly */
+        /* Upload Zone */
         .upload-zone {
-            border: 2px dashed var(--border);
-            border-radius: 20px;
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            background: #0D0D0D;
-            position: relative;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            border: 3px dashed var(--border); border-radius: 24px;
+            padding: 50px 30px; text-align: center; cursor: pointer;
+            transition: 0.3s; background: #0D0D0D; position: relative;
+            min-height: 250px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
         }
 
-        .upload-zone:hover,
-        .upload-zone.drag-over {
-            border-color: var(--gold);
-            background: rgba(201,169,110,0.05);
-            transform: scale(1.01);
+        .upload-zone:hover, .upload-zone.drag-over {
+            border-color: var(--gold); background: rgba(201,169,110,0.05); transform: scale(1.01);
         }
 
         .upload-zone-icon {
-            font-size: 4rem;
-            color: var(--gold);
-            margin-bottom: 15px;
+            font-size: 5rem; color: var(--gold); margin-bottom: 20px;
             animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
         }
 
-        .upload-zone h3 {
-            color: white;
-            margin-bottom: 8px;
-            font-size: 1.2rem;
-        }
+        .upload-zone h3 { color: white; margin-bottom: 10px; font-size: 1.3rem; }
+        .upload-zone p { color: var(--gray); margin: 5px 0; font-size: 0.9rem; }
 
-        .upload-zone p {
-            color: var(--gray);
-            margin: 5px 0;
-            font-size: 0.9rem;
-        }
-
-        .upload-zone .btn-cloudinary {
-            margin-top: 15px;
-            font-size: 1rem;
-            padding: 12px 25px;
-        }
-
-        .upload-zone .mobile-camera-btn {
-            display: none;
-            margin-top: 10px;
-            background: var(--success);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            border: none;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .upload-zone .mobile-camera-btn:hover {
-            background: #27AE60;
-            transform: translateY(-2px);
+        .upload-zone .upload-buttons {
+            display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; justify-content: center;
         }
 
         .upload-progress {
-            width: 100%;
-            height: 8px;
-            background: var(--border);
-            border-radius: 10px;
-            margin-top: 15px;
-            overflow: hidden;
-            display: none;
+            width: 100%; height: 8px; background: var(--border);
+            border-radius: 10px; margin-top: 20px; overflow: hidden; display: none;
         }
 
         .upload-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold), var(--success));
-            width: 0%;
-            transition: width 0.3s;
-            border-radius: 10px;
+            height: 100%; background: linear-gradient(90deg, var(--gold), var(--success));
+            width: 0%; transition: width 0.3s; border-radius: 10px;
         }
 
-        /* Uploaded Images Grid */
         .uploaded-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px; margin-top: 25px;
         }
 
         .uploaded-card {
-            background: #0D0D0D;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: 0.3s;
+            background: #0D0D0D; border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border); transition: 0.3s;
         }
 
-        .uploaded-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-3px);
-        }
+        .uploaded-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(201,169,110,0.15); }
 
         .uploaded-card img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            cursor: pointer;
+            width: 100%; height: 130px; object-fit: cover; cursor: pointer;
         }
 
         .uploaded-card-info {
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 12px; display: flex; justify-content: space-between; align-items: center;
         }
 
         .uploaded-card-info span {
-            font-size: 0.7rem;
-            color: var(--gray);
-            max-width: 80px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-size: 0.7rem; color: var(--gray); max-width: 90px;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
 
-        .uploaded-card-info button {
-            background: var(--gold);
-            color: #0A0A0A;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 600;
+        .uploaded-card-info .copy-btn {
+            background: var(--gold); color: #0A0A0A; border: none;
+            padding: 5px 10px; border-radius: 8px; cursor: pointer;
+            font-size: 0.7rem; font-weight: 600;
         }
+        .uploaded-card-info .copy-btn:hover { background: var(--gold-dark); }
 
-        /* Image Preview */
-        .image-preview-container {
-            position: relative;
-            margin-top: 15px;
-        }
+        .image-preview-container { position: relative; margin-top: 15px; }
 
         .image-preview {
-            width: 100%;
-            height: 200px;
-            border-radius: 16px;
-            object-fit: cover;
-            background: #0D0D0D;
-            border: 1px solid var(--border);
+            width: 100%; height: 200px; border-radius: 16px; object-fit: cover;
+            background: #0D0D0D; border: 1px solid var(--border);
         }
 
         .image-url-display {
-            margin-top: 8px;
-            padding: 10px 15px;
-            background: #0D0D0D;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            color: var(--success);
-            word-break: break-all;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin-top: 10px; padding: 10px 15px; background: #0D0D0D;
+            border-radius: 10px; font-size: 0.8rem; color: var(--success);
+            word-break: break-all; display: flex; align-items: center; gap: 8px;
         }
 
         .image-url-display i { color: var(--success); flex-shrink: 0; }
         .image-url-display span { flex: 1; font-size: 0.75rem; }
+
         .copy-btn {
-            background: var(--gold);
-            color: #0A0A0A;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 600;
-            white-space: nowrap;
-            flex-shrink: 0;
+            background: var(--gold); color: #0A0A0A; border: none;
+            padding: 6px 12px; border-radius: 8px; cursor: pointer;
+            font-size: 0.75rem; font-weight: 600; white-space: nowrap; flex-shrink: 0;
         }
         .copy-btn:hover { background: var(--gold-dark); }
 
-        /* Table */
         .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
 
         table th, table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
+            padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border);
         }
 
         table th {
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            white-space: nowrap;
+            color: var(--gold); font-weight: 600; font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 1px; white-space: nowrap;
         }
 
         table tbody tr:hover { background: rgba(201,169,110,0.05); }
 
         .menu-item-thumb {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            object-fit: cover;
-            background: #0D0D0D;
+            width: 55px; height: 55px; border-radius: 12px;
+            object-fit: cover; background: #0D0D0D;
         }
 
-        /* Modal */
         .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            z-index: 1000; align-items: center; justify-content: center; padding: 20px;
         }
 
         .modal-overlay.active { display: flex; }
 
         .modal {
-            background: var(--dark-card);
-            border: 1px solid var(--gold);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 700px;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 30px;
+            background: var(--dark-card); border: 1px solid var(--gold);
+            border-radius: 24px; width: 100%; max-width: 650px;
+            max-height: 90vh; overflow-y: auto; padding: 30px;
         }
 
-        .modal h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
+        .modal h2 { font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 20px; }
 
         .modal-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-            flex-wrap: wrap;
+            display: flex; gap: 10px; justify-content: flex-end;
+            margin-top: 20px; flex-wrap: wrap;
         }
 
-        /* Toast */
         .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 500;
-            z-index: 2000;
-            transform: translateX(120%);
-            transition: transform 0.3s;
-            max-width: 90vw;
-            word-break: break-word;
+            position: fixed; top: 20px; right: 20px; padding: 15px 25px;
+            border-radius: 12px; color: white; font-weight: 500; z-index: 2000;
+            transform: translateX(120%); transition: transform 0.3s; max-width: 90vw;
         }
 
         .toast.show { transform: translateX(0); }
@@ -582,201 +316,118 @@
         .toast.error { background: var(--danger); }
         .toast.warning { background: var(--warning); color: #0A0A0A; }
 
-        /* Settings Grid */
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
+        .settings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 
         .cloudinary-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(52,72,197,0.2);
-            color: #6B8AFF;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(46,204,113,0.2); color: var(--success);
+            padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
         }
 
-        .cloudinary-badge i { color: #6B8AFF; }
-
-        /* Mobile Bottom Bar */
         .mobile-bottom-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #0D0D0D;
-            border-top: 1px solid var(--gold);
-            padding: 10px 15px;
-            z-index: 150;
-            gap: 5px;
-            justify-content: space-around;
+            display: none; position: fixed; bottom: 0; left: 0; right: 0;
+            background: #0D0D0D; border-top: 1px solid var(--gold);
+            padding: 10px 15px; z-index: 150; gap: 5px; justify-content: space-around;
         }
 
         .mobile-bottom-bar button {
-            background: transparent;
-            border: none;
-            color: var(--gray-light);
-            padding: 8px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            transition: 0.3s;
-            flex: 1;
+            background: transparent; border: none; color: var(--gray-light);
+            padding: 8px; border-radius: 12px; cursor: pointer; font-size: 0.7rem;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            transition: 0.3s; flex: 1;
         }
 
         .mobile-bottom-bar button i { font-size: 1.2rem; }
         .mobile-bottom-bar button.active { color: var(--gold); background: rgba(201,169,110,0.1); }
 
-        /* Mobile toggle */
         .mobile-toggle {
-            display: none;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 200;
-            background: var(--gold);
-            color: #0A0A0A;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
+            display: none; position: fixed; top: 15px; left: 15px; z-index: 200;
+            background: var(--gold); color: #0A0A0A; width: 45px; height: 45px;
+            border-radius: 50%; border: none; font-size: 1.3rem; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* Responsive */
+        /* Cloudinary Ready Badge */
+        .ready-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.3);
+            padding: 10px 18px; border-radius: 30px; font-size: 0.85rem;
+            color: var(--success); margin-bottom: 15px;
+        }
+        .ready-badge i { font-size: 1.2rem; }
+
         @media (max-width: 900px) {
             .sidebar { transform: translateX(-100%); z-index: 150; }
             .sidebar.open { transform: translateX(0); }
             .main-content { margin-left: 0; padding: 20px; padding-top: 70px; padding-bottom: 80px; }
             .mobile-toggle { display: flex; align-items: center; justify-content: center; }
             .mobile-bottom-bar { display: flex; }
-            .admin-header h1 { font-size: 1.4rem; }
+            .admin-header h1 { font-size: 1.3rem; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .form-grid { grid-template-columns: 1fr; }
-            .settings-grid { grid-template-columns: 1fr; }
-            .upload-zone { padding: 25px 15px; min-height: 150px; }
-            .upload-zone-icon { font-size: 3rem; }
-            .upload-zone h3 { font-size: 1rem; }
-            .upload-zone .mobile-camera-btn { display: inline-flex; align-items: center; gap: 8px; }
-            .uploaded-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+            .upload-zone { padding: 30px 15px; min-height: 200px; }
+            .upload-zone-icon { font-size: 3.5rem; }
+            .upload-zone h3 { font-size: 1.1rem; }
+            .uploaded-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
             .header-actions { width: 100%; }
-            .header-actions .btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 8px 12px; }
+            .header-actions .btn { flex: 1; justify-content: center; font-size: 0.75rem; padding: 8px 10px; }
             .modal { padding: 20px; border-radius: 20px; }
             .tabs { padding: 3px; gap: 3px; }
-            .tab-btn { padding: 8px 14px; font-size: 0.8rem; }
-            table { font-size: 0.8rem; }
-            table th, table td { padding: 8px 10px; }
+            .tab-btn { padding: 8px 14px; font-size: 0.75rem; }
+            table th, table td { padding: 8px 10px; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-<button class="mobile-toggle" onclick="toggleSidebar()">
-    <i class="fas fa-bars"></i>
-</button>
+<button class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 
 <div class="admin-container">
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <h2>LANTICA 1960</h2>
             <span>Admin Panel</span>
         </div>
         <ul class="sidebar-menu">
-            <li><a class="active" onclick="switchSection('menu')" id="nav-menu">
-                <i class="fas fa-utensils"></i> Menu Management
-            </a></li>
-            <li><a onclick="switchSection('heritage')" id="nav-heritage">
-                <i class="fas fa-landmark"></i> Heritage Page
-            </a></li>
-            <li><a onclick="switchSection('media')" id="nav-media">
-                <i class="fas fa-cloud-upload-alt"></i> Media Library
-            </a></li>
-            <li><a onclick="switchSection('settings')" id="nav-settings">
-                <i class="fas fa-cog"></i> Settings
-            </a></li>
-            <li style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px;">
-                <a href="https://lantica-menu.developeraddis.workers.dev/menu.html" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> View Live Menu
-                </a>
+            <li><a class="active" onclick="switchSection('menu')" id="nav-menu"><i class="fas fa-utensils"></i> Menu Management</a></li>
+            <li><a onclick="switchSection('heritage')" id="nav-heritage"><i class="fas fa-landmark"></i> Heritage Page</a></li>
+            <li><a onclick="switchSection('media')" id="nav-media"><i class="fas fa-cloud-upload-alt"></i> 📤 Upload Images</a></li>
+            <li><a onclick="switchSection('settings')" id="nav-settings"><i class="fas fa-cog"></i> Settings</a></li>
+            <li style="margin-top:20px;border-top:1px solid var(--border);padding-top:15px;">
+                <a href="https://lantica-menu.developeraddis.workers.dev/menu.html" target="_blank"><i class="fas fa-external-link-alt"></i> View Live Menu</a>
             </li>
-            <li><a href="https://lantica-menu.developeraddis.workers.dev/heritage.html" target="_blank">
-                <i class="fas fa-external-link-alt"></i> View Heritage Page
-            </a>
-            </li>
+            <li><a href="https://lantica-menu.developeraddis.workers.dev/heritage.html" target="_blank"><i class="fas fa-external-link-alt"></i> View Heritage Page</a></li>
         </ul>
-        <div style="margin-top: auto; padding-top: 20px; text-align: center;">
-            <span class="status-badge connected" id="dbStatus">
-                <i class="fas fa-database"></i> Ready
-            </span>
+        <div style="margin-top:auto;padding-top:20px;text-align:center;">
+            <span class="status-badge connected" id="dbStatus"><i class="fas fa-database"></i> Ready</span>
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="main-content">
-        <!-- Menu Section -->
+        <!-- MENU SECTION -->
         <div class="section active" id="section-menu">
             <div class="admin-header">
                 <h1><span>Menu</span> Management</h1>
                 <div class="header-actions">
-                    <button class="btn btn-gold btn-sm" onclick="syncFromRedis()">
-                        <i class="fas fa-sync-alt"></i> Sync
-                    </button>
-                    <button class="btn btn-gold btn-sm" onclick="openAddCategoryModal()">
-                        <i class="fas fa-plus"></i> Category
-                    </button>
-                    <button class="btn btn-gold btn-sm" onclick="openAddItemModal()">
-                        <i class="fas fa-plus"></i> Item
-                    </button>
-                    <button class="btn btn-outline btn-sm" onclick="pushToRedis()">
-                        <i class="fas fa-save"></i> Save
-                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="syncFromRedis()"><i class="fas fa-sync-alt"></i> Sync</button>
+                    <button class="btn btn-gold btn-sm" onclick="openAddCategoryModal()"><i class="fas fa-plus"></i> Category</button>
+                    <button class="btn btn-gold btn-sm" onclick="openAddItemModal()"><i class="fas fa-plus"></i> Item</button>
+                    <button class="btn btn-outline btn-sm" onclick="pushToRedis()"><i class="fas fa-save"></i> Save All</button>
                 </div>
             </div>
 
             <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-layer-group"></i>
-                    <div class="stat-value" id="statCategories">0</div>
-                    <div class="stat-label">Categories</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-list"></i>
-                    <div class="stat-value" id="statItems">0</div>
-                    <div class="stat-label">Total Items</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-image"></i>
-                    <div class="stat-value" id="statImages">0</div>
-                    <div class="stat-label">With Images</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-coins"></i>
-                    <div class="stat-value" id="statAvgPrice">0</div>
-                    <div class="stat-label">Avg Price (ETB)</div>
-                </div>
+                <div class="stat-card"><i class="fas fa-layer-group"></i><div class="stat-value" id="statCategories">0</div><div class="stat-label">Categories</div></div>
+                <div class="stat-card"><i class="fas fa-list"></i><div class="stat-value" id="statItems">0</div><div class="stat-label">Total Items</div></div>
+                <div class="stat-card"><i class="fas fa-image"></i><div class="stat-value" id="statImages">0</div><div class="stat-label">With Images</div></div>
+                <div class="stat-card"><i class="fas fa-coins"></i><div class="stat-value" id="statAvgPrice">0</div><div class="stat-label">Avg Price (ETB)</div></div>
             </div>
 
-            <div class="tabs" id="categoryTabs">
-                <button class="tab-btn active" onclick="filterByCategory('all')">All Items</button>
-            </div>
+            <div class="tabs" id="categoryTabs"><button class="tab-btn active" onclick="filterByCategory('all')">All Items</button></div>
 
-            <div class="card" style="margin-bottom: 20px;">
+            <div class="card" style="margin-bottom:20px;">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label><i class="fas fa-search"></i> Search Items</label>
+                        <label><i class="fas fa-search"></i> Search</label>
                         <input type="text" id="adminSearch" placeholder="Search by name..." oninput="renderMenuTable()">
                     </div>
                     <div class="form-group">
@@ -794,246 +445,132 @@
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-list"></i> All Menu Items</h3>
-                    <span style="color: var(--gray);" id="filteredCount">0 items</span>
-                </div>
+                <div class="card-header"><h3><i class="fas fa-list"></i> All Menu Items</h3><span style="color:var(--gray);" id="filteredCount">0 items</span></div>
                 <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Source</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="menuTableBody"></tbody>
-                    </table>
+                    <table><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Source</th><th>Actions</th></tr></thead>
+                    <tbody id="menuTableBody"></tbody></table>
                 </div>
-                <div id="emptyState" style="text-align: center; padding: 40px; display: none;">
-                    <i class="fas fa-utensils" style="font-size: 3rem; color: var(--gold); margin-bottom: 15px; display: block;"></i>
-                    <p style="color: var(--gray);">No menu items found. Add your first item!</p>
+                <div id="emptyState" style="text-align:center;padding:40px;display:none;">
+                    <i class="fas fa-utensils" style="font-size:3rem;color:var(--gold);margin-bottom:15px;display:block;"></i>
+                    <p style="color:var(--gray);">No items found. Add your first item!</p>
                 </div>
             </div>
         </div>
 
-        <!-- Heritage Section -->
+        <!-- HERITAGE SECTION -->
         <div class="section" id="section-heritage">
             <div class="admin-header">
                 <h1><span>Heritage</span> Page Editor</h1>
                 <div class="header-actions">
-                    <button class="btn btn-gold btn-sm" onclick="addHeritageItem()">
-                        <i class="fas fa-plus"></i> Add Item
-                    </button>
-                    <button class="btn btn-outline btn-sm" onclick="saveHeritageToRedis()">
-                        <i class="fas fa-save"></i> Save
-                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="addHeritageItem()"><i class="fas fa-plus"></i> Add Item</button>
+                    <button class="btn btn-outline btn-sm" onclick="saveHeritageToRedis()"><i class="fas fa-save"></i> Save</button>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-quote-left"></i> Page Content</h3>
-                </div>
-                <div class="form-group">
-                    <label>Hero Title (supports HTML)</label>
-                    <input type="text" id="heritageHeroTitle" value="🏛️ Heritage <span>Gallery</span>" onchange="heritageDataChanged()">
-                </div>
-                <div class="form-group">
-                    <label>Hero Description</label>
-                    <textarea id="heritageHeroDesc" onchange="heritageDataChanged()">Step into the memory of Lantica 1960 — a journey through time, vintage treasures, and stories that shaped our soul.</textarea>
-                </div>
-                <div class="form-group">
-                    <label>Quote Text</label>
-                    <input type="text" id="heritageQuote" value="Every artifact tells a story. Every memory lives here." onchange="heritageDataChanged()">
-                </div>
-                <div class="form-group">
-                    <label>Story Section Title</label>
-                    <input type="text" id="heritageStoryTitle" value="The Memory of Lantica 1960" onchange="heritageDataChanged()">
-                </div>
-                <div class="form-group">
-                    <label>Story Content</label>
-                    <textarea id="heritageStoryContent" rows="6" onchange="heritageDataChanged()">These vintage treasures are more than objects — they are witnesses to history. Each piece has been carefully preserved, carrying whispers of conversations, laughter, and moments that defined generations.
+                <div class="card-header"><h3><i class="fas fa-quote-left"></i> Page Content</h3></div>
+                <div class="form-group"><label>Hero Title</label><input type="text" id="heritageHeroTitle" value="🏛️ Heritage <span>Gallery</span>" onchange="heritageDataChanged()"></div>
+                <div class="form-group"><label>Hero Description</label><textarea id="heritageHeroDesc" onchange="heritageDataChanged()">Step into the memory of Lantica 1960 — a journey through time, vintage treasures, and stories that shaped our soul.</textarea></div>
+                <div class="form-group"><label>Quote</label><input type="text" id="heritageQuote" value="Every artifact tells a story. Every memory lives here." onchange="heritageDataChanged()"></div>
+                <div class="form-group"><label>Story Title</label><input type="text" id="heritageStoryTitle" value="The Memory of Lantica 1960" onchange="heritageDataChanged()"></div>
+                <div class="form-group"><label>Story Content</label><textarea id="heritageStoryContent" rows="6" onchange="heritageDataChanged()">These vintage treasures are more than objects — they are witnesses to history.
 
-From the Emperor's era to modern Ethiopia, Lantica 1960 has stood as a silent observer, collecting not just artifacts, but memories. Today, we share them with you.
+From the Emperor's era to modern Ethiopia, Lantica 1960 has stood as a silent observer, collecting not just artifacts, but memories.
 
-Every item has a story — click on any card to read more.</textarea>
-                </div>
+Every item has a story — click on any card to read more.</textarea></div>
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-images"></i> Heritage Items</h3>
-                    <span style="color: var(--gray);" id="heritageItemCount">0 items</span>
-                </div>
+                <div class="card-header"><h3><i class="fas fa-images"></i> Heritage Items</h3><span style="color:var(--gray);" id="heritageItemCount">0 items</span></div>
                 <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Badge</th>
-                                <th>Story</th>
-                                <th>Source</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="heritageTableBody"></tbody>
-                    </table>
+                    <table><thead><tr><th>Image</th><th>Title</th><th>Badge</th><th>Story</th><th>Source</th><th>Actions</th></tr></thead>
+                    <tbody id="heritageTableBody"></tbody></table>
                 </div>
             </div>
         </div>
 
-        <!-- Media Library Section -->
+        <!-- MEDIA UPLOAD SECTION -->
         <div class="section" id="section-media">
             <div class="admin-header">
-                <h1><span>Media</span> Library</h1>
+                <h1><span>Upload</span> Images</h1>
                 <div class="header-actions">
-                    <button class="btn btn-gold btn-sm" onclick="loadMediaLibrary()">
-                        <i class="fas fa-sync-alt"></i> Refresh
-                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="loadMediaLibrary()"><i class="fas fa-sync-alt"></i> Refresh</button>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-cloud-upload-alt"></i> Upload Images</h3>
-                    <span style="color: var(--gray); font-size: 0.8rem;">📱 PC, Phone, or Camera</span>
+                <div class="ready-badge">
+                    <i class="fas fa-check-circle"></i>
+                    Cloudinary Connected • Folder: <strong>lantica-menu</strong> • Upload Preset: <strong>lantica_upload</strong>
                 </div>
 
-                <!-- Upload Zone -->
                 <div class="upload-zone" id="uploadZone">
-                    <div class="upload-zone-icon">
-                        <i class="fas fa-cloud-upload-alt"></i>
+                    <div class="upload-zone-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>📤 Upload Images Directly</h3>
+                    <p>From PC, Phone, or Camera</p>
+                    <p style="font-size:0.8rem;opacity:0.7;">JPG, PNG, WebP, GIF • Max 10MB each</p>
+                    <div class="upload-buttons">
+                        <button class="btn btn-cloudinary" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">
+                            <i class="fas fa-images"></i> Choose Files
+                        </button>
+                        <button class="btn btn-camera" onclick="event.stopPropagation(); openCamera()">
+                            <i class="fas fa-camera"></i> Take Photo
+                        </button>
                     </div>
-                    <h3>Tap or Click to Upload</h3>
-                    <p>Drag & drop images here</p>
-                    <p style="font-size: 0.8rem; opacity: 0.7;">JPG, PNG, WebP, GIF • Max 10MB each</p>
-                    <button class="btn btn-cloudinary" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">
-                        <i class="fas fa-images"></i> Choose Files
-                    </button>
-                    <button class="mobile-camera-btn" onclick="event.stopPropagation(); openCamera()">
-                        <i class="fas fa-camera"></i> Take Photo
-                    </button>
-                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;" onchange="handleFileSelect(event)">
-                    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFileSelect(event)">
-                    
-                    <div class="upload-progress" id="uploadProgress">
-                        <div class="upload-progress-bar" id="uploadProgressBar"></div>
-                    </div>
-                    <p id="uploadStatus" style="margin-top: 15px; color: var(--gray); font-weight: 500;"></p>
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display:none;" onchange="handleFileSelect(event)">
+                    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelect(event)">
+                    <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar" id="uploadProgressBar"></div></div>
+                    <p id="uploadStatus" style="margin-top:15px;color:var(--gray);font-weight:500;"></p>
                 </div>
 
-                <!-- Uploaded Images Grid -->
                 <div class="uploaded-grid" id="uploadedGrid"></div>
             </div>
 
-            <!-- Recent Uploads Table -->
             <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-history"></i> Recent Uploads</h3>
-                    <span style="color: var(--gray);" id="mediaCount">0 files</span>
-                </div>
+                <div class="card-header"><h3><i class="fas fa-history"></i> Recent Uploads</h3><span style="color:var(--gray);" id="mediaCount">0 files</span></div>
                 <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Preview</th>
-                                <th>URL</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="mediaTableBody">
-                            <tr>
-                                <td colspan="4" style="text-align: center; color: var(--gray); padding: 30px;">
-                                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
-                                    Upload images to see them here
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <table><thead><tr><th>Preview</th><th>URL</th><th>Date</th><th>Actions</th></tr></thead>
+                    <tbody id="mediaTableBody">
+                        <tr><td colspan="4" style="text-align:center;color:var(--gray);padding:30px;">
+                            <i class="fas fa-cloud-upload-alt" style="font-size:2rem;display:block;margin-bottom:10px;"></i>
+                            Upload images to see them here
+                        </td></tr>
+                    </tbody></table>
                 </div>
             </div>
         </div>
 
-        <!-- Settings Section -->
+        <!-- SETTINGS SECTION -->
         <div class="section" id="section-settings">
-            <div class="admin-header">
-                <h1><span>Settings</span></h1>
-            </div>
-
+            <div class="admin-header"><h1><span>Settings</span></h1></div>
             <div class="settings-grid">
                 <div class="card">
                     <div class="card-header">
-                        <h3><i class="fas fa-cloud"></i> Cloudinary Config</h3>
-                        <span class="cloudinary-badge" id="cloudinaryStatus">
-                            <i class="fas fa-circle"></i> Not Configured
-                        </span>
+                        <h3><i class="fas fa-cloud"></i> Cloudinary</h3>
+                        <span class="cloudinary-badge"><i class="fas fa-check-circle"></i> Configured ✅</span>
                     </div>
-                    <div class="form-group">
-                        <label>Cloud Name</label>
-                        <input type="text" id="cloudName" placeholder="your-cloud-name" onchange="saveCloudinaryConfig()">
-                    </div>
-                    <div class="form-group">
-                        <label>Upload Preset (unsigned)</label>
-                        <input type="text" id="uploadPreset" placeholder="your-upload-preset" onchange="saveCloudinaryConfig()">
-                    </div>
-                    <div class="form-group">
-                        <label>Folder (optional)</label>
-                        <input type="text" id="cloudinaryFolder" placeholder="lantica-menu" onchange="saveCloudinaryConfig()">
-                    </div>
-                    <p style="color: var(--gray); font-size: 0.8rem; margin-bottom: 15px;">
-                        <i class="fas fa-info-circle"></i> 
-                        From <a href="https://console.cloudinary.com/" target="_blank" style="color: var(--gold);">Cloudinary Dashboard</a> → Settings → Upload presets
-                    </p>
-                    <button class="btn btn-cloudinary" onclick="testCloudinaryConnection()">
-                        <i class="fas fa-plug"></i> Test Connection
-                    </button>
-                    <span id="cloudinaryResult" style="margin-left: 10px;"></span>
+                    <div class="form-group"><label>Cloud Name</label><input type="text" id="cloudName" value="dnxxxpbm9" readonly></div>
+                    <div class="form-group"><label>Upload Preset</label><input type="text" id="uploadPreset" value="lantica_upload" readonly></div>
+                    <div class="form-group"><label>Folder</label><input type="text" id="cloudinaryFolder" value="lantica-menu" readonly></div>
+                    <button class="btn btn-cloudinary" onclick="testCloudinaryConnection()"><i class="fas fa-plug"></i> Test Connection</button>
+                    <span id="cloudinaryResult" style="margin-left:10px;"></span>
                 </div>
 
                 <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-database"></i> Redis Connection</h3>
-                    </div>
-                    <div class="form-group">
-                        <label>Redis REST URL</label>
-                        <input type="text" value="https://proper-sunbeam-108020.upstash.io" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Redis REST Token</label>
-                        <input type="password" value="gQAAAAAAAaX0AAIgcDE3NThjODZkOGE0ZDg0ZGRiYjY2YWU4Nzc5M2MzZGU1Yw" readonly>
-                    </div>
-                    <button class="btn btn-gold" onclick="testRedisConnection()">
-                        <i class="fas fa-plug"></i> Test Connection
-                    </button>
-                    <span id="connectionResult" style="margin-left: 10px;"></span>
+                    <div class="card-header"><h3><i class="fas fa-database"></i> Redis</h3></div>
+                    <div class="form-group"><label>Redis URL</label><input type="text" value="https://proper-sunbeam-108020.upstash.io" readonly></div>
+                    <button class="btn btn-gold" onclick="testRedisConnection()"><i class="fas fa-plug"></i> Test</button>
+                    <span id="connectionResult" style="margin-left:10px;"></span>
                 </div>
 
-                <div class="card" style="grid-column: 1 / -1;">
-                    <div class="card-header">
-                        <h3><i class="fas fa-cloud-download-alt"></i> Data Management</h3>
-                    </div>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button class="btn btn-gold" onclick="syncFromRedis()">
-                            <i class="fas fa-download"></i> Pull from Redis
-                        </button>
-                        <button class="btn btn-success" onclick="pushToRedis()">
-                            <i class="fas fa-upload"></i> Push All to Redis
-                        </button>
-                        <button class="btn btn-outline" onclick="exportData()">
-                            <i class="fas fa-file-export"></i> Export JSON
-                        </button>
-                        <button class="btn btn-outline" onclick="importDataPrompt()">
-                            <i class="fas fa-file-import"></i> Import JSON
-                        </button>
-                        <button class="btn btn-danger" onclick="resetToDefault()">
-                            <i class="fas fa-undo"></i> Reset to Default
-                        </button>
+                <div class="card" style="grid-column:1/-1;">
+                    <div class="card-header"><h3><i class="fas fa-cloud-download-alt"></i> Data Management</h3></div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn btn-gold" onclick="syncFromRedis()"><i class="fas fa-download"></i> Pull from Redis</button>
+                        <button class="btn btn-success" onclick="pushToRedis()"><i class="fas fa-upload"></i> Push All to Redis</button>
+                        <button class="btn btn-outline" onclick="exportData()"><i class="fas fa-file-export"></i> Export JSON</button>
+                        <button class="btn btn-outline" onclick="importDataPrompt()"><i class="fas fa-file-import"></i> Import JSON</button>
+                        <button class="btn btn-danger" onclick="resetToDefault()"><i class="fas fa-undo"></i> Reset Default</button>
                     </div>
                 </div>
             </div>
@@ -1041,53 +578,29 @@ Every item has a story — click on any card to read more.</textarea>
     </main>
 </div>
 
-<!-- Mobile Bottom Navigation -->
+<!-- Mobile Bottom Nav -->
 <div class="mobile-bottom-bar">
-    <button class="active" onclick="switchSection('menu')" id="mob-nav-menu">
-        <i class="fas fa-utensils"></i> Menu
-    </button>
-    <button onclick="switchSection('heritage')" id="mob-nav-heritage">
-        <i class="fas fa-landmark"></i> Heritage
-    </button>
-    <button onclick="switchSection('media')" id="mob-nav-media">
-        <i class="fas fa-cloud-upload-alt"></i> Media
-    </button>
-    <button onclick="switchSection('settings')" id="mob-nav-settings">
-        <i class="fas fa-cog"></i> Settings
-    </button>
+    <button class="active" onclick="switchSection('menu')" id="mob-nav-menu"><i class="fas fa-utensils"></i> Menu</button>
+    <button onclick="switchSection('heritage')" id="mob-nav-heritage"><i class="fas fa-landmark"></i> Heritage</button>
+    <button onclick="switchSection('media')" id="mob-nav-media"><i class="fas fa-upload"></i> Upload</button>
+    <button onclick="switchSection('settings')" id="mob-nav-settings"><i class="fas fa-cog"></i> Settings</button>
 </div>
 
-<!-- Add/Edit Item Modal -->
+<!-- Item Modal -->
 <div class="modal-overlay" id="itemModal">
     <div class="modal">
         <h2 id="itemModalTitle">Add Menu Item</h2>
-        <input type="hidden" id="itemEditIndex">
-        <input type="hidden" id="itemEditCategory">
-        <div class="form-group">
-            <label>Item Name *</label>
-            <input type="text" id="itemName" placeholder="e.g., Lamb Tibs">
-        </div>
-        <div class="form-group">
-            <label>Category *</label>
-            <select id="itemCategory">
-                <option value="">Select Category</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Price (ETB) *</label>
-            <input type="number" id="itemPrice" placeholder="e.g., 680" min="0">
-        </div>
+        <input type="hidden" id="itemEditIndex"><input type="hidden" id="itemEditCategory">
+        <div class="form-group"><label>Item Name *</label><input type="text" id="itemName" placeholder="e.g., Lamb Tibs"></div>
+        <div class="form-group"><label>Category *</label><select id="itemCategory"><option value="">Select Category</option></select></div>
+        <div class="form-group"><label>Price (ETB) *</label><input type="number" id="itemPrice" placeholder="e.g., 680" min="0"></div>
         <div class="form-group">
             <label>Image</label>
-            <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
-                <input type="text" id="itemImage" placeholder="Paste URL or upload" oninput="previewItemImage()" style="flex: 1; min-width: 150px;">
-                <button class="btn btn-cloudinary btn-sm" onclick="event.preventDefault(); quickUploadForField('itemImage', 'itemImagePreview')">
-                    <i class="fas fa-camera"></i> Upload
-                </button>
+            <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                <input type="text" id="itemImage" placeholder="Paste URL or upload below" oninput="previewItemImage()" style="flex:1;min-width:150px;">
+                <button class="btn btn-cloudinary btn-sm" onclick="event.preventDefault(); quickUploadForField('itemImage','itemImagePreview')"><i class="fas fa-upload"></i> Upload</button>
             </div>
-            <div class="image-preview-container">
-                <img class="image-preview" id="itemImagePreview" src="https://placehold.co/400x200/1A1A1A/C9A96E?text=No+Image" alt="Preview">
-            </div>
+            <img class="image-preview" id="itemImagePreview" src="https://placehold.co/400x200/1A1A1A/C9A96E?text=No+Image" alt="Preview">
         </div>
         <div class="modal-actions">
             <button class="btn btn-outline" onclick="closeItemModal()">Cancel</button>
@@ -1101,34 +614,18 @@ Every item has a story — click on any card to read more.</textarea>
     <div class="modal">
         <h2 id="heritageModalTitle">Add Heritage Item</h2>
         <input type="hidden" id="heritageEditIndex">
-        <div class="form-group">
-            <label>Title *</label>
-            <input type="text" id="heritageItemTitle" placeholder="e.g., Vintage Camera">
-        </div>
+        <div class="form-group"><label>Title *</label><input type="text" id="heritageItemTitle" placeholder="e.g., Vintage Camera"></div>
         <div class="form-group">
             <label>Image</label>
-            <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
-                <input type="text" id="heritageItemImage" placeholder="Paste URL or upload" oninput="previewHeritageImage()" style="flex: 1; min-width: 150px;">
-                <button class="btn btn-cloudinary btn-sm" onclick="event.preventDefault(); quickUploadForField('heritageItemImage', 'heritageImagePreview')">
-                    <i class="fas fa-camera"></i> Upload
-                </button>
+            <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                <input type="text" id="heritageItemImage" placeholder="Paste URL or upload" oninput="previewHeritageImage()" style="flex:1;min-width:150px;">
+                <button class="btn btn-cloudinary btn-sm" onclick="event.preventDefault(); quickUploadForField('heritageItemImage','heritageImagePreview')"><i class="fas fa-upload"></i> Upload</button>
             </div>
-            <div class="image-preview-container">
-                <img class="image-preview" id="heritageImagePreview" src="https://placehold.co/400x200/1A1A1A/C9A96E?text=No+Image" alt="Preview">
-            </div>
+            <img class="image-preview" id="heritageImagePreview" src="https://placehold.co/400x200/1A1A1A/C9A96E?text=No+Image" alt="Preview">
         </div>
-        <div class="form-group">
-            <label>Badge</label>
-            <input type="text" id="heritageItemBadge" placeholder="e.g., Historical, Rare, Vintage">
-        </div>
-        <div class="form-group">
-            <label>Story *</label>
-            <textarea id="heritageItemStory" rows="4" placeholder="Tell the story of this item..."></textarea>
-        </div>
-        <div class="form-group">
-            <label>Memory / Personal Note</label>
-            <textarea id="heritageItemMemory" rows="3" placeholder="A personal memory associated with this item..."></textarea>
-        </div>
+        <div class="form-group"><label>Badge</label><input type="text" id="heritageItemBadge" placeholder="e.g., Historical, Rare"></div>
+        <div class="form-group"><label>Story *</label><textarea id="heritageItemStory" rows="4" placeholder="Tell the story..."></textarea></div>
+        <div class="form-group"><label>Memory</label><textarea id="heritageItemMemory" rows="3" placeholder="Personal note..."></textarea></div>
         <div class="modal-actions">
             <button class="btn btn-outline" onclick="closeHeritageModal()">Cancel</button>
             <button class="btn btn-gold" onclick="saveHeritageItem()">Save Item</button>
@@ -1139,44 +636,33 @@ Every item has a story — click on any card to read more.</textarea>
 <!-- Quick Upload Modal -->
 <div class="modal-overlay" id="quickUploadModal">
     <div class="modal">
-        <h2><i class="fas fa-cloud-upload-alt"></i> Upload Image</h2>
-        <div class="upload-zone" id="quickUploadZone">
-            <div class="upload-zone-icon">
-                <i class="fas fa-cloud-upload-alt"></i>
-            </div>
+        <h2><i class="fas fa-cloud-upload-alt"></i> Upload Image to Cloudinary</h2>
+        <div class="upload-zone" id="quickUploadZone" style="min-height:180px;padding:30px;">
+            <div class="upload-zone-icon"><i class="fas fa-cloud-upload-alt"></i></div>
             <h3>Tap to Upload</h3>
             <p>or drag & drop</p>
-            <button class="btn btn-cloudinary" onclick="event.stopPropagation(); document.getElementById('quickFileInput').click()">
-                <i class="fas fa-images"></i> Choose File
-            </button>
-            <button class="mobile-camera-btn" onclick="event.stopPropagation(); openQuickCamera()">
-                <i class="fas fa-camera"></i> Take Photo
-            </button>
-            <input type="file" id="quickFileInput" accept="image/*" style="display: none;" onchange="handleQuickUpload(event)">
-            <input type="file" id="quickCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleQuickUpload(event)">
-            <div class="upload-progress" id="quickUploadProgress">
-                <div class="upload-progress-bar" id="quickUploadProgressBar"></div>
+            <div class="upload-buttons">
+                <button class="btn btn-cloudinary" onclick="event.stopPropagation(); document.getElementById('quickFileInput').click()"><i class="fas fa-images"></i> Choose File</button>
+                <button class="btn btn-camera" onclick="event.stopPropagation(); openQuickCamera()"><i class="fas fa-camera"></i> Take Photo</button>
             </div>
-            <p id="quickUploadStatus" style="margin-top: 10px;"></p>
+            <input type="file" id="quickFileInput" accept="image/*" style="display:none;" onchange="handleQuickUpload(event)">
+            <input type="file" id="quickCameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleQuickUpload(event)">
+            <div class="upload-progress" id="quickUploadProgress"><div class="upload-progress-bar" id="quickUploadProgressBar"></div></div>
+            <p id="quickUploadStatus" style="margin-top:10px;"></p>
         </div>
-        <div id="quickUploadResult" style="margin-top: 15px;"></div>
+        <div id="quickUploadResult" style="margin-top:15px;"></div>
         <div class="modal-actions">
             <button class="btn btn-outline" onclick="closeQuickUpload()">Cancel</button>
-            <button class="btn btn-gold" id="quickUploadConfirm" onclick="confirmQuickUpload()" style="display: none;">
-                <i class="fas fa-check"></i> Use This Image
-            </button>
+            <button class="btn btn-gold" id="quickUploadConfirm" onclick="confirmQuickUpload()" style="display:none;"><i class="fas fa-check"></i> Use This Image</button>
         </div>
     </div>
 </div>
 
-<!-- Add Category Modal -->
+<!-- Category Modal -->
 <div class="modal-overlay" id="categoryModal">
     <div class="modal">
         <h2>Add New Category</h2>
-        <div class="form-group">
-            <label>Category Name * (use emoji e.g., 🍕 Pizza)</label>
-            <input type="text" id="newCategoryName" placeholder="e.g., 🍣 New Category">
-        </div>
+        <div class="form-group"><label>Category Name * (use emoji e.g., 🍕 Pizza)</label><input type="text" id="newCategoryName" placeholder="e.g., 🍣 New Category"></div>
         <div class="modal-actions">
             <button class="btn btn-outline" onclick="closeCategoryModal()">Cancel</button>
             <button class="btn btn-gold" onclick="addCategory()">Add Category</button>
@@ -1184,1021 +670,744 @@ Every item has a story — click on any card to read more.</textarea>
     </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-    // ==================== CONFIGURATION ====================
-    const REDIS_URL = "https://proper-sunbeam-108020.upstash.io";
-    const REDIS_TOKEN = "gQAAAAAAAaX0AAIgcDE3NThjODZkOGE0ZDg0ZGRiYjY2YWU4Nzc5M2MzZGU1Yw";
-    const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/developereth/Lantica/main/";
-    const PLACEHOLDER_IMAGE = "https://placehold.co/400x200/1A1A1A/C9A96E?text=No+Image";
+// ==================== CONFIG ====================
+const REDIS_URL = "https://proper-sunbeam-108020.upstash.io";
+const REDIS_TOKEN = "gQAAAAAAAaX0AAIgcDE3NThjODZkOGE0ZDg0ZGRiYjY2YWU4Nzc5M2MzZGU1Yw";
+const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/developereth/Lantica/main/";
+const PLACEHOLDER_IMAGE = "https://placehold.co/400x200/1A1A1A/C9A96E?text=No+Image";
+const CLOUDINARY_CLOUD_NAME = "dnxxxpbm9";
+const CLOUDINARY_UPLOAD_PRESET = "lantica_upload";
+const CLOUDINARY_FOLDER = "lantica-menu";
 
-    const REDIS_KEY_MENU = "lantica:menu";
-    const REDIS_KEY_HERITAGE = "lantica:heritage";
-    const REDIS_KEY_HERITAGE_CONTENT = "lantica:heritage_content";
-    const REDIS_KEY_MEDIA = "lantica:media_library";
+const REDIS_KEY_MENU = "lantica:menu";
+const REDIS_KEY_HERITAGE = "lantica:heritage";
+const REDIS_KEY_HERITAGE_CONTENT = "lantica:heritage_content";
+const REDIS_KEY_MEDIA = "lantica:media_library";
 
-    // ==================== DEFAULT DATA ====================
-    const DEFAULT_MENU_DATA = {
-        "☀️ Breakfast": [
-            { name: "Combo Fasting", price: 250, image: "combo-fasting-platter.jpg" },
-            { name: "Egg w/ meat", price: 250, image: "egg-with-minced-meat.jpg" },
-            { name: "Special Fetora", price: 350, image: "special-fetera-honey-cheese.jpg" },
-            { name: "Normal Fetora", price: 200, image: "classic-fetera.webp" },
-            { name: "Special Chech", price: 250, image: "" },
-            { name: "Normal Foul", price: 180, image: "" },
-            { name: "Special Foul", price: 250, image: "" },
-            { name: "Tomato Cheese", price: 170, image: "tomato-lebleb.jpg" },
-            { name: "Egg Sandwich", price: 200, image: "egg-sandwich.jpg" }
-        ],
-        "🔥 Traditional Food": [
-            { name: "Lamb Tibs", price: 680, image: "lamb-tibs.jpg" },
-            { name: "Lamb Tibs Tefresho", price: 700, image: "lamb-tibs-tefersho.jpg" },
-            { name: "Okie", price: 600, image: "" },
-            { name: "Chikena Tibs", price: 600, image: "" },
-            { name: "Chikena Tefresho", price: 650, image: "" },
-            { name: "Kitto", price: 1200, image: "" },
-            { name: "Quanta Firfir", price: 370, image: "kuanta-firfir.jpeg" },
-            { name: "Kiba Firfir", price: 210, image: "kiba-firfir.webp" },
-            { name: "Tibes Firfir", price: 320, image: "tibis-firfir.jpg" },
-            { name: "Shiro Bekibe", price: 300, image: "shiro-bekibe.jpeg" },
-            { name: "Dullet", price: 330, image: "dulet-minced-tripe.jpeg" },
-            { name: "Derkosh Firfir Beseg", price: 380, image: "" },
-            { name: "Bozena Shiro", price: 350, image: "shiro.jpg" },
-            { name: "Mahberawi", price: 1200, image: "mahberawi-mixed-platter.jpeg" },
-            { name: "Yefisk Agelgel", price: 1000, image: "" },
-            { name: "Gomen Kitto", price: 300, image: "gomen-kitfo.jpg" }
-        ],
-        "🍕 Pizza": [
-            { name: "Special Lentic Pizza Large", price: 580, image: "" },
-            { name: "Special Lentic Pizza Medium", price: 550, image: "" },
-            { name: "Chicken Pizza Large", price: 550, image: "chicken-pizza.jpeg" },
-            { name: "Chicken Pizza Medium", price: 460, image: "chicken-pizza.jpeg" },
-            { name: "Margarita Large", price: 450, image: "margherita-pizza.jpg" },
-            { name: "Margarita Medium", price: 400, image: "margherita-pizza.jpg" },
-            { name: "Vegetable Pizza Large", price: 370, image: "" }
-        ],
-        "🍝 Spaghetti & Rice": [
-            { name: "Spaghetti with Vegetables", price: 230, image: "pasta-with-veggies-25.jpg" },
-            { name: "Rice", price: 400, image: "" }
-        ],
-        "🍔 Burgers & Sandwiches": [
-            { name: "Noma Burger", price: 305, image: "" },
-            { name: "Cheese Burger", price: 350, image: "" },
-            { name: "Noma Ketchup", price: 380, image: "" },
-            { name: "Club Sandwich", price: 360, image: "" },
-            { name: "Tuna Sandwich", price: 350, image: "" },
-            { name: "Vegetable Sandwich", price: 160, image: "" },
-            { name: "Chicken Shawarma", price: 600, image: "" },
-            { name: "French Fries", price: 180, image: "" }
-        ],
-        "🥩 Pork Selections": [
-            { name: "Pork Chop", price: 320, image: "" },
-            { name: "Pork Sausage", price: 180, image: "" },
-            { name: "Pork Steak", price: 570, image: "" },
-            { name: "Pork Loin", price: 200, image: "" },
-            { name: "Pork Ribs", price: 400, image: "" },
-            { name: "Pork Belly", price: 380, image: "" },
-            { name: "Pork Shoulder", price: 400, image: "" }
-        ],
-        "🥗 Soup & Salad": [
-            { name: "Vegetable Soup", price: 180, image: "" },
-            { name: "Mixed Salad", price: 200, image: "mixed-garden-salad-2.jpg" },
-            { name: "Chicken Salad", price: 300, image: "" }
-        ],
-        "🍲 Fast Food": [
-            { name: "Special Lantica Fasting", price: 500, image: "" },
-            { name: "Normal Firfir", price: 180, image: "" },
-            { name: "Shiro", price: 275, image: "shiro.jpg" },
-            { name: "Tegabino", price: 300, image: "tegabino.jpg" },
-            { name: "Derkosh Firfir Fasting", price: 220, image: "" },
-            { name: "Mesere", price: 250, image: "mesere-red-lentil.jpeg" },
-            { name: "Hafe Hafe", price: 280, image: "" }
-        ],
-        "🥤 Fresh Juices": [
-            { name: "Papaya Juice", price: 160, image: "papaya-juice.jpg" },
-            { name: "Avocado Juice", price: 160, image: "avocado-juice.png" },
-            { name: "Mango Juice", price: 160, image: "mango-juice.jpeg" },
-            { name: "Telba Juice", price: 200, image: "tella-juice.webp" }
-        ],
-        "🧊 Cold Drinks": [
-            { name: "1/4 Water", price: 20, image: "" },
-            { name: "1/2 Water", price: 35, image: "" },
-            { name: "1 Liter Water", price: 55, image: "ambo-water.jpeg" },
-            { name: "2 Liter Water", price: 75, image: "ambo-water.jpeg" },
-            { name: "Soft Drink", price: 60, image: "soft-drink.jpeg" },
-            { name: "Ambo Water", price: 65, image: "ambo-water.jpeg" },
-            { name: "Plastic Soft Drink", price: 70, image: "soft-drink.jpeg" },
-            { name: "Tonic Water", price: 80, image: "" }
-        ],
-        "🍺 Beer & Draft": [
-            { name: "Normal Beer", price: 100, image: "" },
-            { name: "Big Bedla", price: 120, image: "" },
-            { name: "Hicnek Beer", price: 125, image: "" },
-            { name: "Arada Beer", price: 130, image: "" },
-            { name: "Janibo", price: 145, image: "" },
-            { name: "Single Draft", price: 65, image: "" }
-        ],
-        "🍷 Wine List": [
-            { name: "Axmite", price: 900, image: "" },
-            { name: "Guder Big", price: 720, image: "" },
-            { name: "Kmila Big", price: 800, image: "" },
-            { name: "Gebeta", price: 1100, image: "" },
-            { name: "Aksejar", price: 1200, image: "" }
-        ],
-        "☕ Hot Beverages": [
-            { name: "Tea", price: 30, image: "" },
-            { name: "Coffee", price: 60, image: "ethiopian-coffee-Buna.jpeg" },
-            { name: "Milk", price: 80, image: "" },
-            { name: "Latte", price: 70, image: "Latte.jpg" },
-            { name: "Macchiato", price: 75, image: "mackiyato.jpg" },
-            { name: "Spires", price: 60, image: "" },
-            { name: "Lewis Tea", price: 75, image: "" },
-            { name: "Kesher", price: 50, image: "" },
-            { name: "Tea with Lemon", price: 45, image: "" },
-            { name: "Flavor Tea", price: 65, image: "" },
-            { name: "Special Tea", price: 150, image: "" },
-            { name: "Fasting Macchiato", price: 85, image: "" },
-            { name: "Hot Chocolate", price: 80, image: "hot-chocolate.jpg" }
-        ]
-    };
+// ==================== DEFAULT DATA ====================
+const DEFAULT_MENU_DATA = {
+    "☀️ Breakfast": [
+        { name: "Combo Fasting", price: 250, image: "combo-fasting-platter.jpg" },
+        { name: "Egg w/ meat", price: 250, image: "egg-with-minced-meat.jpg" },
+        { name: "Special Fetora", price: 350, image: "special-fetera-honey-cheese.jpg" },
+        { name: "Normal Fetora", price: 200, image: "classic-fetera.webp" },
+        { name: "Special Chech", price: 250, image: "" },
+        { name: "Normal Foul", price: 180, image: "" },
+        { name: "Special Foul", price: 250, image: "" },
+        { name: "Tomato Cheese", price: 170, image: "tomato-lebleb.jpg" },
+        { name: "Egg Sandwich", price: 200, image: "egg-sandwich.jpg" }
+    ],
+    "🔥 Traditional Food": [
+        { name: "Lamb Tibs", price: 680, image: "lamb-tibs.jpg" },
+        { name: "Lamb Tibs Tefresho", price: 700, image: "lamb-tibs-tefersho.jpg" },
+        { name: "Okie", price: 600, image: "" },
+        { name: "Chikena Tibs", price: 600, image: "" },
+        { name: "Chikena Tefresho", price: 650, image: "" },
+        { name: "Kitto", price: 1200, image: "" },
+        { name: "Quanta Firfir", price: 370, image: "kuanta-firfir.jpeg" },
+        { name: "Kiba Firfir", price: 210, image: "kiba-firfir.webp" },
+        { name: "Tibes Firfir", price: 320, image: "tibis-firfir.jpg" },
+        { name: "Shiro Bekibe", price: 300, image: "shiro-bekibe.jpeg" },
+        { name: "Dullet", price: 330, image: "dulet-minced-tripe.jpeg" },
+        { name: "Derkosh Firfir Beseg", price: 380, image: "" },
+        { name: "Bozena Shiro", price: 350, image: "shiro.jpg" },
+        { name: "Mahberawi", price: 1200, image: "mahberawi-mixed-platter.jpeg" },
+        { name: "Yefisk Agelgel", price: 1000, image: "" },
+        { name: "Gomen Kitto", price: 300, image: "gomen-kitfo.jpg" }
+    ],
+    "🍕 Pizza": [
+        { name: "Special Lentic Pizza Large", price: 580, image: "" },
+        { name: "Special Lentic Pizza Medium", price: 550, image: "" },
+        { name: "Chicken Pizza Large", price: 550, image: "chicken-pizza.jpeg" },
+        { name: "Chicken Pizza Medium", price: 460, image: "chicken-pizza.jpeg" },
+        { name: "Margarita Large", price: 450, image: "margherita-pizza.jpg" },
+        { name: "Margarita Medium", price: 400, image: "margherita-pizza.jpg" },
+        { name: "Vegetable Pizza Large", price: 370, image: "" }
+    ],
+    "🍝 Spaghetti & Rice": [
+        { name: "Spaghetti with Vegetables", price: 230, image: "pasta-with-veggies-25.jpg" },
+        { name: "Rice", price: 400, image: "" }
+    ],
+    "🍔 Burgers & Sandwiches": [
+        { name: "Noma Burger", price: 305, image: "" },
+        { name: "Cheese Burger", price: 350, image: "" },
+        { name: "Noma Ketchup", price: 380, image: "" },
+        { name: "Club Sandwich", price: 360, image: "" },
+        { name: "Tuna Sandwich", price: 350, image: "" },
+        { name: "Vegetable Sandwich", price: 160, image: "" },
+        { name: "Chicken Shawarma", price: 600, image: "" },
+        { name: "French Fries", price: 180, image: "" }
+    ],
+    "🥩 Pork Selections": [
+        { name: "Pork Chop", price: 320, image: "" },
+        { name: "Pork Sausage", price: 180, image: "" },
+        { name: "Pork Steak", price: 570, image: "" },
+        { name: "Pork Loin", price: 200, image: "" },
+        { name: "Pork Ribs", price: 400, image: "" },
+        { name: "Pork Belly", price: 380, image: "" },
+        { name: "Pork Shoulder", price: 400, image: "" }
+    ],
+    "🥗 Soup & Salad": [
+        { name: "Vegetable Soup", price: 180, image: "" },
+        { name: "Mixed Salad", price: 200, image: "mixed-garden-salad-2.jpg" },
+        { name: "Chicken Salad", price: 300, image: "" }
+    ],
+    "🍲 Fast Food": [
+        { name: "Special Lantica Fasting", price: 500, image: "" },
+        { name: "Normal Firfir", price: 180, image: "" },
+        { name: "Shiro", price: 275, image: "shiro.jpg" },
+        { name: "Tegabino", price: 300, image: "tegabino.jpg" },
+        { name: "Derkosh Firfir Fasting", price: 220, image: "" },
+        { name: "Mesere", price: 250, image: "mesere-red-lentil.jpeg" },
+        { name: "Hafe Hafe", price: 280, image: "" }
+    ],
+    "🥤 Fresh Juices": [
+        { name: "Papaya Juice", price: 160, image: "papaya-juice.jpg" },
+        { name: "Avocado Juice", price: 160, image: "avocado-juice.png" },
+        { name: "Mango Juice", price: 160, image: "mango-juice.jpeg" },
+        { name: "Telba Juice", price: 200, image: "tella-juice.webp" }
+    ],
+    "🧊 Cold Drinks": [
+        { name: "1/4 Water", price: 20, image: "" },
+        { name: "1/2 Water", price: 35, image: "" },
+        { name: "1 Liter Water", price: 55, image: "ambo-water.jpeg" },
+        { name: "2 Liter Water", price: 75, image: "ambo-water.jpeg" },
+        { name: "Soft Drink", price: 60, image: "soft-drink.jpeg" },
+        { name: "Ambo Water", price: 65, image: "ambo-water.jpeg" },
+        { name: "Plastic Soft Drink", price: 70, image: "soft-drink.jpeg" },
+        { name: "Tonic Water", price: 80, image: "" }
+    ],
+    "🍺 Beer & Draft": [
+        { name: "Normal Beer", price: 100, image: "" },
+        { name: "Big Bedla", price: 120, image: "" },
+        { name: "Hicnek Beer", price: 125, image: "" },
+        { name: "Arada Beer", price: 130, image: "" },
+        { name: "Janibo", price: 145, image: "" },
+        { name: "Single Draft", price: 65, image: "" }
+    ],
+    "🍷 Wine List": [
+        { name: "Axmite", price: 900, image: "" },
+        { name: "Guder Big", price: 720, image: "" },
+        { name: "Kmila Big", price: 800, image: "" },
+        { name: "Gebeta", price: 1100, image: "" },
+        { name: "Aksejar", price: 1200, image: "" }
+    ],
+    "☕ Hot Beverages": [
+        { name: "Tea", price: 30, image: "" },
+        { name: "Coffee", price: 60, image: "ethiopian-coffee-Buna.jpeg" },
+        { name: "Milk", price: 80, image: "" },
+        { name: "Latte", price: 70, image: "Latte.jpg" },
+        { name: "Macchiato", price: 75, image: "mackiyato.jpg" },
+        { name: "Spires", price: 60, image: "" },
+        { name: "Lewis Tea", price: 75, image: "" },
+        { name: "Kesher", price: 50, image: "" },
+        { name: "Tea with Lemon", price: 45, image: "" },
+        { name: "Flavor Tea", price: 65, image: "" },
+        { name: "Special Tea", price: 150, image: "" },
+        { name: "Fasting Macchiato", price: 85, image: "" },
+        { name: "Hot Chocolate", price: 80, image: "hot-chocolate.jpg" }
+    ]
+};
 
-    const DEFAULT_HERITAGE_ITEMS = [
-        { title: "Emperor Haile Selassie I Portrait", image: "emperial1.jpg", story: "An original framed photograph of His Imperial Majesty Emperor Haile Selassie I.", memory: "Veteran customers remember the Emperor's visit to this very neighborhood.", badge: "Historical" },
-        { title: "Vintage Camera Collection", image: "old-camera1.jpg", story: "A collection of classic film cameras from the 1950s-1970s.", memory: "These cameras witnessed three generations of our loyal customers.", badge: "Collection" },
-        { title: "Vintage DJ Mixer", image: "old-dj-mixer.jpg", story: "A classic DJ mixer and sound system from the 1970s.", memory: "The sound of vinyl crackling created unforgettable Friday night vibes.", badge: "Rare" },
-        { title: "Old Record Player", image: "old-player.jpg", story: "This gramophone player from the 1960s filled Lantica with Ethiopian jazz.", memory: "The sound of vinyl crackling alongside coffee brewing — that was Lantica mornings.", badge: "Vintage" },
-        { title: "Antique Telescope", image: "old-telescop.jpg", story: "A beautiful antique brass telescope from the early 1900s.", memory: "Customers would gaze at the Arat Kilo skyline, dreaming of adventures.", badge: "Rare" },
-        { title: "Vintage Pocket Watch", image: "old-watch1.jpg", story: "An elegant mechanical pocket watch from the 1940s.", memory: "This watch belonged to the original owner for over 30 years.", badge: "Memory" }
-    ];
+const DEFAULT_HERITAGE_ITEMS = [
+    { title: "Emperor Haile Selassie I Portrait", image: "emperial1.jpg", story: "An original framed photograph of His Imperial Majesty Emperor Haile Selassie I.", memory: "Veteran customers remember the Emperor's visit.", badge: "Historical" },
+    { title: "Vintage Camera Collection", image: "old-camera1.jpg", story: "A collection of classic film cameras from the 1950s-1970s.", memory: "Three generations captured within these walls.", badge: "Collection" },
+    { title: "Vintage DJ Mixer", image: "old-dj-mixer.jpg", story: "A classic DJ mixer and sound system from the 1970s.", memory: "Unforgettable Friday night vibes.", badge: "Rare" },
+    { title: "Old Record Player", image: "old-player.jpg", story: "Gramophone player from the 1960s filled Lantica with Ethiopian jazz.", memory: "Vinyl crackling alongside coffee brewing.", badge: "Vintage" },
+    { title: "Antique Telescope", image: "old-telescop.jpg", story: "Beautiful antique brass telescope from the early 1900s.", memory: "Gazing at Arat Kilo skyline, dreaming.", badge: "Rare" },
+    { title: "Vintage Pocket Watch", image: "old-watch1.jpg", story: "Elegant mechanical pocket watch from the 1940s.", memory: "Belonged to the original owner for 30+ years.", badge: "Memory" }
+];
 
-    const DEFAULT_HERITAGE_CONTENT = {
-        heroTitle: "🏛️ Heritage <span>Gallery</span>",
-        heroDesc: "Step into the memory of Lantica 1960 — a journey through time, vintage treasures, and stories that shaped our soul.",
-        quote: "Every artifact tells a story. Every memory lives here.",
-        storyTitle: "The Memory of Lantica 1960",
-        storyContent: "These vintage treasures are more than objects — they are witnesses to history.\n\nFrom the Emperor's era to modern Ethiopia, Lantica 1960 has stood as a silent observer.\n\nEvery item has a story — click on any card to read more."
-    };
+const DEFAULT_HERITAGE_CONTENT = {
+    heroTitle: "🏛️ Heritage <span>Gallery</span>",
+    heroDesc: "Step into the memory of Lantica 1960.",
+    quote: "Every artifact tells a story. Every memory lives here.",
+    storyTitle: "The Memory of Lantica 1960",
+    storyContent: "These vintage treasures are more than objects.\n\nFrom the Emperor's era to modern Ethiopia.\n\nEvery item has a story."
+};
 
-    // ==================== STATE ====================
-    let menuData = JSON.parse(JSON.stringify(DEFAULT_MENU_DATA));
-    let heritageItems = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_ITEMS));
-    let heritageContent = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_CONTENT));
-    let mediaLibrary = [];
-    let currentCategoryFilter = 'all';
-    let quickUploadTargetField = null;
-    let quickUploadTargetPreview = null;
-    let quickUploadedUrl = null;
-    let cloudinaryConfig = { cloudName: '', uploadPreset: '', folder: 'lantica-menu' };
+// ==================== STATE ====================
+let menuData = JSON.parse(JSON.stringify(DEFAULT_MENU_DATA));
+let heritageItems = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_ITEMS));
+let heritageContent = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_CONTENT));
+let mediaLibrary = [];
+let currentCategoryFilter = 'all';
+let quickUploadTargetField = null;
+let quickUploadTargetPreview = null;
+let quickUploadedUrl = null;
 
-    // ==================== INITIALIZATION ====================
-    document.addEventListener('DOMContentLoaded', () => {
-        loadFromLocalStorage();
-        loadCloudinaryConfig();
-        renderCategoryTabs();
-        renderMenuTable();
-        renderHeritageTable();
-        loadHeritageContentToForm();
-        updateStats();
-        syncFromRedis();
-        setupDragAndDrop();
-        detectMobile();
-    });
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+    loadFromLocalStorage();
+    renderCategoryTabs();
+    renderMenuTable();
+    renderHeritageTable();
+    loadHeritageContentToForm();
+    updateStats();
+    syncFromRedis();
+    setupDragAndDrop();
+});
 
-    function loadFromLocalStorage() {
-        try {
-            const savedMenu = localStorage.getItem('lantica_menu_data');
-            const savedHeritage = localStorage.getItem('lantica_heritage_items');
-            const savedHeritageContent = localStorage.getItem('lantica_heritage_content');
-            const savedMedia = localStorage.getItem('lantica_media_library');
-            const savedCloudinaryConfig = localStorage.getItem('lantica_cloudinary_config');
-            
-            if (savedMenu) menuData = JSON.parse(savedMenu);
-            if (savedHeritage) heritageItems = JSON.parse(savedHeritage);
-            if (savedHeritageContent) heritageContent = JSON.parse(savedHeritageContent);
-            if (savedMedia) mediaLibrary = JSON.parse(savedMedia);
-            if (savedCloudinaryConfig) cloudinaryConfig = JSON.parse(savedCloudinaryConfig);
-        } catch (e) {
-            console.error('Error loading from localStorage:', e);
-        }
-    }
+function loadFromLocalStorage() {
+    try {
+        const sm = localStorage.getItem('lantica_menu_data');
+        const sh = localStorage.getItem('lantica_heritage_items');
+        const shc = localStorage.getItem('lantica_heritage_content');
+        const sml = localStorage.getItem('lantica_media_library');
+        if (sm) menuData = JSON.parse(sm);
+        if (sh) heritageItems = JSON.parse(sh);
+        if (shc) heritageContent = JSON.parse(shc);
+        if (sml) mediaLibrary = JSON.parse(sml);
+    } catch(e) { console.error(e); }
+}
 
-    function saveToLocalStorage() {
-        localStorage.setItem('lantica_menu_data', JSON.stringify(menuData));
-        localStorage.setItem('lantica_heritage_items', JSON.stringify(heritageItems));
-        localStorage.setItem('lantica_heritage_content', JSON.stringify(heritageContent));
-        localStorage.setItem('lantica_media_library', JSON.stringify(mediaLibrary));
-        localStorage.setItem('lantica_cloudinary_config', JSON.stringify(cloudinaryConfig));
-    }
+function saveToLocalStorage() {
+    localStorage.setItem('lantica_menu_data', JSON.stringify(menuData));
+    localStorage.setItem('lantica_heritage_items', JSON.stringify(heritageItems));
+    localStorage.setItem('lantica_heritage_content', JSON.stringify(heritageContent));
+    localStorage.setItem('lantica_media_library', JSON.stringify(mediaLibrary));
+}
 
-    function loadCloudinaryConfig() {
-        document.getElementById('cloudName').value = cloudinaryConfig.cloudName || '';
-        document.getElementById('uploadPreset').value = cloudinaryConfig.uploadPreset || '';
-        document.getElementById('cloudinaryFolder').value = cloudinaryConfig.folder || 'lantica-menu';
-        updateCloudinaryStatus();
-    }
+// ==================== CLOUDINARY UPLOAD ====================
+function openCamera() { document.getElementById('cameraInput').click(); }
+function openQuickCamera() { document.getElementById('quickCameraInput').click(); }
 
-    function saveCloudinaryConfig() {
-        cloudinaryConfig.cloudName = document.getElementById('cloudName').value.trim();
-        cloudinaryConfig.uploadPreset = document.getElementById('uploadPreset').value.trim();
-        cloudinaryConfig.folder = document.getElementById('cloudinaryFolder').value.trim() || 'lantica-menu';
-        saveToLocalStorage();
-        updateCloudinaryStatus();
-    }
-
-    function updateCloudinaryStatus() {
-        const status = document.getElementById('cloudinaryStatus');
-        if (cloudinaryConfig.cloudName && cloudinaryConfig.uploadPreset) {
-            status.innerHTML = '<i class="fas fa-check-circle"></i> Configured';
-            status.style.background = 'rgba(46,204,113,0.2)';
-            status.style.color = '#2ECC71';
-        } else {
-            status.innerHTML = '<i class="fas fa-circle"></i> Not Configured';
-            status.style.background = 'rgba(243,156,18,0.2)';
-            status.style.color = '#F39C12';
-        }
-    }
-
-    function detectMobile() {
-        const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
-        if (isMobile) {
-            document.querySelectorAll('.mobile-camera-btn').forEach(btn => btn.style.display = 'inline-flex');
-        }
-    }
-
-    function openCamera() {
-        document.getElementById('cameraInput').click();
-    }
-
-    function openQuickCamera() {
-        document.getElementById('quickCameraInput').click();
-    }
-
-    // ==================== DRAG & DROP ====================
-    function setupDragAndDrop() {
-        setupZone('uploadZone', (files) => uploadFiles(files));
-        setupZone('quickUploadZone', (files) => handleQuickUploadFiles(files));
-    }
-
-    function setupZone(zoneId, callback) {
-        const zone = document.getElementById(zoneId);
+function setupDragAndDrop() {
+    ['uploadZone','quickUploadZone'].forEach(id => {
+        const zone = document.getElementById(id);
         if (!zone) return;
-        
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            zone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-            }, false);
-        });
-        
-        ['dragenter', 'dragover'].forEach(eventName => {
-            zone.addEventListener(eventName, () => zone.classList.add('drag-over'), false);
-        });
-        
-        ['dragleave', 'drop'].forEach(eventName => {
-            zone.addEventListener(eventName, () => zone.classList.remove('drag-over'), false);
-        });
-        
-        zone.addEventListener('drop', (e) => {
+        ['dragenter','dragover','dragleave','drop'].forEach(ev => zone.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); }));
+        ['dragenter','dragover'].forEach(ev => zone.addEventListener(ev, () => zone.classList.add('drag-over')));
+        ['dragleave','drop'].forEach(ev => zone.addEventListener(ev, () => zone.classList.remove('drag-over')));
+        zone.addEventListener('drop', e => {
             const files = e.dataTransfer.files;
-            if (files.length > 0) callback(files);
-        }, false);
-
-        zone.addEventListener('click', (e) => {
-            if (e.target === zone || e.target.closest('.upload-zone-icon, h3, p')) {
-                document.getElementById(zoneId === 'uploadZone' ? 'fileInput' : 'quickFileInput').click();
-            }
+            if (files.length) id === 'uploadZone' ? uploadFiles(files) : handleQuickUploadFiles(files);
         });
+    });
+}
+
+function handleFileSelect(event) {
+    const files = event.target.files;
+    if (files.length) uploadFiles(files);
+    event.target.value = '';
+}
+
+async function uploadFiles(files) {
+    const pb = document.getElementById('uploadProgressBar');
+    const pc = document.getElementById('uploadProgress');
+    const st = document.getElementById('uploadStatus');
+    const grid = document.getElementById('uploadedGrid');
+    pc.style.display = 'block'; st.textContent = 'Uploading...'; pb.style.width = '0%';
+    
+    const total = files.length;
+    let count = 0;
+    const newUploads = [];
+    
+    for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+        if (f.size > 10*1024*1024) { showToast(f.name + ' too large (max 10MB)', 'error'); continue; }
+        st.textContent = `Uploading ${i+1}/${total}: ${f.name}`;
+        pb.style.width = `${(i/total)*100}%`;
+        try {
+            const url = await uploadToCloudinary(f);
+            newUploads.push({ name: f.name, url, date: new Date().toISOString() });
+            count++;
+            pb.style.width = `${((i+1)/total)*100}%`;
+        } catch(e) { showToast('Failed: '+f.name, 'error'); }
     }
+    
+    mediaLibrary = [...newUploads, ...mediaLibrary].slice(0, 100);
+    saveToLocalStorage();
+    pc.style.display = 'none';
+    
+    if (count > 0) {
+        st.innerHTML = `<span style="color:var(--success);">✅ ${count} uploaded!</span>`;
+        let h = '';
+        newUploads.forEach(item => {
+            h += `<div class="uploaded-card"><img src="${item.url}" onclick="window.open('${item.url}','_blank')"><div class="uploaded-card-info"><span>${esc(item.name.substring(0,15))}</span><button class="copy-btn" onclick="copyToClipboard('${item.url}')">Copy</button></div></div>`;
+        });
+        grid.innerHTML = h + grid.innerHTML;
+        showToast(`✅ ${count} image(s) uploaded!`, 'success');
+    } else { st.textContent = 'No files uploaded.'; }
+}
 
-    function handleFileSelect(event) {
-        const files = event.target.files;
-        if (files.length > 0) uploadFiles(files);
-        event.target.value = '';
-    }
+async function uploadToCloudinary(file) {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    fd.append('folder', CLOUDINARY_FOLDER);
+    
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, { method: 'POST', body: fd });
+    if (!res.ok) { const err = await res.json(); throw new Error(err.error?.message || 'Upload failed'); }
+    const data = await res.json();
+    return data.secure_url;
+}
 
-    async function uploadFiles(files) {
-        if (!cloudinaryConfig.cloudName || !cloudinaryConfig.uploadPreset) {
-            showToast('⚠️ Configure Cloudinary in Settings first!', 'error');
-            switchSection('settings');
-            return;
-        }
+function quickUploadForField(fieldId, previewId) {
+    quickUploadTargetField = fieldId;
+    quickUploadTargetPreview = previewId;
+    quickUploadedUrl = null;
+    document.getElementById('quickUploadResult').innerHTML = '';
+    document.getElementById('quickUploadStatus').textContent = '';
+    document.getElementById('quickUploadProgress').style.display = 'none';
+    document.getElementById('quickUploadConfirm').style.display = 'none';
+    document.getElementById('quickFileInput').value = '';
+    document.getElementById('quickCameraInput').value = '';
+    document.getElementById('quickUploadModal').classList.add('active');
+}
 
-        const progressBar = document.getElementById('uploadProgressBar');
-        const progressContainer = document.getElementById('uploadProgress');
-        const statusEl = document.getElementById('uploadStatus');
-        const uploadedGrid = document.getElementById('uploadedGrid');
-        
-        progressContainer.style.display = 'block';
-        statusEl.textContent = 'Preparing upload...';
-        progressBar.style.width = '0%';
-        
-        const totalFiles = files.length;
-        let uploadedCount = 0;
-        const newUploads = [];
+function handleQuickUpload(event) {
+    const files = event.target.files;
+    if (files.length) handleQuickUploadFiles(files);
+    event.target.value = '';
+}
 
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            
-            if (file.size > 10 * 1024 * 1024) {
-                showToast(`${file.name} is too large (max 10MB)`, 'error');
-                continue;
-            }
-            
-            statusEl.textContent = `Uploading ${i + 1}/${totalFiles}: ${file.name}`;
-            progressBar.style.width = `${(i / totalFiles) * 100}%`;
-            
-            try {
-                const url = await uploadToCloudinary(file);
-                newUploads.push({ name: file.name, url: url, date: new Date().toISOString() });
-                uploadedCount++;
-                progressBar.style.width = `${((i + 1) / totalFiles) * 100}%`;
-            } catch (error) {
-                showToast(`Failed: ${file.name} - ${error.message}`, 'error');
-            }
-        }
-        
-        // Add to media library
-        mediaLibrary = [...newUploads, ...mediaLibrary].slice(0, 100);
+async function handleQuickUploadFiles(files) {
+    const pb = document.getElementById('quickUploadProgressBar');
+    const pc = document.getElementById('quickUploadProgress');
+    const st = document.getElementById('quickUploadStatus');
+    const rc = document.getElementById('quickUploadResult');
+    pc.style.display = 'block'; st.textContent = 'Uploading...'; pb.style.width = '50%';
+    
+    try {
+        const url = await uploadToCloudinary(files[0]);
+        pb.style.width = '100%'; st.innerHTML = '<span style="color:var(--success);">✅ Done!</span>';
+        quickUploadedUrl = url;
+        rc.innerHTML = `<img class="image-preview" src="${url}" style="height:200px;"><div class="image-url-display"><i class="fas fa-check-circle"></i><span>${url}</span><button class="copy-btn" onclick="copyToClipboard('${url}')">Copy</button></div>`;
+        document.getElementById('quickUploadConfirm').style.display = 'inline-flex';
+        mediaLibrary.unshift({ name: files[0].name, url, date: new Date().toISOString() });
+        if (mediaLibrary.length > 100) mediaLibrary = mediaLibrary.slice(0, 100);
         saveToLocalStorage();
-        
-        progressContainer.style.display = 'none';
-        
-        if (uploadedCount > 0) {
-            statusEl.innerHTML = `<span style="color: var(--success);">✅ ${uploadedCount} image(s) uploaded!</span>`;
-            showUploadedGrid(newUploads);
-            showToast(`${uploadedCount} image(s) uploaded to Cloudinary! 🎉`, 'success');
-        } else {
-            statusEl.textContent = 'No files uploaded.';
-        }
+    } catch(e) { st.innerHTML = `<span style="color:var(--danger);">❌ ${e.message}</span>`; }
+    pc.style.display = 'none';
+}
+
+function confirmQuickUpload() {
+    if (quickUploadedUrl && quickUploadTargetField) {
+        document.getElementById(quickUploadTargetField).value = quickUploadedUrl;
+        if (quickUploadTargetPreview) document.getElementById(quickUploadTargetPreview).src = quickUploadedUrl;
     }
+    closeQuickUpload();
+    showToast('✅ Image applied!', 'success');
+}
 
-    function showUploadedGrid(uploads) {
-        const grid = document.getElementById('uploadedGrid');
-        let html = '';
-        uploads.forEach(item => {
-            html += `
-                <div class="uploaded-card">
-                    <img src="${item.url}" alt="${escapeHtml(item.name)}" onclick="window.open('${item.url}', '_blank')">
-                    <div class="uploaded-card-info">
-                        <span>${escapeHtml(item.name.substring(0, 15))}</span>
-                        <button onclick="copyToClipboard('${item.url}')">Copy</button>
-                    </div>
-                </div>
-            `;
-        });
-        grid.innerHTML = html + grid.innerHTML;
+function closeQuickUpload() {
+    document.getElementById('quickUploadModal').classList.remove('active');
+    quickUploadTargetField = null; quickUploadTargetPreview = null; quickUploadedUrl = null;
+}
+
+async function testCloudinaryConnection() {
+    document.getElementById('cloudinaryResult').innerHTML = '<span style="color:var(--warning);">⏳ Testing...</span>';
+    try {
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/ping`);
+        if (res.ok) {
+            document.getElementById('cloudinaryResult').innerHTML = '<span style="color:var(--success);">✅ Connected!</span>';
+            showToast('Cloudinary connected! 🎉', 'success');
+        } else throw new Error('Failed');
+    } catch(e) {
+        document.getElementById('cloudinaryResult').innerHTML = '<span style="color:var(--danger);">❌ Failed</span>';
     }
+}
 
-    async function uploadToCloudinary(file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', cloudinaryConfig.uploadPreset);
-        if (cloudinaryConfig.folder) formData.append('folder', cloudinaryConfig.folder);
-
-        const response = await fetch(
-            `https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudName}/image/upload`,
-            { method: 'POST', body: formData }
-        );
-
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error?.message || 'Upload failed');
-        }
-
-        const data = await response.json();
-        return data.secure_url;
+function loadMediaLibrary() {
+    const tbody = document.getElementById('mediaTableBody');
+    document.getElementById('mediaCount').textContent = mediaLibrary.length + ' files';
+    if (!mediaLibrary.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:30px;"><i class="fas fa-cloud-upload-alt" style="font-size:2rem;display:block;margin-bottom:10px;"></i>Upload images to see them here</td></tr>';
+        return;
     }
+    tbody.innerHTML = mediaLibrary.map((item, i) => `
+        <tr>
+            <td><img class="menu-item-thumb" src="${item.url}" onerror="this.src='${PLACEHOLDER_IMAGE}'"></td>
+            <td style="max-width:250px;word-break:break-all;font-size:0.75rem;">${item.url}</td>
+            <td style="font-size:0.75rem;white-space:nowrap;">${new Date(item.date).toLocaleDateString()}</td>
+            <td>
+                <button class="btn-icon edit" onclick="copyToClipboard('${item.url}')"><i class="fas fa-copy"></i></button>
+                <button class="btn-icon delete" onclick="deleteMediaItem(${i})"><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>
+    `).join('');
+}
 
-    function quickUploadForField(fieldId, previewId) {
-        if (!cloudinaryConfig.cloudName || !cloudinaryConfig.uploadPreset) {
-            showToast('⚠️ Configure Cloudinary first!', 'error');
-            switchSection('settings');
-            return;
-        }
-        
-        quickUploadTargetField = fieldId;
-        quickUploadTargetPreview = previewId;
-        quickUploadedUrl = null;
-        
-        document.getElementById('quickUploadResult').innerHTML = '';
-        document.getElementById('quickUploadStatus').textContent = '';
-        document.getElementById('quickUploadProgress').style.display = 'none';
-        document.getElementById('quickUploadConfirm').style.display = 'none';
-        document.getElementById('quickFileInput').value = '';
-        document.getElementById('quickCameraInput').value = '';
-        
-        document.getElementById('quickUploadModal').classList.add('active');
+function deleteMediaItem(i) { mediaLibrary.splice(i,1); saveToLocalStorage(); loadMediaLibrary(); showToast('Removed.','success'); }
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => showToast('📋 Copied!','success')).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showToast('📋 Copied!','success');
+    });
+}
+
+// ==================== REDIS ====================
+async function redisCommand(cmd, ...args) {
+    const res = await fetch(`${REDIS_URL}/${cmd}/${args.join('/')}`, { headers: { 'Authorization': `Bearer ${REDIS_TOKEN}` } });
+    if (!res.ok) throw new Error('Redis error: '+res.status);
+    const data = await res.json();
+    return data.result;
+}
+
+async function testRedisConnection() {
+    try {
+        await redisCommand('ping');
+        document.getElementById('connectionResult').innerHTML = '<span style="color:var(--success);">✅ Connected!</span>';
+        document.getElementById('dbStatus').className = 'status-badge connected';
+        document.getElementById('dbStatus').innerHTML = '<i class="fas fa-database"></i> Connected';
+        showToast('Redis connected!','success');
+    } catch(e) {
+        document.getElementById('connectionResult').innerHTML = '<span style="color:var(--danger);">❌ Failed</span>';
+        document.getElementById('dbStatus').className = 'status-badge disconnected';
+        document.getElementById('dbStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Disconnected';
     }
+}
 
-    function handleQuickUpload(event) {
-        const files = event.target.files;
-        if (files.length > 0) handleQuickUploadFiles(files);
-        event.target.value = '';
-    }
-
-    async function handleQuickUploadFiles(files) {
-        const progressBar = document.getElementById('quickUploadProgressBar');
-        const progressContainer = document.getElementById('quickUploadProgress');
-        const statusEl = document.getElementById('quickUploadStatus');
-        const resultContainer = document.getElementById('quickUploadResult');
-        
-        progressContainer.style.display = 'block';
-        statusEl.textContent = 'Uploading...';
-        progressBar.style.width = '50%';
-        
-        try {
-            const url = await uploadToCloudinary(files[0]);
-            progressBar.style.width = '100%';
-            statusEl.innerHTML = '<span style="color: var(--success);">✅ Done!</span>';
-            
-            quickUploadedUrl = url;
-            
-            resultContainer.innerHTML = `
-                <div class="image-preview-container">
-                    <img class="image-preview" src="${url}" alt="Uploaded" style="height: 200px;">
-                </div>
-                <div class="image-url-display" style="margin-top: 10px;">
-                    <i class="fas fa-check-circle"></i>
-                    <span>${url}</span>
-                    <button class="copy-btn" onclick="copyToClipboard('${url}')">Copy</button>
-                </div>
-            `;
-            
-            document.getElementById('quickUploadConfirm').style.display = 'inline-flex';
-            
-            mediaLibrary.unshift({ name: files[0].name, url: url, date: new Date().toISOString() });
-            if (mediaLibrary.length > 100) mediaLibrary = mediaLibrary.slice(0, 100);
-            saveToLocalStorage();
-            
-        } catch (error) {
-            statusEl.innerHTML = `<span style="color: var(--danger);">❌ ${error.message}</span>`;
-        }
-        
-        progressContainer.style.display = 'none';
-    }
-
-    function confirmQuickUpload() {
-        if (quickUploadedUrl && quickUploadTargetField) {
-            document.getElementById(quickUploadTargetField).value = quickUploadedUrl;
-            if (quickUploadTargetPreview) {
-                document.getElementById(quickUploadTargetPreview).src = quickUploadedUrl;
-            }
-        }
-        closeQuickUpload();
-        showToast('✅ Image applied!', 'success');
-    }
-
-    function closeQuickUpload() {
-        document.getElementById('quickUploadModal').classList.remove('active');
-        quickUploadTargetField = null;
-        quickUploadTargetPreview = null;
-        quickUploadedUrl = null;
-    }
-
-    async function testCloudinaryConnection() {
-        saveCloudinaryConfig();
-        if (!cloudinaryConfig.cloudName || !cloudinaryConfig.uploadPreset) {
-            document.getElementById('cloudinaryResult').innerHTML = '<span style="color: var(--danger);">❌ Fill in Cloud Name and Preset</span>';
-            return;
-        }
-        document.getElementById('cloudinaryResult').innerHTML = '<span style="color: var(--warning);">⏳ Testing...</span>';
-        try {
-            const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudName}/ping`);
-            if (response.ok) {
-                document.getElementById('cloudinaryResult').innerHTML = '<span style="color: var(--success);">✅ Connected!</span>';
-                showToast('Cloudinary connected!', 'success');
-            } else {
-                throw new Error('Connection failed');
-            }
-        } catch (error) {
-            document.getElementById('cloudinaryResult').innerHTML = '<span style="color: var(--danger);">❌ Check Cloud Name</span>';
-        }
-    }
-
-    function loadMediaLibrary() {
-        const tbody = document.getElementById('mediaTableBody');
-        document.getElementById('mediaCount').textContent = `${mediaLibrary.length} files`;
-        
-        if (mediaLibrary.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--gray); padding: 30px;"><i class="fas fa-cloud-upload-alt" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>Upload images to see them here</td></tr>';
-            return;
-        }
-        
-        let html = '';
-        mediaLibrary.forEach((item, index) => {
-            html += `
-                <tr>
-                    <td><img class="menu-item-thumb" src="${item.url}" alt="" onerror="this.src='${PLACEHOLDER_IMAGE}'"></td>
-                    <td style="max-width: 250px; word-break: break-all; font-size: 0.75rem;">${item.url}</td>
-                    <td style="font-size: 0.75rem; white-space: nowrap;">${new Date(item.date).toLocaleDateString()}</td>
-                    <td>
-                        <button class="btn-icon edit" onclick="copyToClipboard('${item.url}')" title="Copy URL"><i class="fas fa-copy"></i></button>
-                        <button class="btn-icon delete" onclick="deleteMediaItem(${index})" title="Remove"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            `;
-        });
-        tbody.innerHTML = html;
-    }
-
-    function deleteMediaItem(index) {
-        mediaLibrary.splice(index, 1);
+async function pushToRedis() {
+    try {
+        showToast('💾 Saving...','warning');
+        await redisCommand('set', REDIS_KEY_MENU, encodeURIComponent(JSON.stringify(menuData)));
+        await redisCommand('set', REDIS_KEY_HERITAGE, encodeURIComponent(JSON.stringify(heritageItems)));
+        await redisCommand('set', REDIS_KEY_HERITAGE_CONTENT, encodeURIComponent(JSON.stringify(heritageContent)));
+        await redisCommand('set', REDIS_KEY_MEDIA, encodeURIComponent(JSON.stringify(mediaLibrary)));
         saveToLocalStorage();
-        loadMediaLibrary();
-        showToast('Removed from library.', 'success');
-    }
-
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            showToast('📋 URL copied!', 'success');
-        }).catch(() => {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            showToast('📋 URL copied!', 'success');
-        });
-    }
-
-    // ==================== REDIS API ====================
-    async function redisCommand(command, ...args) {
-        try {
-            const response = await fetch(`${REDIS_URL}/${command}/${args.join('/')}`, {
-                headers: { 'Authorization': `Bearer ${REDIS_TOKEN}` }
-            });
-            if (!response.ok) throw new Error(`Redis HTTP error: ${response.status}`);
-            const data = await response.json();
-            return data.result;
-        } catch (error) {
-            console.error('Redis error:', error);
-            throw error;
-        }
-    }
-
-    async function testRedisConnection() {
-        try {
-            await redisCommand('ping');
-            document.getElementById('connectionResult').innerHTML = '<span style="color: var(--success);">✅ Connected!</span>';
-            document.getElementById('dbStatus').className = 'status-badge connected';
-            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-database"></i> Redis Connected';
-            showToast('Redis connected!', 'success');
-        } catch (error) {
-            document.getElementById('connectionResult').innerHTML = '<span style="color: var(--danger);">❌ Failed</span>';
-            document.getElementById('dbStatus').className = 'status-badge disconnected';
-            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Redis Disconnected';
-            showToast('Redis connection failed!', 'error');
-        }
-    }
-
-    async function pushToRedis() {
-        try {
-            showToast('💾 Saving to Redis...', 'warning');
-            await redisCommand('set', REDIS_KEY_MENU, encodeURIComponent(JSON.stringify(menuData)));
-            await redisCommand('set', REDIS_KEY_HERITAGE, encodeURIComponent(JSON.stringify(heritageItems)));
-            await redisCommand('set', REDIS_KEY_HERITAGE_CONTENT, encodeURIComponent(JSON.stringify(heritageContent)));
-            await redisCommand('set', REDIS_KEY_MEDIA, encodeURIComponent(JSON.stringify(mediaLibrary)));
-            saveToLocalStorage();
-            document.getElementById('dbStatus').className = 'status-badge connected';
-            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-database"></i> Saved';
-            showToast('✅ All data saved to Redis!', 'success');
-            updateStats();
-        } catch (error) {
-            showToast('❌ Save failed: ' + error.message, 'error');
-        }
-    }
-
-    async function syncFromRedis() {
-        try {
-            showToast('🔄 Syncing...', 'warning');
-            
-            const menuResult = await redisCommand('get', REDIS_KEY_MENU);
-            if (menuResult) menuData = JSON.parse(decodeURIComponent(menuResult));
-            
-            const heritageResult = await redisCommand('get', REDIS_KEY_HERITAGE);
-            if (heritageResult) heritageItems = JSON.parse(decodeURIComponent(heritageResult));
-            
-            const heritageContentResult = await redisCommand('get', REDIS_KEY_HERITAGE_CONTENT);
-            if (heritageContentResult) heritageContent = JSON.parse(decodeURIComponent(heritageContentResult));
-            
-            const mediaResult = await redisCommand('get', REDIS_KEY_MEDIA);
-            if (mediaResult) mediaLibrary = JSON.parse(decodeURIComponent(mediaResult));
-            
-            saveToLocalStorage();
-            renderCategoryTabs();
-            renderMenuTable();
-            renderHeritageTable();
-            loadHeritageContentToForm();
-            updateStats();
-            
-            document.getElementById('dbStatus').className = 'status-badge connected';
-            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-database"></i> Synced';
-            showToast('✅ Synced from Redis!', 'success');
-        } catch (error) {
-            document.getElementById('dbStatus').className = 'status-badge disconnected';
-            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Local Data';
-            showToast('⚠️ Using local data', 'error');
-            renderCategoryTabs();
-            renderMenuTable();
-            renderHeritageTable();
-            loadHeritageContentToForm();
-            updateStats();
-        }
-    }
-
-    async function saveHeritageToRedis() {
-        heritageDataChanged();
-        try {
-            await redisCommand('set', REDIS_KEY_HERITAGE, encodeURIComponent(JSON.stringify(heritageItems)));
-            await redisCommand('set', REDIS_KEY_HERITAGE_CONTENT, encodeURIComponent(JSON.stringify(heritageContent)));
-            saveToLocalStorage();
-            showToast('✅ Heritage saved!', 'success');
-        } catch (error) {
-            showToast('❌ Save failed: ' + error.message, 'error');
-        }
-    }
-
-    // ==================== MENU MANAGEMENT ====================
-    function getCategories() { return Object.keys(menuData); }
-
-    function renderCategoryTabs() {
-        const tabsContainer = document.getElementById('categoryTabs');
-        let html = '<button class="tab-btn active" onclick="filterByCategory(\'all\')">All</button>';
-        getCategories().forEach(cat => {
-            html += `<button class="tab-btn${currentCategoryFilter === cat ? ' active' : ''}" onclick="filterByCategory('${escapeHtml(cat)}')">${cat}</button>`;
-        });
-        tabsContainer.innerHTML = html;
-        
-        const select = document.getElementById('itemCategory');
-        select.innerHTML = '<option value="">Select Category</option>';
-        getCategories().forEach(cat => {
-            select.innerHTML += `<option value="${escapeHtml(cat)}">${cat}</option>`;
-        });
-    }
-
-    function filterByCategory(cat) { currentCategoryFilter = cat; renderCategoryTabs(); renderMenuTable(); }
-
-    function getImageSource(image) {
-        if (!image || image === '') return { url: PLACEHOLDER_IMAGE, source: 'none' };
-        if (image.startsWith('http')) return { url: image, source: 'Cloudinary' };
-        return { url: GITHUB_RAW_BASE + image, source: 'GitHub' };
-    }
-
-    function renderMenuTable() {
-        const tbody = document.getElementById('menuTableBody');
-        const emptyState = document.getElementById('emptyState');
-        const searchTerm = (document.getElementById('adminSearch')?.value || '').toLowerCase();
-        const priceFilter = document.getElementById('priceFilter')?.value || 'all';
-        
-        let items = [];
-        for (const [cat, list] of Object.entries(menuData)) {
-            list.forEach((item, i) => items.push({ ...item, category: cat, idx: i }));
-        }
-        
-        if (currentCategoryFilter !== 'all') items = items.filter(i => i.category === currentCategoryFilter);
-        if (searchTerm) items = items.filter(i => i.name.toLowerCase().includes(searchTerm));
-        if (priceFilter !== 'all') {
-            if (priceFilter === '1000+') items = items.filter(i => i.price >= 1000);
-            else {
-                const [min, max] = priceFilter.split('-').map(Number);
-                items = items.filter(i => i.price >= min && i.price <= max);
-            }
-        }
-        
-        document.getElementById('filteredCount').textContent = `${items.length} items`;
-        
-        if (items.length === 0) {
-            tbody.innerHTML = '';
-            emptyState.style.display = 'block';
-            return;
-        }
-        emptyState.style.display = 'none';
-        
-        tbody.innerHTML = items.map(item => {
-            const img = getImageSource(item.image);
-            const badge = item.image ? (img.source === 'Cloudinary' ? '<span class="cloudinary-badge"><i class="fas fa-cloud"></i></span>' : '<span style="background:rgba(201,169,110,0.2);padding:3px 8px;border-radius:12px;font-size:0.7rem;">GitHub</span>') : '';
-            return `<tr>
-                <td><img class="menu-item-thumb" src="${img.url}" alt="" onerror="this.src='${PLACEHOLDER_IMAGE}'"></td>
-                <td><strong>${escapeHtml(item.name)}</strong></td>
-                <td style="color:var(--gold);">${escapeHtml(item.category)}</td>
-                <td><strong>${item.price} ETB</strong></td>
-                <td>${badge}</td>
-                <td>
-                    <button class="btn-icon edit" onclick="editItem('${escapeHtml(item.category)}',${item.idx})"><i class="fas fa-edit"></i></button>
-                    <button class="btn-icon delete" onclick="deleteItem('${escapeHtml(item.category)}',${item.idx})"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>`;
-        }).join('');
+        document.getElementById('dbStatus').className = 'status-badge connected';
+        document.getElementById('dbStatus').innerHTML = '<i class="fas fa-database"></i> Saved ✅';
+        showToast('✅ All saved to Redis!','success');
         updateStats();
-    }
+    } catch(e) { showToast('❌ '+e.message,'error'); }
+}
 
-    function updateStats() {
-        let total = 0, withImg = 0, sumPrice = 0;
-        for (const items of Object.values(menuData)) {
-            total += items.length;
-            items.forEach(item => {
-                if (item.image?.trim()) withImg++;
-                sumPrice += item.price;
-            });
-        }
-        document.getElementById('statCategories').textContent = getCategories().length;
-        document.getElementById('statItems').textContent = total;
-        document.getElementById('statImages').textContent = withImg;
-        document.getElementById('statAvgPrice').textContent = total > 0 ? Math.round(sumPrice / total) : 0;
-    }
-
-    function openAddItemModal() {
-        document.getElementById('itemModalTitle').textContent = 'Add Menu Item';
-        document.getElementById('itemEditIndex').value = '';
-        document.getElementById('itemEditCategory').value = '';
-        document.getElementById('itemName').value = '';
-        document.getElementById('itemCategory').value = '';
-        document.getElementById('itemPrice').value = '';
-        document.getElementById('itemImage').value = '';
-        document.getElementById('itemImagePreview').src = PLACEHOLDER_IMAGE;
-        document.getElementById('itemModal').classList.add('active');
-    }
-
-    function editItem(cat, idx) {
-        const item = menuData[cat][idx];
-        document.getElementById('itemModalTitle').textContent = 'Edit Menu Item';
-        document.getElementById('itemEditIndex').value = idx;
-        document.getElementById('itemEditCategory').value = cat;
-        document.getElementById('itemName').value = item.name;
-        document.getElementById('itemCategory').value = cat;
-        document.getElementById('itemPrice').value = item.price;
-        document.getElementById('itemImage').value = item.image || '';
-        previewItemImage();
-        document.getElementById('itemModal').classList.add('active');
-    }
-
-    function closeItemModal() { document.getElementById('itemModal').classList.remove('active'); }
-
-    function saveItem() {
-        const editIdx = document.getElementById('itemEditIndex').value;
-        const editCat = document.getElementById('itemEditCategory').value;
-        const name = document.getElementById('itemName').value.trim();
-        const cat = document.getElementById('itemCategory').value;
-        const price = parseInt(document.getElementById('itemPrice').value) || 0;
-        const image = document.getElementById('itemImage').value.trim();
-        
-        if (!name || !cat) { showToast('Name & Category required!', 'error'); return; }
-        
-        const newItem = { name, price, image };
-        
-        if (editIdx !== '' && editCat) {
-            if (editCat === cat) {
-                menuData[cat][editIdx] = newItem;
-            } else {
-                menuData[editCat].splice(editIdx, 1);
-                if (!menuData[cat]) menuData[cat] = [];
-                menuData[cat].push(newItem);
-                if (menuData[editCat].length === 0) delete menuData[editCat];
-            }
-        } else {
-            if (!menuData[cat]) menuData[cat] = [];
-            menuData[cat].push(newItem);
-        }
-        
-        saveToLocalStorage();
-        renderCategoryTabs();
-        renderMenuTable();
-        closeItemModal();
-        showToast('✅ Item saved!', 'success');
-    }
-
-    function deleteItem(cat, idx) {
-        if (!confirm(`Delete "${menuData[cat][idx].name}"?`)) return;
-        menuData[cat].splice(idx, 1);
-        if (menuData[cat].length === 0) delete menuData[cat];
-        saveToLocalStorage();
-        renderCategoryTabs();
-        renderMenuTable();
-        showToast('🗑️ Deleted.', 'success');
-    }
-
-    function openAddCategoryModal() {
-        document.getElementById('newCategoryName').value = '';
-        document.getElementById('categoryModal').classList.add('active');
-    }
-    function closeCategoryModal() { document.getElementById('categoryModal').classList.remove('active'); }
-    function addCategory() {
-        const name = document.getElementById('newCategoryName').value.trim();
-        if (!name) { showToast('Name required!', 'error'); return; }
-        if (menuData[name]) { showToast('Already exists!', 'error'); return; }
-        menuData[name] = [];
-        saveToLocalStorage();
-        renderCategoryTabs();
-        renderMenuTable();
-        closeCategoryModal();
-        showToast('✅ Category added!', 'success');
-    }
-
-    function previewItemImage() {
-        const image = document.getElementById('itemImage').value.trim();
-        document.getElementById('itemImagePreview').src = image ? (image.startsWith('http') ? image : GITHUB_RAW_BASE + image) : PLACEHOLDER_IMAGE;
-    }
-
-    // ==================== HERITAGE ====================
-    function loadHeritageContentToForm() {
-        document.getElementById('heritageHeroTitle').value = heritageContent.heroTitle || '';
-        document.getElementById('heritageHeroDesc').value = heritageContent.heroDesc || '';
-        document.getElementById('heritageQuote').value = heritageContent.quote || '';
-        document.getElementById('heritageStoryTitle').value = heritageContent.storyTitle || '';
-        document.getElementById('heritageStoryContent').value = heritageContent.storyContent || '';
-    }
-
-    function heritageDataChanged() {
-        heritageContent.heroTitle = document.getElementById('heritageHeroTitle').value;
-        heritageContent.heroDesc = document.getElementById('heritageHeroDesc').value;
-        heritageContent.quote = document.getElementById('heritageQuote').value;
-        heritageContent.storyTitle = document.getElementById('heritageStoryTitle').value;
-        heritageContent.storyContent = document.getElementById('heritageStoryContent').value;
-        saveToLocalStorage();
-    }
-
-    function renderHeritageTable() {
-        document.getElementById('heritageItemCount').textContent = `${heritageItems.length} items`;
-        document.getElementById('heritageTableBody').innerHTML = heritageItems.map((item, i) => {
-            const img = getImageSource(item.image);
-            const badge = item.image ? (img.source === 'Cloudinary' ? '<span class="cloudinary-badge"><i class="fas fa-cloud"></i></span>' : '<span style="background:rgba(201,169,110,0.2);padding:3px 8px;border-radius:12px;font-size:0.7rem;">GitHub</span>') : '';
-            return `<tr>
-                <td><img class="menu-item-thumb" src="${img.url}" alt="" onerror="this.src='${PLACEHOLDER_IMAGE}'"></td>
-                <td><strong>${escapeHtml(item.title)}</strong></td>
-                <td><span style="background:rgba(201,169,110,0.2);padding:3px 10px;border-radius:12px;font-size:0.8rem;">${escapeHtml(item.badge||'')}</span></td>
-                <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml((item.story||'').substring(0,60))}...</td>
-                <td>${badge}</td>
-                <td>
-                    <button class="btn-icon edit" onclick="editHeritageItem(${i})"><i class="fas fa-edit"></i></button>
-                    <button class="btn-icon delete" onclick="deleteHeritageItem(${i})"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>`;
-        }).join('');
-    }
-
-    function addHeritageItem() {
-        document.getElementById('heritageModalTitle').textContent = 'Add Heritage Item';
-        document.getElementById('heritageEditIndex').value = '';
-        ['heritageItemTitle','heritageItemImage','heritageItemBadge','heritageItemStory','heritageItemMemory'].forEach(id => document.getElementById(id).value = '');
-        document.getElementById('heritageImagePreview').src = PLACEHOLDER_IMAGE;
-        document.getElementById('heritageItemModal').classList.add('active');
-    }
-
-    function editHeritageItem(i) {
-        const item = heritageItems[i];
-        document.getElementById('heritageModalTitle').textContent = 'Edit Heritage Item';
-        document.getElementById('heritageEditIndex').value = i;
-        document.getElementById('heritageItemTitle').value = item.title;
-        document.getElementById('heritageItemImage').value = item.image || '';
-        document.getElementById('heritageItemBadge').value = item.badge || '';
-        document.getElementById('heritageItemStory').value = item.story || '';
-        document.getElementById('heritageItemMemory').value = item.memory || '';
-        previewHeritageImage();
-        document.getElementById('heritageItemModal').classList.add('active');
-    }
-
-    function closeHeritageModal() { document.getElementById('heritageItemModal').classList.remove('active'); }
-
-    function saveHeritageItem() {
-        const idx = document.getElementById('heritageEditIndex').value;
-        const title = document.getElementById('heritageItemTitle').value.trim();
-        const image = document.getElementById('heritageItemImage').value.trim();
-        const badge = document.getElementById('heritageItemBadge').value.trim();
-        const story = document.getElementById('heritageItemStory').value.trim();
-        const memory = document.getElementById('heritageItemMemory').value.trim();
-        if (!title || !image) { showToast('Title & Image required!', 'error'); return; }
-        
-        const newItem = { title, image, story, memory, badge };
-        if (idx !== '') heritageItems[idx] = newItem;
-        else heritageItems.push(newItem);
-        
-        saveToLocalStorage();
-        renderHeritageTable();
-        closeHeritageModal();
-        showToast('✅ Heritage item saved!', 'success');
-    }
-
-    function deleteHeritageItem(i) {
-        if (!confirm(`Delete "${heritageItems[i].title}"?`)) return;
-        heritageItems.splice(i, 1);
-        saveToLocalStorage();
-        renderHeritageTable();
-        showToast('🗑️ Deleted.', 'success');
-    }
-
-    function previewHeritageImage() {
-        const image = document.getElementById('heritageItemImage').value.trim();
-        document.getElementById('heritageImagePreview').src = image ? (image.startsWith('http') ? image : GITHUB_RAW_BASE + image) : PLACEHOLDER_IMAGE;
-    }
-
-    // ==================== DATA MANAGEMENT ====================
-    function exportData() {
-        const data = {
-            menu: menuData, heritage: heritageItems, heritageContent,
-            mediaLibrary, cloudinaryConfig, exportDate: new Date().toISOString()
-        };
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `lantica-backup-${new Date().toISOString().split('T')[0]}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
-        showToast('📦 Exported!', 'success');
-    }
-
-    function importDataPrompt() {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.json';
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                try {
-                    const data = JSON.parse(ev.target.result);
-                    if (data.menu) menuData = data.menu;
-                    if (data.heritage) heritageItems = data.heritage;
-                    if (data.heritageContent) heritageContent = data.heritageContent;
-                    if (data.mediaLibrary) mediaLibrary = data.mediaLibrary;
-                    if (data.cloudinaryConfig) cloudinaryConfig = data.cloudinaryConfig;
-                    saveToLocalStorage();
-                    loadCloudinaryConfig();
-                    renderCategoryTabs(); renderMenuTable(); renderHeritageTable();
-                    loadHeritageContentToForm(); updateStats();
-                    showToast('📥 Imported!', 'success');
-                } catch { showToast('Invalid JSON!', 'error'); }
-            };
-            reader.readAsText(file);
-        };
-        input.click();
-    }
-
-    function resetToDefault() {
-        if (!confirm('⚠️ Reset ALL to default? Export first!')) return;
-        menuData = JSON.parse(JSON.stringify(DEFAULT_MENU_DATA));
-        heritageItems = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_ITEMS));
-        heritageContent = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_CONTENT));
+async function syncFromRedis() {
+    try {
+        showToast('🔄 Syncing...','warning');
+        const mr = await redisCommand('get', REDIS_KEY_MENU);
+        if (mr) menuData = JSON.parse(decodeURIComponent(mr));
+        const hr = await redisCommand('get', REDIS_KEY_HERITAGE);
+        if (hr) heritageItems = JSON.parse(decodeURIComponent(hr));
+        const hcr = await redisCommand('get', REDIS_KEY_HERITAGE_CONTENT);
+        if (hcr) heritageContent = JSON.parse(decodeURIComponent(hcr));
+        const mlr = await redisCommand('get', REDIS_KEY_MEDIA);
+        if (mlr) mediaLibrary = JSON.parse(decodeURIComponent(mlr));
         saveToLocalStorage();
         renderCategoryTabs(); renderMenuTable(); renderHeritageTable();
         loadHeritageContentToForm(); updateStats();
-        showToast('🔄 Reset to default.', 'warning');
+        document.getElementById('dbStatus').className = 'status-badge connected';
+        document.getElementById('dbStatus').innerHTML = '<i class="fas fa-database"></i> Synced ✅';
+        showToast('✅ Synced!','success');
+    } catch(e) {
+        document.getElementById('dbStatus').className = 'status-badge disconnected';
+        document.getElementById('dbStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Local';
+        showToast('⚠️ Using local data','error');
+        renderCategoryTabs(); renderMenuTable(); renderHeritageTable();
+        loadHeritageContentToForm(); updateStats();
     }
+}
 
-    // ==================== UI HELPERS ====================
-    function switchSection(section) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
-        document.querySelectorAll('.mobile-bottom-bar button').forEach(b => b.classList.remove('active'));
-        
-        document.getElementById('section-' + section).classList.add('active');
-        const nav = document.getElementById('nav-' + section);
-        const mobNav = document.getElementById('mob-nav-' + section);
-        if (nav) nav.classList.add('active');
-        if (mobNav) mobNav.classList.add('active');
-        
-        if (section === 'menu') { renderCategoryTabs(); renderMenuTable(); updateStats(); }
-        if (section === 'heritage') { renderHeritageTable(); loadHeritageContentToForm(); }
-        if (section === 'media') { loadMediaLibrary(); }
-        if (section === 'settings') { loadCloudinaryConfig(); }
-        
-        document.getElementById('sidebar').classList.remove('open');
+async function saveHeritageToRedis() {
+    heritageDataChanged();
+    try {
+        await redisCommand('set', REDIS_KEY_HERITAGE, encodeURIComponent(JSON.stringify(heritageItems)));
+        await redisCommand('set', REDIS_KEY_HERITAGE_CONTENT, encodeURIComponent(JSON.stringify(heritageContent)));
+        saveToLocalStorage();
+        showToast('✅ Heritage saved!','success');
+    } catch(e) { showToast('❌ '+e.message,'error'); }
+}
+
+// ==================== MENU MANAGEMENT ====================
+function getCategories() { return Object.keys(menuData); }
+
+function renderCategoryTabs() {
+    document.getElementById('categoryTabs').innerHTML = '<button class="tab-btn active" onclick="filterByCategory(\'all\')">All</button>' +
+        getCategories().map(c => `<button class="tab-btn${currentCategoryFilter===c?' active':''}" onclick="filterByCategory('${esc(c)}')">${c}</button>`).join('');
+    document.getElementById('itemCategory').innerHTML = '<option value="">Select Category</option>' +
+        getCategories().map(c => `<option value="${esc(c)}">${c}</option>`).join('');
+}
+
+function filterByCategory(c) { currentCategoryFilter = c; renderCategoryTabs(); renderMenuTable(); }
+
+function getImageSource(img) {
+    if (!img || img === '') return { url: PLACEHOLDER_IMAGE, source: 'none' };
+    if (img.startsWith('http')) return { url: img, source: 'Cloudinary' };
+    return { url: GITHUB_RAW_BASE + img, source: 'GitHub' };
+}
+
+function renderMenuTable() {
+    const tbody = document.getElementById('menuTableBody');
+    const es = document.getElementById('emptyState');
+    const st = (document.getElementById('adminSearch')?.value || '').toLowerCase();
+    const pf = document.getElementById('priceFilter')?.value || 'all';
+    
+    let items = [];
+    for (const [cat, list] of Object.entries(menuData)) list.forEach((item, i) => items.push({...item, category: cat, idx: i}));
+    
+    if (currentCategoryFilter !== 'all') items = items.filter(i => i.category === currentCategoryFilter);
+    if (st) items = items.filter(i => i.name.toLowerCase().includes(st));
+    if (pf !== 'all') {
+        if (pf === '1000+') items = items.filter(i => i.price >= 1000);
+        else { const [mn,mx] = pf.split('-').map(Number); items = items.filter(i => i.price >= mn && i.price <= mx); }
     }
+    
+    document.getElementById('filteredCount').textContent = items.length + ' items';
+    
+    if (!items.length) { tbody.innerHTML = ''; es.style.display = 'block'; return; }
+    es.style.display = 'none';
+    
+    tbody.innerHTML = items.map(item => {
+        const img = getImageSource(item.image);
+        const badge = item.image ? (img.source === 'Cloudinary' ? '<span class="cloudinary-badge"><i class="fas fa-cloud"></i></span>' : '<span style="background:rgba(201,169,110,0.2);padding:3px 8px;border-radius:12px;font-size:0.7rem;">GitHub</span>') : '';
+        return `<tr>
+            <td><img class="menu-item-thumb" src="${img.url}" onerror="this.src='${PLACEHOLDER_IMAGE}'"></td>
+            <td><strong>${esc(item.name)}</strong></td>
+            <td style="color:var(--gold);">${esc(item.category)}</td>
+            <td><strong>${item.price} ETB</strong></td>
+            <td>${badge}</td>
+            <td><button class="btn-icon edit" onclick="editItem('${esc(item.category)}',${item.idx})"><i class="fas fa-edit"></i></button><button class="btn-icon delete" onclick="deleteItem('${esc(item.category)}',${item.idx})"><i class="fas fa-trash"></i></button></td>
+        </tr>`;
+    }).join('');
+    updateStats();
+}
 
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-
-    function showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.className = `toast ${type} show`;
-        setTimeout(() => toast.classList.remove('show'), 3000);
+function updateStats() {
+    let t=0, wi=0, sp=0;
+    for (const items of Object.values(menuData)) {
+        t += items.length;
+        items.forEach(i => { if (i.image?.trim()) wi++; sp += i.price; });
     }
+    document.getElementById('statCategories').textContent = getCategories().length;
+    document.getElementById('statItems').textContent = t;
+    document.getElementById('statImages').textContent = wi;
+    document.getElementById('statAvgPrice').textContent = t > 0 ? Math.round(sp/t) : 0;
+}
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
+function openAddItemModal() {
+    document.getElementById('itemModalTitle').textContent = 'Add Menu Item';
+    document.getElementById('itemEditIndex').value = '';
+    document.getElementById('itemEditCategory').value = '';
+    document.getElementById('itemName').value = '';
+    document.getElementById('itemCategory').value = '';
+    document.getElementById('itemPrice').value = '';
+    document.getElementById('itemImage').value = '';
+    document.getElementById('itemImagePreview').src = PLACEHOLDER_IMAGE;
+    document.getElementById('itemModal').classList.add('active');
+}
 
-    // Close modals
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-        overlay.addEventListener('click', function(e) {
-            if (e.target === this) this.classList.remove('active');
-        });
-    });
+function editItem(cat, idx) {
+    const item = menuData[cat][idx];
+    document.getElementById('itemModalTitle').textContent = 'Edit Menu Item';
+    document.getElementById('itemEditIndex').value = idx;
+    document.getElementById('itemEditCategory').value = cat;
+    document.getElementById('itemName').value = item.name;
+    document.getElementById('itemCategory').value = cat;
+    document.getElementById('itemPrice').value = item.price;
+    document.getElementById('itemImage').value = item.image || '';
+    previewItemImage();
+    document.getElementById('itemModal').classList.add('active');
+}
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
-        if (e.ctrlKey && e.key === 's') { e.preventDefault(); pushToRedis(); }
-    });
+function closeItemModal() { document.getElementById('itemModal').classList.remove('active'); }
 
-    ['heritageHeroTitle','heritageHeroDesc','heritageQuote','heritageStoryTitle','heritageStoryContent'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('input', heritageDataChanged);
-    });
+function saveItem() {
+    const ei = document.getElementById('itemEditIndex').value;
+    const ec = document.getElementById('itemEditCategory').value;
+    const name = document.getElementById('itemName').value.trim();
+    const cat = document.getElementById('itemCategory').value;
+    const price = parseInt(document.getElementById('itemPrice').value) || 0;
+    const image = document.getElementById('itemImage').value.trim();
+    if (!name || !cat) { showToast('Name & Category required!','error'); return; }
+    const newItem = { name, price, image };
+    if (ei !== '' && ec) {
+        if (ec === cat) menuData[cat][ei] = newItem;
+        else { menuData[ec].splice(ei,1); if(!menuData[cat]) menuData[cat]=[]; menuData[cat].push(newItem); if(!menuData[ec].length) delete menuData[ec]; }
+    } else { if(!menuData[cat]) menuData[cat]=[]; menuData[cat].push(newItem); }
+    saveToLocalStorage(); renderCategoryTabs(); renderMenuTable(); closeItemModal();
+    showToast('✅ Item saved!','success');
+}
+
+function deleteItem(cat, idx) {
+    if (!confirm(`Delete "${menuData[cat][idx].name}"?`)) return;
+    menuData[cat].splice(idx,1);
+    if (!menuData[cat].length) delete menuData[cat];
+    saveToLocalStorage(); renderCategoryTabs(); renderMenuTable();
+    showToast('🗑️ Deleted.','success');
+}
+
+function openAddCategoryModal() { document.getElementById('newCategoryName').value = ''; document.getElementById('categoryModal').classList.add('active'); }
+function closeCategoryModal() { document.getElementById('categoryModal').classList.remove('active'); }
+
+function addCategory() {
+    const name = document.getElementById('newCategoryName').value.trim();
+    if (!name) { showToast('Name required!','error'); return; }
+    if (menuData[name]) { showToast('Already exists!','error'); return; }
+    menuData[name] = [];
+    saveToLocalStorage(); renderCategoryTabs(); renderMenuTable(); closeCategoryModal();
+    showToast('✅ Category added!','success');
+}
+
+function previewItemImage() {
+    const img = document.getElementById('itemImage').value.trim();
+    document.getElementById('itemImagePreview').src = img ? (img.startsWith('http') ? img : GITHUB_RAW_BASE + img) : PLACEHOLDER_IMAGE;
+}
+
+// ==================== HERITAGE ====================
+function loadHeritageContentToForm() {
+    document.getElementById('heritageHeroTitle').value = heritageContent.heroTitle || '';
+    document.getElementById('heritageHeroDesc').value = heritageContent.heroDesc || '';
+    document.getElementById('heritageQuote').value = heritageContent.quote || '';
+    document.getElementById('heritageStoryTitle').value = heritageContent.storyTitle || '';
+    document.getElementById('heritageStoryContent').value = heritageContent.storyContent || '';
+}
+
+function heritageDataChanged() {
+    heritageContent.heroTitle = document.getElementById('heritageHeroTitle').value;
+    heritageContent.heroDesc = document.getElementById('heritageHeroDesc').value;
+    heritageContent.quote = document.getElementById('heritageQuote').value;
+    heritageContent.storyTitle = document.getElementById('heritageStoryTitle').value;
+    heritageContent.storyContent = document.getElementById('heritageStoryContent').value;
+    saveToLocalStorage();
+}
+
+function renderHeritageTable() {
+    document.getElementById('heritageItemCount').textContent = heritageItems.length + ' items';
+    document.getElementById('heritageTableBody').innerHTML = heritageItems.map((item, i) => {
+        const img = getImageSource(item.image);
+        const badge = item.image ? (img.source === 'Cloudinary' ? '<span class="cloudinary-badge"><i class="fas fa-cloud"></i></span>' : '<span style="background:rgba(201,169,110,0.2);padding:3px 8px;border-radius:12px;font-size:0.7rem;">GitHub</span>') : '';
+        return `<tr>
+            <td><img class="menu-item-thumb" src="${img.url}" onerror="this.src='${PLACEHOLDER_IMAGE}'"></td>
+            <td><strong>${esc(item.title)}</strong></td>
+            <td><span style="background:rgba(201,169,110,0.2);padding:3px 10px;border-radius:12px;font-size:0.8rem;">${esc(item.badge||'')}</span></td>
+            <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc((item.story||'').substring(0,60))}...</td>
+            <td>${badge}</td>
+            <td><button class="btn-icon edit" onclick="editHeritageItem(${i})"><i class="fas fa-edit"></i></button><button class="btn-icon delete" onclick="deleteHeritageItem(${i})"><i class="fas fa-trash"></i></button></td>
+        </tr>`;
+    }).join('');
+}
+
+function addHeritageItem() {
+    document.getElementById('heritageModalTitle').textContent = 'Add Heritage Item';
+    document.getElementById('heritageEditIndex').value = '';
+    ['heritageItemTitle','heritageItemImage','heritageItemBadge','heritageItemStory','heritageItemMemory'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('heritageImagePreview').src = PLACEHOLDER_IMAGE;
+    document.getElementById('heritageItemModal').classList.add('active');
+}
+
+function editHeritageItem(i) {
+    const item = heritageItems[i];
+    document.getElementById('heritageModalTitle').textContent = 'Edit Heritage Item';
+    document.getElementById('heritageEditIndex').value = i;
+    document.getElementById('heritageItemTitle').value = item.title;
+    document.getElementById('heritageItemImage').value = item.image || '';
+    document.getElementById('heritageItemBadge').value = item.badge || '';
+    document.getElementById('heritageItemStory').value = item.story || '';
+    document.getElementById('heritageItemMemory').value = item.memory || '';
+    previewHeritageImage();
+    document.getElementById('heritageItemModal').classList.add('active');
+}
+
+function closeHeritageModal() { document.getElementById('heritageItemModal').classList.remove('active'); }
+
+function saveHeritageItem() {
+    const idx = document.getElementById('heritageEditIndex').value;
+    const title = document.getElementById('heritageItemTitle').value.trim();
+    const image = document.getElementById('heritageItemImage').value.trim();
+    const badge = document.getElementById('heritageItemBadge').value.trim();
+    const story = document.getElementById('heritageItemStory').value.trim();
+    const memory = document.getElementById('heritageItemMemory').value.trim();
+    if (!title || !image) { showToast('Title & Image required!','error'); return; }
+    const newItem = { title, image, story, memory, badge };
+    if (idx !== '') heritageItems[idx] = newItem; else heritageItems.push(newItem);
+    saveToLocalStorage(); renderHeritageTable(); closeHeritageModal();
+    showToast('✅ Heritage item saved!','success');
+}
+
+function deleteHeritageItem(i) {
+    if (!confirm(`Delete "${heritageItems[i].title}"?`)) return;
+    heritageItems.splice(i,1);
+    saveToLocalStorage(); renderHeritageTable();
+    showToast('🗑️ Deleted.','success');
+}
+
+function previewHeritageImage() {
+    const img = document.getElementById('heritageItemImage').value.trim();
+    document.getElementById('heritageImagePreview').src = img ? (img.startsWith('http') ? img : GITHUB_RAW_BASE + img) : PLACEHOLDER_IMAGE;
+}
+
+// ==================== DATA MANAGEMENT ====================
+function exportData() {
+    const data = { menu: menuData, heritage: heritageItems, heritageContent, mediaLibrary, exportDate: new Date().toISOString() };
+    const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = `lantica-backup-${new Date().toISOString().split('T')[0]}.json`; a.click();
+    URL.revokeObjectURL(url);
+    showToast('📦 Exported!','success');
+}
+
+function importDataPrompt() {
+    const input = document.createElement('input'); input.type = 'file'; input.accept = '.json';
+    input.onchange = e => {
+        const file = e.target.files[0]; if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+            try {
+                const data = JSON.parse(ev.target.result);
+                if (data.menu) menuData = data.menu;
+                if (data.heritage) heritageItems = data.heritage;
+                if (data.heritageContent) heritageContent = data.heritageContent;
+                if (data.mediaLibrary) mediaLibrary = data.mediaLibrary;
+                saveToLocalStorage(); renderCategoryTabs(); renderMenuTable();
+                renderHeritageTable(); loadHeritageContentToForm(); updateStats();
+                showToast('📥 Imported!','success');
+            } catch { showToast('Invalid JSON!','error'); }
+        };
+        reader.readAsText(file);
+    };
+    input.click();
+}
+
+function resetToDefault() {
+    if (!confirm('⚠️ Reset ALL to default?')) return;
+    menuData = JSON.parse(JSON.stringify(DEFAULT_MENU_DATA));
+    heritageItems = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_ITEMS));
+    heritageContent = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_CONTENT));
+    saveToLocalStorage(); renderCategoryTabs(); renderMenuTable();
+    renderHeritageTable(); loadHeritageContentToForm(); updateStats();
+    showToast('🔄 Reset to default.','warning');
+}
+
+// ==================== UI ====================
+function switchSection(s) {
+    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.sidebar-menu a').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.mobile-bottom-bar button').forEach(el => el.classList.remove('active'));
+    document.getElementById('section-' + s).classList.add('active');
+    const nav = document.getElementById('nav-' + s);
+    const mob = document.getElementById('mob-nav-' + s);
+    if (nav) nav.classList.add('active');
+    if (mob) mob.classList.add('active');
+    if (s === 'menu') { renderCategoryTabs(); renderMenuTable(); updateStats(); }
+    if (s === 'heritage') { renderHeritageTable(); loadHeritageContentToForm(); }
+    if (s === 'media') { loadMediaLibrary(); }
+    document.getElementById('sidebar').classList.remove('open');
+}
+
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+function showToast(msg, type='success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg; toast.className = `toast ${type} show`;
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function esc(s) { if (!s) return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); }));
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+    if (e.ctrlKey && e.key === 's') { e.preventDefault(); pushToRedis(); }
+});
+['heritageHeroTitle','heritageHeroDesc','heritageQuote','heritageStoryTitle','heritageStoryContent'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', heritageDataChanged);
+});
 </script>
 </body>
 </html>
