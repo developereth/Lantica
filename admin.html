@@ -109,7 +109,6 @@
         
         .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
         .status-error { background: rgba(180,95,59,0.2); color: var(--red); }
-        .status-warning { background: rgba(251,191,36,0.2); color: #FBBF24; }
         
         .hidden { display: none; }
         
@@ -213,12 +212,13 @@
 </div>
 
 <script>
-    // Configuration
+    // ========== CONFIGURATION (UPDATED WITH YOUR CORRECT CREDENTIALS) ==========
     const WORKER_URL = "https://lanticaadminpage.developeraddis.workers.dev";
     const ADMIN_PASSWORD = "lantica1960admin";
     const GITHUB_RAW = "https://raw.githubusercontent.com/developereth/Lantica/main/";
-    const CLOUDINARY_CLOUD_NAME = "dwqgdpcnr";
+    const CLOUDINARY_CLOUD_NAME = "dnxxxpbm9";  // ✅ Your correct cloud name
     const CLOUDINARY_UPLOAD_PRESET = "lantica_menu";
+    // ============================================================================
     
     let menuItems = [];
     let editId = null;
@@ -248,10 +248,10 @@
             uploadPreset: CLOUDINARY_UPLOAD_PRESET,
             sources: ['local', 'camera', 'url'],
             multiple: false,
-            cropping: false,           // ← NO CROPPING!
+            cropping: false,
             showUploadMoreButton: false,
             clientAllowedFormats: ['images'],
-            maxImageFileSize: 5000000, // 5MB
+            maxImageFileSize: 5000000,
             styles: {
                 palette: {
                     window: "#1A1A1A",
@@ -284,35 +284,19 @@
     async function loadMenu() {
         try {
             document.getElementById("statusMsg").innerHTML = "🔄 Loading menu from server...";
-            document.getElementById("statusMsg").className = "status";
-            
             const res = await fetch(`${WORKER_URL}/api/menu`);
             const data = await res.json();
-            
-            if (data.items && Array.isArray(data.items)) {
-                menuItems = data.items;
-            } else if (Array.isArray(data)) {
-                menuItems = data;
-            } else {
-                menuItems = [];
-            }
-            
+            menuItems = data.items || [];
             renderTable();
             updateStats();
-            
-            const cacheStatus = res.headers.get('X-Cache') || 'MISS';
-            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${menuItems.length} menu items | Cache: ${cacheStatus}`;
+            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${menuItems.length} menu items`;
             document.getElementById("statusMsg").className = "status";
         } catch(e) {
-            console.error("Load error:", e);
-            document.getElementById("statusMsg").innerHTML = "❌ Error loading menu. Check Worker URL.";
+            document.getElementById("statusMsg").innerHTML = "❌ Error loading menu";
             document.getElementById("statusMsg").className = "status status-error";
-            menuItems = [];
-            renderTable();
         }
     }
     
-    // ========== SAVE TO WORKER ==========
     async function saveToWorker() {
         const res = await fetch(`${WORKER_URL}/api/menu`, {
             method: 'POST',
@@ -322,7 +306,6 @@
         return res.ok;
     }
     
-    // ========== REFRESH CACHE ==========
     async function refreshCache() {
         document.getElementById("statusMsg").innerHTML = "🔄 Refreshing cache...";
         if (await saveToWorker()) {
@@ -330,7 +313,6 @@
         }
     }
     
-    // ========== SAVE ITEM (ADD or EDIT) ==========
     async function saveItem() {
         const name = document.getElementById("itemName").value.trim();
         const price = parseFloat(document.getElementById("itemPrice").value);
@@ -366,11 +348,9 @@
             await loadMenu();
         } else {
             document.getElementById("statusMsg").innerHTML = "❌ Save failed";
-            document.getElementById("statusMsg").className = "status status-error";
         }
     }
     
-    // ========== EDIT ITEM ==========
     function editItem(id) {
         const item = menuItems.find(i => i.id === id);
         if (!item) return;
@@ -387,7 +367,6 @@
         document.getElementById("cancelBtn").style.display = "inline-block";
     }
     
-    // ========== DELETE ITEM ==========
     async function deleteItem(id) {
         if (confirm("Delete this item? All customers will see the change immediately.")) {
             menuItems = menuItems.filter(i => i.id !== id);
@@ -398,7 +377,6 @@
         }
     }
     
-    // ========== CANCEL EDIT ==========
     function cancelEdit() {
         editId = null;
         document.getElementById("itemName").value = "";
@@ -410,30 +388,23 @@
         document.getElementById("cancelBtn").style.display = "none";
     }
     
-    // ========== RESET TO DEFAULT ==========
     function confirmReset() {
-        if (confirm("⚠️ WARNING: This will reset ALL menu items to default. This cannot be undone. Continue?")) {
+        if (confirm("⚠️ WARNING: This will reset ALL menu items. Continue?")) {
             resetToDefault();
         }
     }
     
     async function resetToDefault() {
-        // Default menu items - you can add more here
         menuItems = [
-            { id: 1, name: "Combo Fasting", price: 250, category: "Breakfast", image: "combo-fasting-platter.jpg", description: "Hearty vegan platter" },
-            { id: 2, name: "Egg w/ meat", price: 250, category: "Breakfast", image: "egg-with-minced-meat.jpg", description: "Scrambled eggs with seasoned beef" },
-            { id: 3, name: "Lamb Tibs", price: 680, category: "Signatures", image: "lamb-tibs.jpg", description: "Tender lamb sautéed with berbere" },
-            { id: 4, name: "Papaya Juice", price: 160, category: "Juices", image: "papaya-juice.jpg", description: "Freshly squeezed papaya" },
-            { id: 5, name: "Ethiopian Coffee", price: 60, category: "Hot Beverages", image: "ethiopian-coffee-Buna.jpeg", description: "Traditional buna ceremony" }
+            { id: 1, name: "Combo Fasting", price: 250, category: "Breakfast", image: "", description: "Hearty vegan platter" },
+            { id: 2, name: "Lamb Tibs", price: 680, category: "Signatures", image: "", description: "Tender lamb sautéed with berbere" }
         ];
         if (await saveToWorker()) {
             await loadMenu();
             cancelEdit();
-            document.getElementById("statusMsg").innerHTML = "✅ Reset to default menu";
         }
     }
     
-    // ========== UI RENDERING ==========
     function updateStats() {
         document.getElementById("totalItems").innerText = menuItems.length;
         const categories = [...new Set(menuItems.map(i => i.category))];
@@ -485,11 +456,8 @@
         return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
     }
     
-    // Event listeners
     document.getElementById("searchInput")?.addEventListener("keyup", () => renderTable());
     document.getElementById("categoryFilter")?.addEventListener("change", () => renderTable());
-    
-    // Auto-refresh preview when image URL changes
     document.getElementById("itemImage")?.addEventListener("input", (e) => {
         const url = e.target.value;
         if (url) {
