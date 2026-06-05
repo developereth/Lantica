@@ -2,468 +2,1784 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lantica 1960 | Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Lantica 1960 | Admin Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0A0A0A;
-            color: #E8E0D5;
-            padding: 20px;
-        }
         :root {
             --gold: #C9A96E;
             --gold-dark: #B8933F;
             --red: #B45F3B;
-            --green: #2E7D32;
+            --dark-bg: #0A0A0A;
             --dark-card: #1A1A1A;
             --gray: #9B8A74;
+            --gray-light: #D1C5B5;
+            --success: #2ECC71;
+            --danger: #E74C3C;
+            --warning: #F39C12;
+            --border: #2C2823;
         }
 
-        .container { max-width: 1400px; margin: 0 auto; }
-        
-        .header {
-            background: linear-gradient(135deg, #1A1A1A 0%, #0D0D0D 100%);
-            border-bottom: 2px solid var(--gold);
-            padding: 20px 25px;
-            border-radius: 20px 20px 0 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: #E8E0D5;
+            min-height: 100vh;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #0D0D0D;
+            border-right: 2px solid var(--gold);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform 0.3s;
+        }
+
+        .sidebar-logo {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
+        }
+
+        .sidebar-logo h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .sidebar-logo span {
+            color: white;
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: var(--gray-light);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(201,169,110,0.1);
+            color: var(--gold);
+        }
+
+        .sidebar-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .status-badge.connected {
+            background: rgba(46,204,113,0.2);
+            color: var(--success);
+        }
+
+        .status-badge.disconnected {
+            background: rgba(231,76,60,0.2);
+            color: var(--danger);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
             flex-wrap: wrap;
             gap: 15px;
         }
-        .header h1 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.5rem; }
-        .header p { font-size: 0.7rem; color: var(--gray); }
-        
-        .card {
-            background: var(--dark-card);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid #2C2823;
-        }
-        .login-card { max-width: 400px; margin: 100px auto; text-align: center; }
-        
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-size: 0.85rem; color: var(--gray); }
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            background: #0D0D0D;
-            border: 1px solid #2C2823;
-            border-radius: 12px;
+
+        .admin-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
             color: white;
-            font-size: 0.9rem;
         }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        
+
+        .admin-header h1 span {
+            color: var(--gold);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
         .btn {
-            padding: 12px 24px;
-            border-radius: 40px;
+            padding: 10px 20px;
+            border-radius: 30px;
             border: none;
-            font-weight: 600;
             cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
             transition: 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
-        .btn-gold { background: var(--gold); color: #0A0A0A; }
-        .btn-gold:hover { background: var(--gold-dark); transform: scale(1.02); }
-        .btn-red { background: var(--red); color: white; }
-        .btn-green { background: var(--green); color: white; }
-        
-        .table-container { overflow-x: auto; max-height: 600px; overflow-y: auto; }
-        table { width: 100%; border-collapse: collapse; }
-        th { 
-            text-align: left; 
-            padding: 12px; 
-            background: #0D0D0D; 
-            color: var(--gold);
-            position: sticky;
-            top: 0;
-            z-index: 10;
+
+        .btn-gold {
+            background: var(--gold);
+            color: #0A0A0A;
         }
-        td { padding: 10px 12px; border-top: 1px solid #2C2823; }
-        .edit-btn, .delete-btn { padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; border: none; margin: 0 3px; }
-        .edit-btn { background: var(--gold); color: #0A0A0A; }
-        .delete-btn { background: var(--red); color: white; }
-        
-        .img-preview { width: 40px; height: 40px; object-fit: cover; border-radius: 8px; background: #0D0D0D; }
-        .img-preview-large { width: 60px; height: 60px; object-fit: cover; border-radius: 12px; }
-        
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .stat-card { background: #0D0D0D; padding: 15px; border-radius: 16px; text-align: center; }
-        .stat-card h3 { font-size: 1.8rem; color: var(--gold); }
-        
-        .search-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
-        .search-input { flex: 2; padding: 12px; background: var(--dark-card); border: 1px solid #2C2823; border-radius: 40px; color: white; }
-        .filter-select { flex: 1; padding: 12px; background: var(--dark-card); border: 1px solid #2C2823; border-radius: 40px; color: white; }
-        
-        .status { background: rgba(46,125,50,0.2); color: #4CAF50; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
-        .status-error { background: rgba(180,95,59,0.2); color: var(--red); }
-        
-        .hidden { display: none; }
-        
-        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
+
+        .btn-gold:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: #0A0A0A;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #C0392B;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #27AE60;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
+        .btn-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-icon.edit {
+            background: rgba(201,169,110,0.2);
+            color: var(--gold);
+        }
+
+        .btn-icon.edit:hover {
+            background: var(--gold);
+            color: #0A0A0A;
+        }
+
+        .btn-icon.delete {
+            background: rgba(231,76,60,0.2);
+            color: var(--danger);
+        }
+
+        .btn-icon.delete:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .stat-card .stat-label {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            background: var(--dark-card);
+            padding: 5px;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            background: transparent;
+            color: var(--gray-light);
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--gold);
+            color: #0A0A0A;
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--gold);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-header h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.3rem;
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--gray-light);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: #0D0D0D;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table th {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        table tbody tr:hover {
+            background: rgba(201,169,110,0.05);
+        }
+
+        .menu-item-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #0D0D0D;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--dark-card);
+            border: 1px solid var(--gold);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .modal h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            z-index: 2000;
+            transform: translateX(120%);
+            transition: transform 0.3s;
+            max-width: 400px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        .toast.warning {
+            background: var(--warning);
+            color: #0A0A0A;
+        }
+
+        /* Image Preview */
+        .image-preview {
+            width: 100%;
+            height: 150px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #0D0D0D;
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
+        /* Mobile */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 200;
+            background: var(--gold);
+            color: #0A0A0A;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+                padding-top: 70px;
+            }
+            .mobile-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .admin-header h1 {
+                font-size: 1.5rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- LOGIN SECTION -->
-    <div id="loginSection" class="login-card card">
-        <h2 style="color: var(--gold); margin-bottom: 20px;">Lantica 1960 Admin</h2>
-        <input type="password" id="adminPassword" placeholder="Password">
-        <button class="btn btn-gold" onclick="login()" style="width:100%;">Login</button>
-    </div>
+<button class="mobile-toggle" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</button>
 
-    <!-- ADMIN DASHBOARD -->
-    <div id="adminSection" class="hidden">
-        <div class="header">
-            <div>
-                <h1><i class="fas fa-crown"></i> Lantica 1960 Admin Dashboard</h1>
-                <p>Manage menu items - changes appear immediately for all customers</p>
-            </div>
-            <div>
-                <button class="btn btn-green" onclick="refreshCache()"><i class="fas fa-sync-alt"></i> Refresh Cache</button>
-                <button class="btn btn-red" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-            </div>
+<div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <h2>LANTICA 1960</h2>
+            <span>Admin Panel</span>
         </div>
-
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card"><i class="fas fa-utensils"></i><h3 id="totalItems">0</h3><p>Total Items</p></div>
-            <div class="stat-card"><i class="fas fa-tags"></i><h3 id="totalCategories">0</h3><p>Categories</p></div>
-            <div class="stat-card"><i class="fas fa-dollar-sign"></i><h3 id="avgPrice">0</h3><p>Avg Price (ETB)</p></div>
+        <ul class="sidebar-menu">
+            <li><a class="active" onclick="switchSection('menu')" id="nav-menu">
+                <i class="fas fa-utensils"></i> Menu Management
+            </a></li>
+            <li><a onclick="switchSection('heritage')" id="nav-heritage">
+                <i class="fas fa-landmark"></i> Heritage Page
+            </a></li>
+            <li><a onclick="switchSection('settings')" id="nav-settings">
+                <i class="fas fa-cog"></i> Settings
+            </a></li>
+            <li style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px;">
+                <a href="https://lantica-menu.developeraddis.workers.dev/menu.html" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> View Live Menu
+                </a>
+            </li>
+            <li><a href="https://lantica-menu.developeraddis.workers.dev/heritage.html" target="_blank">
+                <i class="fas fa-external-link-alt"></i> View Heritage Page
+            </a>
+            </li>
+        </ul>
+        <div style="margin-top: auto; padding-top: 20px; text-align: center;">
+            <span class="status-badge connected" id="dbStatus">
+                <i class="fas fa-database"></i> Redis Connected
+            </span>
         </div>
+    </aside>
 
-        <!-- Status -->
-        <div id="statusMsg" class="status">Connected - Menu is LIVE</div>
-
-        <!-- Add/Edit Form -->
-        <div class="card">
-            <h3 style="color: var(--gold); margin-bottom: 20px;"><i class="fas fa-plus-circle"></i> <span id="formTitle">Add New Menu Item</span></h3>
-            <div class="form-row">
-                <div class="form-group"><label>Item Name *</label><input type="text" id="itemName" placeholder="e.g., Lamb Tibs"></div>
-                <div class="form-group"><label>Price (ETB) *</label><input type="number" id="itemPrice" placeholder="e.g., 680"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Category *</label>
-                    <select id="itemCategory">
-                        <option>Breakfast</option><option>Signatures</option><option>Pizza</option>
-                        <option>Pasta</option><option>Burgers</option><option>Pork</option>
-                        <option>Soups</option><option>Fast Food</option><option>Juices</option>
-                        <option>Cold Drinks</option><option>Beer</option><option>Wine</option>
-                        <option>Hot Beverages</option>
-                    </select>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Menu Section -->
+        <div class="section active" id="section-menu">
+            <div class="admin-header">
+                <h1><span>Menu</span> Management</h1>
+                <div class="header-actions">
+                    <button class="btn btn-gold" onclick="syncFromRedis()">
+                        <i class="fas fa-sync-alt"></i> Sync from Redis
+                    </button>
+                    <button class="btn btn-gold" onclick="openAddCategoryModal()">
+                        <i class="fas fa-plus"></i> Add Category
+                    </button>
+                    <button class="btn btn-gold" onclick="openAddItemModal()">
+                        <i class="fas fa-plus"></i> Add Item
+                    </button>
+                    <button class="btn btn-outline" onclick="pushToRedis()">
+                        <i class="fas fa-cloud-upload-alt"></i> Save to Redis
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label>Image</label>
-                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                        <input type="text" id="itemImage" placeholder="Image URL or upload new" style="flex: 2;">
-                        <button type="button" class="btn btn-gold" onclick="openUploadWidget()" style="margin:0;"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-layer-group"></i>
+                    <div class="stat-value" id="statCategories">0</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-list"></i>
+                    <div class="stat-value" id="statItems">0</div>
+                    <div class="stat-label">Total Items</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-image"></i>
+                    <div class="stat-value" id="statImages">0</div>
+                    <div class="stat-label">With Images</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-coins"></i>
+                    <div class="stat-value" id="statAvgPrice">0</div>
+                    <div class="stat-label">Avg Price (ETB)</div>
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="tabs" id="categoryTabs">
+                <button class="tab-btn active" onclick="filterByCategory('all')">All Items</button>
+            </div>
+
+            <!-- Search -->
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="fas fa-search"></i> Search Items</label>
+                        <input type="text" id="adminSearch" placeholder="Search by name..." oninput="renderMenuTable()">
                     </div>
-                    <div id="imagePreview" style="margin-top: 8px;"></div>
+                    <div class="form-group">
+                        <label><i class="fas fa-filter"></i> Filter by Price Range</label>
+                        <select id="priceFilter" onchange="renderMenuTable()">
+                            <option value="all">All Prices</option>
+                            <option value="0-100">Under 100 ETB</option>
+                            <option value="100-300">100 - 300 ETB</option>
+                            <option value="300-600">300 - 600 ETB</option>
+                            <option value="600-1000">600 - 1000 ETB</option>
+                            <option value="1000+">1000+ ETB</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="form-group"><label>Description</label><textarea id="itemDesc" rows="2" placeholder="Brief description of the dish"></textarea></div>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn btn-gold" onclick="saveItem()"><i class="fas fa-save"></i> Save Item</button>
-                <button id="cancelBtn" class="btn btn-red" onclick="cancelEdit()" style="display: none;"><i class="fas fa-times"></i> Cancel Edit</button>
+
+            <!-- Menu Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-list"></i> All Menu Items</h3>
+                    <span style="color: var(--gray);" id="filteredCount">0 items</span>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price (ETB)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menuTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div id="emptyState" style="text-align: center; padding: 40px; display: none;">
+                    <i class="fas fa-utensils" style="font-size: 3rem; color: var(--gold); margin-bottom: 15px; display: block;"></i>
+                    <p style="color: var(--gray);">No menu items found. Add your first item!</p>
+                </div>
             </div>
         </div>
 
-        <!-- Search & Filter -->
-        <div class="search-bar">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search menu items...">
-            <select id="categoryFilter" class="filter-select">
-                <option value="all">All Categories</option>
-                <option>Breakfast</option><option>Signatures</option><option>Pizza</option>
-                <option>Pasta</option><option>Burgers</option><option>Pork</option>
-                <option>Soups</option><option>Fast Food</option><option>Juices</option>
-                <option>Cold Drinks</option><option>Beer</option><option>Wine</option>
-                <option>Hot Beverages</option>
+        <!-- Heritage Section -->
+        <div class="section" id="section-heritage">
+            <div class="admin-header">
+                <h1><span>Heritage</span> Page Editor</h1>
+                <div class="header-actions">
+                    <button class="btn btn-gold" onclick="addHeritageItem()">
+                        <i class="fas fa-plus"></i> Add Heritage Item
+                    </button>
+                    <button class="btn btn-outline" onclick="saveHeritageToRedis()">
+                        <i class="fas fa-save"></i> Save Heritage
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-quote-left"></i> Heritage Page Content</h3>
+                </div>
+                <div class="form-group">
+                    <label>Hero Title (supports HTML)</label>
+                    <input type="text" id="heritageHeroTitle" value="🏛️ Heritage <span>Gallery</span>" onchange="heritageDataChanged()">
+                </div>
+                <div class="form-group">
+                    <label>Hero Description</label>
+                    <textarea id="heritageHeroDesc" onchange="heritageDataChanged()">Step into the memory of Lantica 1960 — a journey through time, vintage treasures, and stories that shaped our soul.</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Quote Text</label>
+                    <input type="text" id="heritageQuote" value="Every artifact tells a story. Every memory lives here." onchange="heritageDataChanged()">
+                </div>
+                <div class="form-group">
+                    <label>Story Section Title</label>
+                    <input type="text" id="heritageStoryTitle" value="The Memory of Lantica 1960" onchange="heritageDataChanged()">
+                </div>
+                <div class="form-group">
+                    <label>Story Content (paragraphs separated by double newline)</label>
+                    <textarea id="heritageStoryContent" rows="6" onchange="heritageDataChanged()">These vintage treasures are more than objects — they are witnesses to history. Each piece has been carefully preserved, carrying whispers of conversations, laughter, and moments that defined generations.
+
+From the Emperor's era to modern Ethiopia, Lantica 1960 has stood as a silent observer, collecting not just artifacts, but memories. Today, we share them with you.
+
+Every item has a story — click on any card to read more.</textarea>
+                </div>
+            </div>
+
+            <!-- Heritage Items -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-images"></i> Heritage Items</h3>
+                    <span style="color: var(--gray);" id="heritageItemCount">0 items</span>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Badge</th>
+                                <th>Story Preview</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="heritageTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div class="section" id="section-settings">
+            <div class="admin-header">
+                <h1><span>Settings</span></h1>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-database"></i> Redis Connection</h3>
+                </div>
+                <div class="form-group">
+                    <label>Redis REST URL</label>
+                    <input type="text" id="redisUrl" value="https://proper-sunbeam-108020.upstash.io" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Redis REST Token</label>
+                    <input type="password" id="redisToken" value="gQAAAAAAAaX0AAIgcDE3NThjODZkOGE0ZDg0ZGRiYjY2YWU4Nzc5M2MzZGU1Yw" readonly>
+                </div>
+                <button class="btn btn-gold" onclick="testRedisConnection()">
+                    <i class="fas fa-plug"></i> Test Connection
+                </button>
+                <span id="connectionResult" style="margin-left: 10px;"></span>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-cloud-download-alt"></i> Data Management</h3>
+                </div>
+                <p style="color: var(--gray); margin-bottom: 15px;">Sync data between Redis and local storage. Always save to Redis after making changes.</p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-gold" onclick="syncFromRedis()">
+                        <i class="fas fa-download"></i> Pull from Redis
+                    </button>
+                    <button class="btn btn-success" onclick="pushToRedis()">
+                        <i class="fas fa-upload"></i> Push All to Redis
+                    </button>
+                    <button class="btn btn-outline" onclick="exportData()">
+                        <i class="fas fa-file-export"></i> Export JSON
+                    </button>
+                    <button class="btn btn-outline" onclick="importDataPrompt()">
+                        <i class="fas fa-file-import"></i> Import JSON
+                    </button>
+                    <button class="btn btn-danger" onclick="resetToDefault()">
+                        <i class="fas fa-undo"></i> Reset to Default
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Add/Edit Item Modal -->
+<div class="modal-overlay" id="itemModal">
+    <div class="modal">
+        <h2 id="itemModalTitle">Add Menu Item</h2>
+        <input type="hidden" id="itemEditIndex">
+        <input type="hidden" id="itemEditCategory">
+        <div class="form-group">
+            <label>Item Name *</label>
+            <input type="text" id="itemName" placeholder="e.g., Lamb Tibs">
+        </div>
+        <div class="form-group">
+            <label>Category *</label>
+            <select id="itemCategory">
+                <option value="">Select Category</option>
             </select>
-            <button class="btn btn-gold" onclick="loadMenu()"><i class="fas fa-sync-alt"></i> Refresh</button>
-            <button class="btn btn-red" onclick="confirmReset()"><i class="fas fa-undo"></i> Reset All</button>
         </div>
-
-        <!-- Menu Items Table -->
-        <div class="card" style="padding: 0; overflow: hidden;">
-            <div class="table-container">
-                <table id="menuTable">
-                    <thead>
-                        <tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Description</th><th>Actions</th></tr>
-                    </thead>
-                    <tbody id="menuTableBody"><tr><td colspan="6" style="text-align:center; padding:40px;">Loading menu items...<div class="loader"></div></td></tr</tbody>
-                </table>
-            </div>
+        <div class="form-group">
+            <label>Price (ETB) *</label>
+            <input type="number" id="itemPrice" placeholder="e.g., 680" min="0">
+        </div>
+        <div class="form-group">
+            <label>Image Filename (from GitHub: developereth/Lantica/main/)</label>
+            <input type="text" id="itemImage" placeholder="e.g., lamb-tibs.jpg" oninput="previewItemImage()">
+            <img class="image-preview" id="itemImagePreview" src="https://placehold.co/400x150/1A1A1A/C9A96E?text=No+Image" alt="Preview">
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-outline" onclick="closeItemModal()">Cancel</button>
+            <button class="btn btn-gold" onclick="saveItem()">Save Item</button>
         </div>
     </div>
 </div>
 
+<!-- Add Category Modal -->
+<div class="modal-overlay" id="categoryModal">
+    <div class="modal">
+        <h2>Add New Category</h2>
+        <div class="form-group">
+            <label>Category Name * (use emoji for best display, e.g., 🍕 Pizza)</label>
+            <input type="text" id="newCategoryName" placeholder="e.g., 🍣 New Category">
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-outline" onclick="closeCategoryModal()">Cancel</button>
+            <button class="btn btn-gold" onclick="addCategory()">Add Category</button>
+        </div>
+    </div>
+</div>
+
+<!-- Heritage Item Modal -->
+<div class="modal-overlay" id="heritageItemModal">
+    <div class="modal">
+        <h2 id="heritageModalTitle">Add Heritage Item</h2>
+        <input type="hidden" id="heritageEditIndex">
+        <div class="form-group">
+            <label>Title *</label>
+            <input type="text" id="heritageItemTitle" placeholder="e.g., Vintage Camera">
+        </div>
+        <div class="form-group">
+            <label>Image Filename *</label>
+            <input type="text" id="heritageItemImage" placeholder="e.g., old-camera1.jpg" oninput="previewHeritageImage()">
+            <img class="image-preview" id="heritageImagePreview" src="https://placehold.co/400x150/1A1A1A/C9A96E?text=No+Image" alt="Preview">
+        </div>
+        <div class="form-group">
+            <label>Badge</label>
+            <input type="text" id="heritageItemBadge" placeholder="e.g., Historical, Rare, Vintage">
+        </div>
+        <div class="form-group">
+            <label>Story *</label>
+            <textarea id="heritageItemStory" rows="4" placeholder="Tell the story of this item..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>Memory / Personal Note</label>
+            <textarea id="heritageItemMemory" rows="3" placeholder="A personal memory associated with this item..."></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-outline" onclick="closeHeritageModal()">Cancel</button>
+            <button class="btn btn-gold" onclick="saveHeritageItem()">Save Item</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
-    // ========== CONFIGURATION (UPDATED WITH YOUR CORRECT CREDENTIALS) ==========
-    const WORKER_URL = "https://lanticaadminpage.developeraddis.workers.dev";
-    const ADMIN_PASSWORD = "lantica1960admin";
-    const GITHUB_RAW = "https://raw.githubusercontent.com/developereth/Lantica/main/";
-    const CLOUDINARY_CLOUD_NAME = "dnxxxpbm9";  // ✅ Your correct cloud name
-    const CLOUDINARY_UPLOAD_PRESET = "lantica_menu";
-    // ============================================================================
-    
-    let menuItems = [];
-    let editId = null;
+    // ==================== CONFIGURATION ====================
+    const REDIS_URL = "https://proper-sunbeam-108020.upstash.io";
+    const REDIS_TOKEN = "gQAAAAAAAaX0AAIgcDE3NThjODZkOGE0ZDg0ZGRiYjY2YWU4Nzc5M2MzZGU1Yw";
+    const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/developereth/Lantica/main/";
+    const PLACEHOLDER_IMAGE = "https://placehold.co/400x160/1A1A1A/C9A96E?text=Lantica+1960";
 
-    // ========== AUTHENTICATION ==========
-    function login() {
-        const pwd = document.getElementById("adminPassword").value;
-        if (pwd === ADMIN_PASSWORD) {
-            document.getElementById("loginSection").classList.add("hidden");
-            document.getElementById("adminSection").classList.remove("hidden");
-            loadMenu();
-        } else {
-            alert("Wrong password!");
+    // Redis keys
+    const REDIS_KEY_MENU = "lantica:menu";
+    const REDIS_KEY_HERITAGE = "lantica:heritage";
+    const REDIS_KEY_HERITAGE_CONTENT = "lantica:heritage_content";
+
+    // ==================== DEFAULT DATA ====================
+    const DEFAULT_MENU_DATA = {
+        "☀️ Breakfast": [
+            { name: "Combo Fasting", price: 250, image: "combo-fasting-platter.jpg" },
+            { name: "Egg w/ meat", price: 250, image: "egg-with-minced-meat.jpg" },
+            { name: "Special Fetora", price: 350, image: "special-fetera-honey-cheese.jpg" },
+            { name: "Normal Fetora", price: 200, image: "classic-fetera.webp" },
+            { name: "Special Chech", price: 250, image: "" },
+            { name: "Normal Foul", price: 180, image: "" },
+            { name: "Special Foul", price: 250, image: "" },
+            { name: "Tomato Cheese", price: 170, image: "tomato-lebleb.jpg" },
+            { name: "Egg Sandwich", price: 200, image: "egg-sandwich.jpg" }
+        ],
+        "🔥 Traditional Food": [
+            { name: "Lamb Tibs", price: 680, image: "lamb-tibs.jpg" },
+            { name: "Lamb Tibs Tefresho", price: 700, image: "lamb-tibs-tefersho.jpg" },
+            { name: "Okie", price: 600, image: "" },
+            { name: "Chikena Tibs", price: 600, image: "" },
+            { name: "Chikena Tefresho", price: 650, image: "" },
+            { name: "Kitto", price: 1200, image: "" },
+            { name: "Quanta Firfir", price: 370, image: "kuanta-firfir.jpeg" },
+            { name: "Kiba Firfir", price: 210, image: "kiba-firfir.webp" },
+            { name: "Tibes Firfir", price: 320, image: "tibis-firfir.jpg" },
+            { name: "Shiro Bekibe", price: 300, image: "shiro-bekibe.jpeg" },
+            { name: "Dullet", price: 330, image: "dulet-minced-tripe.jpeg" },
+            { name: "Derkosh Firfir Beseg", price: 380, image: "" },
+            { name: "Bozena Shiro", price: 350, image: "shiro.jpg" },
+            { name: "Mahberawi", price: 1200, image: "mahberawi-mixed-platter.jpeg" },
+            { name: "Yefisk Agelgel", price: 1000, image: "" },
+            { name: "Gomen Kitto", price: 300, image: "gomen-kitfo.jpg" }
+        ],
+        "🍕 Pizza": [
+            { name: "Special Lentic Pizza Large", price: 580, image: "" },
+            { name: "Special Lentic Pizza Medium", price: 550, image: "" },
+            { name: "Chicken Pizza Large", price: 550, image: "chicken-pizza.jpeg" },
+            { name: "Chicken Pizza Medium", price: 460, image: "chicken-pizza.jpeg" },
+            { name: "Margarita Large", price: 450, image: "margherita-pizza.jpg" },
+            { name: "Margarita Medium", price: 400, image: "margherita-pizza.jpg" },
+            { name: "Vegetable Pizza Large", price: 370, image: "" }
+        ],
+        "🍝 Spaghetti & Rice": [
+            { name: "Spaghetti with Vegetables", price: 230, image: "pasta-with-veggies-25.jpg" },
+            { name: "Rice", price: 400, image: "" }
+        ],
+        "🍔 Burgers & Sandwiches": [
+            { name: "Noma Burger", price: 305, image: "" },
+            { name: "Cheese Burger", price: 350, image: "" },
+            { name: "Noma Ketchup", price: 380, image: "" },
+            { name: "Club Sandwich", price: 360, image: "" },
+            { name: "Tuna Sandwich", price: 350, image: "" },
+            { name: "Vegetable Sandwich", price: 160, image: "" },
+            { name: "Chicken Shawarma", price: 600, image: "" },
+            { name: "French Fries", price: 180, image: "" }
+        ],
+        "🥩 Pork Selections": [
+            { name: "Pork Chop", price: 320, image: "" },
+            { name: "Pork Sausage", price: 180, image: "" },
+            { name: "Pork Steak", price: 570, image: "" },
+            { name: "Pork Loin", price: 200, image: "" },
+            { name: "Pork Ribs", price: 400, image: "" },
+            { name: "Pork Belly", price: 380, image: "" },
+            { name: "Pork Shoulder", price: 400, image: "" }
+        ],
+        "🥗 Soup & Salad": [
+            { name: "Vegetable Soup", price: 180, image: "" },
+            { name: "Mixed Salad", price: 200, image: "mixed-garden-salad-2.jpg" },
+            { name: "Chicken Salad", price: 300, image: "" }
+        ],
+        "🍲 Fast Food": [
+            { name: "Special Lantica Fasting", price: 500, image: "" },
+            { name: "Normal Firfir", price: 180, image: "" },
+            { name: "Shiro", price: 275, image: "shiro.jpg" },
+            { name: "Tegabino", price: 300, image: "tegabino.jpg" },
+            { name: "Derkosh Firfir Fasting", price: 220, image: "" },
+            { name: "Mesere", price: 250, image: "mesere-red-lentil.jpeg" },
+            { name: "Hafe Hafe", price: 280, image: "" }
+        ],
+        "🥤 Fresh Juices": [
+            { name: "Papaya Juice", price: 160, image: "papaya-juice.jpg" },
+            { name: "Avocado Juice", price: 160, image: "avocado-juice.png" },
+            { name: "Mango Juice", price: 160, image: "mango-juice.jpeg" },
+            { name: "Telba Juice", price: 200, image: "tella-juice.webp" }
+        ],
+        "🧊 Cold Drinks": [
+            { name: "1/4 Water", price: 20, image: "" },
+            { name: "1/2 Water", price: 35, image: "" },
+            { name: "1 Liter Water", price: 55, image: "ambo-water.jpeg" },
+            { name: "2 Liter Water", price: 75, image: "ambo-water.jpeg" },
+            { name: "Soft Drink", price: 60, image: "soft-drink.jpeg" },
+            { name: "Ambo Water", price: 65, image: "ambo-water.jpeg" },
+            { name: "Plastic Soft Drink", price: 70, image: "soft-drink.jpeg" },
+            { name: "Tonic Water", price: 80, image: "" }
+        ],
+        "🍺 Beer & Draft": [
+            { name: "Normal Beer", price: 100, image: "" },
+            { name: "Big Bedla", price: 120, image: "" },
+            { name: "Hicnek Beer", price: 125, image: "" },
+            { name: "Arada Beer", price: 130, image: "" },
+            { name: "Janibo", price: 145, image: "" },
+            { name: "Single Draft", price: 65, image: "" }
+        ],
+        "🍷 Wine List": [
+            { name: "Axmite", price: 900, image: "" },
+            { name: "Guder Big", price: 720, image: "" },
+            { name: "Kmila Big", price: 800, image: "" },
+            { name: "Gebeta", price: 1100, image: "" },
+            { name: "Aksejar", price: 1200, image: "" }
+        ],
+        "☕ Hot Beverages": [
+            { name: "Tea", price: 30, image: "" },
+            { name: "Coffee", price: 60, image: "ethiopian-coffee-Buna.jpeg" },
+            { name: "Milk", price: 80, image: "" },
+            { name: "Latte", price: 70, image: "Latte.jpg" },
+            { name: "Macchiato", price: 75, image: "mackiyato.jpg" },
+            { name: "Spires", price: 60, image: "" },
+            { name: "Lewis Tea", price: 75, image: "" },
+            { name: "Kesher", price: 50, image: "" },
+            { name: "Tea with Lemon", price: 45, image: "" },
+            { name: "Flavor Tea", price: 65, image: "" },
+            { name: "Special Tea", price: 150, image: "" },
+            { name: "Fasting Macchiato", price: 85, image: "" },
+            { name: "Hot Chocolate", price: 80, image: "hot-chocolate.jpg" }
+        ]
+    };
+
+    const DEFAULT_HERITAGE_ITEMS = [
+        { 
+            title: "Emperor Haile Selassie I Portrait", 
+            image: "emperial1.jpg",
+            story: "An original framed photograph of His Imperial Majesty Emperor Haile Selassie I. This portrait has hung in Lantica since our early days, symbolizing respect for Ethiopian heritage.",
+            memory: "Veteran customers remember the Emperor's visit to this very neighborhood. This photo serves as a tribute to that golden era of Ethiopian history.",
+            badge: "Historical"
+        },
+        { 
+            title: "Vintage Camera Collection", 
+            image: "old-camera1.jpg",
+            story: "A collection of classic film cameras from the 1950s-1970s. These cameras captured countless memories of Ethiopian celebrations, family gatherings, and historic moments within these walls.",
+            memory: "Old staff member Tekle recalls: 'Every Sunday, someone would bring a camera to document the coffee ceremony. These cameras witnessed three generations of our loyal customers.'",
+            badge: "Collection"
+        },
+        { 
+            title: "Vintage DJ Mixer", 
+            image: "old-dj-mixer.jpg",
+            story: "A classic DJ mixer and sound system from the 1970s. This machine brought music to life at Lantica, playing Ethiopian hits and international classics.",
+            memory: "The mixer was used for special events and celebrations. The sound of vinyl crackling through this mixer created unforgettable Friday night vibes.",
+            badge: "Rare"
+        },
+        { 
+            title: "Old Record Player", 
+            image: "old-player.jpg",
+            story: "This gramophone player from the 1960s filled Lantica with Ethiopian jazz and traditional melodies. Restored and still functional, it represents the soul of our entertainment history.",
+            memory: "The sound of vinyl crackling alongside coffee brewing — that was the signature ambiance of early Lantica mornings.",
+            badge: "Vintage"
+        },
+        { 
+            title: "Antique Telescope", 
+            image: "old-telescop.jpg",
+            story: "A beautiful antique brass telescope from the early 1900s. This piece represents the spirit of exploration and discovery that Lantica embraces.",
+            memory: "Customers would gaze through this telescope at the Arat Kilo skyline, dreaming of adventures while enjoying their coffee.",
+            badge: "Rare"
+        },
+        { 
+            title: "Vintage Pocket Watch", 
+            image: "old-watch1.jpg",
+            story: "An elegant mechanical pocket watch from the 1940s. Time has stood still at Lantica while traditions continue to flourish.",
+            memory: "This watch belonged to the original owner, who carried it every day for over 30 years. It reminds us that some things are worth preserving forever.",
+            badge: "Memory"
         }
-    }
-    
-    function logout() {
-        document.getElementById("loginSection").classList.remove("hidden");
-        document.getElementById("adminSection").classList.add("hidden");
-        document.getElementById("adminPassword").value = "";
-    }
+    ];
 
-    // ========== CLOUDINARY UPLOAD WIDGET (NO CROPPING) ==========
-    function openUploadWidget() {
-        const widget = cloudinary.createUploadWidget({
-            cloudName: CLOUDINARY_CLOUD_NAME,
-            uploadPreset: CLOUDINARY_UPLOAD_PRESET,
-            sources: ['local', 'camera', 'url'],
-            multiple: false,
-            cropping: false,
-            showUploadMoreButton: false,
-            clientAllowedFormats: ['images'],
-            maxImageFileSize: 5000000,
-            styles: {
-                palette: {
-                    window: "#1A1A1A",
-                    windowBorder: "#C9A96E",
-                    tabIcon: "#C9A96E",
-                    menuIcons: "#C9A96E",
-                    textDark: "#FFFFFF",
-                    textLight: "#E8E0D5",
-                    link: "#C9A96E",
-                    action: "#C9A96E",
-                    inprogress: "#C9A96E",
-                    complete: "#2E7D32",
-                    error: "#B45F3B"
-                }
-            }
-        }, (error, result) => {
-            if (!error && result && result.event === "success") {
-                const imageUrl = result.info.secure_url;
-                document.getElementById("itemImage").value = imageUrl;
-                document.getElementById("imagePreview").innerHTML = `<img src="${imageUrl}" class="img-preview-large" onerror="this.style.display='none'"> <span style="font-size:0.7rem; color:var(--gold);">✓ Uploaded!</span>`;
-                document.getElementById("statusMsg").innerHTML = "✅ Image uploaded successfully!";
-                document.getElementById("statusMsg").className = "status";
-                setTimeout(() => { document.getElementById("statusMsg").innerHTML = "Connected - Menu is LIVE"; }, 2000);
-            }
-        });
-        widget.open();
-    }
+    const DEFAULT_HERITAGE_CONTENT = {
+        heroTitle: "🏛️ Heritage <span>Gallery</span>",
+        heroDesc: "Step into the memory of Lantica 1960 — a journey through time, vintage treasures, and stories that shaped our soul.",
+        quote: "Every artifact tells a story. Every memory lives here.",
+        storyTitle: "The Memory of Lantica 1960",
+        storyContent: "These vintage treasures are more than objects — they are witnesses to history. Each piece has been carefully preserved, carrying whispers of conversations, laughter, and moments that defined generations.\n\nFrom the Emperor's era to modern Ethiopia, Lantica 1960 has stood as a silent observer, collecting not just artifacts, but memories. Today, we share them with you.\n\nEvery item has a story — click on any card to read more."
+    };
 
-    // ========== LOAD MENU FROM WORKER ==========
-    async function loadMenu() {
+    // ==================== STATE ====================
+    let menuData = JSON.parse(JSON.stringify(DEFAULT_MENU_DATA));
+    let heritageItems = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_ITEMS));
+    let heritageContent = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_CONTENT));
+    let currentCategoryFilter = 'all';
+
+    // ==================== INITIALIZATION ====================
+    document.addEventListener('DOMContentLoaded', () => {
+        loadFromLocalStorage();
+        renderCategoryTabs();
+        renderMenuTable();
+        renderHeritageTable();
+        loadHeritageContentToForm();
+        updateStats();
+        syncFromRedis(); // Try to load from Redis on startup
+    });
+
+    function loadFromLocalStorage() {
         try {
-            document.getElementById("statusMsg").innerHTML = "🔄 Loading menu from server...";
-            const res = await fetch(`${WORKER_URL}/api/menu`);
-            const data = await res.json();
-            menuItems = data.items || [];
-            renderTable();
+            const savedMenu = localStorage.getItem('lantica_menu_data');
+            const savedHeritage = localStorage.getItem('lantica_heritage_items');
+            const savedHeritageContent = localStorage.getItem('lantica_heritage_content');
+            
+            if (savedMenu) menuData = JSON.parse(savedMenu);
+            if (savedHeritage) heritageItems = JSON.parse(savedHeritage);
+            if (savedHeritageContent) heritageContent = JSON.parse(savedHeritageContent);
+        } catch (e) {
+            console.error('Error loading from localStorage:', e);
+        }
+    }
+
+    function saveToLocalStorage() {
+        localStorage.setItem('lantica_menu_data', JSON.stringify(menuData));
+        localStorage.setItem('lantica_heritage_items', JSON.stringify(heritageItems));
+        localStorage.setItem('lantica_heritage_content', JSON.stringify(heritageContent));
+    }
+
+    // ==================== REDIS API ====================
+    async function redisCommand(command, ...args) {
+        try {
+            const url = `${REDIS_URL}/${command}/${args.join('/')}`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Bearer ${REDIS_TOKEN}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Redis HTTP error: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return data.result;
+        } catch (error) {
+            console.error('Redis command error:', error);
+            throw error;
+        }
+    }
+
+    async function testRedisConnection() {
+        try {
+            const result = await redisCommand('ping');
+            document.getElementById('connectionResult').innerHTML = 
+                '<span style="color: var(--success);">✅ Connected! Response: ' + JSON.stringify(result) + '</span>';
+            document.getElementById('dbStatus').className = 'status-badge connected';
+            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-database"></i> Redis Connected';
+            showToast('Redis connection successful!', 'success');
+        } catch (error) {
+            document.getElementById('connectionResult').innerHTML = 
+                '<span style="color: var(--danger);">❌ Connection failed: ' + error.message + '</span>';
+            document.getElementById('dbStatus').className = 'status-badge disconnected';
+            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Redis Disconnected';
+            showToast('Redis connection failed: ' + error.message, 'error');
+        }
+    }
+
+    async function pushToRedis() {
+        try {
+            showToast('Saving menu data to Redis...', 'warning');
+            
+            // Save menu data
+            const menuJson = JSON.stringify(menuData);
+            await redisCommand('set', REDIS_KEY_MENU, encodeURIComponent(menuJson));
+            
+            // Save heritage items
+            const heritageJson = JSON.stringify(heritageItems);
+            await redisCommand('set', REDIS_KEY_HERITAGE, encodeURIComponent(heritageJson));
+            
+            // Save heritage content
+            const heritageContentJson = JSON.stringify(heritageContent);
+            await redisCommand('set', REDIS_KEY_HERITAGE_CONTENT, encodeURIComponent(heritageContentJson));
+            
+            saveToLocalStorage();
+            showToast('All data saved to Redis successfully! ✅', 'success');
             updateStats();
-            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${menuItems.length} menu items`;
-            document.getElementById("statusMsg").className = "status";
-        } catch(e) {
-            document.getElementById("statusMsg").innerHTML = "❌ Error loading menu";
-            document.getElementById("statusMsg").className = "status status-error";
+        } catch (error) {
+            showToast('Failed to save to Redis: ' + error.message, 'error');
         }
     }
-    
-    async function saveToWorker() {
-        const res = await fetch(`${WORKER_URL}/api/menu`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-Admin-Key': ADMIN_PASSWORD },
-            body: JSON.stringify({ items: menuItems })
+
+    async function syncFromRedis() {
+        try {
+            showToast('Syncing data from Redis...', 'warning');
+            
+            // Load menu data
+            const menuResult = await redisCommand('get', REDIS_KEY_MENU);
+            if (menuResult) {
+                menuData = JSON.parse(decodeURIComponent(menuResult));
+            }
+            
+            // Load heritage items
+            const heritageResult = await redisCommand('get', REDIS_KEY_HERITAGE);
+            if (heritageResult) {
+                heritageItems = JSON.parse(decodeURIComponent(heritageResult));
+            }
+            
+            // Load heritage content
+            const heritageContentResult = await redisCommand('get', REDIS_KEY_HERITAGE_CONTENT);
+            if (heritageContentResult) {
+                heritageContent = JSON.parse(decodeURIComponent(heritageContentResult));
+            }
+            
+            saveToLocalStorage();
+            renderCategoryTabs();
+            renderMenuTable();
+            renderHeritageTable();
+            loadHeritageContentToForm();
+            updateStats();
+            
+            document.getElementById('dbStatus').className = 'status-badge connected';
+            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-database"></i> Redis Connected';
+            showToast('Data synced from Redis successfully! ✅', 'success');
+        } catch (error) {
+            console.error('Sync error:', error);
+            document.getElementById('dbStatus').className = 'status-badge disconnected';
+            document.getElementById('dbStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Using Local Data';
+            showToast('Could not sync from Redis. Using local data.', 'error');
+            renderCategoryTabs();
+            renderMenuTable();
+            renderHeritageTable();
+            loadHeritageContentToForm();
+            updateStats();
+        }
+    }
+
+    async function saveHeritageToRedis() {
+        try {
+            // Collect heritage content from form
+            heritageContent.heroTitle = document.getElementById('heritageHeroTitle').value;
+            heritageContent.heroDesc = document.getElementById('heritageHeroDesc').value;
+            heritageContent.quote = document.getElementById('heritageQuote').value;
+            heritageContent.storyTitle = document.getElementById('heritageStoryTitle').value;
+            heritageContent.storyContent = document.getElementById('heritageStoryContent').value;
+            
+            const heritageJson = JSON.stringify(heritageItems);
+            const heritageContentJson = JSON.stringify(heritageContent);
+            
+            await redisCommand('set', REDIS_KEY_HERITAGE, encodeURIComponent(heritageJson));
+            await redisCommand('set', REDIS_KEY_HERITAGE_CONTENT, encodeURIComponent(heritageContentJson));
+            
+            saveToLocalStorage();
+            showToast('Heritage data saved to Redis! ✅', 'success');
+        } catch (error) {
+            showToast('Failed to save heritage data: ' + error.message, 'error');
+        }
+    }
+
+    // ==================== MENU MANAGEMENT ====================
+    function getCategories() {
+        return Object.keys(menuData);
+    }
+
+    function renderCategoryTabs() {
+        const tabsContainer = document.getElementById('categoryTabs');
+        const categories = getCategories();
+        let html = '<button class="tab-btn active" onclick="filterByCategory(\'all\')">All Items</button>';
+        categories.forEach(cat => {
+            const activeClass = currentCategoryFilter === cat ? ' active' : '';
+            html += `<button class="tab-btn${activeClass}" onclick="filterByCategory('${escapeHtml(cat)}')">${cat}</button>`;
         });
-        return res.ok;
-    }
-    
-    async function refreshCache() {
-        document.getElementById("statusMsg").innerHTML = "🔄 Refreshing cache...";
-        if (await saveToWorker()) {
-            await loadMenu();
-        }
-    }
-    
-    async function saveItem() {
-        const name = document.getElementById("itemName").value.trim();
-        const price = parseFloat(document.getElementById("itemPrice").value);
-        const category = document.getElementById("itemCategory").value;
-        const image = document.getElementById("itemImage").value.trim();
-        const description = document.getElementById("itemDesc").value.trim();
+        tabsContainer.innerHTML = html;
         
-        if (!name || isNaN(price)) {
-            alert("Please enter item name and price");
+        // Update category select in modal
+        const categorySelect = document.getElementById('itemCategory');
+        categorySelect.innerHTML = '<option value="">Select Category</option>';
+        categories.forEach(cat => {
+            categorySelect.innerHTML += `<option value="${escapeHtml(cat)}">${cat}</option>`;
+        });
+    }
+
+    function filterByCategory(category) {
+        currentCategoryFilter = category;
+        renderCategoryTabs();
+        renderMenuTable();
+    }
+
+    function getAllItems() {
+        const items = [];
+        for (const [category, itemList] of Object.entries(menuData)) {
+            itemList.forEach((item, index) => {
+                items.push({
+                    ...item,
+                    category: category,
+                    categoryIndex: index
+                });
+            });
+        }
+        return items;
+    }
+
+    function renderMenuTable() {
+        const tbody = document.getElementById('menuTableBody');
+        const emptyState = document.getElementById('emptyState');
+        const searchTerm = (document.getElementById('adminSearch')?.value || '').toLowerCase();
+        const priceFilter = document.getElementById('priceFilter')?.value || 'all';
+        
+        let items = getAllItems();
+        
+        // Filter by category
+        if (currentCategoryFilter !== 'all') {
+            items = items.filter(item => item.category === currentCategoryFilter);
+        }
+        
+        // Filter by search
+        if (searchTerm) {
+            items = items.filter(item => item.name.toLowerCase().includes(searchTerm));
+        }
+        
+        // Filter by price
+        if (priceFilter !== 'all') {
+            if (priceFilter === '1000+') {
+                items = items.filter(item => item.price >= 1000);
+            } else {
+                const [min, max] = priceFilter.split('-').map(Number);
+                items = items.filter(item => item.price >= min && item.price <= max);
+            }
+        }
+        
+        document.getElementById('filteredCount').textContent = `${items.length} items`;
+        
+        if (items.length === 0) {
+            tbody.innerHTML = '';
+            emptyState.style.display = 'block';
             return;
         }
         
-        if (editId) {
-            const index = menuItems.findIndex(i => i.id === editId);
-            if (index !== -1) {
-                menuItems[index] = { ...menuItems[index], name, price, category, image, description };
-            }
-            editId = null;
-            document.getElementById("formTitle").innerHTML = "Add New Menu Item";
-            document.getElementById("cancelBtn").style.display = "none";
-        } else {
-            const newId = Math.max(...menuItems.map(i => i.id), 0) + 1;
-            menuItems.push({ id: newId, name, price, category, image, description });
-        }
+        emptyState.style.display = 'none';
         
-        if (await saveToWorker()) {
-            document.getElementById("statusMsg").innerHTML = "✅ Saved! Menu updated for all customers";
-            document.getElementById("itemName").value = "";
-            document.getElementById("itemPrice").value = "";
-            document.getElementById("itemImage").value = "";
-            document.getElementById("itemDesc").value = "";
-            document.getElementById("imagePreview").innerHTML = "";
-            await loadMenu();
-        } else {
-            document.getElementById("statusMsg").innerHTML = "❌ Save failed";
-        }
+        let html = '';
+        items.forEach((item, displayIndex) => {
+            const imgUrl = item.image ? GITHUB_RAW_BASE + item.image : PLACEHOLDER_IMAGE;
+            html += `
+                <tr>
+                    <td>
+                        <img class="menu-item-thumb" src="${imgUrl}" alt="${escapeHtml(item.name)}" 
+                             onerror="this.src='${PLACEHOLDER_IMAGE}'">
+                    </td>
+                    <td><strong>${escapeHtml(item.name)}</strong></td>
+                    <td><span style="color: var(--gold);">${escapeHtml(item.category)}</span></td>
+                    <td><strong>${item.price} ETB</strong></td>
+                    <td>
+                        <button class="btn-icon edit" onclick="editItem('${escapeHtml(item.category)}', ${item.categoryIndex})" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon delete" onclick="deleteItem('${escapeHtml(item.category)}', ${item.categoryIndex})" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+        updateStats();
     }
-    
-    function editItem(id) {
-        const item = menuItems.find(i => i.id === id);
-        if (!item) return;
-        editId = id;
-        document.getElementById("itemName").value = item.name;
-        document.getElementById("itemPrice").value = item.price;
-        document.getElementById("itemCategory").value = item.category;
-        document.getElementById("itemImage").value = item.image || "";
-        document.getElementById("itemDesc").value = item.description || "";
-        if (item.image) {
-            document.getElementById("imagePreview").innerHTML = `<img src="${item.image}" class="img-preview-large" onerror="this.style.display='none'">`;
-        }
-        document.getElementById("formTitle").innerHTML = "✏️ Edit Menu Item";
-        document.getElementById("cancelBtn").style.display = "inline-block";
-    }
-    
-    async function deleteItem(id) {
-        if (confirm("Delete this item? All customers will see the change immediately.")) {
-            menuItems = menuItems.filter(i => i.id !== id);
-            if (await saveToWorker()) {
-                await loadMenu();
-                if (editId === id) cancelEdit();
-            }
-        }
-    }
-    
-    function cancelEdit() {
-        editId = null;
-        document.getElementById("itemName").value = "";
-        document.getElementById("itemPrice").value = "";
-        document.getElementById("itemImage").value = "";
-        document.getElementById("itemDesc").value = "";
-        document.getElementById("imagePreview").innerHTML = "";
-        document.getElementById("formTitle").innerHTML = "Add New Menu Item";
-        document.getElementById("cancelBtn").style.display = "none";
-    }
-    
-    function confirmReset() {
-        if (confirm("⚠️ WARNING: This will reset ALL menu items. Continue?")) {
-            resetToDefault();
-        }
-    }
-    
-    async function resetToDefault() {
-        menuItems = [
-            { id: 1, name: "Combo Fasting", price: 250, category: "Breakfast", image: "", description: "Hearty vegan platter" },
-            { id: 2, name: "Lamb Tibs", price: 680, category: "Signatures", image: "", description: "Tender lamb sautéed with berbere" }
-        ];
-        if (await saveToWorker()) {
-            await loadMenu();
-            cancelEdit();
-        }
-    }
-    
+
     function updateStats() {
-        document.getElementById("totalItems").innerText = menuItems.length;
-        const categories = [...new Set(menuItems.map(i => i.category))];
-        document.getElementById("totalCategories").innerText = categories.length;
-        const avg = menuItems.reduce((sum, i) => sum + i.price, 0) / (menuItems.length || 1);
-        document.getElementById("avgPrice").innerText = Math.round(avg);
+        const categories = getCategories();
+        let totalItems = 0;
+        let itemsWithImages = 0;
+        let totalPrice = 0;
+        
+        for (const items of Object.values(menuData)) {
+            totalItems += items.length;
+            items.forEach(item => {
+                if (item.image && item.image.trim() !== '') itemsWithImages++;
+                totalPrice += item.price;
+            });
+        }
+        
+        document.getElementById('statCategories').textContent = categories.length;
+        document.getElementById('statItems').textContent = totalItems;
+        document.getElementById('statImages').textContent = itemsWithImages;
+        document.getElementById('statAvgPrice').textContent = totalItems > 0 ? Math.round(totalPrice / totalItems) : 0;
     }
-    
-    function renderTable() {
-        const search = document.getElementById("searchInput").value.toLowerCase();
-        const filter = document.getElementById("categoryFilter").value;
+
+    function openAddItemModal() {
+        document.getElementById('itemModalTitle').textContent = 'Add New Menu Item';
+        document.getElementById('itemEditIndex').value = '';
+        document.getElementById('itemEditCategory').value = '';
+        document.getElementById('itemName').value = '';
+        document.getElementById('itemCategory').value = '';
+        document.getElementById('itemPrice').value = '';
+        document.getElementById('itemImage').value = '';
+        document.getElementById('itemImagePreview').src = PLACEHOLDER_IMAGE;
+        document.getElementById('itemModal').classList.add('active');
+    }
+
+    function editItem(category, index) {
+        const item = menuData[category][index];
+        document.getElementById('itemModalTitle').textContent = 'Edit Menu Item';
+        document.getElementById('itemEditIndex').value = index;
+        document.getElementById('itemEditCategory').value = category;
+        document.getElementById('itemName').value = item.name;
+        document.getElementById('itemCategory').value = category;
+        document.getElementById('itemPrice').value = item.price;
+        document.getElementById('itemImage').value = item.image || '';
+        previewItemImage();
+        document.getElementById('itemModal').classList.add('active');
+    }
+
+    function closeItemModal() {
+        document.getElementById('itemModal').classList.remove('active');
+    }
+
+    function saveItem() {
+        const editIndex = document.getElementById('itemEditIndex').value;
+        const editCategory = document.getElementById('itemEditCategory').value;
+        const name = document.getElementById('itemName').value.trim();
+        const category = document.getElementById('itemCategory').value;
+        const price = parseInt(document.getElementById('itemPrice').value) || 0;
+        const image = document.getElementById('itemImage').value.trim();
         
-        let filtered = menuItems.filter(item => {
-            const matchSearch = item.name.toLowerCase().includes(search);
-            const matchCategory = filter === "all" || item.category === filter;
-            return matchSearch && matchCategory;
-        });
-        
-        const tbody = document.getElementById("menuTableBody");
-        if (filtered.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:40px;">No items found. Add one above!</td></tr>';
+        if (!name || !category) {
+            showToast('Name and Category are required!', 'error');
             return;
         }
         
-        let html = "";
-        filtered.forEach(item => {
-            let imgUrl = item.image || "";
-            if (imgUrl && !imgUrl.startsWith('http')) {
-                imgUrl = GITHUB_RAW + imgUrl;
+        const newItem = { name, price, image };
+        
+        if (editIndex !== '' && editCategory) {
+            // Editing existing item - if category changed, move it
+            if (editCategory === category) {
+                menuData[category][editIndex] = newItem;
+            } else {
+                // Remove from old category
+                menuData[editCategory].splice(editIndex, 1);
+                // Add to new category
+                if (!menuData[category]) menuData[category] = [];
+                menuData[category].push(newItem);
             }
-            const imgHtml = imgUrl ? `<img src="${imgUrl}" class="img-preview" onerror="this.src='https://placehold.co/40x40/1A1A1A/C9A96E'">` : "—";
-            html += `<tr>
-                <td>${imgHtml}</td>
-                <td><strong>${escapeHtml(item.name)}</strong></td>
-                <td><span style="background:rgba(201,169,110,0.2); padding:4px 8px; border-radius:20px; font-size:0.7rem;">${item.category}</span></td>
-                <td style="color:var(--gold); font-weight:700;">${item.price} ETB</td>
-                <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(item.description || '—')}</td>
-                <td>
-                    <button class="edit-btn" onclick="editItem(${item.id})"><i class="fas fa-edit"></i> Edit</button>
-                    <button class="delete-btn" onclick="deleteItem(${item.id})"><i class="fas fa-trash"></i> Del</button>
-                </td>
-            </tr>`;
+        } else {
+            // Adding new item
+            if (!menuData[category]) menuData[category] = [];
+            menuData[category].push(newItem);
+        }
+        
+        saveToLocalStorage();
+        renderCategoryTabs();
+        renderMenuTable();
+        closeItemModal();
+        showToast('Menu item saved! Don\'t forget to push to Redis.', 'success');
+    }
+
+    function deleteItem(category, index) {
+        if (!confirm(`Are you sure you want to delete "${menuData[category][index].name}"?`)) return;
+        
+        menuData[category].splice(index, 1);
+        
+        // Remove category if empty
+        if (menuData[category].length === 0) {
+            delete menuData[category];
+        }
+        
+        saveToLocalStorage();
+        renderCategoryTabs();
+        renderMenuTable();
+        showToast('Item deleted. Don\'t forget to push to Redis.', 'success');
+    }
+
+    function openAddCategoryModal() {
+        document.getElementById('newCategoryName').value = '';
+        document.getElementById('categoryModal').classList.add('active');
+    }
+
+    function closeCategoryModal() {
+        document.getElementById('categoryModal').classList.remove('active');
+    }
+
+    function addCategory() {
+        const name = document.getElementById('newCategoryName').value.trim();
+        if (!name) {
+            showToast('Category name is required!', 'error');
+            return;
+        }
+        
+        if (menuData[name]) {
+            showToast('Category already exists!', 'error');
+            return;
+        }
+        
+        menuData[name] = [];
+        saveToLocalStorage();
+        renderCategoryTabs();
+        renderMenuTable();
+        closeCategoryModal();
+        showToast('Category added! Don\'t forget to push to Redis.', 'success');
+    }
+
+    function previewItemImage() {
+        const imageName = document.getElementById('itemImage').value.trim();
+        const preview = document.getElementById('itemImagePreview');
+        if (imageName) {
+            preview.src = GITHUB_RAW_BASE + imageName;
+        } else {
+            preview.src = PLACEHOLDER_IMAGE;
+        }
+    }
+
+    // ==================== HERITAGE MANAGEMENT ====================
+    function loadHeritageContentToForm() {
+        document.getElementById('heritageHeroTitle').value = heritageContent.heroTitle || '';
+        document.getElementById('heritageHeroDesc').value = heritageContent.heroDesc || '';
+        document.getElementById('heritageQuote').value = heritageContent.quote || '';
+        document.getElementById('heritageStoryTitle').value = heritageContent.storyTitle || '';
+        document.getElementById('heritageStoryContent').value = heritageContent.storyContent || '';
+    }
+
+    function heritageDataChanged() {
+        heritageContent.heroTitle = document.getElementById('heritageHeroTitle').value;
+        heritageContent.heroDesc = document.getElementById('heritageHeroDesc').value;
+        heritageContent.quote = document.getElementById('heritageQuote').value;
+        heritageContent.storyTitle = document.getElementById('heritageStoryTitle').value;
+        heritageContent.storyContent = document.getElementById('heritageStoryContent').value;
+        saveToLocalStorage();
+    }
+
+    function renderHeritageTable() {
+        const tbody = document.getElementById('heritageTableBody');
+        document.getElementById('heritageItemCount').textContent = `${heritageItems.length} items`;
+        
+        let html = '';
+        heritageItems.forEach((item, index) => {
+            const imgUrl = item.image ? GITHUB_RAW_BASE + item.image : PLACEHOLDER_IMAGE;
+            html += `
+                <tr>
+                    <td>
+                        <img class="menu-item-thumb" src="${imgUrl}" alt="${escapeHtml(item.title)}" 
+                             onerror="this.src='${PLACEHOLDER_IMAGE}'">
+                    </td>
+                    <td><strong>${escapeHtml(item.title)}</strong></td>
+                    <td><span style="background: rgba(201,169,110,0.2); padding: 3px 10px; border-radius: 12px; font-size: 0.8rem;">${escapeHtml(item.badge || '')}</span></td>
+                    <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(item.story?.substring(0, 60) || '')}...</td>
+                    <td>
+                        <button class="btn-icon edit" onclick="editHeritageItem(${index})" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon delete" onclick="deleteHeritageItem(${index})" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
         });
         tbody.innerHTML = html;
     }
-    
+
+    function addHeritageItem() {
+        document.getElementById('heritageModalTitle').textContent = 'Add Heritage Item';
+        document.getElementById('heritageEditIndex').value = '';
+        document.getElementById('heritageItemTitle').value = '';
+        document.getElementById('heritageItemImage').value = '';
+        document.getElementById('heritageItemBadge').value = '';
+        document.getElementById('heritageItemStory').value = '';
+        document.getElementById('heritageItemMemory').value = '';
+        document.getElementById('heritageImagePreview').src = PLACEHOLDER_IMAGE;
+        document.getElementById('heritageItemModal').classList.add('active');
+    }
+
+    function editHeritageItem(index) {
+        const item = heritageItems[index];
+        document.getElementById('heritageModalTitle').textContent = 'Edit Heritage Item';
+        document.getElementById('heritageEditIndex').value = index;
+        document.getElementById('heritageItemTitle').value = item.title;
+        document.getElementById('heritageItemImage').value = item.image || '';
+        document.getElementById('heritageItemBadge').value = item.badge || '';
+        document.getElementById('heritageItemStory').value = item.story || '';
+        document.getElementById('heritageItemMemory').value = item.memory || '';
+        previewHeritageImage();
+        document.getElementById('heritageItemModal').classList.add('active');
+    }
+
+    function closeHeritageModal() {
+        document.getElementById('heritageItemModal').classList.remove('active');
+    }
+
+    function saveHeritageItem() {
+        const editIndex = document.getElementById('heritageEditIndex').value;
+        const title = document.getElementById('heritageItemTitle').value.trim();
+        const image = document.getElementById('heritageItemImage').value.trim();
+        const badge = document.getElementById('heritageItemBadge').value.trim();
+        const story = document.getElementById('heritageItemStory').value.trim();
+        const memory = document.getElementById('heritageItemMemory').value.trim();
+        
+        if (!title || !image) {
+            showToast('Title and Image are required!', 'error');
+            return;
+        }
+        
+        const newItem = { title, image, story, memory, badge };
+        
+        if (editIndex !== '') {
+            heritageItems[editIndex] = newItem;
+        } else {
+            heritageItems.push(newItem);
+        }
+        
+        saveToLocalStorage();
+        renderHeritageTable();
+        closeHeritageModal();
+        showToast('Heritage item saved! Don\'t forget to save to Redis.', 'success');
+    }
+
+    function deleteHeritageItem(index) {
+        if (!confirm(`Are you sure you want to delete "${heritageItems[index].title}"?`)) return;
+        heritageItems.splice(index, 1);
+        saveToLocalStorage();
+        renderHeritageTable();
+        showToast('Heritage item deleted.', 'success');
+    }
+
+    function previewHeritageImage() {
+        const imageName = document.getElementById('heritageItemImage').value.trim();
+        const preview = document.getElementById('heritageImagePreview');
+        if (imageName) {
+            preview.src = GITHUB_RAW_BASE + imageName;
+        } else {
+            preview.src = PLACEHOLDER_IMAGE;
+        }
+    }
+
+    // ==================== DATA MANAGEMENT ====================
+    function exportData() {
+        const data = {
+            menu: menuData,
+            heritage: heritageItems,
+            heritageContent: heritageContent,
+            exportDate: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `lantica-backup-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Data exported successfully!', 'success');
+    }
+
+    function importDataPrompt() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    
+                    if (data.menu) {
+                        menuData = data.menu;
+                    }
+                    if (data.heritage) {
+                        heritageItems = data.heritage;
+                    }
+                    if (data.heritageContent) {
+                        heritageContent = data.heritageContent;
+                    }
+                    
+                    saveToLocalStorage();
+                    renderCategoryTabs();
+                    renderMenuTable();
+                    renderHeritageTable();
+                    loadHeritageContentToForm();
+                    updateStats();
+                    showToast('Data imported successfully! Push to Redis to save permanently.', 'success');
+                } catch (error) {
+                    showToast('Invalid JSON file!', 'error');
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
+    function resetToDefault() {
+        if (!confirm('⚠️ This will reset ALL data to default. Your current data will be lost unless you have exported it. Continue?')) return;
+        if (!confirm('Are you REALLY sure? This cannot be undone.')) return;
+        
+        menuData = JSON.parse(JSON.stringify(DEFAULT_MENU_DATA));
+        heritageItems = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_ITEMS));
+        heritageContent = JSON.parse(JSON.stringify(DEFAULT_HERITAGE_CONTENT));
+        
+        saveToLocalStorage();
+        renderCategoryTabs();
+        renderMenuTable();
+        renderHeritageTable();
+        loadHeritageContentToForm();
+        updateStats();
+        showToast('Data reset to default. Push to Redis to apply changes.', 'warning');
+    }
+
+    // ==================== UI HELPERS ====================
+    function switchSection(section) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+        
+        document.getElementById('section-' + section).classList.add('active');
+        document.getElementById('nav-' + section).classList.add('active');
+        
+        if (section === 'menu') {
+            renderCategoryTabs();
+            renderMenuTable();
+            updateStats();
+        }
+        if (section === 'heritage') {
+            renderHeritageTable();
+            loadHeritageContentToForm();
+        }
+        
+        // Close mobile sidebar
+        document.getElementById('sidebar').classList.remove('open');
+    }
+
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = `toast ${type} show`;
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
     function escapeHtml(str) {
         if (!str) return '';
-        return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
-    
-    document.getElementById("searchInput")?.addEventListener("keyup", () => renderTable());
-    document.getElementById("categoryFilter")?.addEventListener("change", () => renderTable());
-    document.getElementById("itemImage")?.addEventListener("input", (e) => {
-        const url = e.target.value;
-        if (url) {
-            document.getElementById("imagePreview").innerHTML = `<img src="${url}" class="img-preview-large" onerror="this.style.display='none'">`;
-        } else {
-            document.getElementById("imagePreview").innerHTML = "";
+
+    // Close modals on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+        }
+        // Ctrl+S to save to Redis
+        if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            pushToRedis();
+        }
+    });
+
+    // Auto-save heritage content changes
+    ['heritageHeroTitle', 'heritageHeroDesc', 'heritageQuote', 'heritageStoryTitle', 'heritageStoryContent'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', heritageDataChanged);
         }
     });
 </script>
