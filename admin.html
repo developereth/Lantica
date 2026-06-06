@@ -14,30 +14,25 @@
         .hidden{display:none!important}
         h1{color:#C9A96E;margin-bottom:20px;font-size:1.5rem;text-align:center}
         .tabs{display:flex;gap:5px;margin-bottom:20px;justify-content:center}
-        .tabs button{padding:10px 20px;border:1px solid #C9A96E;background:transparent;color:#C9A96E;border-radius:8px;cursor:pointer;font-weight:600;transition:0.3s}
+        .tabs button{padding:10px 20px;border:1px solid #C9A96E;background:transparent;color:#C9A96E;border-radius:8px;cursor:pointer;font-weight:600}
         .tabs button.active,.tabs button:hover{background:#C9A96E;color:#000}
         .tab-content{display:none}.tab-content.show{display:block}
         .card{background:#111;padding:20px;border-radius:12px;margin-bottom:20px;border:1px solid #333}
         h2{color:#C9A96E;margin-bottom:12px;font-size:1.1rem}
         .row{display:flex;gap:10px;margin-bottom:10px}.row>*{flex:1}
-        input,select,textarea{width:100%;padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.9rem;margin-bottom:8px;font-family:inherit;transition:0.3s}
+        input,select,textarea{width:100%;padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.9rem;margin-bottom:8px;font-family:inherit}
         input:focus,select:focus,textarea:focus{outline:none;border-color:#C9A96E}
-        button{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;transition:0.3s}
-        .btn-gold{background:#C9A96E;color:#000}.btn-gold:hover{background:#b8933f}
-        .btn-red{background:#c0392b;color:#fff}.btn-red:hover{background:#e74c3c}
-        .btn-blue{background:#3498db;color:#fff}.btn-green{background:#27ae60;color:#fff}
-        .upload-box{border:2px dashed #C9A96E;padding:15px;text-align:center;border-radius:10px;cursor:pointer;margin-bottom:8px;transition:0.3s}
-        .upload-box:hover{background:#1a1a1a;border-color:#fff}
+        button{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold}
+        .btn-gold{background:#C9A96E;color:#000}.btn-red{background:#c0392b;color:#fff}.btn-blue{background:#3498db;color:#fff}.btn-green{background:#27ae60;color:#fff}
+        .upload-box{border:2px dashed #C9A96E;padding:15px;text-align:center;border-radius:10px;cursor:pointer;margin-bottom:8px}
         .preview-row{margin-bottom:8px}.preview-row img{width:100px;height:100px;object-fit:cover;border-radius:8px;display:none}
         .msg{padding:10px;margin:8px 0;border-radius:8px;display:none;text-align:center;font-weight:600}
         .msg.success{background:#27ae60;display:block}.msg.error{background:#c0392b;display:block}
         .item-row{display:flex;align-items:center;gap:12px;padding:10px;background:#1a1a1a;border-radius:8px;margin-bottom:6px;border:1px solid #333;flex-wrap:wrap}
-        .item-row:hover{background:#222}
         .item-row img{width:45px;height:45px;object-fit:cover;border-radius:6px}
         .item-row .info{flex:1;min-width:120px}.item-row .info h3{color:#C9A96E;font-size:0.85rem}.item-row .info p{color:#888;font-size:0.7rem}
         .search-box{width:100%;padding:10px;background:#1a1a1a;border:2px solid #C9A96E;border-radius:20px;color:#fff;margin-bottom:12px}
-        .edit-form{display:none;background:#1a1a1a;padding:15px;border-radius:8px;margin:8px 0;border:1px solid #C9A96E}
-        .edit-form.show{display:block}
+        .edit-form{display:none;background:#1a1a1a;padding:15px;border-radius:8px;margin:8px 0;border:1px solid #C9A96E}.edit-form.show{display:block}
         .top-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:15px}
         .btn-sm{padding:6px 14px;font-size:0.8rem}
         @media(max-width:600px){.row{flex-direction:column}}
@@ -48,19 +43,19 @@
 <div id="loginScreen" class="login-box"><h2>🔐 Lantica Admin</h2><input type="password" id="pw" placeholder="Password" onkeypress="if(event.key==='Enter')login()"><button class="btn-gold" onclick="login()">Login</button><p id="loginErr" style="color:#e74c3c;margin-top:10px;display:none">Wrong password</p></div>
 
 <div id="panel" class="hidden">
-<div class="top-bar"><h1 style="margin:0">🍽️ Lantica 1960</h1><div style="display:flex;gap:8px"><button class="btn-gold btn-sm" onclick="saveToJSONbin()">💾 Save</button><button class="btn-red btn-sm" onclick="logout()">Logout</button></div></div>
+<div class="top-bar"><h1 style="margin:0">🍽️ Lantica 1960</h1><div style="display:flex;gap:8px"><button class="btn-green btn-sm" onclick="saveToGitHub()">💾 Save to GitHub</button><button class="btn-blue btn-sm" onclick="loadFromGitHub()">🔄 Reload</button><button class="btn-red btn-sm" onclick="logout()">Logout</button></div></div>
 <div class="tabs"><button class="active" onclick="switchTab('menu')">🍽️ Menu</button><button onclick="switchTab('heritage')">🏛️ Heritage</button></div>
 
 <!-- MENU -->
 <div class="tab-content show" id="tab-menu">
 <div class="card"><h2>➕ Add Item</h2>
-<div class="upload-box" onclick="document.getElementById('f1').click()">📷 Tap to upload image</div>
+<div class="upload-box" onclick="document.getElementById('f1').click()">📷 Upload to Cloudinary</div>
 <input type="file" id="f1" accept="image/*" style="display:none" onchange="addImg()">
 <div class="preview-row"><img id="pv1"><span id="st1" style="font-size:0.7rem;margin-left:10px"></span></div>
 <input type="hidden" id="u1">
 <div class="row"><input type="text" id="name" placeholder="Item Name *"><input type="number" id="price" placeholder="Price (ETB) *"></div>
 <div class="row"><select id="category"><option value="">Category</option></select><input type="text" id="imageUrl" placeholder="Or paste image URL"></div>
-<div class="row"><input type="text" id="newCat" placeholder="New category name"><button class="btn-gold btn-sm" onclick="addCategory()">+ Category</button></div>
+<div class="row"><input type="text" id="newCat" placeholder="New category"><button class="btn-gold btn-sm" onclick="addCategory()">+ Add</button></div>
 <button class="btn-gold" onclick="addItem()">✅ Add Item</button><div id="msg" class="msg"></div>
 </div>
 
@@ -75,50 +70,31 @@
 
 <div class="card"><h2>📋 Items</h2><input type="text" class="search-box" placeholder="🔍 Search..." id="sp" oninput="renderItems()"><div id="pList">Loading...</div></div>
 </div>
-
-<!-- HERITAGE -->
-<div class="tab-content" id="tab-heritage">
-<div class="card"><h2>Page Content</h2>
-<input type="text" id="hHeroTitle" placeholder="Hero Title"><textarea id="hHeroDesc" rows="2" placeholder="Hero Description"></textarea>
-<input type="text" id="hQuote" placeholder="Quote"><input type="text" id="hStoryTitle" placeholder="Story Title">
-<textarea id="hStoryContent" rows="3" placeholder="Story Content"></textarea>
-<button class="btn-gold" onclick="saveHeritageContent()">💾 Save</button><div id="hcmsg" class="msg"></div>
-</div>
-
-<div class="card"><h2>➕ Add Heritage</h2>
-<div class="upload-box" onclick="document.getElementById('hf').click()">📷 Upload image</div>
-<input type="file" id="hf" accept="image/*" style="display:none" onchange="heritageImg()">
-<div class="preview-row"><img id="hpv"><span id="hst" style="font-size:0.7rem;margin-left:10px"></span></div>
-<input type="hidden" id="hu">
-<input type="text" id="hTitle" placeholder="Title *"><input type="text" id="hBadge" placeholder="Badge">
-<input type="text" id="hImageUrl" placeholder="Or paste image URL"><textarea id="hStory" rows="2" placeholder="Story *"></textarea>
-<textarea id="hMemory" rows="2" placeholder="Memory"></textarea>
-<button class="btn-gold" onclick="addHeritageItem()">✅ Add</button><div id="hmsg" class="msg"></div>
-</div>
-
-<div class="edit-form" id="heritageEditForm"><h2>✏️ Edit Heritage</h2><input type="hidden" id="heditId">
-<div class="upload-box" onclick="document.getElementById('hef').click()">📷 Change image</div>
-<input type="file" id="hef" accept="image/*" style="display:none" onchange="heritageEditImg()">
-<div class="preview-row"><img id="hepv"><span id="hest" style="font-size:0.7rem;margin-left:10px"></span></div>
-<input type="hidden" id="heu">
-<input type="text" id="heTitle" placeholder="Title"><input type="text" id="heBadge" placeholder="Badge">
-<input type="text" id="heImageUrl" placeholder="Image URL"><textarea id="heStory" rows="2" placeholder="Story"></textarea>
-<textarea id="heMemory" rows="2" placeholder="Memory"></textarea>
-<button class="btn-green" onclick="saveHeritageEdit()">💾 Save</button><button class="btn-red" onclick="cancelHeritageEdit()">Cancel</button></div>
-
-<div class="card"><h2>📋 Heritage Items</h2><div id="hList">Loading...</div></div>
-</div>
 </div></div>
 
 <script>
-var JSONBIN_ID='6a240d9fad83e65dfd06e97c',JSONBIN_KEY='$2a$10$D4b0yhwxAJ/xbkOxVNX9mepyzCYrVWRVe7xaZ5b4TUaKM3R9sF79G',C='dnxxxpbm9',PR='lantica_upload',PW='Lantica1960';
-var menuData={items:[]},heritageData={items:[],content:{}};
+var API='https://lantica-menu.developeraddis.workers.dev/api',C='dnxxxpbm9',PR='lantica_upload',menuData={items:[]},adminKey='';
 
-function login(){if(document.getElementById('pw').value===PW){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('panel').classList.remove('hidden');loadAll()}else{document.getElementById('loginErr').style.display='block'}}
+function login(){adminKey=document.getElementById('pw').value;loadFromGitHub().then(d=>{if(d){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('panel').classList.remove('hidden')}else{document.getElementById('loginErr').style.display='block'}})}
 function logout(){document.getElementById('panel').classList.add('hidden');document.getElementById('loginScreen').classList.remove('hidden')}
 function switchTab(t){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('show'));document.getElementById('tab-'+t).classList.add('show')}
 
-// CLOUDINARY
+async function loadFromGitHub(){
+    try{
+        var r=await fetch(API+'/menu');
+        if(r.ok){menuData=await r.json();renderAll();return true}
+    }catch(e){console.log('Load error:',e)}
+    return false;
+}
+
+async function saveToGitHub(){
+    try{
+        var r=await fetch(API+'/menu',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':adminKey},body:JSON.stringify(menuData)});
+        if(r.ok){showMsg('msg','✅ Saved to GitHub!','success');return true}
+    }catch(e){showMsg('msg','❌ '+e.message,'error')}
+    return false;
+}
+
 async function cloudUpload(file,pvId,stId,uId){
     var s=document.getElementById(stId);s.textContent='Uploading...';s.style.color='#C9A96E';
     var fd=new FormData();fd.append('file',file);fd.append('upload_preset',PR);fd.append('folder','lantica-menu');
@@ -127,78 +103,22 @@ async function cloudUpload(file,pvId,stId,uId){
 }
 function addImg(){var f=document.getElementById('f1').files[0];if(f)cloudUpload(f,'pv1','st1','u1')}
 function editImg(){var f=document.getElementById('ef1').files[0];if(f)cloudUpload(f,'ep1','es1','eu1')}
-function heritageImg(){var f=document.getElementById('hf').files[0];if(f)cloudUpload(f,'hpv','hst','hu')}
-function heritageEditImg(){var f=document.getElementById('hef').files[0];if(f)cloudUpload(f,'hepv','hest','heu')}
 
-// JSONBIN
-async function saveToJSONbin(){
-    try{
-        var menuR=await fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_ID,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify(menuData)});
-        var herR=await fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_ID+'_heritage',{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify(heritageData)});
-        showMsg('msg','✅ Saved!','success');
-    }catch(e){showMsg('msg','❌ '+e.message,'error')}
-}
-
-async function loadAll(){
-    try{
-        var mr=await fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_ID+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
-        if(mr.ok){var md=await mr.json();menuData=md.record}
-        var hr=await fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_ID+'_heritage/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
-        if(hr.ok){var hd=await hr.json();heritageData=hd.record}
-    }catch(e){console.log('Load error')}
-    if(!menuData.items||!menuData.items.length)menuData={items:[]};
-    if(!heritageData.content)heritageData={items:[],content:{heroTitle:"Heritage Gallery",heroDesc:"Step into memory",quote:"Every artifact tells a story",storyTitle:"The Memory",storyContent:"Our story"}};
-    loadHeritageContent();renderAll();
-}
-
-// MENU
-function getCats(){var cats=[];menuData.items.forEach(function(i){if(cats.indexOf(i.category)===-1)cats.push(i.category)});return cats}
-function renderAll(){renderItems();renderHeritageItems();var s=document.getElementById('category');s.innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('');var e=document.getElementById('ec');e.innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('')}
+function getCats(){var c=[];menuData.items.forEach(i=>{if(!c.includes(i.category))c.push(i.category)});return c}
+function renderAll(){renderItems();var s=document.getElementById('category');s.innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('');document.getElementById('ec').innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('')}
 function renderItems(){
     var s=(document.getElementById('sp')?.value||'').toLowerCase();var items=menuData.items;
     if(s)items=items.filter(i=>i.name.toLowerCase().includes(s));
     var c=document.getElementById('pList');
     if(!items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:20px">No items</p>';return}
     c.innerHTML=items.map(p=>'<div class="item-row"><img src="'+(p.image?p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image:'https://placehold.co/45/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/45/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.name)+'</h3><p>'+esc(p.category)+' | '+p.price+' ETB</p></div><button class="btn-blue btn-sm" onclick="editItem('+p.id+')">✏️</button><button class="btn-red btn-sm" onclick="deleteItem('+p.id+')">🗑️</button></div>').join('')}
-
-function addItem(){
-    var n=document.getElementById('name').value.trim(),pr=parseInt(document.getElementById('price').value)||0,cat=document.getElementById('category').value,img=document.getElementById('u1').value||document.getElementById('imageUrl').value.trim();
-    if(!n||!pr||!cat){showMsg('msg','❌ Fill fields','error');return}
-    var maxId=0;menuData.items.forEach(function(i){if(i.id>maxId)maxId=i.id});
-    menuData.items.push({id:maxId+1,name:n,price:pr,category:cat,image:img,description:''});
-    ['name','price','imageUrl'].forEach(function(id){document.getElementById(id).value=''});
-    document.getElementById('u1').value='';document.getElementById('pv1').style.display='none';document.getElementById('st1').textContent='';document.getElementById('f1').value='';
-    renderAll();saveToJSONbin();showMsg('msg','✅ Added!','success');
-}
-function editItem(id){
-    var p=menuData.items.find(function(x){return x.id==id});if(!p)return;
-    document.getElementById('editId').value=p.id;document.getElementById('en').value=p.name;document.getElementById('epr').value=p.price;document.getElementById('ec').value=p.category;document.getElementById('eurl').value=p.image||'';document.getElementById('eu1').value=p.image||'';
-    if(p.image){document.getElementById('ep1').src=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;document.getElementById('ep1').style.display='block'}else document.getElementById('ep1').style.display='none';
-    document.getElementById('es1').textContent='';document.getElementById('ef1').value='';document.getElementById('editForm').classList.add('show');document.getElementById('editForm').scrollIntoView({behavior:'smooth'});
-}
+function addItem(){var n=document.getElementById('name').value.trim(),pr=parseInt(document.getElementById('price').value)||0,cat=document.getElementById('category').value,img=document.getElementById('u1').value||document.getElementById('imageUrl').value.trim();if(!n||!pr||!cat){showMsg('msg','❌ Fill fields','error');return}var maxId=0;menuData.items.forEach(i=>{if(i.id>maxId)maxId=i.id});menuData.items.push({id:maxId+1,name:n,price:pr,category:cat,image:img});['name','price','imageUrl'].forEach(id=>document.getElementById(id).value='');document.getElementById('u1').value='';document.getElementById('pv1').style.display='none';document.getElementById('st1').textContent='';document.getElementById('f1').value='';saveToGitHub();renderAll();showMsg('msg','✅ Added!','success')}
+function editItem(id){var p=menuData.items.find(x=>x.id==id);if(!p)return;document.getElementById('editId').value=p.id;document.getElementById('en').value=p.name;document.getElementById('epr').value=p.price;document.getElementById('ec').value=p.category;document.getElementById('eurl').value=p.image||'';document.getElementById('eu1').value=p.image||'';if(p.image){document.getElementById('ep1').src=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;document.getElementById('ep1').style.display='block'}else document.getElementById('ep1').style.display='none';document.getElementById('es1').textContent='';document.getElementById('ef1').value='';document.getElementById('editForm').classList.add('show');document.getElementById('editForm').scrollIntoView({behavior:'smooth'})}
 function cancelEdit(){document.getElementById('editForm').classList.remove('show')}
-function saveEdit(){
-    var id=parseInt(document.getElementById('editId').value),n=document.getElementById('en').value.trim(),pr=parseInt(document.getElementById('epr').value)||0,cat=document.getElementById('ec').value,img=document.getElementById('eu1').value||document.getElementById('eurl').value.trim();
-    var p=menuData.items.find(function(x){return x.id==id});if(!p)return;
-    p.name=n;p.price=pr;p.category=cat;p.image=img;
-    cancelEdit();renderAll();saveToJSONbin();showMsg('msg','✅ Updated!','success');
-}
-function deleteItem(id){if(!confirm('Delete?'))return;menuData.items=menuData.items.filter(function(x){return x.id!=id});renderAll();saveToJSONbin();showMsg('msg','🗑️ Deleted','success')}
-function addCategory(){var n=document.getElementById('newCat').value.trim();if(!n)return;document.getElementById('newCat').value='';renderAll();showMsg('msg','✅ Add items to this category','success')}
-
-// HERITAGE
-function loadHeritageContent(){var c=heritageData.content;document.getElementById('hHeroTitle').value=c.heroTitle||'';document.getElementById('hHeroDesc').value=c.heroDesc||'';document.getElementById('hQuote').value=c.quote||'';document.getElementById('hStoryTitle').value=c.storyTitle||'';document.getElementById('hStoryContent').value=c.storyContent||''}
-function saveHeritageContent(){heritageData.content.heroTitle=document.getElementById('hHeroTitle').value;heritageData.content.heroDesc=document.getElementById('hHeroDesc').value;heritageData.content.quote=document.getElementById('hQuote').value;heritageData.content.storyTitle=document.getElementById('hStoryTitle').value;heritageData.content.storyContent=document.getElementById('hStoryContent').value;saveToJSONbin();showMsg('hcmsg','✅ Saved!','success')}
-function renderHeritageItems(){
-    var c=document.getElementById('hList');if(!heritageData.items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:20px">No items</p>';return}
-    c.innerHTML=heritageData.items.map(function(p,i){return '<div class="item-row"><img src="'+(p.image?p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image:'https://placehold.co/45/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/45/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.title)+'</h3><p>'+(p.badge||'')+' | '+esc((p.story||'').substring(0,40))+'...</p></div><button class="btn-blue btn-sm" onclick="editHeritageItem('+i+')">✏️</button><button class="btn-red btn-sm" onclick="deleteHeritageItem('+i+')">🗑️</button></div>'}).join('')}
-function addHeritageItem(){var t=document.getElementById('hTitle').value.trim(),s=document.getElementById('hStory').value.trim(),img=document.getElementById('hu').value||document.getElementById('hImageUrl').value.trim();if(!t||!s||!img){showMsg('hmsg','❌ Fill fields','error');return}heritageData.items.push({title:t,image:img,story:s,memory:document.getElementById('hMemory').value.trim(),badge:document.getElementById('hBadge').value.trim()});['hTitle','hBadge','hImageUrl','hStory','hMemory'].forEach(function(id){document.getElementById(id).value=''});document.getElementById('hu').value='';document.getElementById('hpv').style.display='none';document.getElementById('hst').textContent='';document.getElementById('hf').value='';renderHeritageItems();saveToJSONbin();showMsg('hmsg','✅ Added!','success')}
-function editHeritageItem(i){var p=heritageData.items[i];document.getElementById('heditId').value=i;document.getElementById('heTitle').value=p.title;document.getElementById('heBadge').value=p.badge||'';document.getElementById('heImageUrl').value=p.image||'';document.getElementById('heStory').value=p.story||'';document.getElementById('heMemory').value=p.memory||'';document.getElementById('heu').value=p.image||'';if(p.image){document.getElementById('hepv').src=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;document.getElementById('hepv').style.display='block'}else document.getElementById('hepv').style.display='none';document.getElementById('hest').textContent='';document.getElementById('hef').value='';document.getElementById('heritageEditForm').classList.add('show');document.getElementById('heritageEditForm').scrollIntoView({behavior:'smooth'})}
-function cancelHeritageEdit(){document.getElementById('heritageEditForm').classList.remove('show')}
-function saveHeritageEdit(){var i=parseInt(document.getElementById('heditId').value),t=document.getElementById('heTitle').value.trim(),s=document.getElementById('heStory').value.trim(),img=document.getElementById('heu').value||document.getElementById('heImageUrl').value.trim();if(!t||!s||!img){alert('Fill fields');return}heritageData.items[i]={title:t,image:img,story:s,memory:document.getElementById('heMemory').value.trim(),badge:document.getElementById('heBadge').value.trim()};cancelHeritageEdit();renderHeritageItems();saveToJSONbin();showMsg('hmsg','✅ Saved!','success')}
-function deleteHeritageItem(i){if(!confirm('Delete?'))return;heritageData.items.splice(i,1);renderHeritageItems();saveToJSONbin();showMsg('hmsg','🗑️ Deleted','success')}
-
-function showMsg(id,t,type){var m=document.getElementById(id);m.textContent=t;m.className='msg '+type;setTimeout(function(){m.className='msg'},3000)}
+function saveEdit(){var id=parseInt(document.getElementById('editId').value),n=document.getElementById('en').value.trim(),pr=parseInt(document.getElementById('epr').value)||0,cat=document.getElementById('ec').value,img=document.getElementById('eu1').value||document.getElementById('eurl').value.trim();var p=menuData.items.find(x=>x.id==id);if(!p)return;p.name=n;p.price=pr;p.category=cat;p.image=img;cancelEdit();saveToGitHub();renderAll();showMsg('msg','✅ Updated!','success')}
+function deleteItem(id){if(!confirm('Delete?'))return;menuData.items=menuData.items.filter(x=>x.id!=id);saveToGitHub();renderAll();showMsg('msg','🗑️ Deleted','success')}
+function addCategory(){var n=document.getElementById('newCat').value.trim();if(!n)return;document.getElementById('newCat').value='';renderAll();showMsg('msg','✅ Category ready!','success')}
+function showMsg(id,t,type){var m=document.getElementById(id);m.textContent=t;m.className='msg '+type;setTimeout(()=>m.className='msg',3000)}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 </script>
 </body>
