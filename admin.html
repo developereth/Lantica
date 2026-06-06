@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Lantica 1960 Menu</title>
+    <title>Admin | Lantica 1960</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -11,6 +11,11 @@
         body{font-family:'Inter',sans-serif;background:#0A0A0A;color:#E8E0D5;padding:20px}
         :root{--gold:#C9A96E;--dark-card:#1A1A1A;--border:#2C2823}
         .container{max-width:1200px;margin:0 auto}
+        .login-box{background:var(--dark-card);padding:40px;border-radius:18px;max-width:400px;margin:100px auto;text-align:center;border:1px solid var(--border)}
+        .login-box h2{color:var(--gold);margin-bottom:20px;font-family:'Playfair Display',serif}
+        .login-box input{width:100%;padding:14px;background:#0A0A0A;border:1px solid var(--border);border-radius:8px;color:#fff;font-size:1rem;text-align:center;margin-bottom:15px}
+        .login-box input:focus{outline:none;border-color:var(--gold)}
+        .hidden{display:none!important}
         h1{color:var(--gold);margin-bottom:20px;text-align:center;font-family:'Playfair Display',serif;font-size:2rem}
         .card{background:var(--dark-card);padding:25px;border-radius:12px;margin-bottom:25px;border:1px solid var(--border)}
         h2{color:var(--gold);margin-bottom:15px;font-size:1.2rem}
@@ -22,11 +27,12 @@
         .btn-red{background:#c0392b;color:#fff}.btn-red:hover{background:#e74c3c}
         .btn-blue{background:#3498db;color:#fff;padding:8px 16px;font-size:0.8rem}
         .btn-green{background:#27ae60;color:#fff}
-        .upload-box{border:2px dashed var(--gold);padding:20px;text-align:center;border-radius:10px;cursor:pointer;margin-bottom:8px;transition:0.3s}
-        .upload-box:hover{background:#0A0A0A}
-        .preview-row{margin-bottom:12px}
-        .preview-row img{width:150px;height:100px;object-fit:cover;border-radius:8px;display:none}
-        .status-row{margin-bottom:12px;font-size:0.75rem;color:var(--gold)}
+        .upload-box{border:2px dashed var(--gold);padding:20px;text-align:center;border-radius:10px;cursor:pointer;margin-bottom:12px;transition:0.3s;background:#0A0A0A}
+        .upload-box:hover{background:#111;border-color:#fff}
+        .upload-box i{font-size:2rem;color:var(--gold);margin-bottom:5px}
+        .preview-row{margin-bottom:12px;text-align:center}
+        .preview-row img{max-width:200px;max-height:150px;object-fit:cover;border-radius:8px;display:none;margin:0 auto}
+        .status-row{margin-bottom:12px;font-size:0.75rem;text-align:center;color:var(--gold)}
         .msg{padding:12px;margin:10px 0;border-radius:8px;display:none;text-align:center;font-weight:600}
         .msg.success{background:#27ae60;display:block}.msg.error{background:#c0392b;display:block}
         .item-row{display:flex;align-items:center;gap:12px;padding:12px;background:#0A0A0A;border-radius:8px;margin-bottom:8px;border:1px solid var(--border)}
@@ -39,13 +45,26 @@
         .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
         .stat{background:var(--dark-card);padding:15px;border-radius:8px;text-align:center;border:1px solid var(--border)}
         .stat .num{font-size:1.5rem;font-weight:700;color:var(--gold)}.stat .lbl{font-size:0.7rem;color:#888;margin-top:3px}
-        .export-btn{background:#8e44ad;color:#fff;padding:8px 16px;font-size:0.8rem;margin-left:10px}
         @media(max-width:768px){.row{flex-direction:column}.stats{grid-template-columns:1fr}}
     </style>
 </head>
 <body>
 <div class="container">
-<h1>🍽️ Lantica 1960 - Menu Admin</h1>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login-box">
+    <h2>🔐 Admin Login</h2>
+    <input type="password" id="pw" placeholder="Enter Password" onkeypress="if(event.key==='Enter')login()">
+    <button class="btn-gold" onclick="login()">Access Admin</button>
+    <p id="loginErr" style="color:#e74c3c;margin-top:10px;display:none">❌ Wrong password</p>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="panel" class="hidden">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+    <h1 style="margin:0">🍽️ Menu Admin</h1>
+    <button class="btn-red" onclick="logout()" style="padding:8px 16px">🚪 Logout</button>
+</div>
 
 <div class="stats">
     <div class="stat"><div class="num" id="statCats">0</div><div class="lbl">Categories</div></div>
@@ -56,14 +75,16 @@
 <!-- ADD ITEM -->
 <div class="card">
     <h2>➕ Add New Item</h2>
+    
     <div class="upload-box" onclick="document.getElementById('f1').click()">
-        <div style="font-size:28px">📷</div>
-        <div style="font-size:0.7rem;color:#888">Upload Image (optional)</div>
+        <i class="fas fa-cloud-upload-alt"></i>
+        <div style="font-size:0.8rem;color:#888">Click to upload image (or paste URL below)</div>
     </div>
-    <input type="file" id="f1" accept="image/*" style="display:none" onchange="addImg()">
-    <div class="preview-row"><img id="pv1"></div>
+    <input type="file" id="f1" accept="image/*" style="display:none" onchange="uploadAddImage()">
+    <div class="preview-row"><img id="pv1" alt="Preview"></div>
     <div class="status-row" id="st1"></div>
     <input type="hidden" id="u1">
+    <input type="text" id="imageUrl" placeholder="Or paste image URL directly (e.g. GitHub raw URL)" onchange="setImageUrl('add')" style="margin-bottom:12px">
     
     <div class="row">
         <input type="text" id="iname" placeholder="Item Name *">
@@ -73,7 +94,7 @@
         <select id="icategory">
             <option value="">Select Category</option>
         </select>
-        <input type="text" id="inewcat" placeholder="Or type new category">
+        <input type="text" id="inewcat" placeholder="Or type new category name">
     </div>
     <button class="btn-gold" onclick="addItem()">✅ Add Item</button>
     <div id="msg" class="msg"></div>
@@ -86,13 +107,14 @@
     <input type="hidden" id="editOldCat">
     
     <div class="upload-box" onclick="document.getElementById('ef1').click()">
-        <div style="font-size:28px">📷</div>
-        <div style="font-size:0.7rem;color:#888">Change Image</div>
+        <i class="fas fa-cloud-upload-alt"></i>
+        <div style="font-size:0.8rem;color:#888">Click to change image (or paste URL below)</div>
     </div>
-    <input type="file" id="ef1" accept="image/*" style="display:none" onchange="editImg()">
-    <div class="preview-row"><img id="ep1"></div>
+    <input type="file" id="ef1" accept="image/*" style="display:none" onchange="uploadEditImage()">
+    <div class="preview-row"><img id="ep1" alt="Preview"></div>
     <div class="status-row" id="es1"></div>
     <input type="hidden" id="eu1">
+    <input type="text" id="eimageUrl" placeholder="Or paste image URL directly" onchange="setImageUrl('edit')" style="margin-bottom:12px">
     
     <div class="row">
         <input type="text" id="ename" placeholder="Name *">
@@ -103,14 +125,14 @@
         <input type="text" id="enewcat" placeholder="Or new category">
     </div>
     <div style="display:flex;gap:10px;margin-top:10px">
-        <button class="btn-green" onclick="saveEdit()">💾 Save Changes</button>
+        <button class="btn-green" id="saveEditBtn" onclick="saveEdit()">💾 Save Changes</button>
         <button class="btn-red" onclick="cancelEdit()">Cancel</button>
     </div>
 </div>
 
 <!-- ITEMS LIST -->
 <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;flex-wrap:wrap;gap:10px">
         <h2 style="margin:0">📋 Menu Items</h2>
         <div>
             <button class="btn-blue" onclick="exportData()" style="margin-right:5px">📥 Export</button>
@@ -122,197 +144,139 @@
     <div id="pList">Loading...</div>
 </div>
 </div>
+</div>
 
 <script>
-// ===== CONFIGURATION =====
-var CLOUD_NAME = 'dm6rwo1ox'; // Your Cloudinary cloud name
-var UPLOAD_PRESET = 'lantica_preset'; // Create this in Cloudinary dashboard
-var API_URL = 'https://lantica-api.your-worker.workers.dev/api'; // Your Workers URL (optional)
+// ===== YOUR CONFIGURATION =====
+var API_URL = 'https://lantica-menu.developeraddis.workers.dev/api/menu';
+var CLOUD_NAME = 'dnxxxpbm9';
+var UPLOAD_PRESET = 'lantica_upload';
+var ADMIN_PASSWORD = 'Lantica1960';
+var GITHUB_RAW = 'https://raw.githubusercontent.com/developereth/Lantica/main/';
 
 var menuData = {};
-var STORAGE_KEY = 'lantica_menu_data';
-var USE_API = false; // Set to true if you have Workers API
 
-// Default data structure
-var DEFAULT_MENU = {
-    "☀️ Breakfast": [
-        {id:"1",name:"Combo Fasting",price:250,image:""},
-        {id:"2",name:"Egg w/ meat",price:250,image:""},
-        {id:"3",name:"Special Fetora",price:350,image:""},
-        {id:"4",name:"Normal Fetora",price:200,image:""},
-        {id:"5",name:"Special Chech",price:250,image:""},
-        {id:"6",name:"Normal Foul",price:180,image:""},
-        {id:"7",name:"Special Foul",price:250,image:""},
-        {id:"8",name:"Tomato Cheese",price:170,image:""},
-        {id:"9",name:"Egg Sandwich",price:200,image:""}
-    ],
-    "🔥 Traditional Food": [
-        {id:"10",name:"Lamb Tibs",price:680,image:""},
-        {id:"11",name:"Lamb Tibs Tefresho",price:700,image:""},
-        {id:"12",name:"Okie",price:600,image:""},
-        {id:"13",name:"Chikena Tibs",price:600,image:""},
-        {id:"14",name:"Chikena Tefresho",price:650,image:""},
-        {id:"15",name:"Kitto",price:1200,image:""},
-        {id:"16",name:"Quanta Firfir",price:370,image:""},
-        {id:"17",name:"Kiba Firfir",price:210,image:""},
-        {id:"18",name:"Tibes Firfir",price:320,image:""},
-        {id:"19",name:"Shiro Bekibe",price:300,image:""},
-        {id:"20",name:"Dullet",price:330,image:""},
-        {id:"21",name:"Derkosh Firfir Beseg",price:380,image:""},
-        {id:"22",name:"Bozena Shiro",price:350,image:""},
-        {id:"23",name:"Mahberawi",price:1200,image:""},
-        {id:"24",name:"Yefisk Agelgel",price:1000,image:""},
-        {id:"25",name:"Gomen Kitto",price:300,image:""}
-    ],
-    "🍕 Pizza": [
-        {id:"26",name:"Special Lentic Pizza Large",price:580,image:""},
-        {id:"27",name:"Special Lentic Pizza Medium",price:550,image:""},
-        {id:"28",name:"Chicken Pizza Large",price:550,image:""},
-        {id:"29",name:"Chicken Pizza Medium",price:460,image:""},
-        {id:"30",name:"Margarita Large",price:450,image:""},
-        {id:"31",name:"Margarita Medium",price:400,image:""},
-        {id:"32",name:"Vegetable Pizza Large",price:370,image:""}
-    ],
-    "🍝 Spaghetti & Rice": [
-        {id:"33",name:"Spaghetti with Vegetables",price:230,image:""},
-        {id:"34",name:"Rice",price:400,image:""}
-    ],
-    "🍔 Burgers & Sandwiches": [
-        {id:"35",name:"Noma Burger",price:305,image:""},
-        {id:"36",name:"Cheese Burger",price:350,image:""},
-        {id:"37",name:"Noma Ketchup",price:380,image:""},
-        {id:"38",name:"Club Sandwich",price:360,image:""},
-        {id:"39",name:"Tuna Sandwich",price:350,image:""},
-        {id:"40",name:"Vegetable Sandwich",price:160,image:""},
-        {id:"41",name:"Chicken Shawarma",price:600,image:""},
-        {id:"42",name:"French Fries",price:180,image:""}
-    ],
-    "🥩 Pork Selections": [
-        {id:"43",name:"Pork Chop",price:320,image:""},
-        {id:"44",name:"Pork Sausage",price:180,image:""},
-        {id:"45",name:"Pork Steak",price:570,image:""},
-        {id:"46",name:"Pork Loin",price:200,image:""},
-        {id:"47",name:"Pork Ribs",price:400,image:""},
-        {id:"48",name:"Pork Belly",price:380,image:""},
-        {id:"49",name:"Pork Shoulder",price:400,image:""}
-    ],
-    "🥗 Soup & Salad": [
-        {id:"50",name:"Vegetable Soup",price:180,image:""},
-        {id:"51",name:"Mixed Salad",price:200,image:""},
-        {id:"52",name:"Chicken Salad",price:300,image:""}
-    ],
-    "🍲 Fast Food": [
-        {id:"53",name:"Special Lantica Fasting",price:500,image:""},
-        {id:"54",name:"Normal Firfir",price:180,image:""},
-        {id:"55",name:"Shiro",price:275,image:""},
-        {id:"56",name:"Tegabino",price:300,image:""},
-        {id:"57",name:"Derkosh Firfir Fasting",price:220,image:""},
-        {id:"58",name:"Mesere",price:250,image:""},
-        {id:"59",name:"Hafe Hafe",price:280,image:""}
-    ],
-    "🥤 Fresh Juices": [
-        {id:"60",name:"Papaya Juice",price:160,image:""},
-        {id:"61",name:"Avocado Juice",price:160,image:""},
-        {id:"62",name:"Mango Juice",price:160,image:""},
-        {id:"63",name:"Telba Juice",price:200,image:""}
-    ],
-    "🧊 Cold Drinks": [
-        {id:"64",name:"1/4 Water",price:20,image:""},
-        {id:"65",name:"1/2 Water",price:35,image:""},
-        {id:"66",name:"1 Liter Water",price:55,image:""},
-        {id:"67",name:"2 Liter Water",price:75,image:""},
-        {id:"68",name:"Soft Drink",price:60,image:""},
-        {id:"69",name:"Ambo Water",price:65,image:""},
-        {id:"70",name:"Plastic Soft Drink",price:70,image:""},
-        {id:"71",name:"Tonic Water",price:80,image:""}
-    ],
-    "🍺 Beer & Draft": [
-        {id:"72",name:"Normal Beer",price:100,image:""},
-        {id:"73",name:"Big Bedla",price:120,image:""},
-        {id:"74",name:"Hicnek Beer",price:125,image:""},
-        {id:"75",name:"Arada Beer",price:130,image:""},
-        {id:"76",name:"Janibo",price:145,image:""},
-        {id:"77",name:"Single Draft",price:65,image:""}
-    ],
-    "🍷 Wine List": [
-        {id:"78",name:"Axmite",price:900,image:""},
-        {id:"79",name:"Guder Big",price:720,image:""},
-        {id:"80",name:"Kmila Big",price:800,image:""},
-        {id:"81",name:"Gebeta",price:1100,image:""},
-        {id:"82",name:"Aksejar",price:1200,image:""}
-    ],
-    "☕ Hot Beverages": [
-        {id:"83",name:"Tea",price:30,image:""},
-        {id:"84",name:"Coffee",price:60,image:""},
-        {id:"85",name:"Milk",price:80,image:""},
-        {id:"86",name:"Latte",price:70,image:""},
-        {id:"87",name:"Macchiato",price:75,image:""},
-        {id:"88",name:"Spires",price:60,image:""},
-        {id:"89",name:"Lewis Tea",price:75,image:""},
-        {id:"90",name:"Kesher",price:50,image:""},
-        {id:"91",name:"Tea with Lemon",price:45,image:""},
-        {id:"92",name:"Flavor Tea",price:65,image:""},
-        {id:"93",name:"Special Tea",price:150,image:""},
-        {id:"94",name:"Fasting Macchiato",price:85,image:""},
-        {id:"95",name:"Hot Chocolate",price:80,image:""}
-    ]
-};
-
-// Load data
-function loadMenu() {
-    if (USE_API) {
-        // Try API first
-        fetch(API_URL + '/menu')
-            .then(r => r.json())
-            .then(d => {
-                if (d.menu && Object.keys(d.menu).length > 0) {
-                    menuData = d.menu;
-                } else {
-                    loadLocal();
-                }
-                afterLoad();
-            })
-            .catch(() => {
-                loadLocal();
-                afterLoad();
-            });
+// ===== AUTH =====
+function login() {
+    if (document.getElementById('pw').value === ADMIN_PASSWORD) {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('panel').classList.remove('hidden');
+        loadMenu();
     } else {
-        loadLocal();
-        afterLoad();
+        document.getElementById('loginErr').style.display = 'block';
     }
 }
 
+function logout() {
+    document.getElementById('panel').classList.add('hidden');
+    document.getElementById('loginScreen').classList.remove('hidden');
+    document.getElementById('pw').value = '';
+    document.getElementById('loginErr').style.display = 'none';
+}
+
+// ===== CLOUDINARY UPLOAD =====
+async function uploadToCloudinary(file, previewId, statusId, hiddenId) {
+    var statusEl = document.getElementById(statusId);
+    statusEl.textContent = '⏳ Uploading...';
+    statusEl.style.color = '#C9A96E';
+    
+    var formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', UPLOAD_PRESET);
+    formData.append('folder', 'lantica-menu');
+    
+    try {
+        var response = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/image/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        var data = await response.json();
+        
+        if (data.secure_url) {
+            document.getElementById(hiddenId).value = data.secure_url;
+            document.getElementById(previewId).src = data.secure_url;
+            document.getElementById(previewId).style.display = 'block';
+            statusEl.textContent = '✅ Uploaded successfully!';
+            statusEl.style.color = '#27ae60';
+            console.log('✅ Image uploaded:', data.secure_url);
+        } else {
+            statusEl.textContent = '❌ Failed: ' + (data.error?.message || 'Unknown');
+            statusEl.style.color = '#e74c3c';
+            console.error('Upload error:', data);
+        }
+    } catch(e) {
+        statusEl.textContent = '❌ Network error';
+        statusEl.style.color = '#e74c3c';
+        console.error('Upload error:', e);
+    }
+}
+
+function uploadAddImage() {
+    var file = document.getElementById('f1').files[0];
+    if (file) uploadToCloudinary(file, 'pv1', 'st1', 'u1');
+}
+
+function uploadEditImage() {
+    var file = document.getElementById('ef1').files[0];
+    if (file) uploadToCloudinary(file, 'ep1', 'es1', 'eu1');
+}
+
+function setImageUrl(type) {
+    var url, previewId, hiddenId;
+    
+    if (type === 'add') {
+        url = document.getElementById('imageUrl').value.trim();
+        previewId = 'pv1';
+        hiddenId = 'u1';
+    } else {
+        url = document.getElementById('eimageUrl').value.trim();
+        previewId = 'ep1';
+        hiddenId = 'eu1';
+    }
+    
+    if (url) {
+        // If it's a GitHub relative path, prepend raw URL
+        if (!url.startsWith('http') && !url.startsWith('data:')) {
+            url = GITHUB_RAW + url;
+        }
+        document.getElementById(hiddenId).value = url;
+        document.getElementById(previewId).src = url;
+        document.getElementById(previewId).style.display = 'block';
+    }
+}
+
+// ===== API OPERATIONS =====
+async function loadMenu() {
+    try {
+        var r = await fetch(API_URL);
+        var d = await r.json();
+        if (d.success && d.menu) {
+            menuData = d.menu;
+            console.log('✅ Loaded from API:', Object.keys(menuData).length, 'categories');
+        } else {
+            throw new Error('No menu data');
+        }
+    } catch(e) {
+        console.log('⚠️ API unavailable, using localStorage');
+        loadLocal();
+    }
+    afterLoad();
+}
+
 function loadLocal() {
-    var saved = localStorage.getItem(STORAGE_KEY);
+    var saved = localStorage.getItem('lantica_menu_data');
     if (saved) {
         try {
             menuData = JSON.parse(saved);
-            if (Object.keys(menuData).length === 0) {
-                menuData = JSON.parse(JSON.stringify(DEFAULT_MENU));
-                saveLocal();
-            }
-        } catch (e) {
-            menuData = JSON.parse(JSON.stringify(DEFAULT_MENU));
-            saveLocal();
+        } catch(e) {
+            menuData = {};
         }
-    } else {
-        menuData = JSON.parse(JSON.stringify(DEFAULT_MENU));
-        saveLocal();
     }
 }
 
 function saveLocal() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(menuData));
-}
-
-function saveToAPI() {
-    if (!USE_API) return;
-    // Optional: sync to API
-    fetch(API_URL + '/menu/sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ menu: menuData })
-    }).catch(e => console.log('API sync failed'));
+    localStorage.setItem('lantica_menu_data', JSON.stringify(menuData));
 }
 
 function afterLoad() {
@@ -321,22 +285,16 @@ function afterLoad() {
     updateCategorySelects();
 }
 
-// Category management
 function getCategories() {
-    return Object.keys(menuData);
+    return Object.keys(menuData).sort();
 }
 
 function updateCategorySelects() {
     var cats = getCategories();
-    var options = cats.map(c => '<option value="' + c + '">' + c + '</option>').join('');
+    var options = cats.map(c => '<option value="' + c.replace(/"/g,'&quot;') + '">' + c + '</option>').join('');
     
-    // Add form
-    var addSelect = document.getElementById('icategory');
-    addSelect.innerHTML = '<option value="">Select Category</option>' + options;
-    
-    // Edit form
-    var editSelect = document.getElementById('ecategory');
-    editSelect.innerHTML = options;
+    document.getElementById('icategory').innerHTML = '<option value="">Select Category</option>' + options;
+    document.getElementById('ecategory').innerHTML = options;
 }
 
 function updateStats() {
@@ -355,50 +313,13 @@ function updateStats() {
     document.getElementById('statImg').textContent = withImg;
 }
 
-// Image upload
-async function cloudUpload(file, pvId, stId, uId) {
-    var s = document.getElementById(stId);
-    s.textContent = 'Uploading...';
-    var fd = new FormData();
-    fd.append('file', file);
-    fd.append('upload_preset', UPLOAD_PRESET);
-    
-    try {
-        var r = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/image/upload', {
-            method: 'POST',
-            body: fd
-        });
-        var d = await r.json();
-        if (d.secure_url) {
-            document.getElementById(uId).value = d.secure_url;
-            document.getElementById(pvId).src = d.secure_url;
-            document.getElementById(pvId).style.display = 'block';
-            s.textContent = '✅ Image uploaded!';
-        } else {
-            s.textContent = '❌ Upload failed';
-        }
-    } catch (e) {
-        s.textContent = '❌ Error uploading';
-    }
-}
-
-function addImg() {
-    var f = document.getElementById('f1').files[0];
-    if (f) cloudUpload(f, 'pv1', 'st1', 'u1');
-}
-
-function editImg() {
-    var f = document.getElementById('ef1').files[0];
-    if (f) cloudUpload(f, 'ep1', 'es1', 'eu1');
-}
-
-// Add item
-function addItem() {
+// ===== ADD ITEM =====
+async function addItem() {
     var name = document.getElementById('iname').value.trim();
     var price = document.getElementById('iprice').value.trim();
     var category = document.getElementById('icategory').value;
     var newCat = document.getElementById('inewcat').value.trim();
-    var image = document.getElementById('u1').value;
+    var image = document.getElementById('u1').value || document.getElementById('imageUrl').value.trim();
     
     if (!name || !price) {
         showMsg('msg', '❌ Fill name and price', 'error');
@@ -411,8 +332,9 @@ function addItem() {
     
     var finalCat = newCat || category;
     
-    if (!menuData[finalCat]) {
-        menuData[finalCat] = [];
+    // If relative GitHub path
+    if (image && !image.startsWith('http') && !image.startsWith('data:')) {
+        image = GITHUB_RAW + image;
     }
     
     var newItem = {
@@ -422,9 +344,28 @@ function addItem() {
         image: image
     };
     
-    menuData[finalCat].push(newItem);
-    saveLocal();
-    saveToAPI();
+    // Try API first
+    try {
+        var r = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                category: finalCat,
+                name: name,
+                price: parseInt(price),
+                image: image
+            })
+        });
+        var d = await r.json();
+        if (d.success) {
+            menuData = d.menu;
+        }
+    } catch(e) {
+        // Fallback to local
+        if (!menuData[finalCat]) menuData[finalCat] = [];
+        menuData[finalCat].push(newItem);
+        saveLocal();
+    }
     
     // Clear form
     document.getElementById('iname').value = '';
@@ -432,17 +373,16 @@ function addItem() {
     document.getElementById('icategory').value = '';
     document.getElementById('inewcat').value = '';
     document.getElementById('u1').value = '';
+    document.getElementById('imageUrl').value = '';
     document.getElementById('pv1').style.display = 'none';
     document.getElementById('st1').textContent = '';
     document.getElementById('f1').value = '';
     
-    showMsg('msg', '✅ Item added successfully!', 'success');
-    updateStats();
-    renderItems();
-    updateCategorySelects();
+    showMsg('msg', '✅ Item added!', 'success');
+    afterLoad();
 }
 
-// Edit item
+// ===== EDIT ITEM =====
 function editItem(id) {
     var item = null, catName = '';
     for (var cat in menuData) {
@@ -462,6 +402,7 @@ function editItem(id) {
     document.getElementById('ecategory').value = catName;
     document.getElementById('enewcat').value = '';
     document.getElementById('eu1').value = item.image || '';
+    document.getElementById('eimageUrl').value = item.image || '';
     
     if (item.image) {
         document.getElementById('ep1').src = item.image;
@@ -480,91 +421,108 @@ function cancelEdit() {
     document.getElementById('editForm').classList.remove('show');
 }
 
-function saveEdit() {
+async function saveEdit() {
     var id = document.getElementById('editId').value;
     var oldCat = document.getElementById('editOldCat').value;
     var name = document.getElementById('ename').value.trim();
     var price = document.getElementById('eprice').value.trim();
     var category = document.getElementById('ecategory').value;
     var newCat = document.getElementById('enewcat').value.trim();
-    var image = document.getElementById('eu1').value;
+    var image = document.getElementById('eu1').value || document.getElementById('eimageUrl').value.trim();
     
     if (!name || !price) {
-        alert('Fill all required fields');
+        alert('Fill name and price');
         return;
     }
     
     var finalCat = newCat || category;
     
-    // Remove from old category
-    var index = menuData[oldCat].findIndex(i => i.id === id);
-    if (index !== -1) {
-        var item = menuData[oldCat].splice(index, 1)[0];
-        
-        // Update item
-        item.name = name;
-        item.price = parseInt(price);
-        item.image = image;
-        
-        // Add to new category
-        if (!menuData[finalCat]) {
-            menuData[finalCat] = [];
-        }
-        menuData[finalCat].push(item);
-        
-        // Clean empty category
-        if (menuData[oldCat].length === 0) {
-            delete menuData[oldCat];
-        }
+    if (image && !image.startsWith('http') && !image.startsWith('data:')) {
+        image = GITHUB_RAW + image;
     }
     
-    saveLocal();
-    saveToAPI();
+    var btn = document.getElementById('saveEditBtn');
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
     
-    showMsg('msg', '✅ Item updated!', 'success');
-    cancelEdit();
-    updateStats();
-    renderItems();
-    updateCategorySelects();
-}
-
-// Delete item
-function deleteItem(id) {
-    if (!confirm('Delete this item permanently?')) return;
-    
-    for (var cat in menuData) {
-        var index = menuData[cat].findIndex(i => i.id === id);
+    try {
+        var r = await fetch(API_URL + '/' + id, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: name,
+                price: parseInt(price),
+                category: finalCat,
+                oldCategory: oldCat,
+                image: image
+            })
+        });
+        var d = await r.json();
+        if (d.success) {
+            menuData = d.menu;
+        }
+    } catch(e) {
+        // Fallback to local
+        var index = menuData[oldCat].findIndex(i => i.id === id);
         if (index !== -1) {
-            menuData[cat].splice(index, 1);
-            if (menuData[cat].length === 0) {
-                delete menuData[cat];
-            }
-            break;
+            var item = menuData[oldCat].splice(index, 1)[0];
+            item.name = name;
+            item.price = parseInt(price);
+            item.image = image;
+            if (!menuData[finalCat]) menuData[finalCat] = [];
+            menuData[finalCat].push(item);
+            if (menuData[oldCat].length === 0) delete menuData[oldCat];
+            saveLocal();
         }
     }
     
-    saveLocal();
-    saveToAPI();
-    showMsg('msg', '✅ Item deleted', 'success');
-    updateStats();
-    renderItems();
-    updateCategorySelects();
+    btn.textContent = '💾 Save Changes';
+    btn.disabled = false;
+    showMsg('msg', '✅ Updated!', 'success');
+    cancelEdit();
+    afterLoad();
 }
 
-// Render items
+// ===== DELETE ITEM =====
+async function deleteItem(id) {
+    if (!confirm('Delete this item?')) return;
+    
+    try {
+        var r = await fetch(API_URL + '/' + id, { method: 'DELETE' });
+        var d = await r.json();
+        if (d.success) {
+            menuData = d.menu;
+        }
+    } catch(e) {
+        // Fallback to local
+        for (var cat in menuData) {
+            var index = menuData[cat].findIndex(i => i.id === id);
+            if (index !== -1) {
+                menuData[cat].splice(index, 1);
+                if (menuData[cat].length === 0) delete menuData[cat];
+                saveLocal();
+                break;
+            }
+        }
+    }
+    
+    showMsg('msg', '✅ Deleted', 'success');
+    afterLoad();
+}
+
+// ===== RENDER ITEMS =====
 function renderItems() {
     var search = (document.getElementById('sp')?.value || '').toLowerCase();
     var container = document.getElementById('pList');
     var html = '';
-    
     var cats = getCategories();
     
     if (cats.length === 0) {
-        container.innerHTML = '<p style="text-align:center;color:#888;padding:30px">No items yet. Add your first item above!</p>';
+        container.innerHTML = '<p style="text-align:center;color:#888;padding:30px">No items yet. Add your first item!</p>';
         return;
     }
     
-    cats.forEach(function(cat) {
+    cats.forEach(cat => {
         var items = menuData[cat];
         if (search) {
             items = items.filter(item => 
@@ -576,79 +534,77 @@ function renderItems() {
         
         html += '<h3 style="color:#C9A96E;margin:15px 0 10px;font-size:0.9rem">' + cat + ' (' + items.length + ')</h3>';
         
-        items.forEach(function(item) {
+        items.forEach(item => {
             html += '<div class="item-row">' +
                 (item.image ? 
                     '<img src="' + item.image + '" onerror="this.style.display=\'none\'">' : 
                     '<div style="width:50px;height:50px;background:#0A0A0A;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">🍽️</div>'
                 ) +
-                '<div class="info"><h3>' + item.name + '</h3><p>' + item.price + ' ETB | ID: ' + item.id + '</p></div>' +
-                '<button class="btn-blue" onclick="editItem(\'' + item.id + '\')">✏️ Edit</button>' +
+                '<div class="info"><h3>' + item.name + '</h3><p>' + item.price + ' ETB</p></div>' +
+                '<button class="btn-blue" onclick="editItem(\'' + item.id + '\')" style="margin-right:5px">✏️</button>' +
                 '<button class="btn-red" onclick="deleteItem(\'' + item.id + '\')">🗑️</button>' +
                 '</div>';
         });
     });
     
-    if (!html) {
-        html = '<p style="text-align:center;color:#888;padding:30px">No items match your search</p>';
-    }
-    
+    if (!html) html = '<p style="text-align:center;color:#888;padding:30px">No items found</p>';
     container.innerHTML = html;
 }
 
-// Export/Import
+// ===== EXPORT/IMPORT =====
 function exportData() {
-    var dataStr = JSON.stringify(menuData, null, 2);
-    var blob = new Blob([dataStr], {type: 'application/json'});
+    var data = JSON.stringify(menuData, null, 2);
+    var blob = new Blob([data], {type: 'application/json'});
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'lantica_menu_backup_' + new Date().toISOString().split('T')[0] + '.json';
+    a.download = 'lantica_menu_' + new Date().toISOString().split('T')[0] + '.json';
     a.click();
     URL.revokeObjectURL(url);
-    showMsg('msg', '✅ Menu exported!', 'success');
+    showMsg('msg', '✅ Exported!', 'success');
 }
 
 function importData(event) {
     var file = event.target.files[0];
     if (!file) return;
-    
-    if (!confirm('This will replace your current menu. Continue?')) return;
+    if (!confirm('Replace current menu?')) return;
     
     var reader = new FileReader();
     reader.onload = function(e) {
         try {
             var data = JSON.parse(e.target.result);
-            if (typeof data === 'object' && Object.keys(data).length > 0) {
+            if (typeof data === 'object') {
                 menuData = data;
                 saveLocal();
-                saveToAPI();
-                updateStats();
-                renderItems();
-                updateCategorySelects();
-                showMsg('msg', '✅ Menu imported successfully!', 'success');
-            } else {
-                showMsg('msg', '❌ Invalid menu format', 'error');
+                
+                // Try to sync to API
+                fetch(API_URL + '/sync', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ menu: menuData })
+                }).catch(() => {});
+                
+                afterLoad();
+                showMsg('msg', '✅ Imported!', 'success');
             }
-        } catch (err) {
-            showMsg('msg', '❌ Invalid JSON file', 'error');
+        } catch(err) {
+            showMsg('msg', '❌ Invalid file', 'error');
         }
     };
     reader.readAsText(file);
 }
 
-// Utility
 function showMsg(id, text, type) {
     var m = document.getElementById(id);
     m.textContent = text;
     m.className = 'msg ' + type;
-    setTimeout(function() {
-        m.className = 'msg';
-    }, 3000);
+    setTimeout(function() { m.className = 'msg'; }, 3000);
 }
 
-// Initialize
-loadMenu();
+// ===== INIT =====
+console.log('🔧 Admin ready');
+console.log('📍 API:', API_URL);
+console.log('☁️ Cloudinary:', CLOUD_NAME);
 </script>
 </body>
 </html>
