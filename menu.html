@@ -157,150 +157,153 @@
 
 <script>
 // ===== CONFIGURATION =====
-var API_URL = 'https://lantica-api.your-subdomain.workers.dev/api'; // UPDATE THIS with your Workers URL
-var PLACEHOLDER = 'https://placehold.co/400x170/1A1A1A/C9A96E?text=Lantica+1960';
-
+var STORAGE_KEY = 'lantica_menu_data';
 var menuData = {}, currentFilter = 'all', currentSearch = '';
 
-// Load menu from API
-async function loadMenu() {
-    try {
-        var r = await fetch(API_URL + '/menu');
-        var d = await r.json();
-        if (d.menu && Object.keys(d.menu).length > 0) {
-            menuData = d.menu;
-            console.log('✅ Loaded from API:', Object.keys(menuData).length, 'categories');
-            return;
+// Default fallback data
+var DEFAULT_MENU = {
+    "☀️ Breakfast": [
+        {id:"1",name:"Combo Fasting",price:250,image:""},
+        {id:"2",name:"Egg w/ meat",price:250,image:""},
+        {id:"3",name:"Special Fetora",price:350,image:""},
+        {id:"4",name:"Normal Fetora",price:200,image:""},
+        {id:"5",name:"Special Chech",price:250,image:""},
+        {id:"6",name:"Normal Foul",price:180,image:""},
+        {id:"7",name:"Special Foul",price:250,image:""},
+        {id:"8",name:"Tomato Cheese",price:170,image:""},
+        {id:"9",name:"Egg Sandwich",price:200,image:""}
+    ],
+    "🔥 Traditional Food": [
+        {id:"10",name:"Lamb Tibs",price:680,image:""},
+        {id:"11",name:"Lamb Tibs Tefresho",price:700,image:""},
+        {id:"12",name:"Okie",price:600,image:""},
+        {id:"13",name:"Chikena Tibs",price:600,image:""},
+        {id:"14",name:"Chikena Tefresho",price:650,image:""},
+        {id:"15",name:"Kitto",price:1200,image:""},
+        {id:"16",name:"Quanta Firfir",price:370,image:""},
+        {id:"17",name:"Kiba Firfir",price:210,image:""},
+        {id:"18",name:"Tibes Firfir",price:320,image:""},
+        {id:"19",name:"Shiro Bekibe",price:300,image:""},
+        {id:"20",name:"Dullet",price:330,image:""},
+        {id:"21",name:"Derkosh Firfir Beseg",price:380,image:""},
+        {id:"22",name:"Bozena Shiro",price:350,image:""},
+        {id:"23",name:"Mahberawi",price:1200,image:""},
+        {id:"24",name:"Yefisk Agelgel",price:1000,image:""},
+        {id:"25",name:"Gomen Kitto",price:300,image:""}
+    ],
+    "🍕 Pizza": [
+        {id:"26",name:"Special Lentic Pizza Large",price:580,image:""},
+        {id:"27",name:"Special Lentic Pizza Medium",price:550,image:""},
+        {id:"28",name:"Chicken Pizza Large",price:550,image:""},
+        {id:"29",name:"Chicken Pizza Medium",price:460,image:""},
+        {id:"30",name:"Margarita Large",price:450,image:""},
+        {id:"31",name:"Margarita Medium",price:400,image:""},
+        {id:"32",name:"Vegetable Pizza Large",price:370,image:""}
+    ],
+    "🍝 Spaghetti & Rice": [
+        {id:"33",name:"Spaghetti with Vegetables",price:230,image:""},
+        {id:"34",name:"Rice",price:400,image:""}
+    ],
+    "🍔 Burgers & Sandwiches": [
+        {id:"35",name:"Noma Burger",price:305,image:""},
+        {id:"36",name:"Cheese Burger",price:350,image:""},
+        {id:"37",name:"Noma Ketchup",price:380,image:""},
+        {id:"38",name:"Club Sandwich",price:360,image:""},
+        {id:"39",name:"Tuna Sandwich",price:350,image:""},
+        {id:"40",name:"Vegetable Sandwich",price:160,image:""},
+        {id:"41",name:"Chicken Shawarma",price:600,image:""},
+        {id:"42",name:"French Fries",price:180,image:""}
+    ],
+    "🥩 Pork Selections": [
+        {id:"43",name:"Pork Chop",price:320,image:""},
+        {id:"44",name:"Pork Sausage",price:180,image:""},
+        {id:"45",name:"Pork Steak",price:570,image:""},
+        {id:"46",name:"Pork Loin",price:200,image:""},
+        {id:"47",name:"Pork Ribs",price:400,image:""},
+        {id:"48",name:"Pork Belly",price:380,image:""},
+        {id:"49",name:"Pork Shoulder",price:400,image:""}
+    ],
+    "🥗 Soup & Salad": [
+        {id:"50",name:"Vegetable Soup",price:180,image:""},
+        {id:"51",name:"Mixed Salad",price:200,image:""},
+        {id:"52",name:"Chicken Salad",price:300,image:""}
+    ],
+    "🍲 Fast Food": [
+        {id:"53",name:"Special Lantica Fasting",price:500,image:""},
+        {id:"54",name:"Normal Firfir",price:180,image:""},
+        {id:"55",name:"Shiro",price:275,image:""},
+        {id:"56",name:"Tegabino",price:300,image:""},
+        {id:"57",name:"Derkosh Firfir Fasting",price:220,image:""},
+        {id:"58",name:"Mesere",price:250,image:""},
+        {id:"59",name:"Hafe Hafe",price:280,image:""}
+    ],
+    "🥤 Fresh Juices": [
+        {id:"60",name:"Papaya Juice",price:160,image:""},
+        {id:"61",name:"Avocado Juice",price:160,image:""},
+        {id:"62",name:"Mango Juice",price:160,image:""},
+        {id:"63",name:"Telba Juice",price:200,image:""}
+    ],
+    "🧊 Cold Drinks": [
+        {id:"64",name:"1/4 Water",price:20,image:""},
+        {id:"65",name:"1/2 Water",price:35,image:""},
+        {id:"66",name:"1 Liter Water",price:55,image:""},
+        {id:"67",name:"2 Liter Water",price:75,image:""},
+        {id:"68",name:"Soft Drink",price:60,image:""},
+        {id:"69",name:"Ambo Water",price:65,image:""},
+        {id:"70",name:"Plastic Soft Drink",price:70,image:""},
+        {id:"71",name:"Tonic Water",price:80,image:""}
+    ],
+    "🍺 Beer & Draft": [
+        {id:"72",name:"Normal Beer",price:100,image:""},
+        {id:"73",name:"Big Bedla",price:120,image:""},
+        {id:"74",name:"Hicnek Beer",price:125,image:""},
+        {id:"75",name:"Arada Beer",price:130,image:""},
+        {id:"76",name:"Janibo",price:145,image:""},
+        {id:"77",name:"Single Draft",price:65,image:""}
+    ],
+    "🍷 Wine List": [
+        {id:"78",name:"Axmite",price:900,image:""},
+        {id:"79",name:"Guder Big",price:720,image:""},
+        {id:"80",name:"Kmila Big",price:800,image:""},
+        {id:"81",name:"Gebeta",price:1100,image:""},
+        {id:"82",name:"Aksejar",price:1200,image:""}
+    ],
+    "☕ Hot Beverages": [
+        {id:"83",name:"Tea",price:30,image:""},
+        {id:"84",name:"Coffee",price:60,image:""},
+        {id:"85",name:"Milk",price:80,image:""},
+        {id:"86",name:"Latte",price:70,image:""},
+        {id:"87",name:"Macchiato",price:75,image:""},
+        {id:"88",name:"Spires",price:60,image:""},
+        {id:"89",name:"Lewis Tea",price:75,image:""},
+        {id:"90",name:"Kesher",price:50,image:""},
+        {id:"91",name:"Tea with Lemon",price:45,image:""},
+        {id:"92",name:"Flavor Tea",price:65,image:""},
+        {id:"93",name:"Special Tea",price:150,image:""},
+        {id:"94",name:"Fasting Macchiato",price:85,image:""},
+        {id:"95",name:"Hot Chocolate",price:80,image:""}
+    ]
+};
+
+// Load menu data
+function loadMenu() {
+    // First try localStorage (set by admin panel)
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+        try {
+            menuData = JSON.parse(saved);
+            if (Object.keys(menuData).length > 0) {
+                console.log('✅ Loaded from localStorage:', Object.keys(menuData).length, 'categories');
+                return;
+            }
+        } catch (e) {
+            console.log('⚠️ Invalid localStorage data');
         }
-    } catch (e) {
-        console.log('⚠️ API unavailable, using fallback data');
     }
     
-    // Fallback data if API is unavailable
-    menuData = {
-        "☀️ Breakfast": [
-            {id:"1",name:"Combo Fasting",price:250,image:""},
-            {id:"2",name:"Egg w/ meat",price:250,image:""},
-            {id:"3",name:"Special Fetora",price:350,image:""},
-            {id:"4",name:"Normal Fetora",price:200,image:""},
-            {id:"5",name:"Special Chech",price:250,image:""},
-            {id:"6",name:"Normal Foul",price:180,image:""},
-            {id:"7",name:"Special Foul",price:250,image:""},
-            {id:"8",name:"Tomato Cheese",price:170,image:""},
-            {id:"9",name:"Egg Sandwich",price:200,image:""}
-        ],
-        "🔥 Traditional Food": [
-            {id:"10",name:"Lamb Tibs",price:680,image:""},
-            {id:"11",name:"Lamb Tibs Tefresho",price:700,image:""},
-            {id:"12",name:"Okie",price:600,image:""},
-            {id:"13",name:"Chikena Tibs",price:600,image:""},
-            {id:"14",name:"Chikena Tefresho",price:650,image:""},
-            {id:"15",name:"Kitto",price:1200,image:""},
-            {id:"16",name:"Quanta Firfir",price:370,image:""},
-            {id:"17",name:"Kiba Firfir",price:210,image:""},
-            {id:"18",name:"Tibes Firfir",price:320,image:""},
-            {id:"19",name:"Shiro Bekibe",price:300,image:""},
-            {id:"20",name:"Dullet",price:330,image:""},
-            {id:"21",name:"Derkosh Firfir Beseg",price:380,image:""},
-            {id:"22",name:"Bozena Shiro",price:350,image:""},
-            {id:"23",name:"Mahberawi",price:1200,image:""},
-            {id:"24",name:"Yefisk Agelgel",price:1000,image:""},
-            {id:"25",name:"Gomen Kitto",price:300,image:""}
-        ],
-        "🍕 Pizza": [
-            {id:"26",name:"Special Lentic Pizza Large",price:580,image:""},
-            {id:"27",name:"Special Lentic Pizza Medium",price:550,image:""},
-            {id:"28",name:"Chicken Pizza Large",price:550,image:""},
-            {id:"29",name:"Chicken Pizza Medium",price:460,image:""},
-            {id:"30",name:"Margarita Large",price:450,image:""},
-            {id:"31",name:"Margarita Medium",price:400,image:""},
-            {id:"32",name:"Vegetable Pizza Large",price:370,image:""}
-        ],
-        "🍝 Spaghetti & Rice": [
-            {id:"33",name:"Spaghetti with Vegetables",price:230,image:""},
-            {id:"34",name:"Rice",price:400,image:""}
-        ],
-        "🍔 Burgers & Sandwiches": [
-            {id:"35",name:"Noma Burger",price:305,image:""},
-            {id:"36",name:"Cheese Burger",price:350,image:""},
-            {id:"37",name:"Noma Ketchup",price:380,image:""},
-            {id:"38",name:"Club Sandwich",price:360,image:""},
-            {id:"39",name:"Tuna Sandwich",price:350,image:""},
-            {id:"40",name:"Vegetable Sandwich",price:160,image:""},
-            {id:"41",name:"Chicken Shawarma",price:600,image:""},
-            {id:"42",name:"French Fries",price:180,image:""}
-        ],
-        "🥩 Pork Selections": [
-            {id:"43",name:"Pork Chop",price:320,image:""},
-            {id:"44",name:"Pork Sausage",price:180,image:""},
-            {id:"45",name:"Pork Steak",price:570,image:""},
-            {id:"46",name:"Pork Loin",price:200,image:""},
-            {id:"47",name:"Pork Ribs",price:400,image:""},
-            {id:"48",name:"Pork Belly",price:380,image:""},
-            {id:"49",name:"Pork Shoulder",price:400,image:""}
-        ],
-        "🥗 Soup & Salad": [
-            {id:"50",name:"Vegetable Soup",price:180,image:""},
-            {id:"51",name:"Mixed Salad",price:200,image:""},
-            {id:"52",name:"Chicken Salad",price:300,image:""}
-        ],
-        "🍲 Fast Food": [
-            {id:"53",name:"Special Lantica Fasting",price:500,image:""},
-            {id:"54",name:"Normal Firfir",price:180,image:""},
-            {id:"55",name:"Shiro",price:275,image:""},
-            {id:"56",name:"Tegabino",price:300,image:""},
-            {id:"57",name:"Derkosh Firfir Fasting",price:220,image:""},
-            {id:"58",name:"Mesere",price:250,image:""},
-            {id:"59",name:"Hafe Hafe",price:280,image:""}
-        ],
-        "🥤 Fresh Juices": [
-            {id:"60",name:"Papaya Juice",price:160,image:""},
-            {id:"61",name:"Avocado Juice",price:160,image:""},
-            {id:"62",name:"Mango Juice",price:160,image:""},
-            {id:"63",name:"Telba Juice",price:200,image:""}
-        ],
-        "🧊 Cold Drinks": [
-            {id:"64",name:"1/4 Water",price:20,image:""},
-            {id:"65",name:"1/2 Water",price:35,image:""},
-            {id:"66",name:"1 Liter Water",price:55,image:""},
-            {id:"67",name:"2 Liter Water",price:75,image:""},
-            {id:"68",name:"Soft Drink",price:60,image:""},
-            {id:"69",name:"Ambo Water",price:65,image:""},
-            {id:"70",name:"Plastic Soft Drink",price:70,image:""},
-            {id:"71",name:"Tonic Water",price:80,image:""}
-        ],
-        "🍺 Beer & Draft": [
-            {id:"72",name:"Normal Beer",price:100,image:""},
-            {id:"73",name:"Big Bedla",price:120,image:""},
-            {id:"74",name:"Hicnek Beer",price:125,image:""},
-            {id:"75",name:"Arada Beer",price:130,image:""},
-            {id:"76",name:"Janibo",price:145,image:""},
-            {id:"77",name:"Single Draft",price:65,image:""}
-        ],
-        "🍷 Wine List": [
-            {id:"78",name:"Axmite",price:900,image:""},
-            {id:"79",name:"Guder Big",price:720,image:""},
-            {id:"80",name:"Kmila Big",price:800,image:""},
-            {id:"81",name:"Gebeta",price:1100,image:""},
-            {id:"82",name:"Aksejar",price:1200,image:""}
-        ],
-        "☕ Hot Beverages": [
-            {id:"83",name:"Tea",price:30,image:""},
-            {id:"84",name:"Coffee",price:60,image:""},
-            {id:"85",name:"Milk",price:80,image:""},
-            {id:"86",name:"Latte",price:70,image:""},
-            {id:"87",name:"Macchiato",price:75,image:""},
-            {id:"88",name:"Spires",price:60,image:""},
-            {id:"89",name:"Lewis Tea",price:75,image:""},
-            {id:"90",name:"Kesher",price:50,image:""},
-            {id:"91",name:"Tea with Lemon",price:45,image:""},
-            {id:"92",name:"Flavor Tea",price:65,image:""},
-            {id:"93",name:"Special Tea",price:150,image:""},
-            {id:"94",name:"Fasting Macchiato",price:85,image:""},
-            {id:"95",name:"Hot Chocolate",price:80,image:""}
-        ]
-    };
-    console.log('⚠️ Using fallback data');
+    // Use default data
+    menuData = JSON.parse(JSON.stringify(DEFAULT_MENU));
+    console.log('📋 Using default menu data');
 }
 
 function getCats() { return Object.keys(menuData); }
@@ -315,7 +318,7 @@ function renderFilters() {
     var cats = getCats();
     var h = '<button class="filter-btn ' + (currentFilter == 'all' ? 'active' : '') + '" onclick="setFilter(\'all\')">All</button>';
     cats.forEach(function(c) {
-        h += '<button class="filter-btn ' + (currentFilter == c ? 'active' : '') + '" onclick="setFilter(\'' + esc(c) + '\')">' + c + '</button>';
+        h += '<button class="filter-btn ' + (currentFilter == c ? 'active' : '') + '" onclick="setFilter(\'' + escAttr(c) + '\')">' + c + '</button>';
     });
     document.getElementById('categoryFilters').innerHTML = h;
 }
@@ -324,6 +327,8 @@ function setFilter(c) {
     currentFilter = c; 
     renderFilters(); 
     renderMenu(); 
+    // Scroll to top of menu
+    document.getElementById('menuContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function setSearch() { 
@@ -333,8 +338,7 @@ function setSearch() {
 
 function getImgUrl(img) {
     if (!img || img === '') return null;
-    if (img.startsWith('http')) return img;
-    return PLACEHOLDER;
+    return img; // Cloudinary URLs are absolute, local paths handled by onerror
 }
 
 function renderMenu() {
@@ -350,7 +354,8 @@ function renderMenu() {
         var items = menuData[cat];
         if (currentSearch) {
             items = items.filter(function(item) {
-                return item.name.toLowerCase().includes(currentSearch);
+                return item.name.toLowerCase().includes(currentSearch) ||
+                       cat.toLowerCase().includes(currentSearch);
             });
         }
         if (!items.length) continue;
@@ -390,12 +395,13 @@ function renderMenu() {
         html = '<div style="text-align:center;padding:50px">';
         html += '<i class="fas fa-search" style="font-size:3rem;color:var(--gold);opacity:0.5;margin-bottom:15px;display:block"></i>';
         html += '<h3 style="color:white;margin-bottom:8px">No items found</h3>';
-        html += '<p style="color:var(--gray)">Try a different search</p>';
+        html += '<p style="color:var(--gray)">Try a different search or category</p>';
         html += '</div>';
     }
     
     container.innerHTML = html;
     
+    // Update stats bar
     document.getElementById('stats').innerHTML = 
         '<div class="stat-item"><i class="fas fa-layer-group"></i><strong>' + cats.length + '</strong> Categories</div>' +
         '<div class="stat-divider"></div>' +
@@ -406,9 +412,15 @@ function renderMenu() {
         '<div class="stat-item"><i class="fas fa-phone"></i> Order: <strong>+251 94 1270 797</strong></div>';
 }
 
+// Escape functions
 function esc(s) { 
     if (!s) return ''; 
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); 
+}
+
+function escAttr(s) {
+    if (!s) return '';
+    return s.replace(/'/g,"\\'").replace(/"/g,'&quot;');
 }
 
 // Event Listeners
@@ -418,12 +430,21 @@ window.addEventListener('scroll', function() {
 
 document.getElementById('searchInput').addEventListener('keyup', setSearch);
 
-// Initialize
-loadMenu().then(function() {
-    renderFilters();
-    renderMenu();
-    console.log('✅ Menu rendered successfully');
+// Listen for storage changes (if admin updates data in another tab)
+window.addEventListener('storage', function(e) {
+    if (e.key === STORAGE_KEY) {
+        loadMenu();
+        renderFilters();
+        renderMenu();
+        console.log('🔄 Menu updated from another tab');
+    }
 });
+
+// Initialize
+loadMenu();
+renderFilters();
+renderMenu();
+console.log('✅ Menu loaded successfully');
 </script>
 </body>
 </html>
