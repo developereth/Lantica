@@ -56,7 +56,7 @@
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px"><h1 style="margin:0">🍽️ Admin Dashboard</h1><button class="btn-red" onclick="logout()" style="padding:8px 16px">🚪 Logout</button></div>
 <div class="tabs"><button class="active" onclick="switchTab('menu')">🍽️ Menu</button><button onclick="switchTab('heritage')">🏛️ Heritage</button></div>
 
-<!-- MENU TAB -->
+<!-- MENU -->
 <div class="tab-content show" id="tab-menu">
 <div class="stats">
     <div class="stat"><div class="num" id="statAll">0</div><div class="lbl">Total</div></div>
@@ -71,50 +71,50 @@
 <div class="preview-row"><img id="pv1"></div><div class="status-row"><div id="st1"></div></div>
 <input type="hidden" id="u1">
 <div class="row"><input type="text" id="name" placeholder="Item Name *"><input type="number" id="price" placeholder="Price (ETB) *"></div>
-<div class="row"><select id="category"><option value="">Select Category</option></select><input type="text" id="imageUrl" placeholder="Or paste image URL"></div>
-<div class="row"><input type="text" id="newCat" placeholder="New category name"><button class="btn-gold" onclick="addCategory()" style="white-space:nowrap">+ Add</button></div>
+<div class="row"><select id="category"><option value="">Category</option></select><input type="text" id="imageUrl" placeholder="Or paste image URL"></div>
+<div class="row"><input type="text" id="newCat" placeholder="New category"><button class="btn-gold" onclick="addCategory()">+ Add</button></div>
 <button class="btn-gold" onclick="addItem()">✅ Add Item</button><div id="msg" class="msg"></div>
 </div>
 
-<div class="edit-form" id="editForm"><h2>✏️ Edit Item</h2><input type="hidden" id="editId"><input type="hidden" id="editOrigCat">
+<div class="edit-form" id="editForm"><h2>✏️ Edit</h2><input type="hidden" id="editId"><input type="hidden" id="editOrigCat">
 <div class="upload-box" onclick="document.getElementById('ef1').click()"><div style="font-size:28px">📷</div><div style="font-size:0.7rem;color:#888">Change Image</div></div>
 <input type="file" id="ef1" accept="image/*" style="display:none" onchange="editImg()">
 <div class="preview-row"><img id="ep1"></div><div class="status-row"><div id="es1"></div></div>
 <input type="hidden" id="eu1">
 <div class="row"><input type="text" id="en" placeholder="Name"><input type="number" id="epr" placeholder="Price"></div>
-<div class="row"><select id="ec"><option value="">Select Category</option></select><input type="text" id="eurl" placeholder="Or paste image URL"></div>
-<button class="btn-green" id="saveEditBtn" onclick="saveEdit()">💾 Save Changes</button><button class="btn-red" onclick="cancelEdit()">Cancel</button></div>
+<div class="row"><select id="ec"><option value="">Category</option></select><input type="text" id="eurl" placeholder="Image URL"></div>
+<button class="btn-green" onclick="saveEdit()">💾 Save</button><button class="btn-red" onclick="cancelEdit()">Cancel</button></div>
 
 <div class="card"><h2>📋 Items</h2><input type="text" class="search-box" placeholder="🔍 Search..." id="sp" oninput="renderItems()"><div id="pList">Loading...</div></div>
 </div>
 
-<!-- HERITAGE TAB -->
+<!-- HERITAGE -->
 <div class="tab-content" id="tab-heritage">
-<div class="card"><h2>🏛️ Heritage Content</h2>
+<div class="card"><h2>🏛️ Page Content</h2>
 <input type="text" id="hHeroTitle" placeholder="Hero Title"><textarea id="hHeroDesc" rows="2" placeholder="Hero Description"></textarea>
 <input type="text" id="hQuote" placeholder="Quote"><input type="text" id="hStoryTitle" placeholder="Story Title">
 <textarea id="hStoryContent" rows="4" placeholder="Story Content"></textarea>
-<button class="btn-gold" onclick="saveHeritageContent()">💾 Save Content</button><div id="hcmsg" class="msg"></div>
+<button class="btn-gold" onclick="saveHeritageContent()">💾 Save</button><div id="hcmsg" class="msg"></div>
 </div>
 
-<div class="card"><h2>➕ Add Heritage Item</h2>
+<div class="card"><h2>➕ Add Heritage</h2>
 <div class="upload-box" onclick="document.getElementById('hf').click()"><div style="font-size:28px">📷</div><div style="font-size:0.7rem;color:#888">Upload Image</div></div>
 <input type="file" id="hf" accept="image/*" style="display:none" onchange="heritageImg()">
-<div style="text-align:center;margin-bottom:12px"><img id="hpv" style="max-width:200px;max-height:150px;object-fit:cover;border-radius:8px;display:none"></div>
+<img id="hpv" style="max-width:200px;max-height:150px;object-fit:cover;border-radius:8px;display:none;margin:0 auto 10px;display:block">
 <div id="hst" style="text-align:center;font-size:0.75rem;margin-bottom:12px"></div><input type="hidden" id="hu">
-<input type="text" id="hTitle" placeholder="Title *"><input type="text" id="hBadge" placeholder="Badge (Historical, Rare...)">
+<input type="text" id="hTitle" placeholder="Title *"><input type="text" id="hBadge" placeholder="Badge">
 <input type="text" id="hImageUrl" placeholder="Or paste image URL"><textarea id="hStory" rows="3" placeholder="Story *"></textarea>
 <textarea id="hMemory" rows="2" placeholder="Memory"></textarea>
-<button class="btn-gold" onclick="addHeritageItem()">✅ Add Item</button><div id="hmsg" class="msg"></div>
+<button class="btn-gold" onclick="addHeritageItem()">✅ Add</button><div id="hmsg" class="msg"></div>
 </div>
 
 <div class="edit-form" id="heritageEditForm"><h2>✏️ Edit Heritage</h2><input type="hidden" id="heditId">
 <div class="upload-box" onclick="document.getElementById('hef').click()"><div style="font-size:28px">📷</div><div style="font-size:0.7rem;color:#888">Change Image</div></div>
 <input type="file" id="hef" accept="image/*" style="display:none" onchange="heritageEditImg()">
-<div style="text-align:center;margin-bottom:12px"><img id="hepv" style="max-width:200px;max-height:150px;object-fit:cover;border-radius:8px;display:none"></div>
+<img id="hepv" style="max-width:200px;max-height:150px;object-fit:cover;border-radius:8px;display:none;margin:0 auto 10px;">
 <div id="hest" style="text-align:center;font-size:0.75rem;margin-bottom:12px"></div><input type="hidden" id="heu">
 <input type="text" id="heTitle" placeholder="Title"><input type="text" id="heBadge" placeholder="Badge">
-<input type="text" id="heImageUrl" placeholder="Or paste image URL"><textarea id="heStory" rows="3" placeholder="Story"></textarea>
+<input type="text" id="heImageUrl" placeholder="Image URL"><textarea id="heStory" rows="3" placeholder="Story"></textarea>
 <textarea id="heMemory" rows="2" placeholder="Memory"></textarea>
 <button class="btn-green" onclick="saveHeritageEdit()">💾 Save</button><button class="btn-red" onclick="cancelHeritageEdit()">Cancel</button></div>
 
@@ -123,99 +123,57 @@
 </div></div>
 
 <script>
-var A='https://hardy-fish-143667.upstash.io',T='gQAAAAAAAjEzAAIgcDIzMjVkODY0MTI3ZjY0OTQ1YTVjYjRiM2UxZDU0OTVhNw',C='dnxxxpbm9',PR='lantica_upload',PW='Lantica1960',menuData={},heritageItems=[],heritageContent={};
+var A='https://hardy-fish-143667.upstash.io',T='gQAAAAAAAjEzAAIgcDI4NjI0ZjI5Nzk4YmU0M2M2YWIyYjY5NGZlZWQ5YzUwMA',C='dnxxxpbm9',PR='lantica_upload',PW='Lantica1960',menuData={},heritageItems=[],heritageContent={};
 
 function login(){if(document.getElementById('pw').value===PW){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('panel').classList.remove('hidden');loadAll()}else{document.getElementById('loginErr').style.display='block'}}
 function logout(){document.getElementById('panel').classList.add('hidden');document.getElementById('loginScreen').classList.remove('hidden')}
 function switchTab(t){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('show'));document.getElementById('tab-'+t).classList.add('show')}
 
-// UPLOAD
 async function cloudUpload(file,pvId,stId,uId){
     var s=document.getElementById(stId);s.textContent='Uploading...';s.style.color='#C9A96E';
     var fd=new FormData();fd.append('file',file);fd.append('upload_preset',PR);fd.append('folder','lantica-menu');
     try{var r=await fetch('https://api.cloudinary.com/v1_1/'+C+'/image/upload',{method:'POST',body:fd});var d=await r.json();
-    if(d.secure_url){document.getElementById(uId).value=d.secure_url;document.getElementById(pvId).src=d.secure_url;document.getElementById(pvId).style.display='block';s.textContent='✅ Ready';s.style.color='#27ae60'}else{s.textContent='❌ Failed';s.style.color='#e74c3c'}}catch(e){s.textContent='❌ Error';s.style.color='#e74c3c'}
+    if(d.secure_url){document.getElementById(uId).value=d.secure_url;document.getElementById(pvId).src=d.secure_url;document.getElementById(pvId).style.display='block';s.textContent='✅';s.style.color='#27ae60'}else{s.textContent='❌';s.style.color='#e74c3c'}}catch(e){s.textContent='❌';s.style.color='#e74c3c'}
 }
 function addImg(){var f=document.getElementById('f1').files[0];if(f)cloudUpload(f,'pv1','st1','u1')}
 function editImg(){var f=document.getElementById('ef1').files[0];if(f)cloudUpload(f,'ep1','es1','eu1')}
 function heritageImg(){var f=document.getElementById('hf').files[0];if(f)cloudUpload(f,'hpv','hst','hu')}
 function heritageEditImg(){var f=document.getElementById('hef').files[0];if(f)cloudUpload(f,'hepv','hest','heu')}
 
-// REDIS
 async function redisCmd(cmd,key,val){
     var url=A+'/'+cmd+'/'+key;if(val)url+='/'+encodeURIComponent(val);
     var r=await fetch(url,{headers:{'Authorization':'Bearer '+T}});var d=await r.json();return d.result;
 }
 async function pushToRedis(){
-    try{await redisCmd('set','lantica:menu',JSON.stringify(menuData));await redisCmd('set','lantica:heritage',JSON.stringify(heritageItems));await redisCmd('set','lantica:heritage_content',JSON.stringify(heritageContent));showMsg('msg','✅ Saved!','success')}catch(e){showMsg('msg','❌ Failed: '+e.message,'error')}
+    try{await redisCmd('set','lantica:menu',JSON.stringify(menuData));await redisCmd('set','lantica:heritage',JSON.stringify(heritageItems));await redisCmd('set','lantica:heritage_content',JSON.stringify(heritageContent));showMsg('msg','✅ Saved!','success')}catch(e){showMsg('msg','❌ '+e.message,'error')}
 }
 async function loadAll(){
     try{var m=await redisCmd('get','lantica:menu');if(m)menuData=JSON.parse(decodeURIComponent(m));var h=await redisCmd('get','lantica:heritage');if(h)heritageItems=JSON.parse(decodeURIComponent(h));var hc=await redisCmd('get','lantica:heritage_content');if(hc)heritageContent=JSON.parse(decodeURIComponent(hc))}catch(e){console.log('Local')}
-    if(!Object.keys(menuData).length)menuData={"☀️ Breakfast":[{name:"Combo Fasting",price:250,image:"combo-fasting-platter.jpg"},{name:"Egg w/ meat",price:250,image:"egg-with-minced-meat.jpg"}],"🔥 Traditional Food":[{name:"Lamb Tibs",price:680,image:"lamb-tibs.jpg"}]};
-    if(!heritageItems.length)heritageItems=[{title:"Emperor Haile Selassie I Portrait",image:"emperial1.jpg",story:"Original framed photograph.",memory:"Veteran customers remember.",badge:"Historical"}];
-    if(!Object.keys(heritageContent).length)heritageContent={heroTitle:"🏛️ Heritage Gallery",heroDesc:"Step into memory.",quote:"Every artifact tells a story.",storyTitle:"The Memory",storyContent:"Our story here."};
-    loadHeritageContent();renderAll();updateStats();
+    if(!Object.keys(menuData).length)menuData={"☀️ Breakfast":[{name:"Combo Fasting",price:250,image:"combo-fasting-platter.jpg"},{name:"Egg w/ meat",price:250,image:"egg-with-minced-meat.jpg"},{name:"Special Fetora",price:350,image:"special-fetera-honey-cheese.jpg"},{name:"Normal Fetora",price:200,image:"classic-fetera.webp"},{name:"Special Chech",price:250,image:""},{name:"Normal Foul",price:180,image:""},{name:"Special Foul",price:250,image:""},{name:"Tomato Cheese",price:170,image:"tomato-lebleb.jpg"},{name:"Egg Sandwich",price:200,image:"egg-sandwich.jpg"}],"🔥 Traditional Food":[{name:"Lamb Tibs",price:680,image:"lamb-tibs.jpg"},{name:"Lamb Tibs Tefresho",price:700,image:"lamb-tibs-tefersho.jpg"},{name:"Okie",price:600,image:""},{name:"Chikena Tibs",price:600,image:""},{name:"Chikena Tefresho",price:650,image:""},{name:"Kitto",price:1200,image:""},{name:"Quanta Firfir",price:370,image:"kuanta-firfir.jpeg"},{name:"Kiba Firfir",price:210,image:"kiba-firfir.webp"},{name:"Tibes Firfir",price:320,image:"tibis-firfir.jpg"},{name:"Shiro Bekibe",price:300,image:"shiro-bekibe.jpeg"},{name:"Dullet",price:330,image:"dulet-minced-tripe.jpeg"},{name:"Derkosh Firfir Beseg",price:380,image:""},{name:"Bozena Shiro",price:350,image:"shiro.jpg"},{name:"Mahberawi",price:1200,image:"mahberawi-mixed-platter.jpeg"},{name:"Yefisk Agelgel",price:1000,image:""},{name:"Gomen Kitto",price:300,image:"gomen-kitfo.jpg"}],"🍕 Pizza":[{name:"Special Lentic Pizza Large",price:580,image:""},{name:"Special Lentic Pizza Medium",price:550,image:""},{name:"Chicken Pizza Large",price:550,image:"chicken-pizza.jpeg"},{name:"Chicken Pizza Medium",price:460,image:"chicken-pizza.jpeg"},{name:"Margarita Large",price:450,image:"margherita-pizza.jpg"},{name:"Margarita Medium",price:400,image:"margherita-pizza.jpg"},{name:"Vegetable Pizza Large",price:370,image:""}],"🍝 Spaghetti & Rice":[{name:"Spaghetti with Vegetables",price:230,image:"pasta-with-veggies-25.jpg"},{name:"Rice",price:400,image:""}],"🍔 Burgers & Sandwiches":[{name:"Noma Burger",price:305,image:""},{name:"Cheese Burger",price:350,image:""},{name:"Noma Ketchup",price:380,image:""},{name:"Club Sandwich",price:360,image:""},{name:"Tuna Sandwich",price:350,image:""},{name:"Vegetable Sandwich",price:160,image:""},{name:"Chicken Shawarma",price:600,image:""},{name:"French Fries",price:180,image:""}],"🥩 Pork Selections":[{name:"Pork Chop",price:320,image:""},{name:"Pork Sausage",price:180,image:""},{name:"Pork Steak",price:570,image:""},{name:"Pork Loin",price:200,image:""},{name:"Pork Ribs",price:400,image:""},{name:"Pork Belly",price:380,image:""},{name:"Pork Shoulder",price:400,image:""}],"🥗 Soup & Salad":[{name:"Vegetable Soup",price:180,image:""},{name:"Mixed Salad",price:200,image:"mixed-garden-salad-2.jpg"},{name:"Chicken Salad",price:300,image:""}],"🍲 Fast Food":[{name:"Special Lantica Fasting",price:500,image:""},{name:"Normal Firfir",price:180,image:""},{name:"Shiro",price:275,image:"shiro.jpg"},{name:"Tegabino",price:300,image:"tegabino.jpg"},{name:"Derkosh Firfir Fasting",price:220,image:""},{name:"Mesere",price:250,image:"mesere-red-lentil.jpeg"},{name:"Hafe Hafe",price:280,image:""}],"🥤 Fresh Juices":[{name:"Papaya Juice",price:160,image:"papaya-juice.jpg"},{name:"Avocado Juice",price:160,image:"avocado-juice.png"},{name:"Mango Juice",price:160,image:"mango-juice.jpeg"},{name:"Telba Juice",price:200,image:"tella-juice.webp"}],"🧊 Cold Drinks":[{name:"1/4 Water",price:20,image:""},{name:"1/2 Water",price:35,image:""},{name:"1 Liter Water",price:55,image:"ambo-water.jpeg"},{name:"2 Liter Water",price:75,image:"ambo-water.jpeg"},{name:"Soft Drink",price:60,image:"soft-drink.jpeg"},{name:"Ambo Water",price:65,image:"ambo-water.jpeg"},{name:"Plastic Soft Drink",price:70,image:"soft-drink.jpeg"},{name:"Tonic Water",price:80,image:""}],"🍺 Beer & Draft":[{name:"Normal Beer",price:100,image:""},{name:"Big Bedla",price:120,image:""},{name:"Hicnek Beer",price:125,image:""},{name:"Arada Beer",price:130,image:""},{name:"Janibo",price:145,image:""},{name:"Single Draft",price:65,image:""}],"🍷 Wine List":[{name:"Axmite",price:900,image:""},{name:"Guder Big",price:720,image:""},{name:"Kmila Big",price:800,image:""},{name:"Gebeta",price:1100,image:""},{name:"Aksejar",price:1200,image:""}],"☕ Hot Beverages":[{name:"Tea",price:30,image:""},{name:"Coffee",price:60,image:"ethiopian-coffee-Buna.jpeg"},{name:"Milk",price:80,image:""},{name:"Latte",price:70,image:"Latte.jpg"},{name:"Macchiato",price:75,image:"mackiyato.jpg"},{name:"Spires",price:60,image:""},{name:"Lewis Tea",price:75,image:""},{name:"Kesher",price:50,image:""},{name:"Tea with Lemon",price:45,image:""},{name:"Flavor Tea",price:65,image:""},{name:"Special Tea",price:150,image:""},{name:"Fasting Macchiato",price:85,image:""},{name:"Hot Chocolate",price:80,image:"hot-chocolate.jpg"}]};
+    if(!heritageItems.length)heritageItems=[{title:"Emperor Haile Selassie I Portrait",image:"emperial1.jpg",story:"Original framed photograph of His Imperial Majesty.",memory:"Veteran customers remember.",badge:"Historical"},{title:"Vintage Camera Collection",image:"old-camera1.jpg",story:"Classic film cameras from 1950s-1970s.",memory:"Three generations captured.",badge:"Collection"},{title:"Vintage DJ Mixer",image:"old-dj-mixer.jpg",story:"Classic DJ mixer from the 1970s.",memory:"Friday night vibes.",badge:"Rare"},{title:"Old Record Player",image:"old-player.jpg",story:"Gramophone from the 1960s.",memory:"Vinyl crackling with coffee.",badge:"Vintage"},{title:"Antique Telescope",image:"old-telescop.jpg",story:"Brass telescope early 1900s.",memory:"Gazing at Arat Kilo.",badge:"Rare"},{title:"Vintage Pocket Watch",image:"old-watch1.jpg",story:"Mechanical watch from 1940s.",memory:"Original owner 30+ years.",badge:"Memory"}];
+    if(!Object.keys(heritageContent).length)heritageContent={heroTitle:"🏛️ Heritage <span>Gallery</span>",heroDesc:"Step into the memory of Lantica 1960.",quote:"Every artifact tells a story.",storyTitle:"The Memory of Lantica 1960",storyContent:"These vintage treasures are more than objects.\n\nFrom the Emperor's era to modern Ethiopia.\n\nEvery item has a story."};
+    loadHeritageContent();renderAll();updateStats();pushToRedis();
 }
 
 function getCats(){return Object.keys(menuData)}
 function updateStats(){var items=[];for(var k in menuData)items=items.concat(menuData[k]);document.getElementById('statAll').textContent=items.length;document.getElementById('statCat').textContent=getCats().length;document.getElementById('statImg').textContent=items.filter(i=>i.image&&i.image.trim()).length;document.getElementById('statAvg').textContent=items.length?Math.round(items.reduce((s,i)=>s+i.price,0)/items.length):0}
-function renderAll(){renderItems();renderHeritageItems();var s=document.getElementById('category');s.innerHTML='<option value="">Select Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('');var e=document.getElementById('ec');e.innerHTML='<option value="">Select Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('')}
+function renderAll(){renderItems();renderHeritageItems();var s=document.getElementById('category');s.innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('');var e=document.getElementById('ec');e.innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('')}
 function getAllItems(){var items=[];for(var k in menuData)menuData[k].forEach((item,i)=>items.push({...item,category:k,idx:i}));return items}
-function renderItems(){
-    var s=(document.getElementById('sp')?.value||'').toLowerCase();var items=getAllItems();if(s)items=items.filter(i=>i.name.toLowerCase().includes(s));
-    var c=document.getElementById('pList');if(!items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:30px">No items</p>';return}
-    c.innerHTML=items.map(p=>'<div class="item-row"><img src="'+(p.image?p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image:'https://placehold.co/50/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/50/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.name)+'</h3><p>'+esc(p.category)+' | '+p.price+' ETB</p></div><button class="btn-blue" onclick="editItem(\''+esc(p.category)+'\','+p.idx+')" style="margin-right:5px">✏️</button><button class="btn-red" onclick="deleteItem(\''+esc(p.category)+'\','+p.idx+')">🗑️</button></div>').join('')}
-
-function addItem(){
-    var n=document.getElementById('name').value.trim(),pr=parseInt(document.getElementById('price').value)||0,cat=document.getElementById('category').value,img=document.getElementById('u1').value||document.getElementById('imageUrl').value.trim();
-    if(!n||!pr||!cat){showMsg('msg','❌ Fill name, price, category','error');return}
-    if(!menuData[cat])menuData[cat]=[];menuData[cat].push({name:n,price:pr,image:img});
-    document.getElementById('name').value='';document.getElementById('price').value='';document.getElementById('imageUrl').value='';document.getElementById('u1').value='';document.getElementById('pv1').style.display='none';document.getElementById('st1').textContent='';document.getElementById('f1').value='';
-    updateStats();renderAll();pushToRedis();showMsg('msg','✅ Added & Saved!','success');
-}
-function editItem(cat,idx){
-    var p=menuData[cat][idx];document.getElementById('editId').value=idx;document.getElementById('editOrigCat').value=cat;document.getElementById('en').value=p.name;document.getElementById('epr').value=p.price;document.getElementById('ec').value=cat;document.getElementById('eurl').value=p.image||'';document.getElementById('eu1').value=p.image||'';
-    if(p.image){document.getElementById('ep1').src=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;document.getElementById('ep1').style.display='block'}else document.getElementById('ep1').style.display='none';
-    document.getElementById('es1').textContent='';document.getElementById('ef1').value='';document.getElementById('editForm').classList.add('show');document.getElementById('editForm').scrollIntoView({behavior:'smooth'});
-}
+function renderItems(){var s=(document.getElementById('sp')?.value||'').toLowerCase();var items=getAllItems();if(s)items=items.filter(i=>i.name.toLowerCase().includes(s));var c=document.getElementById('pList');if(!items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:30px">No items</p>';return}c.innerHTML=items.map(p=>'<div class="item-row"><img src="'+(p.image?p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image:'https://placehold.co/50/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/50/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.name)+'</h3><p>'+esc(p.category)+' | '+p.price+' ETB</p></div><button class="btn-blue" onclick="editItem(\''+esc(p.category)+'\','+p.idx+')" style="margin-right:5px">✏️</button><button class="btn-red" onclick="deleteItem(\''+esc(p.category)+'\','+p.idx+')">🗑️</button></div>').join('')}
+function addItem(){var n=document.getElementById('name').value.trim(),pr=parseInt(document.getElementById('price').value)||0,cat=document.getElementById('category').value,img=document.getElementById('u1').value||document.getElementById('imageUrl').value.trim();if(!n||!pr||!cat){showMsg('msg','❌ Fill fields','error');return}if(!menuData[cat])menuData[cat]=[];menuData[cat].push({name:n,price:pr,image:img});['name','price','imageUrl'].forEach(id=>document.getElementById(id).value='');document.getElementById('u1').value='';document.getElementById('pv1').style.display='none';document.getElementById('st1').textContent='';document.getElementById('f1').value='';updateStats();renderAll();pushToRedis();showMsg('msg','✅ Added & Saved!','success')}
+function editItem(cat,idx){var p=menuData[cat][idx];document.getElementById('editId').value=idx;document.getElementById('editOrigCat').value=cat;document.getElementById('en').value=p.name;document.getElementById('epr').value=p.price;document.getElementById('ec').value=cat;document.getElementById('eurl').value=p.image||'';document.getElementById('eu1').value=p.image||'';if(p.image){document.getElementById('ep1').src=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;document.getElementById('ep1').style.display='block'}else document.getElementById('ep1').style.display='none';document.getElementById('es1').textContent='';document.getElementById('ef1').value='';document.getElementById('editForm').classList.add('show');document.getElementById('editForm').scrollIntoView({behavior:'smooth'})}
 function cancelEdit(){document.getElementById('editForm').classList.remove('show')}
-function saveEdit(){
-    var idx=parseInt(document.getElementById('editId').value),ocat=document.getElementById('editOrigCat').value,n=document.getElementById('en').value.trim(),pr=parseInt(document.getElementById('epr').value)||0,cat=document.getElementById('ec').value,img=document.getElementById('eu1').value||document.getElementById('eurl').value.trim();
-    if(!n||!pr||!cat){alert('Fill all fields');return}
-    if(ocat===cat)menuData[cat][idx]={name:n,price:pr,image:img};
-    else{menuData[ocat].splice(idx,1);if(!menuData[cat])menuData[cat]=[];menuData[cat].push({name:n,price:pr,image:img});if(!menuData[ocat].length)delete menuData[ocat];}
-    cancelEdit();updateStats();renderAll();pushToRedis();showMsg('msg','✅ Updated & Saved!','success');
-}
+function saveEdit(){var idx=parseInt(document.getElementById('editId').value),ocat=document.getElementById('editOrigCat').value,n=document.getElementById('en').value.trim(),pr=parseInt(document.getElementById('epr').value)||0,cat=document.getElementById('ec').value,img=document.getElementById('eu1').value||document.getElementById('eurl').value.trim();if(!n||!pr||!cat){alert('Fill fields');return}if(ocat===cat)menuData[cat][idx]={name:n,price:pr,image:img};else{menuData[ocat].splice(idx,1);if(!menuData[cat])menuData[cat]=[];menuData[cat].push({name:n,price:pr,image:img});if(!menuData[ocat].length)delete menuData[ocat]}cancelEdit();updateStats();renderAll();pushToRedis();showMsg('msg','✅ Updated & Saved!','success')}
 function deleteItem(cat,idx){if(!confirm('Delete?'))return;menuData[cat].splice(idx,1);if(!menuData[cat].length)delete menuData[cat];updateStats();renderAll();pushToRedis();showMsg('msg','🗑️ Deleted','success')}
 function addCategory(){var n=document.getElementById('newCat').value.trim();if(!n)return;if(menuData[n]){showMsg('msg','Exists!','error');return}menuData[n]=[];document.getElementById('newCat').value='';renderAll();showMsg('msg','✅ Added!','success')}
-
-// HERITAGE
 function loadHeritageContent(){document.getElementById('hHeroTitle').value=heritageContent.heroTitle||'';document.getElementById('hHeroDesc').value=heritageContent.heroDesc||'';document.getElementById('hQuote').value=heritageContent.quote||'';document.getElementById('hStoryTitle').value=heritageContent.storyTitle||'';document.getElementById('hStoryContent').value=heritageContent.storyContent||''}
 function saveHeritageContent(){heritageContent.heroTitle=document.getElementById('hHeroTitle').value;heritageContent.heroDesc=document.getElementById('hHeroDesc').value;heritageContent.quote=document.getElementById('hQuote').value;heritageContent.storyTitle=document.getElementById('hStoryTitle').value;heritageContent.storyContent=document.getElementById('hStoryContent').value;pushToRedis();showMsg('hcmsg','✅ Saved!','success')}
-function renderHeritageItems(){
-    var c=document.getElementById('hList');if(!heritageItems.length){c.innerHTML='<p style="text-align:center;color:#888;padding:30px">No items</p>';return}
-    c.innerHTML=heritageItems.map((p,i)=>'<div class="item-row"><img src="'+(p.image?p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image:'https://placehold.co/50/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/50/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.title)+'</h3><p>'+(p.badge||'')+' | '+esc((p.story||'').substring(0,50))+'...</p></div><button class="btn-blue" onclick="editHeritageItem('+i+')" style="margin-right:5px">✏️</button><button class="btn-red" onclick="deleteHeritageItem('+i+')">🗑️</button></div>').join('')}
-function addHeritageItem(){
-    var t=document.getElementById('hTitle').value.trim(),s=document.getElementById('hStory').value.trim(),img=document.getElementById('hu').value||document.getElementById('hImageUrl').value.trim();
-    if(!t||!s||!img){showMsg('hmsg','❌ Fill title, story, image','error');return}
-    heritageItems.push({title:t,image:img,story:s,memory:document.getElementById('hMemory').value.trim(),badge:document.getElementById('hBadge').value.trim()});
-    ['hTitle','hBadge','hImageUrl','hStory','hMemory'].forEach(id=>document.getElementById(id).value='');document.getElementById('hu').value='';document.getElementById('hpv').style.display='none';document.getElementById('hst').textContent='';document.getElementById('hf').value='';
-    renderHeritageItems();pushToRedis();showMsg('hmsg','✅ Added & Saved!','success');
-}
-function editHeritageItem(i){
-    var p=heritageItems[i];document.getElementById('heditId').value=i;document.getElementById('heTitle').value=p.title;document.getElementById('heBadge').value=p.badge||'';document.getElementById('heImageUrl').value=p.image||'';document.getElementById('heStory').value=p.story||'';document.getElementById('heMemory').value=p.memory||'';document.getElementById('heu').value=p.image||'';
-    if(p.image){document.getElementById('hepv').src=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;document.getElementById('hepv').style.display='block'}else document.getElementById('hepv').style.display='none';
-    document.getElementById('hest').textContent='';document.getElementById('hef').value='';document.getElementById('heritageEditForm').classList.add('show');document.getElementById('heritageEditForm').scrollIntoView({behavior:'smooth'});
-}
+function renderHeritageItems(){var c=document.getElementById('hList');if(!heritageItems.length){c.innerHTML='<p style="text-align:center;color:#888;padding:30px">No items</p>';return}c.innerHTML=heritageItems.map((p,i)=>'<div class="item-row"><img src="'+(p.image?p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image:'https://placehold.co/50/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/50/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.title)+'</h3><p>'+(p.badge||'')+' | '+esc((p.story||'').substring(0,50))+'...</p></div><button class="btn-blue" onclick="editHeritageItem('+i+')" style="margin-right:5px">✏️</button><button class="btn-red" onclick="deleteHeritageItem('+i+')">🗑️</button></div>').join('')}
+function addHeritageItem(){var t=document.getElementById('hTitle').value.trim(),s=document.getElementById('hStory').value.trim(),img=document.getElementById('hu').value||document.getElementById('hImageUrl').value.trim();if(!t||!s||!img){showMsg('hmsg','❌ Fill fields','error');return}heritageItems.push({title:t,image:img,story:s,memory:document.getElementById('hMemory').value.trim(),badge:document.getElementById('hBadge').value.trim()});['hTitle','hBadge','hImageUrl','hStory','hMemory'].forEach(id=>document.getElementById(id).value='');document.getElementById('hu').value='';document.getElementById('hpv').style.display='none';document.getElementById('hst').textContent='';document.getElementById('hf').value='';renderHeritageItems();pushToRedis();showMsg('hmsg','✅ Added & Saved!','success')}
+function editHeritageItem(i){var p=heritageItems[i];document.getElementById('heditId').value=i;document.getElementById('heTitle').value=p.title;document.getElementById('heBadge').value=p.badge||'';document.getElementById('heImageUrl').value=p.image||'';document.getElementById('heStory').value=p.story||'';document.getElementById('heMemory').value=p.memory||'';document.getElementById('heu').value=p.image||'';if(p.image){document.getElementById('hepv').src=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;document.getElementById('hepv').style.display='block'}else document.getElementById('hepv').style.display='none';document.getElementById('hest').textContent='';document.getElementById('hef').value='';document.getElementById('heritageEditForm').classList.add('show');document.getElementById('heritageEditForm').scrollIntoView({behavior:'smooth'})}
 function cancelHeritageEdit(){document.getElementById('heritageEditForm').classList.remove('show')}
-function saveHeritageEdit(){
-    var i=parseInt(document.getElementById('heditId').value),t=document.getElementById('heTitle').value.trim(),s=document.getElementById('heStory').value.trim(),img=document.getElementById('heu').value||document.getElementById('heImageUrl').value.trim();
-    if(!t||!s||!img){alert('Fill required fields');return}
-    heritageItems[i]={title:t,image:img,story:s,memory:document.getElementById('heMemory').value.trim(),badge:document.getElementById('heBadge').value.trim()};
-    cancelHeritageEdit();renderHeritageItems();pushToRedis();showMsg('hmsg','✅ Updated & Saved!','success');
-}
+function saveHeritageEdit(){var i=parseInt(document.getElementById('heditId').value),t=document.getElementById('heTitle').value.trim(),s=document.getElementById('heStory').value.trim(),img=document.getElementById('heu').value||document.getElementById('heImageUrl').value.trim();if(!t||!s||!img){alert('Fill fields');return}heritageItems[i]={title:t,image:img,story:s,memory:document.getElementById('heMemory').value.trim(),badge:document.getElementById('heBadge').value.trim()};cancelHeritageEdit();renderHeritageItems();pushToRedis();showMsg('hmsg','✅ Saved!','success')}
 function deleteHeritageItem(i){if(!confirm('Delete?'))return;heritageItems.splice(i,1);renderHeritageItems();pushToRedis();showMsg('hmsg','🗑️ Deleted','success')}
-
 function showMsg(id,t,type){var m=document.getElementById(id);m.textContent=t;m.className='msg '+type;setTimeout(()=>m.className='msg',3000)}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 </script>
