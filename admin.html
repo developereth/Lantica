@@ -33,9 +33,8 @@
         .preview-row{margin-bottom:12px;text-align:center}
         .preview-row img{max-width:200px;max-height:150px;object-fit:cover;border-radius:8px;display:none;margin:0 auto}
         .status-row{margin-bottom:12px;font-size:0.75rem;text-align:center}
-        .msg{padding:12px;margin:10px 0;border-radius:8px;display:none;text-align:center;font-weight:600;animation:fadeIn 0.3s}
+        .msg{padding:12px;margin:10px 0;border-radius:8px;display:none;text-align:center;font-weight:600}
         .msg.success{background:#27ae60;display:block}.msg.error{background:#c0392b;display:block}
-        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         .item-row{display:flex;align-items:center;gap:12px;padding:12px;background:#0A0A0A;border-radius:8px;margin-bottom:8px;border:1px solid var(--border)}
         .item-row:hover{background:#111}
         .item-row img{width:50px;height:50px;object-fit:cover;border-radius:6px}
@@ -52,7 +51,6 @@
 <body>
 <div class="container">
 
-<!-- LOGIN -->
 <div id="loginScreen" class="login-box">
     <h2>🔐 Admin Login</h2>
     <input type="password" id="pw" placeholder="Enter Password" onkeypress="if(event.key==='Enter')login()">
@@ -60,7 +58,6 @@
     <p id="loginErr" style="color:#e74c3c;margin-top:10px;display:none">❌ Wrong password</p>
 </div>
 
-<!-- ADMIN PANEL -->
 <div id="panel" class="hidden">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
     <h1 style="margin:0">🍽️ Menu Admin</h1>
@@ -73,7 +70,6 @@
     <div class="stat"><div class="num" id="statImg">0</div><div class="lbl">With Images</div></div>
 </div>
 
-<!-- ADD ITEM -->
 <div class="card">
     <h2>➕ Add New Item</h2>
     
@@ -101,7 +97,6 @@
     <div id="msg" class="msg"></div>
 </div>
 
-<!-- EDIT FORM -->
 <div class="edit-form" id="editForm">
     <h2>✏️ Edit Item</h2>
     <input type="hidden" id="editId">
@@ -131,12 +126,8 @@
     </div>
 </div>
 
-<!-- ITEMS LIST -->
 <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;flex-wrap:wrap;gap:10px">
-        <h2 style="margin:0">📋 Menu Items</h2>
-        <button class="btn-blue" onclick="exportData()">📥 Export JSON</button>
-    </div>
+    <h2>📋 Menu Items</h2>
     <input type="text" class="search-box" placeholder="🔍 Search items..." id="sp" oninput="renderItems()">
     <div id="pList">Loading...</div>
 </div>
@@ -144,15 +135,12 @@
 </div>
 
 <script>
-// ===== YOUR CONFIGURATION =====
 var API_URL = 'https://lantica-menu.developeraddis.workers.dev/api/menu';
 var CLOUD_NAME = 'dnxxxpbm9';
 var UPLOAD_PRESET = 'lantica_upload';
 var ADMIN_PASSWORD = 'Lantica1960';
-
 var menuData = {};
 
-// ===== AUTH =====
 function login() {
     if (document.getElementById('pw').value === ADMIN_PASSWORD) {
         document.getElementById('loginScreen').classList.add('hidden');
@@ -170,98 +158,58 @@ function logout() {
     document.getElementById('loginErr').style.display = 'none';
 }
 
-// ===== CLOUDINARY UPLOAD =====
 async function uploadToCloudinary(file, previewId, statusId, hiddenId) {
     var statusEl = document.getElementById(statusId);
     statusEl.textContent = '⏳ Uploading...';
     statusEl.style.color = '#C9A96E';
-    
     var formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', UPLOAD_PRESET);
     formData.append('folder', 'lantica-menu');
-    
     try {
-        var response = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/image/upload', {
-            method: 'POST',
-            body: formData
-        });
-        
+        var response = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/image/upload', { method: 'POST', body: formData });
         var data = await response.json();
-        
         if (data.secure_url) {
             document.getElementById(hiddenId).value = data.secure_url;
             document.getElementById(previewId).src = data.secure_url;
             document.getElementById(previewId).style.display = 'block';
             statusEl.textContent = '✅ Uploaded!';
             statusEl.style.color = '#27ae60';
-            console.log('✅ Image:', data.secure_url);
         } else {
-            statusEl.textContent = '❌ Failed: ' + (data.error?.message || 'Unknown');
+            statusEl.textContent = '❌ Failed';
             statusEl.style.color = '#e74c3c';
         }
     } catch(e) {
-        statusEl.textContent = '❌ Network error';
+        statusEl.textContent = '❌ Error';
         statusEl.style.color = '#e74c3c';
     }
 }
 
-function uploadAddImage() {
-    var file = document.getElementById('f1').files[0];
-    if (file) uploadToCloudinary(file, 'pv1', 'st1', 'u1');
-}
-
-function uploadEditImage() {
-    var file = document.getElementById('ef1').files[0];
-    if (file) uploadToCloudinary(file, 'ep1', 'es1', 'eu1');
-}
+function uploadAddImage() { var f = document.getElementById('f1').files[0]; if (f) uploadToCloudinary(f, 'pv1', 'st1', 'u1'); }
+function uploadEditImage() { var f = document.getElementById('ef1').files[0]; if (f) uploadToCloudinary(f, 'ep1', 'es1', 'eu1'); }
 
 function setAddImageUrl() {
     var url = document.getElementById('imageUrl').value.trim();
-    if (url) {
-        document.getElementById('u1').value = url;
-        document.getElementById('pv1').src = url;
-        document.getElementById('pv1').style.display = 'block';
-    }
+    if (url) { document.getElementById('u1').value = url; document.getElementById('pv1').src = url; document.getElementById('pv1').style.display = 'block'; }
 }
 
 function setEditImageUrl() {
     var url = document.getElementById('eimageUrl').value.trim();
-    if (url) {
-        document.getElementById('eu1').value = url;
-        document.getElementById('ep1').src = url;
-        document.getElementById('ep1').style.display = 'block';
-    }
+    if (url) { document.getElementById('eu1').value = url; document.getElementById('ep1').src = url; document.getElementById('ep1').style.display = 'block'; }
 }
 
-// ===== API CALLS =====
 async function loadMenu() {
     try {
         var r = await fetch(API_URL);
         var d = await r.json();
-        if (d.success && d.menu) {
-            menuData = d.menu;
-            console.log('✅ Loaded:', Object.keys(menuData).length, 'categories');
-        } else {
-            showMsg('msg', '⚠️ API returned empty menu', 'error');
-            menuData = {};
-        }
-    } catch(e) {
-        showMsg('msg', '❌ Cannot connect to API', 'error');
-        menuData = {};
-    }
+        if (d.success && d.menu) { menuData = d.menu; console.log('✅ Loaded'); }
+    } catch(e) { console.log('❌ API error'); }
     afterLoad();
 }
 
-function afterLoad() {
-    updateStats();
-    renderItems();
-    updateCategorySelects();
-}
+function afterLoad() { updateStats(); renderItems(); updateCategorySelects(); }
 
-function getCategories() {
-    return Object.keys(menuData).sort();
-}
+function getCategories() { return Object.keys(menuData).sort(); }
 
 function updateCategorySelects() {
     var cats = getCategories();
@@ -271,20 +219,16 @@ function updateCategorySelects() {
 }
 
 function updateStats() {
-    var cats = getCategories();
-    var total = 0, withImg = 0;
+    var cats = getCategories(), total = 0, withImg = 0;
     cats.forEach(cat => {
         total += menuData[cat].length;
-        menuData[cat].forEach(item => {
-            if (item.image && item.image !== '') withImg++;
-        });
+        menuData[cat].forEach(item => { if (item.image && item.image !== '') withImg++; });
     });
     document.getElementById('statCats').textContent = cats.length;
     document.getElementById('statItems').textContent = total;
     document.getElementById('statImg').textContent = withImg;
 }
 
-// ===== ADD ITEM =====
 async function addItem() {
     var name = document.getElementById('iname').value.trim();
     var price = document.getElementById('iprice').value.trim();
@@ -301,40 +245,26 @@ async function addItem() {
         var r = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                category: finalCat,
-                name: name,
-                price: parseInt(price),
-                image: image
-            })
+            body: JSON.stringify({ category: finalCat, name: name, price: parseInt(price), image: image })
         });
         var d = await r.json();
         if (d.success) {
             menuData = d.menu;
             showMsg('msg', '✅ Item added!', 'success');
-            clearAddForm();
+            document.getElementById('iname').value = '';
+            document.getElementById('iprice').value = '';
+            document.getElementById('icategory').value = '';
+            document.getElementById('inewcat').value = '';
+            document.getElementById('u1').value = '';
+            document.getElementById('imageUrl').value = '';
+            document.getElementById('pv1').style.display = 'none';
+            document.getElementById('st1').textContent = '';
+            document.getElementById('f1').value = '';
             afterLoad();
-        } else {
-            showMsg('msg', '❌ ' + (d.error || 'Failed'), 'error');
         }
-    } catch(e) {
-        showMsg('msg', '❌ Cannot connect to API', 'error');
-    }
+    } catch(e) { showMsg('msg', '❌ API error', 'error'); }
 }
 
-function clearAddForm() {
-    document.getElementById('iname').value = '';
-    document.getElementById('iprice').value = '';
-    document.getElementById('icategory').value = '';
-    document.getElementById('inewcat').value = '';
-    document.getElementById('u1').value = '';
-    document.getElementById('imageUrl').value = '';
-    document.getElementById('pv1').style.display = 'none';
-    document.getElementById('st1').textContent = '';
-    document.getElementById('f1').value = '';
-}
-
-// ===== EDIT ITEM =====
 function editItem(id) {
     var item = null, catName = '';
     for (var cat in menuData) {
@@ -342,7 +272,6 @@ function editItem(id) {
         if (found) { item = found; catName = cat; break; }
     }
     if (!item) return;
-    
     document.getElementById('editId').value = item.id;
     document.getElementById('editOldCat').value = catName;
     document.getElementById('ename').value = item.name;
@@ -351,23 +280,15 @@ function editItem(id) {
     document.getElementById('enewcat').value = '';
     document.getElementById('eu1').value = item.image || '';
     document.getElementById('eimageUrl').value = item.image || '';
-    
-    if (item.image) {
-        document.getElementById('ep1').src = item.image;
-        document.getElementById('ep1').style.display = 'block';
-    } else {
-        document.getElementById('ep1').style.display = 'none';
-    }
-    
+    if (item.image) { document.getElementById('ep1').src = item.image; document.getElementById('ep1').style.display = 'block'; }
+    else { document.getElementById('ep1').style.display = 'none'; }
     document.getElementById('es1').textContent = '';
     document.getElementById('ef1').value = '';
     document.getElementById('editForm').classList.add('show');
     document.getElementById('editForm').scrollIntoView({ behavior: 'smooth' });
 }
 
-function cancelEdit() {
-    document.getElementById('editForm').classList.remove('show');
-}
+function cancelEdit() { document.getElementById('editForm').classList.remove('show'); }
 
 async function saveEdit() {
     var id = document.getElementById('editId').value;
@@ -379,123 +300,58 @@ async function saveEdit() {
     var image = document.getElementById('eu1').value || document.getElementById('eimageUrl').value.trim();
     
     if (!name || !price) { alert('Fill name and price'); return; }
-    
     var finalCat = newCat || category;
     var btn = document.getElementById('saveEditBtn');
-    btn.textContent = 'Saving...';
-    btn.disabled = true;
+    btn.textContent = 'Saving...'; btn.disabled = true;
     
     try {
         var r = await fetch(API_URL + '/' + id, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name: name,
-                price: parseInt(price),
-                category: finalCat,
-                oldCategory: oldCat,
-                image: image
-            })
+            body: JSON.stringify({ name: name, price: parseInt(price), category: finalCat, oldCategory: oldCat, image: image })
         });
         var d = await r.json();
-        if (d.success) {
-            menuData = d.menu;
-            showMsg('msg', '✅ Updated!', 'success');
-            cancelEdit();
-            afterLoad();
-        } else {
-            showMsg('msg', '❌ ' + (d.error || 'Failed'), 'error');
-        }
-    } catch(e) {
-        showMsg('msg', '❌ Cannot connect to API', 'error');
-    }
-    
-    btn.textContent = '💾 Save Changes';
-    btn.disabled = false;
+        if (d.success) { menuData = d.menu; showMsg('msg', '✅ Updated!', 'success'); cancelEdit(); afterLoad(); }
+    } catch(e) { showMsg('msg', '❌ API error', 'error'); }
+    btn.textContent = '💾 Save Changes'; btn.disabled = false;
 }
 
-// ===== DELETE ITEM =====
 async function deleteItem(id) {
-    if (!confirm('Delete this item permanently?')) return;
-    
+    if (!confirm('Delete this item?')) return;
     try {
         var r = await fetch(API_URL + '/' + id, { method: 'DELETE' });
         var d = await r.json();
-        if (d.success) {
-            menuData = d.menu;
-            showMsg('msg', '✅ Deleted!', 'success');
-            afterLoad();
-        } else {
-            showMsg('msg', '❌ ' + (d.error || 'Failed'), 'error');
-        }
-    } catch(e) {
-        showMsg('msg', '❌ Cannot connect to API', 'error');
-    }
+        if (d.success) { menuData = d.menu; afterLoad(); showMsg('msg', '✅ Deleted!', 'success'); }
+    } catch(e) { showMsg('msg', '❌ API error', 'error'); }
 }
 
-// ===== RENDER ITEMS =====
 function renderItems() {
     var search = (document.getElementById('sp')?.value || '').toLowerCase();
-    var container = document.getElementById('pList');
-    var html = '';
+    var container = document.getElementById('pList'), html = '';
     var cats = getCategories();
-    
-    if (cats.length === 0) {
-        container.innerHTML = '<p style="text-align:center;color:#888;padding:30px">No items yet. Add your first item above!</p>';
-        return;
-    }
-    
+    if (cats.length === 0) { container.innerHTML = '<p style="text-align:center;color:#888;padding:30px">No items yet</p>'; return; }
     cats.forEach(cat => {
         var items = menuData[cat];
-        if (search) {
-            items = items.filter(item => 
-                item.name.toLowerCase().includes(search) || 
-                cat.toLowerCase().includes(search)
-            );
-        }
+        if (search) items = items.filter(item => item.name.toLowerCase().includes(search) || cat.toLowerCase().includes(search));
         if (items.length === 0) return;
-        
         html += '<h3 style="color:#C9A96E;margin:15px 0 10px;font-size:0.9rem">' + cat + ' (' + items.length + ')</h3>';
-        
         items.forEach(item => {
             html += '<div class="item-row">' +
-                (item.image ? 
-                    '<img src="' + item.image + '" onerror="this.style.display=\'none\'">' : 
-                    '<div style="width:50px;height:50px;background:#0A0A0A;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">🍽️</div>'
-                ) +
+                (item.image ? '<img src="' + item.image + '" onerror="this.style.display=\'none\'">' : '<div style="width:50px;height:50px;background:#0A0A0A;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">🍽️</div>') +
                 '<div class="info"><h3>' + item.name + '</h3><p>' + item.price + ' ETB</p></div>' +
                 '<button class="btn-blue" onclick="editItem(\'' + item.id + '\')" style="margin-right:5px">✏️</button>' +
-                '<button class="btn-red" onclick="deleteItem(\'' + item.id + '\')">🗑️</button>' +
-                '</div>';
+                '<button class="btn-red" onclick="deleteItem(\'' + item.id + '\')">🗑️</button></div>';
         });
     });
-    
-    if (!html) html = '<p style="text-align:center;color:#888;padding:30px">No items match your search</p>';
+    if (!html) html = '<p style="text-align:center;color:#888;padding:30px">No items found</p>';
     container.innerHTML = html;
-}
-
-// ===== EXPORT =====
-function exportData() {
-    var data = JSON.stringify(menuData, null, 2);
-    var blob = new Blob([data], {type: 'application/json'});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'lantica_menu_' + new Date().toISOString().split('T')[0] + '.json';
-    a.click();
-    URL.revokeObjectURL(url);
-    showMsg('msg', '✅ Exported!', 'success');
 }
 
 function showMsg(id, text, type) {
     var m = document.getElementById(id);
-    m.textContent = text;
-    m.className = 'msg ' + type;
+    m.textContent = text; m.className = 'msg ' + type;
     setTimeout(function() { m.className = 'msg'; }, 3000);
 }
-
-// ===== INIT =====
-console.log('🔧 Admin ready - API mode');
 </script>
 </body>
 </html>
