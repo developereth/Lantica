@@ -37,7 +37,7 @@
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         .menu-hero h1{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:white}
         .menu-hero h1 span{color:var(--gold)}
-        .menu-hero .location{display:inline-flex;align-items:center;gap:8px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);padding:10px 25px;border-radius:50px;margin-top:15px;font-size:0.9rem;color:var(--gold-light)}
+        .menu-hero .location{display:inline-flex;align-items:center;gap:8px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);padding:10px 25px;border-radius:50px;margin-top:15px;font-size:0.9rem;color:var(--gray-light)}
         .menu-hero .location i{color:var(--gold)}
 
         .container{max-width:1300px;margin:0 auto;padding:35px 20px}
@@ -79,7 +79,7 @@
         .footer{background:#020202;text-align:center;padding:35px 20px;margin-top:40px;border-top:1px solid rgba(201,169,110,0.1)}
         .footer p{color:var(--gray);margin:5px 0;font-size:0.85rem}
         .footer a{color:var(--gold);text-decoration:none;font-weight:500;transition:0.3s}
-        .footer a:hover{color:var(--gold-light)}
+        .footer a:hover{color:var(--gray-light)}
 
         .floating-telegram{position:fixed;bottom:30px;left:30px;background:#0088cc;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;text-decoration:none;box-shadow:0 8px 25px rgba(0,136,204,0.35);transition:0.3s;z-index:999;border:2px solid white;animation:bounce 2s ease-in-out infinite}
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
@@ -156,71 +156,274 @@
 </footer>
 
 <script>
-// ===== UPDATED: lantica-db =====
-var REDIS_URL='https://hardy-fish-143667.upstash.io';
-var REDIS_TOKEN='gQAAAAAAAjEzAAIgcDIzMjVkODY0MTI3ZjY0OTQ1YTVjYjRiM2UxZDU0OTVhNw';
-var REDIS_KEY='lantica:menu';
-var GITHUB_BASE='https://raw.githubusercontent.com/developereth/Lantica/main/';
-var PLACEHOLDER='https://placehold.co/400x170/1A1A1A/C9A96E?text=Lantica+1960';
+// ===== CONFIGURATION =====
+var API_URL = 'https://lantica-api.your-subdomain.workers.dev/api'; // UPDATE THIS with your Workers URL
+var PLACEHOLDER = 'https://placehold.co/400x170/1A1A1A/C9A96E?text=Lantica+1960';
 
-var menuData={},currentFilter='all',currentSearch='';
+var menuData = {}, currentFilter = 'all', currentSearch = '';
 
-async function loadMenu(){
-    try{
-        var r=await fetch(REDIS_URL+'/get/'+REDIS_KEY,{headers:{'Authorization':'Bearer '+REDIS_TOKEN}});
-        var d=await r.json();
-        if(d.result){menuData=JSON.parse(decodeURIComponent(d.result));console.log('✅ Loaded from Redis:',Object.keys(menuData).length,'categories');return}
-    }catch(e){console.log('Redis unavailable, using fallback')}
-    // Fallback data
-    menuData={"☀️ Breakfast":[{name:"Combo Fasting",price:250,image:"combo-fasting-platter.jpg"},{name:"Egg w/ meat",price:250,image:"egg-with-minced-meat.jpg"},{name:"Special Fetora",price:350,image:"special-fetera-honey-cheese.jpg"},{name:"Normal Fetora",price:200,image:"classic-fetera.webp"},{name:"Special Chech",price:250,image:""},{name:"Normal Foul",price:180,image:""},{name:"Special Foul",price:250,image:""},{name:"Tomato Cheese",price:170,image:"tomato-lebleb.jpg"},{name:"Egg Sandwich",price:200,image:"egg-sandwich.jpg"}],"🔥 Traditional Food":[{name:"Lamb Tibs",price:680,image:"lamb-tibs.jpg"},{name:"Lamb Tibs Tefresho",price:700,image:"lamb-tibs-tefersho.jpg"},{name:"Okie",price:600,image:""},{name:"Chikena Tibs",price:600,image:""},{name:"Chikena Tefresho",price:650,image:""},{name:"Kitto",price:1200,image:""},{name:"Quanta Firfir",price:370,image:"kuanta-firfir.jpeg"},{name:"Kiba Firfir",price:210,image:"kiba-firfir.webp"},{name:"Tibes Firfir",price:320,image:"tibis-firfir.jpg"},{name:"Shiro Bekibe",price:300,image:"shiro-bekibe.jpeg"},{name:"Dullet",price:330,image:"dulet-minced-tripe.jpeg"},{name:"Derkosh Firfir Beseg",price:380,image:""},{name:"Bozena Shiro",price:350,image:"shiro.jpg"},{name:"Mahberawi",price:1200,image:"mahberawi-mixed-platter.jpeg"},{name:"Yefisk Agelgel",price:1000,image:""},{name:"Gomen Kitto",price:300,image:"gomen-kitfo.jpg"}],"🍕 Pizza":[{name:"Special Lentic Pizza Large",price:580,image:""},{name:"Special Lentic Pizza Medium",price:550,image:""},{name:"Chicken Pizza Large",price:550,image:"chicken-pizza.jpeg"},{name:"Chicken Pizza Medium",price:460,image:"chicken-pizza.jpeg"},{name:"Margarita Large",price:450,image:"margherita-pizza.jpg"},{name:"Margarita Medium",price:400,image:"margherita-pizza.jpg"},{name:"Vegetable Pizza Large",price:370,image:""}],"🍝 Spaghetti & Rice":[{name:"Spaghetti with Vegetables",price:230,image:"pasta-with-veggies-25.jpg"},{name:"Rice",price:400,image:""}],"🍔 Burgers & Sandwiches":[{name:"Noma Burger",price:305,image:""},{name:"Cheese Burger",price:350,image:""},{name:"Noma Ketchup",price:380,image:""},{name:"Club Sandwich",price:360,image:""},{name:"Tuna Sandwich",price:350,image:""},{name:"Vegetable Sandwich",price:160,image:""},{name:"Chicken Shawarma",price:600,image:""},{name:"French Fries",price:180,image:""}],"🥩 Pork Selections":[{name:"Pork Chop",price:320,image:""},{name:"Pork Sausage",price:180,image:""},{name:"Pork Steak",price:570,image:""},{name:"Pork Loin",price:200,image:""},{name:"Pork Ribs",price:400,image:""},{name:"Pork Belly",price:380,image:""},{name:"Pork Shoulder",price:400,image:""}],"🥗 Soup & Salad":[{name:"Vegetable Soup",price:180,image:""},{name:"Mixed Salad",price:200,image:"mixed-garden-salad-2.jpg"},{name:"Chicken Salad",price:300,image:""}],"🍲 Fast Food":[{name:"Special Lantica Fasting",price:500,image:""},{name:"Normal Firfir",price:180,image:""},{name:"Shiro",price:275,image:"shiro.jpg"},{name:"Tegabino",price:300,image:"tegabino.jpg"},{name:"Derkosh Firfir Fasting",price:220,image:""},{name:"Mesere",price:250,image:"mesere-red-lentil.jpeg"},{name:"Hafe Hafe",price:280,image:""}],"🥤 Fresh Juices":[{name:"Papaya Juice",price:160,image:"papaya-juice.jpg"},{name:"Avocado Juice",price:160,image:"avocado-juice.png"},{name:"Mango Juice",price:160,image:"mango-juice.jpeg"},{name:"Telba Juice",price:200,image:"tella-juice.webp"}],"🧊 Cold Drinks":[{name:"1/4 Water",price:20,image:""},{name:"1/2 Water",price:35,image:""},{name:"1 Liter Water",price:55,image:"ambo-water.jpeg"},{name:"2 Liter Water",price:75,image:"ambo-water.jpeg"},{name:"Soft Drink",price:60,image:"soft-drink.jpeg"},{name:"Ambo Water",price:65,image:"ambo-water.jpeg"},{name:"Plastic Soft Drink",price:70,image:"soft-drink.jpeg"},{name:"Tonic Water",price:80,image:""}],"🍺 Beer & Draft":[{name:"Normal Beer",price:100,image:""},{name:"Big Bedla",price:120,image:""},{name:"Hicnek Beer",price:125,image:""},{name:"Arada Beer",price:130,image:""},{name:"Janibo",price:145,image:""},{name:"Single Draft",price:65,image:""}],"🍷 Wine List":[{name:"Axmite",price:900,image:""},{name:"Guder Big",price:720,image:""},{name:"Kmila Big",price:800,image:""},{name:"Gebeta",price:1100,image:""},{name:"Aksejar",price:1200,image:""}],"☕ Hot Beverages":[{name:"Tea",price:30,image:""},{name:"Coffee",price:60,image:"ethiopian-coffee-Buna.jpeg"},{name:"Milk",price:80,image:""},{name:"Latte",price:70,image:"Latte.jpg"},{name:"Macchiato",price:75,image:"mackiyato.jpg"},{name:"Spires",price:60,image:""},{name:"Lewis Tea",price:75,image:""},{name:"Kesher",price:50,image:""},{name:"Tea with Lemon",price:45,image:""},{name:"Flavor Tea",price:65,image:""},{name:"Special Tea",price:150,image:""},{name:"Fasting Macchiato",price:85,image:""},{name:"Hot Chocolate",price:80,image:"hot-chocolate.jpg"}]};
+// Load menu from API
+async function loadMenu() {
+    try {
+        var r = await fetch(API_URL + '/menu');
+        var d = await r.json();
+        if (d.menu && Object.keys(d.menu).length > 0) {
+            menuData = d.menu;
+            console.log('✅ Loaded from API:', Object.keys(menuData).length, 'categories');
+            return;
+        }
+    } catch (e) {
+        console.log('⚠️ API unavailable, using fallback data');
+    }
+    
+    // Fallback data if API is unavailable
+    menuData = {
+        "☀️ Breakfast": [
+            {id:"1",name:"Combo Fasting",price:250,image:""},
+            {id:"2",name:"Egg w/ meat",price:250,image:""},
+            {id:"3",name:"Special Fetora",price:350,image:""},
+            {id:"4",name:"Normal Fetora",price:200,image:""},
+            {id:"5",name:"Special Chech",price:250,image:""},
+            {id:"6",name:"Normal Foul",price:180,image:""},
+            {id:"7",name:"Special Foul",price:250,image:""},
+            {id:"8",name:"Tomato Cheese",price:170,image:""},
+            {id:"9",name:"Egg Sandwich",price:200,image:""}
+        ],
+        "🔥 Traditional Food": [
+            {id:"10",name:"Lamb Tibs",price:680,image:""},
+            {id:"11",name:"Lamb Tibs Tefresho",price:700,image:""},
+            {id:"12",name:"Okie",price:600,image:""},
+            {id:"13",name:"Chikena Tibs",price:600,image:""},
+            {id:"14",name:"Chikena Tefresho",price:650,image:""},
+            {id:"15",name:"Kitto",price:1200,image:""},
+            {id:"16",name:"Quanta Firfir",price:370,image:""},
+            {id:"17",name:"Kiba Firfir",price:210,image:""},
+            {id:"18",name:"Tibes Firfir",price:320,image:""},
+            {id:"19",name:"Shiro Bekibe",price:300,image:""},
+            {id:"20",name:"Dullet",price:330,image:""},
+            {id:"21",name:"Derkosh Firfir Beseg",price:380,image:""},
+            {id:"22",name:"Bozena Shiro",price:350,image:""},
+            {id:"23",name:"Mahberawi",price:1200,image:""},
+            {id:"24",name:"Yefisk Agelgel",price:1000,image:""},
+            {id:"25",name:"Gomen Kitto",price:300,image:""}
+        ],
+        "🍕 Pizza": [
+            {id:"26",name:"Special Lentic Pizza Large",price:580,image:""},
+            {id:"27",name:"Special Lentic Pizza Medium",price:550,image:""},
+            {id:"28",name:"Chicken Pizza Large",price:550,image:""},
+            {id:"29",name:"Chicken Pizza Medium",price:460,image:""},
+            {id:"30",name:"Margarita Large",price:450,image:""},
+            {id:"31",name:"Margarita Medium",price:400,image:""},
+            {id:"32",name:"Vegetable Pizza Large",price:370,image:""}
+        ],
+        "🍝 Spaghetti & Rice": [
+            {id:"33",name:"Spaghetti with Vegetables",price:230,image:""},
+            {id:"34",name:"Rice",price:400,image:""}
+        ],
+        "🍔 Burgers & Sandwiches": [
+            {id:"35",name:"Noma Burger",price:305,image:""},
+            {id:"36",name:"Cheese Burger",price:350,image:""},
+            {id:"37",name:"Noma Ketchup",price:380,image:""},
+            {id:"38",name:"Club Sandwich",price:360,image:""},
+            {id:"39",name:"Tuna Sandwich",price:350,image:""},
+            {id:"40",name:"Vegetable Sandwich",price:160,image:""},
+            {id:"41",name:"Chicken Shawarma",price:600,image:""},
+            {id:"42",name:"French Fries",price:180,image:""}
+        ],
+        "🥩 Pork Selections": [
+            {id:"43",name:"Pork Chop",price:320,image:""},
+            {id:"44",name:"Pork Sausage",price:180,image:""},
+            {id:"45",name:"Pork Steak",price:570,image:""},
+            {id:"46",name:"Pork Loin",price:200,image:""},
+            {id:"47",name:"Pork Ribs",price:400,image:""},
+            {id:"48",name:"Pork Belly",price:380,image:""},
+            {id:"49",name:"Pork Shoulder",price:400,image:""}
+        ],
+        "🥗 Soup & Salad": [
+            {id:"50",name:"Vegetable Soup",price:180,image:""},
+            {id:"51",name:"Mixed Salad",price:200,image:""},
+            {id:"52",name:"Chicken Salad",price:300,image:""}
+        ],
+        "🍲 Fast Food": [
+            {id:"53",name:"Special Lantica Fasting",price:500,image:""},
+            {id:"54",name:"Normal Firfir",price:180,image:""},
+            {id:"55",name:"Shiro",price:275,image:""},
+            {id:"56",name:"Tegabino",price:300,image:""},
+            {id:"57",name:"Derkosh Firfir Fasting",price:220,image:""},
+            {id:"58",name:"Mesere",price:250,image:""},
+            {id:"59",name:"Hafe Hafe",price:280,image:""}
+        ],
+        "🥤 Fresh Juices": [
+            {id:"60",name:"Papaya Juice",price:160,image:""},
+            {id:"61",name:"Avocado Juice",price:160,image:""},
+            {id:"62",name:"Mango Juice",price:160,image:""},
+            {id:"63",name:"Telba Juice",price:200,image:""}
+        ],
+        "🧊 Cold Drinks": [
+            {id:"64",name:"1/4 Water",price:20,image:""},
+            {id:"65",name:"1/2 Water",price:35,image:""},
+            {id:"66",name:"1 Liter Water",price:55,image:""},
+            {id:"67",name:"2 Liter Water",price:75,image:""},
+            {id:"68",name:"Soft Drink",price:60,image:""},
+            {id:"69",name:"Ambo Water",price:65,image:""},
+            {id:"70",name:"Plastic Soft Drink",price:70,image:""},
+            {id:"71",name:"Tonic Water",price:80,image:""}
+        ],
+        "🍺 Beer & Draft": [
+            {id:"72",name:"Normal Beer",price:100,image:""},
+            {id:"73",name:"Big Bedla",price:120,image:""},
+            {id:"74",name:"Hicnek Beer",price:125,image:""},
+            {id:"75",name:"Arada Beer",price:130,image:""},
+            {id:"76",name:"Janibo",price:145,image:""},
+            {id:"77",name:"Single Draft",price:65,image:""}
+        ],
+        "🍷 Wine List": [
+            {id:"78",name:"Axmite",price:900,image:""},
+            {id:"79",name:"Guder Big",price:720,image:""},
+            {id:"80",name:"Kmila Big",price:800,image:""},
+            {id:"81",name:"Gebeta",price:1100,image:""},
+            {id:"82",name:"Aksejar",price:1200,image:""}
+        ],
+        "☕ Hot Beverages": [
+            {id:"83",name:"Tea",price:30,image:""},
+            {id:"84",name:"Coffee",price:60,image:""},
+            {id:"85",name:"Milk",price:80,image:""},
+            {id:"86",name:"Latte",price:70,image:""},
+            {id:"87",name:"Macchiato",price:75,image:""},
+            {id:"88",name:"Spires",price:60,image:""},
+            {id:"89",name:"Lewis Tea",price:75,image:""},
+            {id:"90",name:"Kesher",price:50,image:""},
+            {id:"91",name:"Tea with Lemon",price:45,image:""},
+            {id:"92",name:"Flavor Tea",price:65,image:""},
+            {id:"93",name:"Special Tea",price:150,image:""},
+            {id:"94",name:"Fasting Macchiato",price:85,image:""},
+            {id:"95",name:"Hot Chocolate",price:80,image:""}
+        ]
+    };
     console.log('⚠️ Using fallback data');
 }
 
-function getCats(){return Object.keys(menuData)}
-function getTotal(){var t=0;for(var k in menuData)t+=menuData[k].length;return t}
+function getCats() { return Object.keys(menuData); }
 
-function renderFilters(){
-    var cats=getCats(),h='<button class="filter-btn '+(currentFilter=='all'?'active':'')+'" onclick="setFilter(\'all\')">All</button>';
-    cats.forEach(function(c){h+='<button class="filter-btn '+(currentFilter==c?'active':'')+'" onclick="setFilter(\''+esc(c)+'\')">'+c+'</button>'});
-    document.getElementById('categoryFilters').innerHTML=h;
-}
-function setFilter(c){currentFilter=c;renderFilters();renderMenu()}
-function setSearch(){currentSearch=document.getElementById('searchInput').value.toLowerCase();renderMenu()}
-
-function getImgUrl(img){
-    if(!img||img==='')return null;
-    if(img.startsWith('http'))return img;
-    return GITHUB_BASE+img;
+function getTotal() { 
+    var t = 0; 
+    for (var k in menuData) t += menuData[k].length; 
+    return t; 
 }
 
-function renderMenu(){
-    var cats=getCats(),c=document.getElementById('menuContainer'),total=0,h='';
-    for(var i=0;i<cats.length;i++){
-        var cat=cats[i];
-        if(currentFilter!='all'&&currentFilter!=cat)continue;
-        var items=menuData[cat];
-        if(currentSearch)items=items.filter(function(item){return item.name.toLowerCase().includes(currentSearch)});
-        if(!items.length)continue;
-        h+='<div class="menu-category"><div class="category-title">'+cat+'<span class="category-count">'+items.length+' items</span></div><div class="menu-grid">';
-        items.forEach(function(item){
-            total++;var img=getImgUrl(item.image);
-            if(img)h+='<div class="menu-card"><div class="menu-card-image-wrapper"><img class="menu-card-image" src="'+img+'" alt="'+esc(item.name)+'" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=no-image-icon><i class=fas fa-utensils></i></div>\'"><div class="menu-card-image-overlay"></div></div><div class="menu-card-content"><span class="menu-card-name">'+esc(item.name)+'</span><span class="menu-card-price">'+item.price+' ETB</span></div></div>';
-            else h+='<div class="menu-card"><div class="no-image-icon"><i class="fas fa-utensils"></i></div><div class="menu-card-content"><span class="menu-card-name">'+esc(item.name)+'</span><span class="menu-card-price">'+item.price+' ETB</span></div></div>';
+function renderFilters() {
+    var cats = getCats();
+    var h = '<button class="filter-btn ' + (currentFilter == 'all' ? 'active' : '') + '" onclick="setFilter(\'all\')">All</button>';
+    cats.forEach(function(c) {
+        h += '<button class="filter-btn ' + (currentFilter == c ? 'active' : '') + '" onclick="setFilter(\'' + esc(c) + '\')">' + c + '</button>';
+    });
+    document.getElementById('categoryFilters').innerHTML = h;
+}
+
+function setFilter(c) { 
+    currentFilter = c; 
+    renderFilters(); 
+    renderMenu(); 
+}
+
+function setSearch() { 
+    currentSearch = document.getElementById('searchInput').value.toLowerCase(); 
+    renderMenu(); 
+}
+
+function getImgUrl(img) {
+    if (!img || img === '') return null;
+    if (img.startsWith('http')) return img;
+    return PLACEHOLDER;
+}
+
+function renderMenu() {
+    var cats = getCats();
+    var container = document.getElementById('menuContainer');
+    var total = 0;
+    var html = '';
+    
+    for (var i = 0; i < cats.length; i++) {
+        var cat = cats[i];
+        if (currentFilter != 'all' && currentFilter != cat) continue;
+        
+        var items = menuData[cat];
+        if (currentSearch) {
+            items = items.filter(function(item) {
+                return item.name.toLowerCase().includes(currentSearch);
+            });
+        }
+        if (!items.length) continue;
+        
+        html += '<div class="menu-category">';
+        html += '<div class="category-title">' + cat + '<span class="category-count">' + items.length + ' items</span></div>';
+        html += '<div class="menu-grid">';
+        
+        items.forEach(function(item) {
+            total++;
+            var img = getImgUrl(item.image);
+            
+            if (img) {
+                html += '<div class="menu-card">';
+                html += '<div class="menu-card-image-wrapper">';
+                html += '<img class="menu-card-image" src="' + img + '" alt="' + esc(item.name) + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=no-image-icon><i class=fas fa-utensils></i></div>\'">';
+                html += '<div class="menu-card-image-overlay"></div>';
+                html += '</div>';
+                html += '<div class="menu-card-content">';
+                html += '<span class="menu-card-name">' + esc(item.name) + '</span>';
+                html += '<span class="menu-card-price">' + item.price + ' ETB</span>';
+                html += '</div></div>';
+            } else {
+                html += '<div class="menu-card">';
+                html += '<div class="no-image-icon"><i class="fas fa-utensils"></i></div>';
+                html += '<div class="menu-card-content">';
+                html += '<span class="menu-card-name">' + esc(item.name) + '</span>';
+                html += '<span class="menu-card-price">' + item.price + ' ETB</span>';
+                html += '</div></div>';
+            }
         });
-        h+='</div></div>';
+        
+        html += '</div></div>';
     }
-    if(!h)h='<div style="text-align:center;padding:50px"><i class="fas fa-search" style="font-size:3rem;color:var(--gold);opacity:0.5;margin-bottom:15px;display:block"></i><h3 style="color:white;margin-bottom:8px">No items found</h3><p style="color:var(--gray)">Try a different search</p></div>';
-    c.innerHTML=h;
-    document.getElementById('stats').innerHTML='<div class="stat-item"><i class="fas fa-layer-group"></i><strong>'+cats.length+'</strong> Categories</div><div class="stat-divider"></div><div class="stat-item"><i class="fas fa-utensils"></i><strong>'+getTotal()+'</strong> Total Items</div><div class="stat-divider"></div><div class="stat-item"><i class="fas fa-eye"></i> Showing <strong>'+total+'</strong></div><div class="stat-divider"></div><div class="stat-item"><i class="fas fa-phone"></i> Order: <strong>+251 94 1270 797</strong></div>';
+    
+    if (!html) {
+        html = '<div style="text-align:center;padding:50px">';
+        html += '<i class="fas fa-search" style="font-size:3rem;color:var(--gold);opacity:0.5;margin-bottom:15px;display:block"></i>';
+        html += '<h3 style="color:white;margin-bottom:8px">No items found</h3>';
+        html += '<p style="color:var(--gray)">Try a different search</p>';
+        html += '</div>';
+    }
+    
+    container.innerHTML = html;
+    
+    document.getElementById('stats').innerHTML = 
+        '<div class="stat-item"><i class="fas fa-layer-group"></i><strong>' + cats.length + '</strong> Categories</div>' +
+        '<div class="stat-divider"></div>' +
+        '<div class="stat-item"><i class="fas fa-utensils"></i><strong>' + getTotal() + '</strong> Total Items</div>' +
+        '<div class="stat-divider"></div>' +
+        '<div class="stat-item"><i class="fas fa-eye"></i> Showing <strong>' + total + '</strong></div>' +
+        '<div class="stat-divider"></div>' +
+        '<div class="stat-item"><i class="fas fa-phone"></i> Order: <strong>+251 94 1270 797</strong></div>';
 }
 
-function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function esc(s) { 
+    if (!s) return ''; 
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); 
+}
 
-window.addEventListener('scroll',function(){document.getElementById('backToTop').classList.toggle('visible',window.scrollY>500)});
-document.getElementById('searchInput').addEventListener('keyup',setSearch);
+// Event Listeners
+window.addEventListener('scroll', function() {
+    document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 500);
+});
 
-// INIT - Load from lantica-db
-loadMenu().then(function(){renderFilters();renderMenu();console.log('✅ Menu rendered')});
+document.getElementById('searchInput').addEventListener('keyup', setSearch);
+
+// Initialize
+loadMenu().then(function() {
+    renderFilters();
+    renderMenu();
+    console.log('✅ Menu rendered successfully');
+});
 </script>
 </body>
 </html>
