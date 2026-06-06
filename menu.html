@@ -10,112 +10,73 @@
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Inter',sans-serif;background:#0A0A0A;color:#E8E0D5;overflow-x:hidden}
-        :root{--gold:#C9A96E;--gold-dark:#B8933F;--red:#B45F3B;--dark-card:#1A1A1A;--gray:#9B8A74;--gray-light:#D1C5B5;--border:#2C2823}
-
+        :root{--gold:#C9A96E;--gold-dark:#B8933F;--dark-card:#1A1A1A;--gray:#9B8A74;--gray-light:#D1C5B5;--border:#2C2823}
         ::-webkit-scrollbar{width:6px}
         ::-webkit-scrollbar-track{background:#0A0A0A}
         ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}
-
-        .navbar{background:rgba(10,10,10,0.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-bottom:1px solid rgba(201,169,110,0.3);position:sticky;top:0;z-index:1000;padding:15px 25px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
-        .logo{display:flex;align-items:center;gap:12px;text-decoration:none;transition:transform 0.3s}
-        .logo:hover{transform:scale(1.02)}
-        .logo-circle{width:45px;height:45px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);box-shadow:0 0 15px rgba(201,169,110,0.2)}
+        .navbar{background:rgba(10,10,10,0.97);backdrop-filter:blur(30px);border-bottom:1px solid rgba(201,169,110,0.3);position:sticky;top:0;z-index:1000;padding:15px 25px;display:flex;justify-content:space-between;align-items:center}
+        .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+        .logo-circle{width:45px;height:45px;border-radius:50%;overflow:hidden;border:2px solid var(--gold)}
         .logo-circle img{width:100%;height:100%;object-fit:cover}
-        .logo-text{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:white;letter-spacing:1px}
+        .logo-text{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:white}
         .logo-text span{color:var(--gold)}
-        .nav-links{display:flex;gap:22px;list-style:none;align-items:center}
-        .nav-links a{color:var(--gray-light);text-decoration:none;font-weight:500;font-size:0.9rem;transition:0.3s;position:relative;padding:5px 0}
-        .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--gold);transition:width 0.3s}
+        .nav-links{display:flex;gap:22px;list-style:none}
+        .nav-links a{color:var(--gray-light);text-decoration:none;font-weight:500;font-size:0.9rem;transition:0.3s}
         .nav-links a:hover,.nav-links a.active{color:var(--gold)}
-        .nav-links a:hover::after,.nav-links a.active::after{width:100%}
-
-        .menu-hero{background:linear-gradient(135deg,#0A0A0A 0%,#1a1612 50%,#0A0A0A 100%);text-align:center;padding:70px 20px 50px;border-bottom:1px solid rgba(201,169,110,0.2);position:relative;overflow:hidden}
-        .menu-hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at center,rgba(201,169,110,0.03) 0%,transparent 70%);animation:heroPulse 8s ease-in-out infinite}
-        @keyframes heroPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-        .menu-hero-content{position:relative;z-index:1}
-        .menu-hero .icon{font-size:3rem;color:var(--gold);margin-bottom:10px;display:inline-block;animation:float 3s ease-in-out infinite}
+        .menu-hero{background:linear-gradient(135deg,#0A0A0A 0%,#1a1612 50%,#0A0A0A 100%);text-align:center;padding:70px 20px 50px}
+        .menu-hero .icon{font-size:3rem;color:var(--gold);animation:float 3s ease-in-out infinite}
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         .menu-hero h1{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:white}
         .menu-hero h1 span{color:var(--gold)}
-        .menu-hero .location{display:inline-flex;align-items:center;gap:8px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);padding:10px 25px;border-radius:50px;margin-top:15px;font-size:0.9rem;color:var(--gray-light)}
-        .menu-hero .location i{color:var(--gold)}
-
+        .menu-hero .location{display:inline-flex;align-items:center;gap:8px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);padding:10px 25px;border-radius:50px;margin-top:15px;font-size:0.9rem}
         .container{max-width:1300px;margin:0 auto;padding:35px 20px}
         .search-bar{display:flex;justify-content:center;margin-bottom:25px}
         .search-input-wrapper{position:relative;width:400px;max-width:100%}
-        .search-input{padding:14px 20px 14px 45px;width:100%;background:var(--dark-card);border:2px solid var(--border);border-radius:50px;color:white;font-size:0.95rem;font-family:'Inter',sans-serif;transition:0.3s}
-        .search-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 20px rgba(201,169,110,0.1)}
-        .search-input-wrapper i{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--gray);transition:0.3s}
-        .search-input:focus~i,.search-input-wrapper:focus-within i{color:var(--gold)}
-
+        .search-input{padding:14px 20px 14px 45px;width:100%;background:var(--dark-card);border:2px solid var(--border);border-radius:50px;color:white;font-size:0.95rem}
+        .search-input:focus{outline:none;border-color:var(--gold)}
+        .search-input-wrapper i{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--gray)}
         .category-filter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:35px}
-        .filter-btn{background:var(--dark-card);border:1px solid var(--border);padding:9px 20px;border-radius:40px;color:var(--gray-light);cursor:pointer;transition:all 0.3s;font-weight:500;font-size:0.85rem;white-space:nowrap}
-        .filter-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
-        .filter-btn.active{background:var(--gold);color:#0A0A0A;border-color:var(--gold);font-weight:600;box-shadow:0 5px 20px rgba(201,169,110,0.3)}
-
+        .filter-btn{background:var(--dark-card);border:1px solid var(--border);padding:9px 20px;border-radius:40px;color:var(--gray-light);cursor:pointer;transition:0.3s;font-size:0.85rem}
+        .filter-btn:hover,.filter-btn.active{background:var(--gold);color:#0A0A0A;border-color:var(--gold)}
         .menu-category{margin-bottom:45px;animation:fadeInUp 0.4s ease-out}
         @keyframes fadeInUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
-        .category-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);margin-bottom:25px;padding-left:18px;border-left:4px solid var(--gold);display:flex;align-items:center;gap:12px}
-        .category-count{font-size:0.85rem;color:var(--gray);font-family:'Inter',sans-serif;font-weight:400}
-
+        .category-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);margin-bottom:25px;padding-left:18px;border-left:4px solid var(--gold)}
         .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-        .menu-card{background:var(--dark-card);border-radius:18px;overflow:hidden;border:1px solid var(--border);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);cursor:pointer}
-        .menu-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 15px 35px rgba(201,169,110,0.12);background:#1f1f1f}
-        .menu-card-image-wrapper{position:relative;overflow:hidden}
-        .menu-card-image{width:100%;height:170px;object-fit:cover;background:#0D0D0D;transition:transform 0.5s}
-        .menu-card:hover .menu-card-image{transform:scale(1.05)}
-        .menu-card-image-overlay{position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to top,rgba(26,26,26,0.9),transparent)}
+        .menu-card{background:var(--dark-card);border-radius:18px;overflow:hidden;border:1px solid var(--border);transition:0.3s;cursor:pointer}
+        .menu-card:hover{transform:translateY(-5px);border-color:var(--gold)}
+        .menu-card-image{width:100%;height:170px;object-fit:cover;background:#0D0D0D}
         .no-image-icon{width:100%;height:170px;display:flex;align-items:center;justify-content:center;background:#0D0D0D;color:var(--gray);font-size:2.5rem}
         .menu-card-content{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-        .menu-card-name{font-weight:600;font-size:0.9rem;color:white;line-height:1.3;flex:1}
-        .menu-card-price{color:var(--gold);font-weight:700;font-size:1rem;white-space:nowrap;padding:7px 14px;background:rgba(201,169,110,0.1);border-radius:30px;transition:0.3s}
+        .menu-card-name{font-weight:600;font-size:0.9rem;color:white;flex:1}
+        .menu-card-price{color:var(--gold);font-weight:700;font-size:1rem;padding:7px 14px;background:rgba(201,169,110,0.1);border-radius:30px}
         .menu-card:hover .menu-card-price{background:var(--gold);color:#0A0A0A}
-
         .stats-bar{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;padding:20px;background:var(--dark-card);border-radius:18px;margin-top:30px;border:1px solid var(--border)}
         .stat-item{display:flex;align-items:center;gap:8px;color:var(--gray-light);font-size:0.85rem}
         .stat-item i{color:var(--gold)}.stat-item strong{color:white}
         .stat-divider{width:1px;height:18px;background:var(--border)}
-
         .footer{background:#020202;text-align:center;padding:35px 20px;margin-top:40px;border-top:1px solid rgba(201,169,110,0.1)}
         .footer p{color:var(--gray);margin:5px 0;font-size:0.85rem}
-        .footer a{color:var(--gold);text-decoration:none;font-weight:500;transition:0.3s}
-        .footer a:hover{color:var(--gray-light)}
-
-        .floating-telegram{position:fixed;bottom:30px;left:30px;background:#0088cc;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;text-decoration:none;box-shadow:0 8px 25px rgba(0,136,204,0.35);transition:0.3s;z-index:999;border:2px solid white;animation:bounce 2s ease-in-out infinite}
+        .footer a{color:var(--gold);text-decoration:none}
+        .floating-telegram{position:fixed;bottom:30px;left:30px;background:#0088cc;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;text-decoration:none;box-shadow:0 8px 25px rgba(0,136,204,0.35);z-index:999;animation:bounce 2s infinite}
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-        .floating-telegram:hover{transform:scale(1.12);background:#0077b3;animation:none}
-
-        .back-to-top{position:fixed;bottom:30px;right:30px;background:var(--gold);color:#0A0A0A;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transition:0.3s;z-index:998;border:none;font-size:1.1rem;box-shadow:0 5px 20px rgba(0,0,0,0.3)}
+        .back-to-top{position:fixed;bottom:30px;right:30px;background:var(--gold);color:#0A0A0A;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transition:0.3s;z-index:998;border:none}
         .back-to-top.visible{opacity:1;visibility:visible}
-        .back-to-top:hover{background:var(--gold-dark);transform:translateY(-3px)}
-
-        .loading-spinner{display:flex;align-items:center;justify-content:center;padding:50px}
-        .spinner{width:45px;height:45px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite}
-        @keyframes spin{to{transform:rotate(360deg)}}
-
         @media(max-width:768px){
             .nav-links{display:none}
-            .menu-hero{padding:45px 15px 35px}
             .menu-hero h1{font-size:2.2rem}
-            .menu-grid{grid-template-columns:1fr;gap:14px}
-            .category-title{font-size:1.4rem}
-            .filter-btn{padding:7px 15px;font-size:0.78rem}
-            .floating-telegram{width:48px;height:48px;font-size:1.3rem;bottom:20px;left:20px}
-            .back-to-top{width:38px;height:38px;bottom:20px;right:20px}
-            .menu-card-image,.no-image-icon{height:150px}
-            .stats-bar{gap:10px;padding:15px}
-            .stat-divider{display:none}
+            .menu-grid{grid-template-columns:1fr}
+            .floating-telegram{width:48px;height:48px;bottom:20px;left:20px}
         }
     </style>
 </head>
 <body>
 
-<a href="https://t.me/+251941270797" target="_blank" rel="noopener" class="floating-telegram" aria-label="Order on Telegram"><i class="fab fa-telegram-plane"></i></a>
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+<a href="https://t.me/+251941270797" target="_blank" class="floating-telegram"><i class="fab fa-telegram-plane"></i></a>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
 <nav class="navbar">
     <a href="index.html" class="logo">
-        <div class="logo-circle"><img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960" loading="eager"></div>
+        <div class="logo-circle"><img src="https://raw.githubusercontent.com/developereth/Lantica/main/logo.jpg" alt="Lantica 1960"></div>
         <div class="logo-text">LANTICA <span>1960</span></div>
     </a>
     <ul class="nav-links">
@@ -124,17 +85,14 @@
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="heritage.html">Heritage</a></li>
         <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#events">Events</a></li>
         <li><a href="index.html#contact">Contact</a></li>
     </ul>
 </nav>
 
 <section class="menu-hero">
-    <div class="menu-hero-content">
-        <div class="icon">🍽️</div>
-        <h1>Our <span>Complete Menu</span></h1>
-        <div class="location"><i class="fas fa-map-marker-alt"></i> Arat Kilo, Addis Ababa &nbsp;|&nbsp; Since 1996</div>
-    </div>
+    <div class="icon">🍽️</div>
+    <h1>Our <span>Complete Menu</span></h1>
+    <div class="location"><i class="fas fa-map-marker-alt"></i> Arat Kilo, Addis Ababa &nbsp;|&nbsp; Since 1996</div>
 </section>
 
 <div class="container">
@@ -145,168 +103,41 @@
         </div>
     </div>
     <div class="category-filter" id="categoryFilters"></div>
-    <div id="menuContainer"><div class="loading-spinner"><div class="spinner"></div></div></div>
+    <div id="menuContainer"><div style="text-align:center;padding:50px"><div class="spinner" style="width:45px;height:45px;border:3px solid #2C2823;border-top-color:#C9A96E;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto"></div></div></div>
     <div class="stats-bar" id="stats"></div>
 </div>
 
 <footer class="footer">
     <p>📍 Arat Kilo, Addis Ababa &nbsp;|&nbsp; 📞 <a href="tel:+251941270797">+251 94 1270 797</a></p>
-    <p style="margin-top:8px;font-size:0.8rem">Powered by <a href="https://addispower.pages.dev/" target="_blank" rel="noopener">AddisPower</a></p>
-    <p style="font-size:0.7rem;color:var(--gray);margin-top:4px">© 2024 Lantica 1960. All rights reserved.</p>
+    <p style="margin-top:8px;font-size:0.8rem">Powered by <a href="https://addispower.pages.dev/">AddisPower</a></p>
 </footer>
 
 <script>
-// ===== CONFIGURATION =====
-var STORAGE_KEY = 'lantica_menu_data';
+// ===== YOUR API =====
+var API_URL = 'https://lantica-menu.developeraddis.workers.dev/api/menu';
+
 var menuData = {}, currentFilter = 'all', currentSearch = '';
 
-// Default fallback data
-var DEFAULT_MENU = {
-    "☀️ Breakfast": [
-        {id:"1",name:"Combo Fasting",price:250,image:""},
-        {id:"2",name:"Egg w/ meat",price:250,image:""},
-        {id:"3",name:"Special Fetora",price:350,image:""},
-        {id:"4",name:"Normal Fetora",price:200,image:""},
-        {id:"5",name:"Special Chech",price:250,image:""},
-        {id:"6",name:"Normal Foul",price:180,image:""},
-        {id:"7",name:"Special Foul",price:250,image:""},
-        {id:"8",name:"Tomato Cheese",price:170,image:""},
-        {id:"9",name:"Egg Sandwich",price:200,image:""}
-    ],
-    "🔥 Traditional Food": [
-        {id:"10",name:"Lamb Tibs",price:680,image:""},
-        {id:"11",name:"Lamb Tibs Tefresho",price:700,image:""},
-        {id:"12",name:"Okie",price:600,image:""},
-        {id:"13",name:"Chikena Tibs",price:600,image:""},
-        {id:"14",name:"Chikena Tefresho",price:650,image:""},
-        {id:"15",name:"Kitto",price:1200,image:""},
-        {id:"16",name:"Quanta Firfir",price:370,image:""},
-        {id:"17",name:"Kiba Firfir",price:210,image:""},
-        {id:"18",name:"Tibes Firfir",price:320,image:""},
-        {id:"19",name:"Shiro Bekibe",price:300,image:""},
-        {id:"20",name:"Dullet",price:330,image:""},
-        {id:"21",name:"Derkosh Firfir Beseg",price:380,image:""},
-        {id:"22",name:"Bozena Shiro",price:350,image:""},
-        {id:"23",name:"Mahberawi",price:1200,image:""},
-        {id:"24",name:"Yefisk Agelgel",price:1000,image:""},
-        {id:"25",name:"Gomen Kitto",price:300,image:""}
-    ],
-    "🍕 Pizza": [
-        {id:"26",name:"Special Lentic Pizza Large",price:580,image:""},
-        {id:"27",name:"Special Lentic Pizza Medium",price:550,image:""},
-        {id:"28",name:"Chicken Pizza Large",price:550,image:""},
-        {id:"29",name:"Chicken Pizza Medium",price:460,image:""},
-        {id:"30",name:"Margarita Large",price:450,image:""},
-        {id:"31",name:"Margarita Medium",price:400,image:""},
-        {id:"32",name:"Vegetable Pizza Large",price:370,image:""}
-    ],
-    "🍝 Spaghetti & Rice": [
-        {id:"33",name:"Spaghetti with Vegetables",price:230,image:""},
-        {id:"34",name:"Rice",price:400,image:""}
-    ],
-    "🍔 Burgers & Sandwiches": [
-        {id:"35",name:"Noma Burger",price:305,image:""},
-        {id:"36",name:"Cheese Burger",price:350,image:""},
-        {id:"37",name:"Noma Ketchup",price:380,image:""},
-        {id:"38",name:"Club Sandwich",price:360,image:""},
-        {id:"39",name:"Tuna Sandwich",price:350,image:""},
-        {id:"40",name:"Vegetable Sandwich",price:160,image:""},
-        {id:"41",name:"Chicken Shawarma",price:600,image:""},
-        {id:"42",name:"French Fries",price:180,image:""}
-    ],
-    "🥩 Pork Selections": [
-        {id:"43",name:"Pork Chop",price:320,image:""},
-        {id:"44",name:"Pork Sausage",price:180,image:""},
-        {id:"45",name:"Pork Steak",price:570,image:""},
-        {id:"46",name:"Pork Loin",price:200,image:""},
-        {id:"47",name:"Pork Ribs",price:400,image:""},
-        {id:"48",name:"Pork Belly",price:380,image:""},
-        {id:"49",name:"Pork Shoulder",price:400,image:""}
-    ],
-    "🥗 Soup & Salad": [
-        {id:"50",name:"Vegetable Soup",price:180,image:""},
-        {id:"51",name:"Mixed Salad",price:200,image:""},
-        {id:"52",name:"Chicken Salad",price:300,image:""}
-    ],
-    "🍲 Fast Food": [
-        {id:"53",name:"Special Lantica Fasting",price:500,image:""},
-        {id:"54",name:"Normal Firfir",price:180,image:""},
-        {id:"55",name:"Shiro",price:275,image:""},
-        {id:"56",name:"Tegabino",price:300,image:""},
-        {id:"57",name:"Derkosh Firfir Fasting",price:220,image:""},
-        {id:"58",name:"Mesere",price:250,image:""},
-        {id:"59",name:"Hafe Hafe",price:280,image:""}
-    ],
-    "🥤 Fresh Juices": [
-        {id:"60",name:"Papaya Juice",price:160,image:""},
-        {id:"61",name:"Avocado Juice",price:160,image:""},
-        {id:"62",name:"Mango Juice",price:160,image:""},
-        {id:"63",name:"Telba Juice",price:200,image:""}
-    ],
-    "🧊 Cold Drinks": [
-        {id:"64",name:"1/4 Water",price:20,image:""},
-        {id:"65",name:"1/2 Water",price:35,image:""},
-        {id:"66",name:"1 Liter Water",price:55,image:""},
-        {id:"67",name:"2 Liter Water",price:75,image:""},
-        {id:"68",name:"Soft Drink",price:60,image:""},
-        {id:"69",name:"Ambo Water",price:65,image:""},
-        {id:"70",name:"Plastic Soft Drink",price:70,image:""},
-        {id:"71",name:"Tonic Water",price:80,image:""}
-    ],
-    "🍺 Beer & Draft": [
-        {id:"72",name:"Normal Beer",price:100,image:""},
-        {id:"73",name:"Big Bedla",price:120,image:""},
-        {id:"74",name:"Hicnek Beer",price:125,image:""},
-        {id:"75",name:"Arada Beer",price:130,image:""},
-        {id:"76",name:"Janibo",price:145,image:""},
-        {id:"77",name:"Single Draft",price:65,image:""}
-    ],
-    "🍷 Wine List": [
-        {id:"78",name:"Axmite",price:900,image:""},
-        {id:"79",name:"Guder Big",price:720,image:""},
-        {id:"80",name:"Kmila Big",price:800,image:""},
-        {id:"81",name:"Gebeta",price:1100,image:""},
-        {id:"82",name:"Aksejar",price:1200,image:""}
-    ],
-    "☕ Hot Beverages": [
-        {id:"83",name:"Tea",price:30,image:""},
-        {id:"84",name:"Coffee",price:60,image:""},
-        {id:"85",name:"Milk",price:80,image:""},
-        {id:"86",name:"Latte",price:70,image:""},
-        {id:"87",name:"Macchiato",price:75,image:""},
-        {id:"88",name:"Spires",price:60,image:""},
-        {id:"89",name:"Lewis Tea",price:75,image:""},
-        {id:"90",name:"Kesher",price:50,image:""},
-        {id:"91",name:"Tea with Lemon",price:45,image:""},
-        {id:"92",name:"Flavor Tea",price:65,image:""},
-        {id:"93",name:"Special Tea",price:150,image:""},
-        {id:"94",name:"Fasting Macchiato",price:85,image:""},
-        {id:"95",name:"Hot Chocolate",price:80,image:""}
-    ]
-};
-
-// Load menu data
-function loadMenu() {
-    // First try localStorage (set by admin panel)
-    var saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-        try {
-            menuData = JSON.parse(saved);
-            if (Object.keys(menuData).length > 0) {
-                console.log('✅ Loaded from localStorage:', Object.keys(menuData).length, 'categories');
-                return;
-            }
-        } catch (e) {
-            console.log('⚠️ Invalid localStorage data');
+async function loadMenu() {
+    try {
+        var r = await fetch(API_URL);
+        var d = await r.json();
+        if (d.success && d.menu && Object.keys(d.menu).length > 0) {
+            menuData = d.menu;
+            console.log('✅ Loaded from API:', Object.keys(menuData).length, 'categories');
+            return;
         }
+    } catch(e) {
+        console.log('⚠️ API unavailable');
     }
-    
-    // Use default data
-    menuData = JSON.parse(JSON.stringify(DEFAULT_MENU));
-    console.log('📋 Using default menu data');
+    // Fallback
+    var saved = localStorage.getItem('lantica_menu_data');
+    if (saved) {
+        try { menuData = JSON.parse(saved); } catch(e) {}
+    }
 }
 
-function getCats() { return Object.keys(menuData); }
+function getCats() { return Object.keys(menuData).sort(); }
 
 function getTotal() { 
     var t = 0; 
@@ -318,34 +149,17 @@ function renderFilters() {
     var cats = getCats();
     var h = '<button class="filter-btn ' + (currentFilter == 'all' ? 'active' : '') + '" onclick="setFilter(\'all\')">All</button>';
     cats.forEach(function(c) {
-        h += '<button class="filter-btn ' + (currentFilter == c ? 'active' : '') + '" onclick="setFilter(\'' + escAttr(c) + '\')">' + c + '</button>';
+        h += '<button class="filter-btn ' + (currentFilter == c ? 'active' : '') + '" onclick="setFilter(\'' + c.replace(/'/g,"\\'") + '\')">' + c + '</button>';
     });
     document.getElementById('categoryFilters').innerHTML = h;
 }
 
-function setFilter(c) { 
-    currentFilter = c; 
-    renderFilters(); 
-    renderMenu(); 
-    // Scroll to top of menu
-    document.getElementById('menuContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+function setFilter(c) { currentFilter = c; renderFilters(); renderMenu(); }
 
-function setSearch() { 
-    currentSearch = document.getElementById('searchInput').value.toLowerCase(); 
-    renderMenu(); 
-}
-
-function getImgUrl(img) {
-    if (!img || img === '') return null;
-    return img; // Cloudinary URLs are absolute, local paths handled by onerror
-}
+function setSearch() { currentSearch = document.getElementById('searchInput').value.toLowerCase(); renderMenu(); }
 
 function renderMenu() {
-    var cats = getCats();
-    var container = document.getElementById('menuContainer');
-    var total = 0;
-    var html = '';
+    var cats = getCats(), container = document.getElementById('menuContainer'), total = 0, html = '';
     
     for (var i = 0; i < cats.length; i++) {
         var cat = cats[i];
@@ -354,54 +168,28 @@ function renderMenu() {
         var items = menuData[cat];
         if (currentSearch) {
             items = items.filter(function(item) {
-                return item.name.toLowerCase().includes(currentSearch) ||
-                       cat.toLowerCase().includes(currentSearch);
+                return item.name.toLowerCase().includes(currentSearch) || cat.toLowerCase().includes(currentSearch);
             });
         }
         if (!items.length) continue;
         
-        html += '<div class="menu-category">';
-        html += '<div class="category-title">' + cat + '<span class="category-count">' + items.length + ' items</span></div>';
-        html += '<div class="menu-grid">';
+        html += '<div class="menu-category"><div class="category-title">' + cat + ' <span style="font-size:0.85rem;color:#9B8A74;font-weight:400">' + items.length + ' items</span></div><div class="menu-grid">';
         
         items.forEach(function(item) {
             total++;
-            var img = getImgUrl(item.image);
-            
-            if (img) {
-                html += '<div class="menu-card">';
-                html += '<div class="menu-card-image-wrapper">';
-                html += '<img class="menu-card-image" src="' + img + '" alt="' + esc(item.name) + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=no-image-icon><i class=fas fa-utensils></i></div>\'">';
-                html += '<div class="menu-card-image-overlay"></div>';
-                html += '</div>';
-                html += '<div class="menu-card-content">';
-                html += '<span class="menu-card-name">' + esc(item.name) + '</span>';
-                html += '<span class="menu-card-price">' + item.price + ' ETB</span>';
-                html += '</div></div>';
+            if (item.image) {
+                html += '<div class="menu-card"><img class="menu-card-image" src="' + item.image + '" alt="' + item.name + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=no-image-icon><i class=fas fa-utensils></i></div><div class=menu-card-content><span class=menu-card-name>' + item.name + '</span><span class=menu-card-price>' + item.price + ' ETB</span></div>\'"><div class="menu-card-content"><span class="menu-card-name">' + item.name + '</span><span class="menu-card-price">' + item.price + ' ETB</span></div></div>';
             } else {
-                html += '<div class="menu-card">';
-                html += '<div class="no-image-icon"><i class="fas fa-utensils"></i></div>';
-                html += '<div class="menu-card-content">';
-                html += '<span class="menu-card-name">' + esc(item.name) + '</span>';
-                html += '<span class="menu-card-price">' + item.price + ' ETB</span>';
-                html += '</div></div>';
+                html += '<div class="menu-card"><div class="no-image-icon"><i class="fas fa-utensils"></i></div><div class="menu-card-content"><span class="menu-card-name">' + item.name + '</span><span class="menu-card-price">' + item.price + ' ETB</span></div></div>';
             }
         });
         
         html += '</div></div>';
     }
     
-    if (!html) {
-        html = '<div style="text-align:center;padding:50px">';
-        html += '<i class="fas fa-search" style="font-size:3rem;color:var(--gold);opacity:0.5;margin-bottom:15px;display:block"></i>';
-        html += '<h3 style="color:white;margin-bottom:8px">No items found</h3>';
-        html += '<p style="color:var(--gray)">Try a different search or category</p>';
-        html += '</div>';
-    }
-    
+    if (!html) html = '<div style="text-align:center;padding:50px"><i class="fas fa-search" style="font-size:3rem;color:var(--gold);opacity:0.5"></i><h3 style="color:white;margin-top:15px">No items found</h3></div>';
     container.innerHTML = html;
     
-    // Update stats bar
     document.getElementById('stats').innerHTML = 
         '<div class="stat-item"><i class="fas fa-layer-group"></i><strong>' + cats.length + '</strong> Categories</div>' +
         '<div class="stat-divider"></div>' +
@@ -412,39 +200,16 @@ function renderMenu() {
         '<div class="stat-item"><i class="fas fa-phone"></i> Order: <strong>+251 94 1270 797</strong></div>';
 }
 
-// Escape functions
-function esc(s) { 
-    if (!s) return ''; 
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); 
-}
-
-function escAttr(s) {
-    if (!s) return '';
-    return s.replace(/'/g,"\\'").replace(/"/g,'&quot;');
-}
-
-// Event Listeners
 window.addEventListener('scroll', function() {
     document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 500);
 });
 
 document.getElementById('searchInput').addEventListener('keyup', setSearch);
 
-// Listen for storage changes (if admin updates data in another tab)
-window.addEventListener('storage', function(e) {
-    if (e.key === STORAGE_KEY) {
-        loadMenu();
-        renderFilters();
-        renderMenu();
-        console.log('🔄 Menu updated from another tab');
-    }
+loadMenu().then(function() {
+    renderFilters();
+    renderMenu();
 });
-
-// Initialize
-loadMenu();
-renderFilters();
-renderMenu();
-console.log('✅ Menu loaded successfully');
 </script>
 </body>
 </html>
