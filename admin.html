@@ -8,9 +8,6 @@
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;padding:20px}
         .container{max-width:900px;margin:0 auto}
-        .login-box{background:#111;padding:40px;border-radius:15px;max-width:400px;margin:100px auto;text-align:center;border:1px solid #C9A96E}
-        .login-box h2{color:#C9A96E;margin-bottom:20px}
-        .login-box input{width:100%;padding:14px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:1rem;text-align:center;margin-bottom:15px}
         .hidden{display:none!important}
         h1{color:#C9A96E;margin-bottom:20px;font-size:1.5rem;text-align:center}
         .tabs{display:flex;gap:5px;margin-bottom:20px;justify-content:center}
@@ -40,14 +37,11 @@
 </head>
 <body>
 <div class="container">
-<div id="loginScreen" class="login-box"><h2>🔐 Lantica Admin</h2><input type="password" id="pw" placeholder="Enter Password" onkeypress="if(event.key==='Enter')login()"><button class="btn-gold" onclick="login()">Access Admin</button><p id="loginErr" style="color:#e74c3c;margin-top:10px;display:none">❌ Wrong password</p></div>
-
-<div id="panel" class="hidden">
-<div class="top-bar"><h1 style="margin:0">🍽️ Lantica 1960</h1><div style="display:flex;gap:8px"><button class="btn-green btn-sm" onclick="saveData()">💾 Save</button><button class="btn-red btn-sm" onclick="logout()">Logout</button></div></div>
+<div class="top-bar"><h1 style="margin:0">🍽️ Lantica 1960 Admin</h1><div style="display:flex;gap:8px"><button class="btn-green btn-sm" onclick="saveData()">💾 Save</button><button class="btn-blue btn-sm" onclick="loadData()">🔄 Reload</button></div></div>
 <div class="tabs"><button class="active" onclick="switchTab('menu')">🍽️ Menu</button><button onclick="switchTab('heritage')">🏛️ Heritage</button></div>
 
 <div class="tab-content show" id="tab-menu">
-<div class="card"><h2>➕ Add Item</h2>
+<div class="card"><h2>➕ Add Menu Item</h2>
 <div class="upload-box" onclick="document.getElementById('f1').click()">📷 Upload to Cloudinary</div>
 <input type="file" id="f1" accept="image/*" style="display:none" onchange="addImg()">
 <div class="preview-row"><img id="pv1"><span id="st1" style="font-size:0.7rem;margin-left:10px"></span></div>
@@ -67,33 +61,39 @@
 <div class="row"><select id="ec"><option value="">Category</option></select><input type="text" id="eurl" placeholder="Image URL"></div>
 <button class="btn-green" onclick="saveEdit()">💾 Save</button><button class="btn-red" onclick="cancelEdit()">Cancel</button></div>
 
-<div class="card"><h2>📋 Items</h2><input type="text" class="search-box" placeholder="🔍 Search..." id="sp" oninput="renderItems()"><div id="pList">Loading...</div></div>
+<div class="card"><h2>📋 Menu Items</h2><input type="text" class="search-box" placeholder="🔍 Search..." id="sp" oninput="renderItems()"><div id="pList">Loading...</div></div>
 </div>
-</div></div>
+
+<div class="tab-content" id="tab-heritage">
+<div class="card"><h2>🏛️ Heritage Content</h2>
+<input type="text" id="hHeroTitle" placeholder="Hero Title"><textarea id="hHeroDesc" rows="2" placeholder="Hero Description"></textarea>
+<input type="text" id="hQuote" placeholder="Quote"><input type="text" id="hStoryTitle" placeholder="Story Title">
+<textarea id="hStoryContent" rows="3" placeholder="Story Content"></textarea>
+<button class="btn-gold" onclick="saveHeritageContent()">💾 Save</button><div id="hcmsg" class="msg"></div>
+</div>
+
+<div class="card"><h2>➕ Add Heritage Item</h2>
+<div class="upload-box" onclick="document.getElementById('hf').click()">📷 Upload image</div>
+<input type="file" id="hf" accept="image/*" style="display:none" onchange="heritageImg()">
+<div class="preview-row"><img id="hpv"><span id="hst" style="font-size:0.7rem;margin-left:10px"></span></div>
+<input type="hidden" id="hu">
+<input type="text" id="hTitle" placeholder="Title *"><input type="text" id="hBadge" placeholder="Badge">
+<input type="text" id="hImageUrl" placeholder="Or paste image URL"><textarea id="hStory" rows="2" placeholder="Story *"></textarea>
+<textarea id="hMemory" rows="2" placeholder="Memory"></textarea>
+<button class="btn-gold" onclick="addHeritageItem()">✅ Add</button><div id="hmsg" class="msg"></div>
+</div>
+
+<div class="card"><h2>📋 Heritage Items</h2><div id="hList">Loading...</div></div>
+</div>
+</div>
 
 <script>
-var C='dnxxxpbm9',PR='lantica_upload',menuData={items:[]},adminKey='';
+var C='dnxxxpbm9',PR='lantica_upload',API='https://lantica-menu.developeraddis.workers.dev/api';
+var menuData={items:[]},heritageData={items:[],content:{heroTitle:"Heritage Gallery",heroDesc:"Step into memory",quote:"Every artifact tells a story",storyTitle:"The Memory",storyContent:"Our story"}};
 
-// LOGIN - Test connection to API
-async function login(){
-    adminKey = document.getElementById('pw').value;
-    // Test if password works
-    var r = await fetch('https://lantica-menu.developeraddis.workers.dev/api/menu');
-    if(r.ok){
-        menuData = await r.json();
-        document.getElementById('loginScreen').classList.add('hidden');
-        document.getElementById('panel').classList.remove('hidden');
-        renderAll();
-    } else {
-        document.getElementById('loginErr').style.display='block';
-    }
-}
+// LOAD ON START
+loadData();
 
-function logout(){
-    document.getElementById('panel').classList.add('hidden');
-    document.getElementById('loginScreen').classList.remove('hidden');
-    menuData = {items:[]};
-}
 function switchTab(t){
     document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
     event.target.classList.add('active');
@@ -101,15 +101,19 @@ function switchTab(t){
     document.getElementById('tab-'+t).classList.add('show');
 }
 
+async function loadData(){
+    try{
+        var r=await fetch(API+'/menu');
+        if(r.ok){menuData=await r.json();renderAll();console.log('✅ Loaded',menuData.items.length,'items')}
+        else{console.log('API error:',r.status);renderAll()}
+    }catch(e){console.log('Fetch error:',e);renderAll()}
+}
+
 async function saveData(){
     try{
-        var r = await fetch('https://lantica-menu.developeraddis.workers.dev/api/menu',{
-            method:'POST',
-            headers:{'Content-Type':'application/json','X-Admin-Key':adminKey},
-            body:JSON.stringify(menuData)
-        });
-        if(r.ok){showMsg('msg','✅ Saved!','success')}
-        else{showMsg('msg','❌ Save failed - check password','error')}
+        var data={menu:menuData,heritage:heritageData.items,heritageContent:heritageData.content};
+        var r=await fetch(API+'/menu',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':'Lantica2026'},body:JSON.stringify(data)});
+        if(r.ok){showMsg('msg','✅ Saved!','success')}else{showMsg('msg','❌ Error: '+r.status,'error')}
     }catch(e){showMsg('msg','❌ '+e.message,'error')}
 }
 
@@ -121,21 +125,26 @@ async function cloudUpload(file,pvId,stId,uId){
 }
 function addImg(){var f=document.getElementById('f1').files[0];if(f)cloudUpload(f,'pv1','st1','u1')}
 function editImg(){var f=document.getElementById('ef1').files[0];if(f)cloudUpload(f,'ep1','es1','eu1')}
+function heritageImg(){var f=document.getElementById('hf').files[0];if(f)cloudUpload(f,'hpv','hst','hu')}
 
 function getCats(){var c=[];menuData.items.forEach(i=>{if(!c.includes(i.category))c.push(i.category)});return c}
-function renderAll(){renderItems();var s=document.getElementById('category');s.innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('');document.getElementById('ec').innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('')}
+function renderAll(){renderItems();renderHeritageItems();var s=document.getElementById('category');s.innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('');document.getElementById('ec').innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('')}
 function renderItems(){
     var s=(document.getElementById('sp')?.value||'').toLowerCase();var items=menuData.items;
     if(s)items=items.filter(i=>i.name.toLowerCase().includes(s));
     var c=document.getElementById('pList');
-    if(!items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:20px">No items</p>';return}
+    if(!items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:20px">No items yet</p>';return}
     c.innerHTML=items.map(p=>'<div class="item-row"><img src="'+(p.image?p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image:'https://placehold.co/45/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/45/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.name)+'</h3><p>'+esc(p.category)+' | '+p.price+' ETB</p></div><button class="btn-blue btn-sm" onclick="editItem('+p.id+')">✏️</button><button class="btn-red btn-sm" onclick="deleteItem('+p.id+')">🗑️</button></div>').join('')}
 function addItem(){var n=document.getElementById('name').value.trim(),pr=parseInt(document.getElementById('price').value)||0,cat=document.getElementById('category').value,img=document.getElementById('u1').value||document.getElementById('imageUrl').value.trim();if(!n||!pr||!cat){showMsg('msg','❌ Fill fields','error');return}var maxId=0;menuData.items.forEach(i=>{if(i.id>maxId)maxId=i.id});menuData.items.push({id:maxId+1,name:n,price:pr,category:cat,image:img});['name','price','imageUrl'].forEach(id=>document.getElementById(id).value='');document.getElementById('u1').value='';document.getElementById('pv1').style.display='none';document.getElementById('st1').textContent='';document.getElementById('f1').value='';saveData();renderAll();showMsg('msg','✅ Added!','success')}
 function editItem(id){var p=menuData.items.find(x=>x.id==id);if(!p)return;document.getElementById('editId').value=p.id;document.getElementById('en').value=p.name;document.getElementById('epr').value=p.price;document.getElementById('ec').value=p.category;document.getElementById('eurl').value=p.image||'';document.getElementById('eu1').value=p.image||'';if(p.image){document.getElementById('ep1').src=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;document.getElementById('ep1').style.display='block'}else document.getElementById('ep1').style.display='none';document.getElementById('es1').textContent='';document.getElementById('ef1').value='';document.getElementById('editForm').classList.add('show');document.getElementById('editForm').scrollIntoView({behavior:'smooth'})}
 function cancelEdit(){document.getElementById('editForm').classList.remove('show')}
 function saveEdit(){var id=parseInt(document.getElementById('editId').value),n=document.getElementById('en').value.trim(),pr=parseInt(document.getElementById('epr').value)||0,cat=document.getElementById('ec').value,img=document.getElementById('eu1').value||document.getElementById('eurl').value.trim();var p=menuData.items.find(x=>x.id==id);if(!p)return;p.name=n;p.price=pr;p.category=cat;p.image=img;cancelEdit();saveData();renderAll();showMsg('msg','✅ Updated!','success')}
 function deleteItem(id){if(!confirm('Delete?'))return;menuData.items=menuData.items.filter(x=>x.id!=id);saveData();renderAll();showMsg('msg','🗑️ Deleted','success')}
-function addCategory(){var n=document.getElementById('newCat').value.trim();if(!n)return;document.getElementById('newCat').value='';renderAll();showMsg('msg','✅ Category ready!','success')}
+function addCategory(){var n=document.getElementById('newCat').value.trim();if(!n)return;document.getElementById('newCat').value='';renderAll();showMsg('msg','✅ Ready!','success')}
+function loadHeritageContent(){document.getElementById('hHeroTitle').value=heritageData.content.heroTitle||'';document.getElementById('hHeroDesc').value=heritageData.content.heroDesc||'';document.getElementById('hQuote').value=heritageData.content.quote||'';document.getElementById('hStoryTitle').value=heritageData.content.storyTitle||'';document.getElementById('hStoryContent').value=heritageData.content.storyContent||''}
+function saveHeritageContent(){heritageData.content.heroTitle=document.getElementById('hHeroTitle').value;heritageData.content.heroDesc=document.getElementById('hHeroDesc').value;heritageData.content.quote=document.getElementById('hQuote').value;heritageData.content.storyTitle=document.getElementById('hStoryTitle').value;heritageData.content.storyContent=document.getElementById('hStoryContent').value;saveData();showMsg('hcmsg','✅ Saved!','success')}
+function renderHeritageItems(){var c=document.getElementById('hList');if(!heritageData.items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:20px">No items</p>';return}c.innerHTML=heritageData.items.map((p,i)=>'<div class="item-row"><img src="'+(p.image?p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image:'https://placehold.co/45/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/45/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.title)+'</h3><p>'+(p.badge||'')+' | '+esc((p.story||'').substring(0,40))+'...</p></div><button class="btn-blue btn-sm" onclick="editHeritageItem('+i+')">✏️</button><button class="btn-red btn-sm" onclick="deleteHeritageItem('+i+')">🗑️</button></div>').join('')}
+function addHeritageItem(){var t=document.getElementById('hTitle').value.trim(),s=document.getElementById('hStory').value.trim(),img=document.getElementById('hu').value||document.getElementById('hImageUrl').value.trim();if(!t||!s||!img){showMsg('hmsg','❌ Fill fields','error');return}heritageData.items.push({title:t,image:img,story:s,memory:document.getElementById('hMemory').value.trim(),badge:document.getElementById('hBadge').value.trim()});['hTitle','hBadge','hImageUrl','hStory','hMemory'].forEach(id=>document.getElementById(id).value='');document.getElementById('hu').value='';document.getElementById('hpv').style.display='none';document.getElementById('hst').textContent='';document.getElementById('hf').value='';saveData();renderHeritageItems();showMsg('hmsg','✅ Added!','success')}
 function showMsg(id,t,type){var m=document.getElementById(id);m.textContent=t;m.className='msg '+type;setTimeout(()=>m.className='msg',3000)}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 </script>
