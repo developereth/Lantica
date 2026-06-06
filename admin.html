@@ -32,9 +32,10 @@
         .upload-box i{font-size:2rem;color:var(--gold);margin-bottom:5px}
         .preview-row{margin-bottom:12px;text-align:center}
         .preview-row img{max-width:200px;max-height:150px;object-fit:cover;border-radius:8px;display:none;margin:0 auto}
-        .status-row{margin-bottom:12px;font-size:0.75rem;text-align:center;color:var(--gold)}
-        .msg{padding:12px;margin:10px 0;border-radius:8px;display:none;text-align:center;font-weight:600}
+        .status-row{margin-bottom:12px;font-size:0.75rem;text-align:center}
+        .msg{padding:12px;margin:10px 0;border-radius:8px;display:none;text-align:center;font-weight:600;animation:fadeIn 0.3s}
         .msg.success{background:#27ae60;display:block}.msg.error{background:#c0392b;display:block}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         .item-row{display:flex;align-items:center;gap:12px;padding:12px;background:#0A0A0A;border-radius:8px;margin-bottom:8px;border:1px solid var(--border)}
         .item-row:hover{background:#111}
         .item-row img{width:50px;height:50px;object-fit:cover;border-radius:6px}
@@ -51,7 +52,7 @@
 <body>
 <div class="container">
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="loginScreen" class="login-box">
     <h2>🔐 Admin Login</h2>
     <input type="password" id="pw" placeholder="Enter Password" onkeypress="if(event.key==='Enter')login()">
@@ -84,7 +85,7 @@
     <div class="preview-row"><img id="pv1" alt="Preview"></div>
     <div class="status-row" id="st1"></div>
     <input type="hidden" id="u1">
-    <input type="text" id="imageUrl" placeholder="Or paste image URL directly (e.g. GitHub raw URL)" onchange="setImageUrl('add')" style="margin-bottom:12px">
+    <input type="text" id="imageUrl" placeholder="Or paste image URL directly" onchange="setAddImageUrl()" style="margin-bottom:12px">
     
     <div class="row">
         <input type="text" id="iname" placeholder="Item Name *">
@@ -114,7 +115,7 @@
     <div class="preview-row"><img id="ep1" alt="Preview"></div>
     <div class="status-row" id="es1"></div>
     <input type="hidden" id="eu1">
-    <input type="text" id="eimageUrl" placeholder="Or paste image URL directly" onchange="setImageUrl('edit')" style="margin-bottom:12px">
+    <input type="text" id="eimageUrl" placeholder="Or paste image URL directly" onchange="setEditImageUrl()" style="margin-bottom:12px">
     
     <div class="row">
         <input type="text" id="ename" placeholder="Name *">
@@ -134,11 +135,7 @@
 <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;flex-wrap:wrap;gap:10px">
         <h2 style="margin:0">📋 Menu Items</h2>
-        <div>
-            <button class="btn-blue" onclick="exportData()" style="margin-right:5px">📥 Export</button>
-            <button class="btn-blue" onclick="document.getElementById('importFile').click()">📤 Import</button>
-            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
-        </div>
+        <button class="btn-blue" onclick="exportData()">📥 Export JSON</button>
     </div>
     <input type="text" class="search-box" placeholder="🔍 Search items..." id="sp" oninput="renderItems()">
     <div id="pList">Loading...</div>
@@ -152,7 +149,6 @@ var API_URL = 'https://lantica-menu.developeraddis.workers.dev/api/menu';
 var CLOUD_NAME = 'dnxxxpbm9';
 var UPLOAD_PRESET = 'lantica_upload';
 var ADMIN_PASSWORD = 'Lantica1960';
-var GITHUB_RAW = 'https://raw.githubusercontent.com/developereth/Lantica/main/';
 
 var menuData = {};
 
@@ -197,18 +193,16 @@ async function uploadToCloudinary(file, previewId, statusId, hiddenId) {
             document.getElementById(hiddenId).value = data.secure_url;
             document.getElementById(previewId).src = data.secure_url;
             document.getElementById(previewId).style.display = 'block';
-            statusEl.textContent = '✅ Uploaded successfully!';
+            statusEl.textContent = '✅ Uploaded!';
             statusEl.style.color = '#27ae60';
-            console.log('✅ Image uploaded:', data.secure_url);
+            console.log('✅ Image:', data.secure_url);
         } else {
             statusEl.textContent = '❌ Failed: ' + (data.error?.message || 'Unknown');
             statusEl.style.color = '#e74c3c';
-            console.error('Upload error:', data);
         }
     } catch(e) {
         statusEl.textContent = '❌ Network error';
         statusEl.style.color = '#e74c3c';
-        console.error('Upload error:', e);
     }
 }
 
@@ -222,61 +216,41 @@ function uploadEditImage() {
     if (file) uploadToCloudinary(file, 'ep1', 'es1', 'eu1');
 }
 
-function setImageUrl(type) {
-    var url, previewId, hiddenId;
-    
-    if (type === 'add') {
-        url = document.getElementById('imageUrl').value.trim();
-        previewId = 'pv1';
-        hiddenId = 'u1';
-    } else {
-        url = document.getElementById('eimageUrl').value.trim();
-        previewId = 'ep1';
-        hiddenId = 'eu1';
-    }
-    
+function setAddImageUrl() {
+    var url = document.getElementById('imageUrl').value.trim();
     if (url) {
-        // If it's a GitHub relative path, prepend raw URL
-        if (!url.startsWith('http') && !url.startsWith('data:')) {
-            url = GITHUB_RAW + url;
-        }
-        document.getElementById(hiddenId).value = url;
-        document.getElementById(previewId).src = url;
-        document.getElementById(previewId).style.display = 'block';
+        document.getElementById('u1').value = url;
+        document.getElementById('pv1').src = url;
+        document.getElementById('pv1').style.display = 'block';
     }
 }
 
-// ===== API OPERATIONS =====
+function setEditImageUrl() {
+    var url = document.getElementById('eimageUrl').value.trim();
+    if (url) {
+        document.getElementById('eu1').value = url;
+        document.getElementById('ep1').src = url;
+        document.getElementById('ep1').style.display = 'block';
+    }
+}
+
+// ===== API CALLS =====
 async function loadMenu() {
     try {
         var r = await fetch(API_URL);
         var d = await r.json();
         if (d.success && d.menu) {
             menuData = d.menu;
-            console.log('✅ Loaded from API:', Object.keys(menuData).length, 'categories');
+            console.log('✅ Loaded:', Object.keys(menuData).length, 'categories');
         } else {
-            throw new Error('No menu data');
-        }
-    } catch(e) {
-        console.log('⚠️ API unavailable, using localStorage');
-        loadLocal();
-    }
-    afterLoad();
-}
-
-function loadLocal() {
-    var saved = localStorage.getItem('lantica_menu_data');
-    if (saved) {
-        try {
-            menuData = JSON.parse(saved);
-        } catch(e) {
+            showMsg('msg', '⚠️ API returned empty menu', 'error');
             menuData = {};
         }
+    } catch(e) {
+        showMsg('msg', '❌ Cannot connect to API', 'error');
+        menuData = {};
     }
-}
-
-function saveLocal() {
-    localStorage.setItem('lantica_menu_data', JSON.stringify(menuData));
+    afterLoad();
 }
 
 function afterLoad() {
@@ -292,7 +266,6 @@ function getCategories() {
 function updateCategorySelects() {
     var cats = getCategories();
     var options = cats.map(c => '<option value="' + c.replace(/"/g,'&quot;') + '">' + c + '</option>').join('');
-    
     document.getElementById('icategory').innerHTML = '<option value="">Select Category</option>' + options;
     document.getElementById('ecategory').innerHTML = options;
 }
@@ -300,14 +273,12 @@ function updateCategorySelects() {
 function updateStats() {
     var cats = getCategories();
     var total = 0, withImg = 0;
-    
     cats.forEach(cat => {
         total += menuData[cat].length;
         menuData[cat].forEach(item => {
             if (item.image && item.image !== '') withImg++;
         });
     });
-    
     document.getElementById('statCats').textContent = cats.length;
     document.getElementById('statItems').textContent = total;
     document.getElementById('statImg').textContent = withImg;
@@ -321,30 +292,11 @@ async function addItem() {
     var newCat = document.getElementById('inewcat').value.trim();
     var image = document.getElementById('u1').value || document.getElementById('imageUrl').value.trim();
     
-    if (!name || !price) {
-        showMsg('msg', '❌ Fill name and price', 'error');
-        return;
-    }
-    if (!category && !newCat) {
-        showMsg('msg', '❌ Select or enter category', 'error');
-        return;
-    }
+    if (!name || !price) { showMsg('msg', '❌ Fill name and price', 'error'); return; }
+    if (!category && !newCat) { showMsg('msg', '❌ Select or enter category', 'error'); return; }
     
     var finalCat = newCat || category;
     
-    // If relative GitHub path
-    if (image && !image.startsWith('http') && !image.startsWith('data:')) {
-        image = GITHUB_RAW + image;
-    }
-    
-    var newItem = {
-        id: Date.now().toString(),
-        name: name,
-        price: parseInt(price),
-        image: image
-    };
-    
-    // Try API first
     try {
         var r = await fetch(API_URL, {
             method: 'POST',
@@ -359,15 +311,18 @@ async function addItem() {
         var d = await r.json();
         if (d.success) {
             menuData = d.menu;
+            showMsg('msg', '✅ Item added!', 'success');
+            clearAddForm();
+            afterLoad();
+        } else {
+            showMsg('msg', '❌ ' + (d.error || 'Failed'), 'error');
         }
     } catch(e) {
-        // Fallback to local
-        if (!menuData[finalCat]) menuData[finalCat] = [];
-        menuData[finalCat].push(newItem);
-        saveLocal();
+        showMsg('msg', '❌ Cannot connect to API', 'error');
     }
-    
-    // Clear form
+}
+
+function clearAddForm() {
     document.getElementById('iname').value = '';
     document.getElementById('iprice').value = '';
     document.getElementById('icategory').value = '';
@@ -377,9 +332,6 @@ async function addItem() {
     document.getElementById('pv1').style.display = 'none';
     document.getElementById('st1').textContent = '';
     document.getElementById('f1').value = '';
-    
-    showMsg('msg', '✅ Item added!', 'success');
-    afterLoad();
 }
 
 // ===== EDIT ITEM =====
@@ -387,11 +339,7 @@ function editItem(id) {
     var item = null, catName = '';
     for (var cat in menuData) {
         var found = menuData[cat].find(i => i.id === id);
-        if (found) {
-            item = found;
-            catName = cat;
-            break;
-        }
+        if (found) { item = found; catName = cat; break; }
     }
     if (!item) return;
     
@@ -430,17 +378,9 @@ async function saveEdit() {
     var newCat = document.getElementById('enewcat').value.trim();
     var image = document.getElementById('eu1').value || document.getElementById('eimageUrl').value.trim();
     
-    if (!name || !price) {
-        alert('Fill name and price');
-        return;
-    }
+    if (!name || !price) { alert('Fill name and price'); return; }
     
     var finalCat = newCat || category;
-    
-    if (image && !image.startsWith('http') && !image.startsWith('data:')) {
-        image = GITHUB_RAW + image;
-    }
-    
     var btn = document.getElementById('saveEditBtn');
     btn.textContent = 'Saving...';
     btn.disabled = true;
@@ -460,54 +400,37 @@ async function saveEdit() {
         var d = await r.json();
         if (d.success) {
             menuData = d.menu;
+            showMsg('msg', '✅ Updated!', 'success');
+            cancelEdit();
+            afterLoad();
+        } else {
+            showMsg('msg', '❌ ' + (d.error || 'Failed'), 'error');
         }
     } catch(e) {
-        // Fallback to local
-        var index = menuData[oldCat].findIndex(i => i.id === id);
-        if (index !== -1) {
-            var item = menuData[oldCat].splice(index, 1)[0];
-            item.name = name;
-            item.price = parseInt(price);
-            item.image = image;
-            if (!menuData[finalCat]) menuData[finalCat] = [];
-            menuData[finalCat].push(item);
-            if (menuData[oldCat].length === 0) delete menuData[oldCat];
-            saveLocal();
-        }
+        showMsg('msg', '❌ Cannot connect to API', 'error');
     }
     
     btn.textContent = '💾 Save Changes';
     btn.disabled = false;
-    showMsg('msg', '✅ Updated!', 'success');
-    cancelEdit();
-    afterLoad();
 }
 
 // ===== DELETE ITEM =====
 async function deleteItem(id) {
-    if (!confirm('Delete this item?')) return;
+    if (!confirm('Delete this item permanently?')) return;
     
     try {
         var r = await fetch(API_URL + '/' + id, { method: 'DELETE' });
         var d = await r.json();
         if (d.success) {
             menuData = d.menu;
+            showMsg('msg', '✅ Deleted!', 'success');
+            afterLoad();
+        } else {
+            showMsg('msg', '❌ ' + (d.error || 'Failed'), 'error');
         }
     } catch(e) {
-        // Fallback to local
-        for (var cat in menuData) {
-            var index = menuData[cat].findIndex(i => i.id === id);
-            if (index !== -1) {
-                menuData[cat].splice(index, 1);
-                if (menuData[cat].length === 0) delete menuData[cat];
-                saveLocal();
-                break;
-            }
-        }
+        showMsg('msg', '❌ Cannot connect to API', 'error');
     }
-    
-    showMsg('msg', '✅ Deleted', 'success');
-    afterLoad();
 }
 
 // ===== RENDER ITEMS =====
@@ -518,7 +441,7 @@ function renderItems() {
     var cats = getCategories();
     
     if (cats.length === 0) {
-        container.innerHTML = '<p style="text-align:center;color:#888;padding:30px">No items yet. Add your first item!</p>';
+        container.innerHTML = '<p style="text-align:center;color:#888;padding:30px">No items yet. Add your first item above!</p>';
         return;
     }
     
@@ -547,11 +470,11 @@ function renderItems() {
         });
     });
     
-    if (!html) html = '<p style="text-align:center;color:#888;padding:30px">No items found</p>';
+    if (!html) html = '<p style="text-align:center;color:#888;padding:30px">No items match your search</p>';
     container.innerHTML = html;
 }
 
-// ===== EXPORT/IMPORT =====
+// ===== EXPORT =====
 function exportData() {
     var data = JSON.stringify(menuData, null, 2);
     var blob = new Blob([data], {type: 'application/json'});
@@ -564,36 +487,6 @@ function exportData() {
     showMsg('msg', '✅ Exported!', 'success');
 }
 
-function importData(event) {
-    var file = event.target.files[0];
-    if (!file) return;
-    if (!confirm('Replace current menu?')) return;
-    
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            var data = JSON.parse(e.target.result);
-            if (typeof data === 'object') {
-                menuData = data;
-                saveLocal();
-                
-                // Try to sync to API
-                fetch(API_URL + '/sync', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ menu: menuData })
-                }).catch(() => {});
-                
-                afterLoad();
-                showMsg('msg', '✅ Imported!', 'success');
-            }
-        } catch(err) {
-            showMsg('msg', '❌ Invalid file', 'error');
-        }
-    };
-    reader.readAsText(file);
-}
-
 function showMsg(id, text, type) {
     var m = document.getElementById(id);
     m.textContent = text;
@@ -602,9 +495,7 @@ function showMsg(id, text, type) {
 }
 
 // ===== INIT =====
-console.log('🔧 Admin ready');
-console.log('📍 API:', API_URL);
-console.log('☁️ Cloudinary:', CLOUD_NAME);
+console.log('🔧 Admin ready - API mode');
 </script>
 </body>
 </html>
