@@ -10,100 +10,66 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #0A0A0A; color: #E8E0D5; overflow-x: hidden; }
-        :root {
-            --gold: #C9A96E; --gold-dark: #B8933F; --red: #B45F3B;
-            --dark-card: #1A1A1A; --gray: #9B8A74; --gray-light: #D1C5B5;
-        }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1A1A1A; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        :root { --gold: #C9A96E; --gold-dark: #B8933F; --red: #B45F3B; --dark-card: #1A1A1A; --gray: #9B8A74; --gray-light: #D1C5B5; }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #1A1A1A; } ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
-        .navbar {
-            background: rgba(13,13,13,0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 2px solid var(--gold);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 12px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .navbar { background: rgba(13,13,13,0.95); backdrop-filter: blur(20px); border-bottom: 2px solid var(--gold); position: fixed; top: 0; width: 100%; z-index: 1000; padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .logo-circle { width: 45px; height: 45px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); transition: 0.3s; }
         .logo-circle:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(201,169,110,0.4); }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: white; }
-        .logo-text span { color: var(--gold); }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: white; } .logo-text span { color: var(--gold); }
         .nav-links { display: flex; gap: 25px; list-style: none; }
         .nav-links a { color: var(--gray-light); text-decoration: none; font-weight: 500; transition: 0.3s; position: relative; }
         .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--gold); transition: 0.3s; }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; } .nav-links a:hover, .nav-links a.active { color: var(--gold); }
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--gold); cursor: pointer; width: 45px; height: 45px; border-radius: 50%; align-items: center; justify-content: center; transition: 0.3s; }
         .mobile-menu-btn:hover { background: rgba(201,169,110,0.1); }
-
         .mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1100; opacity: 0; visibility: hidden; transition: 0.3s ease; }
         .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
-        .mobile-nav { position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: #0D0D0D; border-right: 2px solid var(--gold); z-index: 1101; transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 80px 20px 30px; display: flex; flex-direction: column; gap: 12px; }
+        .mobile-nav { position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: #0D0D0D; border-right: 2px solid var(--gold); z-index: 1101; transition: left 0.35s; padding: 80px 20px 30px; display: flex; flex-direction: column; gap: 12px; }
         .mobile-nav.open { left: 0; }
         .mobile-nav a { color: var(--gray-light); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 12px 15px; border-radius: 12px; transition: 0.3s; display: flex; align-items: center; gap: 12px; }
-        .mobile-nav a i { width: 25px; color: var(--gold); }
-        .mobile-nav a:hover { background: rgba(201,169,110,0.1); color: var(--gold); }
+        .mobile-nav a i { width: 25px; color: var(--gold); } .mobile-nav a:hover { background: rgba(201,169,110,0.1); color: var(--gold); }
         .mobile-nav-close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; color: var(--gold); cursor: pointer; background: none; border: none; }
 
-        .hero {
-            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%),
-                url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat;
-            height: 85vh; display: flex; align-items: center; justify-content: center; text-align: center; margin-top: 69px; position: relative;
-        }
+        .hero { background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center/cover no-repeat; height: 85vh; display: flex; align-items: center; justify-content: center; text-align: center; margin-top: 69px; position: relative; }
         .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(0deg, #0A0A0A 0%, transparent 100%); }
         .hero-content { position: relative; z-index: 2; animation: fadeInUp 1s ease; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 900; color: white; text-shadow: 2px 2px 20px rgba(0,0,0,0.5); }
-        .hero-content h1 span { color: var(--gold); }
-        .hero-content p { font-size: 1.2rem; color: var(--gray-light); margin-top: 10px; }
+        .hero-content h1 span { color: var(--gold); } .hero-content p { font-size: 1.2rem; color: var(--gray-light); margin-top: 10px; }
 
         .btn { display: inline-block; background: var(--gold); color: #0A0A0A; padding: 12px 32px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 25px; transition: 0.3s; cursor: pointer; border: none; font-size: 0.9rem; }
         .btn:hover { background: var(--gold-dark); transform: scale(1.02); box-shadow: 0 5px 20px rgba(201,169,110,0.3); }
 
         .container { max-width: 1300px; margin: 0 auto; padding: 70px 20px; }
         .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin-bottom: 50px; position: relative; }
-        .section-title span { color: white; }
-        .section-title::after { content: ''; display: block; width: 70px; height: 3px; background: var(--gold); margin: 15px auto 0; border-radius: 3px; }
+        .section-title span { color: white; } .section-title::after { content: ''; display: block; width: 70px; height: 3px; background: var(--gold); margin: 15px auto 0; border-radius: 3px; }
 
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .menu-card { background: var(--dark-card); border-radius: 24px; overflow: hidden; transition: 0.4s; border: 1px solid #2C2823; cursor: pointer; }
         .menu-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 20px 40px rgba(201,169,110,0.15); }
-        .card-image { width: 100%; height: 230px; object-fit: cover; transition: transform 0.5s; }
-        .menu-card:hover .card-image { transform: scale(1.05); }
-        .card-content { padding: 22px; text-align: center; }
-        .card-content h3 { font-size: 1.3rem; margin-bottom: 8px; font-family: 'Playfair Display', serif; }
+        .card-image { width: 100%; height: 230px; object-fit: cover; transition: transform 0.5s; } .menu-card:hover .card-image { transform: scale(1.05); }
+        .card-content { padding: 22px; text-align: center; } .card-content h3 { font-size: 1.3rem; margin-bottom: 8px; font-family: 'Playfair Display', serif; }
         .card-content p { color: var(--gray); font-size: 0.85rem; margin-bottom: 12px; line-height: 1.5; }
         .card-price { color: var(--gold); font-weight: 700; font-size: 1.2rem; }
 
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-        .about-image img { width: 100%; border-radius: 24px; transition: 0.3s; }
-        .about-text h3 { color: var(--gold); margin-bottom: 15px; font-size: 1.5rem; font-family: 'Playfair Display', serif; }
+        .about-image img { width: 100%; border-radius: 24px; } .about-text h3 { color: var(--gold); margin-bottom: 15px; font-size: 1.5rem; font-family: 'Playfair Display', serif; }
         .about-text p { color: var(--gray-light); line-height: 1.7; margin-bottom: 15px; }
 
         .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .event-card { background: var(--dark-card); border-radius: 24px; overflow: hidden; transition: 0.4s; border: 1px solid #2C2823; }
         .event-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 15px 35px rgba(201,169,110,0.1); }
-        .event-image { width: 100%; height: 200px; object-fit: cover; }
-        .event-content { padding: 22px; text-align: center; }
-        .event-content h3 { color: var(--gold); margin-bottom: 10px; font-family: 'Playfair Display', serif; }
-        .event-content p { color: var(--gray); margin-bottom: 8px; font-size: 0.85rem; }
+        .event-image { width: 100%; height: 200px; object-fit: cover; } .event-content { padding: 22px; text-align: center; }
+        .event-content h3 { color: var(--gold); margin-bottom: 10px; font-family: 'Playfair Display', serif; } .event-content p { color: var(--gray); margin-bottom: 8px; font-size: 0.85rem; }
 
-        .music-section { background: linear-gradient(135deg, #1E1B17 0%, #15120F 100%); border-radius: 32px; padding: 40px 25px; text-align: center; border: 1px solid rgba(201,169,110,0.2); transition: 0.3s; }
-        .music-section:hover { border-color: var(--gold); box-shadow: 0 10px 30px rgba(201,169,110,0.1); }
-        .vintage-player { background: linear-gradient(145deg, #2C2418 0%, #1A1510 100%); border-radius: 32px; padding: 22px; max-width: 550px; margin: 0 auto; border: 1px solid var(--gold); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); transition: 0.3s; }
-        .vintage-player:hover { box-shadow: 0 25px 50px rgba(201,169,110,0.15); border-color: var(--gold); }
+        .music-section { background: linear-gradient(135deg, #1E1B17 0%, #15120F 100%); border-radius: 32px; padding: 40px 25px; text-align: center; border: 1px solid rgba(201,169,110,0.2); }
+        .vintage-player { background: linear-gradient(145deg, #2C2418 0%, #1A1510 100%); border-radius: 32px; padding: 22px; max-width: 550px; margin: 0 auto; border: 1px solid var(--gold); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .vintage-header { display: flex; justify-content: space-between; align-items: center; color: var(--gold); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; padding-bottom: 12px; border-bottom: 1px solid rgba(201,169,110,0.3); margin-bottom: 15px; }
-        .vintage-display { background: #0A0A0A; border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #3D3525; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
-        .display-screen { background: #111108; border-radius: 14px; padding: 15px; color: #D4C9A8; font-family: 'Courier New', monospace; text-shadow: 0 0 5px rgba(201,169,110,0.3); }
+        .vintage-display { background: #0A0A0A; border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #3D3525; }
+        .display-screen { background: #111108; border-radius: 14px; padding: 15px; color: #D4C9A8; font-family: 'Courier New', monospace; }
         .station-name { font-size: 1rem; font-weight: bold; text-align: center; letter-spacing: 2px; color: var(--gold); margin-bottom: 5px; }
         .frequency { font-size: 0.65rem; text-align: center; color: var(--gray); margin-bottom: 15px; }
         .visualizer { display: flex; justify-content: center; align-items: center; gap: 5px; height: 40px; margin: 10px 0; }
@@ -111,61 +77,38 @@
         .now-playing { font-size: 0.7rem; text-align: center; color: var(--gray-light); margin-top: 10px; padding-top: 8px; border-top: 1px dashed rgba(201,169,110,0.2); }
         .vintage-controls { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; }
         .vintage-btn { background: #2C2418; border: 1px solid var(--gold); color: var(--gold); width: 50px; height: 50px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-        .vintage-btn:hover { background: var(--gold); color: #0A0A0A; transform: scale(1.05); }
+        .vintage-btn:hover { background: var(--gold); color: #0A0A0A; }
         .volume-knob { display: flex; align-items: center; gap: 10px; background: #0A0A0A; padding: 8px 15px; border-radius: 40px; border: 1px solid #3D3525; }
-        .volume-knob i { color: var(--gold); font-size: 0.9rem; }
-        .volume-knob input { width: 100px; height: 4px; -webkit-appearance: none; background: #3D3525; border-radius: 5px; outline: none; }
+        .volume-knob i { color: var(--gold); } .volume-knob input { width: 100px; height: 4px; -webkit-appearance: none; background: #3D3525; border-radius: 5px; }
         .volume-knob input::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); cursor: pointer; }
-        .signal-strength { display: flex; align-items: center; gap: 8px; background: #0A0A0A; padding: 8px 15px; border-radius: 40px; border: 1px solid #3D3525; font-size: 0.7rem; }
-        .signal-strength i { color: var(--gold); }
+        .signal-strength { display: flex; align-items: center; gap: 8px; background: #0A0A0A; padding: 8px 15px; border-radius: 40px; border: 1px solid #3D3525; font-size: 0.7rem; } .signal-strength i { color: var(--gold); }
         .vintage-footer { text-align: center; font-size: 0.6rem; color: var(--gray); letter-spacing: 1px; padding-top: 12px; border-top: 1px solid rgba(201,169,110,0.2); }
 
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
         .contact-info { background: var(--dark-card); padding: 28px; border-radius: 24px; text-align: center; border: 1px solid #2C2823; transition: 0.3s; }
         .contact-info:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .contact-info i { font-size: 2.2rem; color: var(--gold); margin-bottom: 15px; }
-        .contact-info h3 { margin-bottom: 10px; }
-        .contact-info a { color: var(--gold); text-decoration: none; }
-        .map-container { border-radius: 24px; overflow: hidden; border: 1px solid var(--gold); margin-top: 40px; }
-        .map-container iframe { width: 100%; height: 350px; border: 0; }
+        .contact-info i { font-size: 2.2rem; color: var(--gold); margin-bottom: 15px; } .contact-info h3 { margin-bottom: 10px; } .contact-info a { color: var(--gold); text-decoration: none; }
+        .map-container { border-radius: 24px; overflow: hidden; border: 1px solid var(--gold); margin-top: 40px; } .map-container iframe { width: 100%; height: 350px; border: 0; }
         .payment-section { background: linear-gradient(135deg, #1A1A1A 0%, #0D0D0D 100%); border-radius: 24px; padding: 35px; margin-top: 50px; text-align: center; border: 1px solid rgba(201,169,110,0.2); }
         .payment-section h3 { font-size: 1.5rem; color: var(--gold); margin-bottom: 25px; }
         .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
         .payment-card { background: #0A0A0A; padding: 20px; border-radius: 18px; transition: 0.3s; }
-        .payment-card:hover { background: #1A1A1A; transform: translateY(-3px); }
-        .payment-card i { font-size: 2rem; color: var(--gold); margin-bottom: 10px; }
-        .payment-card h4 { margin-bottom: 8px; }
+        .payment-card:hover { background: #1A1A1A; transform: translateY(-3px); } .payment-card i { font-size: 2rem; color: var(--gold); margin-bottom: 10px; } .payment-card h4 { margin-bottom: 8px; }
 
         .floating-telegram { position: fixed; bottom: 30px; left: 30px; background: #0088cc; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; text-decoration: none; box-shadow: 0 5px 25px rgba(0,0,0,0.4); transition: 0.3s; z-index: 999; border: 2px solid white; }
         .floating-telegram:hover { transform: scale(1.1); background: #0077b3; }
-
-        .footer { background: #020202; text-align: center; padding: 45px 20px; margin-top: 40px; border-top: 1px solid #1A1A1A; }
-        .footer a { color: var(--gold); text-decoration: none; transition: 0.3s; }
-        .footer a:hover { color: white; }
+        .footer { background: #020202; text-align: center; padding: 45px 20px; margin-top: 40px; border-top: 1px solid #1A1A1A; } .footer a { color: var(--gold); text-decoration: none; } .footer a:hover { color: white; }
 
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: flex; }
-            .hero { height: 70vh; margin-top: 69px; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .section-title { font-size: 1.8rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .cards-grid, .events-grid, .contact-grid { grid-template-columns: 1fr; }
-            .container { padding: 50px 20px; }
-            .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; bottom: 20px; left: 20px; }
-            .vintage-controls { justify-content: center; }
-        }
-        @media (max-width: 480px) {
-            .hero-content h1 { font-size: 2rem; }
-            .section-title { font-size: 1.5rem; }
+            .nav-links { display: none; } .mobile-menu-btn { display: flex; } .hero { height: 70vh; margin-top: 69px; } .hero-content h1 { font-size: 2.5rem; }
+            .section-title { font-size: 1.8rem; } .about-grid { grid-template-columns: 1fr; } .cards-grid, .events-grid, .contact-grid { grid-template-columns: 1fr; }
+            .container { padding: 50px 20px; } .floating-telegram { width: 50px; height: 50px; font-size: 1.5rem; bottom: 20px; left: 20px; }
         }
     </style>
 </head>
 <body>
 
-<a href="https://t.me/+251941270797" target="_blank" class="floating-telegram">
-    <i class="fab fa-telegram-plane"></i>
-</a>
+<a href="https://t.me/+251941270797" target="_blank" class="floating-telegram"><i class="fab fa-telegram-plane"></i></a>
 
 <div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
 <div class="mobile-nav" id="mobileNav">
@@ -173,7 +116,6 @@
     <a href="index.html"><i class="fas fa-home"></i> Home</a>
     <a href="menu.html"><i class="fas fa-utensils"></i> Menu</a>
     <a href="gallery.html"><i class="fas fa-images"></i> Food Gallery</a>
-    <a href="heritage.html"><i class="fas fa-landmark"></i> Heritage Gallery</a>
     <a href="#about"><i class="fas fa-info-circle"></i> About</a>
     <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
     <a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a>
@@ -188,7 +130,6 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="menu.html">Menu</a></li>
         <li><a href="gallery.html">Food Gallery</a></li>
-        <li><a href="heritage.html">Heritage</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -205,102 +146,74 @@
     </div>
 </section>
 
-<!-- SIGNATURE DISHES SECTION -->
 <div class="container">
     <h2 class="section-title">Our <span>Signature Dishes</span></h2>
     <div class="cards-grid" id="homeCards"></div>
 </div>
 
-<!-- MUSIC SECTION -->
 <div class="container">
     <div class="music-section">
         <div class="vintage-player">
-            <div class="vintage-header">
-                <i class="fas fa-broadcast-tower"></i>
-                <span>LAN TUNER 1960</span>
-                <i class="fas fa-signal"></i>
-            </div>
-            <div class="vintage-display">
-                <div class="display-screen">
-                    <div class="station-name">RADIO SWISS JAZZ</div>
-                    <div class="frequency">FM 88.9 MHz | STEREO</div>
-                    <div class="visualizer" id="visualizer">
-                        <span></span><span></span><span></span><span></span><span></span>
-                        <span></span><span></span><span></span><span></span><span></span>
-                    </div>
-                    <div class="now-playing" id="nowPlaying"><i class="fas fa-music"></i> Smooth Jazz Instrumental</div>
-                </div>
-            </div>
+            <div class="vintage-header"><i class="fas fa-broadcast-tower"></i><span>LAN TUNER 1960</span><i class="fas fa-signal"></i></div>
+            <div class="vintage-display"><div class="display-screen">
+                <div class="station-name">RADIO SWISS JAZZ</div><div class="frequency">FM 88.9 MHz | STEREO</div>
+                <div class="visualizer" id="visualizer"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                <div class="now-playing" id="nowPlaying"><i class="fas fa-music"></i> Smooth Jazz Instrumental</div>
+            </div></div>
             <div class="vintage-controls">
                 <button id="playPauseBtn" class="vintage-btn" onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
-                <div class="volume-knob">
-                    <i class="fas fa-volume-down"></i>
-                    <input type="range" id="volumeSlider" min="0" max="100" value="70">
-                    <i class="fas fa-volume-up"></i>
-                </div>
-                <div class="signal-strength">
-                    <i class="fas fa-wifi"></i>
-                    <span id="connectionStatus">Connected</span>
-                </div>
+                <div class="volume-knob"><i class="fas fa-volume-down"></i><input type="range" id="volumeSlider" min="0" max="100" value="70"><i class="fas fa-volume-up"></i></div>
+                <div class="signal-strength"><i class="fas fa-wifi"></i><span id="connectionStatus">Connected</span></div>
             </div>
             <div class="vintage-footer"><span>✦ LIVE FROM SWITZERLAND ✦</span></div>
         </div>
-        <audio id="radioPlayer" style="display: none;" preload="none">
-            <source src="https://stream.srg-ssr.ch/m/rsj/mp3_128" type="audio/mpeg">
-        </audio>
-        <p style="margin-top: 20px; font-size: 0.65rem; color: var(--gray); text-align: center;">🎧 Smooth jazz instrumental | No sign-in required | Perfect dining ambiance</p>
+        <audio id="radioPlayer" style="display:none"><source src="https://stream.srg-ssr.ch/m/rsj/mp3_128" type="audio/mpeg"></audio>
+        <p style="margin-top:20px;font-size:0.65rem;color:var(--gray);text-align:center">🎧 Smooth jazz instrumental | Perfect dining ambiance</p>
     </div>
 </div>
 
-<!-- ABOUT SECTION -->
 <div id="about" class="container">
     <h2 class="section-title">About <span>Lantica 1960</span></h2>
     <div class="about-grid">
-        <div class="about-image"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" alt="Lantica Restaurant Interior"></div>
+        <div class="about-image"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" alt="Lantica Restaurant"></div>
         <div class="about-text">
             <h3>Since 1996</h3>
-            <p>Lantica 1960 has been serving authentic Ethiopian cuisine with modern elegance. Located in the heart of <strong>Arat Kilo, Addis Ababa</strong>, we bring traditional flavors to your table with love and authenticity.</p>
-            <p>Our chefs use family recipes passed down through generations, ensuring every dish tells a story of Ethiopian heritage. From our signature <strong>Yefisk Agelgel</strong> to the traditional <strong>Coffee Ceremony</strong>, every experience at Lantica is crafted with care.</p>
-            <h3>Our Promise</h3>
-            <p>To provide an unforgettable dining experience where tradition meets innovation, and every guest leaves with a full heart and happy taste buds.</p>
+            <p>Lantica 1960 has been serving authentic Ethiopian cuisine with modern elegance in the heart of <strong>Arat Kilo, Addis Ababa</strong>.</p>
+            <p>Our chefs use family recipes passed down through generations, ensuring every dish tells a story of Ethiopian heritage.</p>
             <a href="#contact" class="btn"><i class="fas fa-map-marker-alt"></i> Find Us</a>
         </div>
     </div>
 </div>
 
-<!-- EVENTS SECTION -->
 <div id="events" class="container">
     <h2 class="section-title">Upcoming <span>Events</span></h2>
     <div class="events-grid" id="eventsGrid"></div>
 </div>
 
-<!-- CONTACT SECTION -->
 <div id="contact" class="container">
     <h2 class="section-title">Contact <span>Us</span></h2>
     <div class="contact-grid">
-        <div class="contact-info"><i class="fas fa-map-marker-alt"></i><h3>Location</h3><p>Arat Kilo, Addis Ababa, Ethiopia</p><p>Near Arat Kilo Square</p></div>
-        <div class="contact-info"><i class="fas fa-phone"></i><h3>Call Us</h3><a href="tel:+251941270797">📞 +251 94 1270 797</a><p style="margin-top: 8px;">Reservations & Delivery</p></div>
-        <div class="contact-info"><i class="fab fa-telegram"></i><h3>Telegram</h3><a href="https://t.me/+251941270797" target="_blank">@Lantica1960</a><p>Click to chat with us</p></div>
-        <div class="contact-info"><i class="fas fa-clock"></i><h3>Opening Hours</h3><p>Monday - Sunday: 9am - 11pm</p><p>Friday & Saturday: till 1am</p></div>
+        <div class="contact-info"><i class="fas fa-map-marker-alt"></i><h3>Location</h3><p>Arat Kilo, Addis Ababa</p></div>
+        <div class="contact-info"><i class="fas fa-phone"></i><h3>Call Us</h3><a href="tel:+251941270797">+251 94 1270 797</a></div>
+        <div class="contact-info"><i class="fab fa-telegram"></i><h3>Telegram</h3><a href="https://t.me/+251941270797">@Lantica1960</a></div>
+        <div class="contact-info"><i class="fas fa-clock"></i><h3>Hours</h3><p>9am - 11pm Daily</p></div>
     </div>
-    <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.442308578515!2d38.752919!3d9.030847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8567cdf4b385%3A0x8b5e3b9b6f5e4a3!2sArat%20Kilo%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen loading="lazy"></iframe>
-    </div>
+    <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.442308578515!2d38.752919!3d9.030847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8567cdf4b385%3A0x8b5e3b9b6f5e4a3!2sArat%20Kilo%2C%20Addis%20Ababa!5e0!3m2!1sen!2sus!4v1700000000000" allowfullscreen loading="lazy"></iframe></div>
     <div class="payment-section">
         <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
         <div class="payment-grid">
-            <div class="payment-card"><i class="fas fa-mobile-alt"></i><h4>Telebirr</h4><p>Merchant ID: <strong style="color: var(--gold);">1565432</strong></p></div>
-            <div class="payment-card"><i class="fas fa-university"></i><h4>Bank Transfer</h4><p>Account: <strong style="color: var(--gold);">1000234567</strong></p><p style="font-size: 0.7rem;">Commercial Bank of Ethiopia</p></div>
-            <div class="payment-card"><i class="fas fa-money-bill-wave"></i><h4>Cash & Card</h4><p>Accepted at counter</p></div>
-            <div class="payment-card"><i class="fas fa-motorcycle"></i><h4>Delivery Partners</h4><p>beu delivery | Zmall App</p></div>
+            <div class="payment-card"><i class="fas fa-mobile-alt"></i><h4>Telebirr</h4><p>ID: <strong style="color:var(--gold)">1565432</strong></p></div>
+            <div class="payment-card"><i class="fas fa-university"></i><h4>Bank Transfer</h4><p>CBE: <strong style="color:var(--gold)">1000234567</strong></p></div>
+            <div class="payment-card"><i class="fas fa-money-bill-wave"></i><h4>Cash & Card</h4><p>Accepted</p></div>
+            <div class="payment-card"><i class="fas fa-motorcycle"></i><h4>Delivery</h4><p>beu | Zmall</p></div>
         </div>
     </div>
 </div>
 
 <footer class="footer">
     <p>📍 Arat Kilo, Addis Ababa | 📞 +251 94 1270 797</p>
-    <p style="margin: 12px 0;">Powered by <a href="https://addispower.pages.dev/" target="_blank"><i class="fas fa-bolt"></i> AddisPower</a></p>
-    <p style="font-size: 0.7rem; opacity: 0.6;">© 2026 Lantica 1960 — Ethiopian Soul · Modern Elegance</p>
+    <p style="margin:12px 0">Powered by <a href="https://addispower.pages.dev/">AddisPower</a></p>
+    <p style="font-size:0.7rem;opacity:0.6">© 2026 Lantica 1960</p>
 </footer>
 
 <script>
@@ -316,9 +229,7 @@
     function startVisualizer() {
         if (visualizerInterval) clearInterval(visualizerInterval);
         visualizerInterval = setInterval(() => {
-            if (isPlaying) {
-                visualizerBars.forEach(bar => { const randomHeight = Math.floor(Math.random() * 25) + 5; bar.style.height = randomHeight + 'px'; });
-            } else { visualizerBars.forEach(bar => bar.style.height = '8px'); }
+            visualizerBars.forEach(bar => { bar.style.height = isPlaying ? (Math.floor(Math.random() * 25) + 5) + 'px' : '8px'; });
         }, 150);
     }
 
@@ -329,46 +240,39 @@
         } else {
             audio.play().then(() => {
                 playBtn.innerHTML = '<i class="fas fa-pause"></i>'; isPlaying = true;
-                connectionStatus.innerHTML = 'Connected'; nowPlayingElement.innerHTML = '<i class="fas fa-music"></i> Radio Swiss Jazz - Smooth Instrumental';
-            }).catch(() => { connectionStatus.innerHTML = 'Click play'; nowPlayingElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Click play to start'; });
+                connectionStatus.innerHTML = 'Connected'; nowPlayingElement.innerHTML = '<i class="fas fa-music"></i> Radio Swiss Jazz';
+            }).catch(() => { connectionStatus.innerHTML = 'Click play'; });
         }
     }
 
     volumeSlider.addEventListener('input', (e) => audio.volume = e.target.value / 100);
-    audio.addEventListener('play', () => { isPlaying = true; playBtn.innerHTML = '<i class="fas fa-pause"></i>'; connectionStatus.innerHTML = 'Connected'; });
-    audio.addEventListener('pause', () => { isPlaying = false; playBtn.innerHTML = '<i class="fas fa-play"></i>'; connectionStatus.innerHTML = 'Paused'; });
     startVisualizer();
 
     const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
     const API_URL = "https://lantica-menu.developeraddis.workers.dev/api/menu";
 
-    // ========== FETCH LIVE MENU FOR SIGNATURE DISHES ==========
+    // ========== LIVE SIGNATURE DISHES FROM MENU API ==========
     async function loadSignatureDishes() {
         try {
             const r = await fetch(API_URL);
             const menuData = await r.json();
-            
             const allItems = [];
             for (const cat in menuData) {
                 menuData[cat].forEach(item => allItems.push({...item, category: cat}));
             }
-            
-            // Pick up to 8 items (prioritize those with images)
             const withImages = allItems.filter(i => i.image);
             const withoutImages = allItems.filter(i => !i.image);
             const selected = [...withImages, ...withoutImages].slice(0, 8);
-            
             renderHomeCards(selected);
         } catch (e) {
-            console.log('Using fallback dishes');
             renderHomeCards([
                 { name: "Combo Fasting", price: 250, category: "Breakfast", image: "combo-fasting-platter.jpg" },
-                { name: "Lamb Tibs", price: 680, category: "Traditional Food", image: "lamb-tibs.jpg" },
+                { name: "Lamb Tibs", price: 680, category: "Traditional", image: "lamb-tibs.jpg" },
                 { name: "Margarita Large", price: 450, category: "Pizza", image: "margherita-pizza.jpg" },
                 { name: "Noma Burger", price: 305, category: "Burgers", image: "" },
-                { name: "Papaya Juice", price: 160, category: "Fresh Juices", image: "papaya-juice.jpg" },
-                { name: "Coffee", price: 60, category: "Hot Beverages", image: "ethiopian-coffee-Buna.jpeg" },
-                { name: "Avocado Juice", price: 160, category: "Fresh Juices", image: "avocado-juice.png" },
+                { name: "Papaya Juice", price: 160, category: "Juices", image: "papaya-juice.jpg" },
+                { name: "Coffee", price: 60, category: "Hot Drinks", image: "ethiopian-coffee-Buna.jpeg" },
+                { name: "Avocado Juice", price: 160, category: "Juices", image: "avocado-juice.png" },
                 { name: "Special Fetora", price: 350, category: "Breakfast", image: "special-fetera-honey-cheese.jpg" }
             ]);
         }
@@ -377,53 +281,31 @@
     function renderHomeCards(items) {
         const container = document.getElementById("homeCards");
         if (!container) return;
-        
-        let html = "";
-        items.forEach(item => {
-            let imgUrl = item.image;
-            if (imgUrl && !imgUrl.startsWith('http')) {
-                imgUrl = baseImageUrl + imgUrl;
-            }
-            if (!imgUrl) {
-                imgUrl = 'https://placehold.co/400x230/1A1A1A/C9A96E?text=' + encodeURIComponent(item.name);
-            }
-            
-            html += `<div class="menu-card" onclick="location.href='menu.html'">
-                <img class="card-image" src="${imgUrl}" alt="${item.name}" onerror="this.src='https://placehold.co/400x230/1A1A1A/C9A96E?text=${encodeURIComponent(item.name)}'">
-                <div class="card-content"><h3>${item.name}</h3><p>${item.category || 'Signature Dish'}</p><span class="card-price">${item.price} ETB</span></div>
-            </div>`;
-        });
-        
-        container.innerHTML = html;
+        container.innerHTML = items.map(item => {
+            let img = item.image ? (item.image.startsWith('http') ? item.image : baseImageUrl + item.image) : 'https://placehold.co/400x230/1A1A1A/C9A96E?text=' + encodeURIComponent(item.name);
+            return `<div class="menu-card" onclick="location.href='menu.html'"><img class="card-image" src="${img}" alt="${item.name}" onerror="this.src='https://placehold.co/400x230/1A1A1A/C9A96E'"><div class="card-content"><h3>${item.name}</h3><p>${item.category||'Signature'}</p><span class="card-price">${item.price} ETB</span></div></div>`;
+        }).join('');
     }
 
     const eventsData = [
-        { title: "Traditional Coffee Ceremony", time: "Daily at 4:00 PM", desc: "Authentic Ethiopian coffee ritual with popcorn and incense", image: "ethiopian-coffee-Buna.jpeg" },
-        { title: "Birthday Celebration", time: "Book Any Day", desc: "Celebrate with free dessert and traditional song", image: "https://images.unsplash.com/photo-1464349153735-7db50ed83c5e?w=400" },
-        { title: "Corporate Events", time: "Custom Schedule", desc: "Business meetings and team building", image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400" },
-        { title: "Private Dining", time: "Evenings by Reservation", desc: "Intimate setting for up to 50 guests", image: "mahberawi-mixed-platter.jpeg" }
+        { title: "Coffee Ceremony", time: "Daily 4PM", desc: "Authentic Ethiopian coffee ritual", image: "ethiopian-coffee-Buna.jpeg" },
+        { title: "Birthday Celebration", time: "Book Any Day", desc: "Free dessert & traditional song", image: "https://images.unsplash.com/photo-1464349153735-7db50ed83c5e?w=400" },
+        { title: "Corporate Events", time: "Custom Schedule", desc: "Business meetings", image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400" },
+        { title: "Private Dining", time: "By Reservation", desc: "Up to 50 guests", image: "mahberawi-mixed-platter.jpeg" }
     ];
 
     function renderEvents() {
         const container = document.getElementById("eventsGrid");
         if (!container) return;
-        let html = "";
-        eventsData.forEach(event => {
-            let imgUrl = event.image.startsWith('http') ? event.image : baseImageUrl + event.image;
-            html += `<div class="event-card">
-                <img class="event-image" src="${imgUrl}" alt="${event.title}" onerror="this.src='https://placehold.co/400x200/1A1A1A/C9A96E?text=${encodeURIComponent(event.title)}'">
-                <div class="event-content"><h3>${event.title}</h3><p><i class="fas fa-clock"></i> ${event.time}</p><p>${event.desc}</p>
-                <button class="btn" style="margin-top: 15px; padding: 8px 20px;" onclick="location.href='#contact'"><i class="fas fa-calendar-check"></i> Book Now</button></div>
-            </div>`;
-        });
-        container.innerHTML = html;
+        container.innerHTML = eventsData.map(e => {
+            let img = e.image.startsWith('http') ? e.image : baseImageUrl + e.image;
+            return `<div class="event-card"><img class="event-image" src="${img}" alt="${e.title}" onerror="this.src='https://placehold.co/400x200/1A1A1A/C9A96E'"><div class="event-content"><h3>${e.title}</h3><p><i class="fas fa-clock"></i> ${e.time}</p><p>${e.desc}</p><button class="btn" style="margin-top:15px;padding:8px 20px" onclick="location.href='#contact'">Book Now</button></div></div>`;
+        }).join('');
     }
 
     function openMobileMenu() { document.getElementById("mobileNav").classList.add("open"); document.getElementById("mobileOverlay").classList.add("active"); document.body.style.overflow = "hidden"; }
     function closeMobileMenu() { document.getElementById("mobileNav").classList.remove("open"); document.getElementById("mobileOverlay").classList.remove("active"); document.body.style.overflow = "auto"; }
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileMenu(); });
 
-    // Load everything
     loadSignatureDishes();
     renderEvents();
 </script>
