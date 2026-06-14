@@ -205,7 +205,7 @@
     </div>
 </section>
 
-<!-- SIGNATURE DISHES SECTION - UPDATED WITH YOUR 8 IMAGES -->
+<!-- SIGNATURE DISHES SECTION -->
 <div class="container">
     <h2 class="section-title">Our <span>Signature Dishes</span></h2>
     <div class="cards-grid" id="homeCards"></div>
@@ -340,18 +340,62 @@
     startVisualizer();
 
     const baseImageUrl = "https://raw.githubusercontent.com/developereth/Lantica/main/";
-    
-    // ========== YOUR 8 SIGNATURE DISHES (UPDATED) ==========
-    const coreMenuItems = [
-        { name: "Avocado Juice", price: "160 ETB", desc: "Creamy fresh avocado blend", image: "avocado-juice.png" },
-        { name: "House Special Coffee", price: "150 ETB", desc: "Premium Ethiopian single origin", image: "house-special-coffee.jpg" },
-        { name: "Special Dish 1", price: "TBD", desc: "Coming soon", image: "5794060648273612546%20(1).jpg" },
-        { name: "Special Dish 2", price: "TBD", desc: "Coming soon", image: "5794060648273612557%20(1).jpg" },
-        { name: "Special Dish 3", price: "TBD", desc: "Coming soon", image: "5794060648273612565%20(1).jpg" },
-        { name: "Special Dish 4", price: "TBD", desc: "Coming soon", image: "5794060648273612577%20(1).jpg" },
-        { name: "Papaya Juice", price: "160 ETB", desc: "Freshly squeezed papaya", image: "papaya-juice.jpg" },
-        { name: "Combo Fasting Platter", price: "250 ETB", desc: "Hearty vegan platter", image: "combo-fasting-platter.jpg" }
-    ];
+    const API_URL = "https://lantica-menu.developeraddis.workers.dev/api/menu";
+
+    // ========== FETCH LIVE MENU FOR SIGNATURE DISHES ==========
+    async function loadSignatureDishes() {
+        try {
+            const r = await fetch(API_URL);
+            const menuData = await r.json();
+            
+            const allItems = [];
+            for (const cat in menuData) {
+                menuData[cat].forEach(item => allItems.push({...item, category: cat}));
+            }
+            
+            // Pick up to 8 items (prioritize those with images)
+            const withImages = allItems.filter(i => i.image);
+            const withoutImages = allItems.filter(i => !i.image);
+            const selected = [...withImages, ...withoutImages].slice(0, 8);
+            
+            renderHomeCards(selected);
+        } catch (e) {
+            console.log('Using fallback dishes');
+            renderHomeCards([
+                { name: "Combo Fasting", price: 250, category: "Breakfast", image: "combo-fasting-platter.jpg" },
+                { name: "Lamb Tibs", price: 680, category: "Traditional Food", image: "lamb-tibs.jpg" },
+                { name: "Margarita Large", price: 450, category: "Pizza", image: "margherita-pizza.jpg" },
+                { name: "Noma Burger", price: 305, category: "Burgers", image: "" },
+                { name: "Papaya Juice", price: 160, category: "Fresh Juices", image: "papaya-juice.jpg" },
+                { name: "Coffee", price: 60, category: "Hot Beverages", image: "ethiopian-coffee-Buna.jpeg" },
+                { name: "Avocado Juice", price: 160, category: "Fresh Juices", image: "avocado-juice.png" },
+                { name: "Special Fetora", price: 350, category: "Breakfast", image: "special-fetera-honey-cheese.jpg" }
+            ]);
+        }
+    }
+
+    function renderHomeCards(items) {
+        const container = document.getElementById("homeCards");
+        if (!container) return;
+        
+        let html = "";
+        items.forEach(item => {
+            let imgUrl = item.image;
+            if (imgUrl && !imgUrl.startsWith('http')) {
+                imgUrl = baseImageUrl + imgUrl;
+            }
+            if (!imgUrl) {
+                imgUrl = 'https://placehold.co/400x230/1A1A1A/C9A96E?text=' + encodeURIComponent(item.name);
+            }
+            
+            html += `<div class="menu-card" onclick="location.href='menu.html'">
+                <img class="card-image" src="${imgUrl}" alt="${item.name}" onerror="this.src='https://placehold.co/400x230/1A1A1A/C9A96E?text=${encodeURIComponent(item.name)}'">
+                <div class="card-content"><h3>${item.name}</h3><p>${item.category || 'Signature Dish'}</p><span class="card-price">${item.price} ETB</span></div>
+            </div>`;
+        });
+        
+        container.innerHTML = html;
+    }
 
     const eventsData = [
         { title: "Traditional Coffee Ceremony", time: "Daily at 4:00 PM", desc: "Authentic Ethiopian coffee ritual with popcorn and incense", image: "ethiopian-coffee-Buna.jpeg" },
@@ -359,20 +403,6 @@
         { title: "Corporate Events", time: "Custom Schedule", desc: "Business meetings and team building", image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400" },
         { title: "Private Dining", time: "Evenings by Reservation", desc: "Intimate setting for up to 50 guests", image: "mahberawi-mixed-platter.jpeg" }
     ];
-
-    function renderHomeCards() {
-        const container = document.getElementById("homeCards");
-        if (!container) return;
-        let html = "";
-        coreMenuItems.forEach(item => {
-            let imgUrl = item.image.startsWith('http') ? item.image : baseImageUrl + item.image;
-            html += `<div class="menu-card" onclick="location.href='menu.html'">
-                <img class="card-image" src="${imgUrl}" alt="${item.name}" onerror="this.src='https://placehold.co/400x230/1A1A1A/C9A96E?text=${encodeURIComponent(item.name)}'">
-                <div class="card-content"><h3>${item.name}</h3><p>${item.desc}</p><span class="card-price">${item.price}</span></div>
-            </div>`;
-        });
-        container.innerHTML = html;
-    }
 
     function renderEvents() {
         const container = document.getElementById("eventsGrid");
@@ -393,7 +423,8 @@
     function closeMobileMenu() { document.getElementById("mobileNav").classList.remove("open"); document.getElementById("mobileOverlay").classList.remove("active"); document.body.style.overflow = "auto"; }
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileMenu(); });
 
-    renderHomeCards();
+    // Load everything
+    loadSignatureDishes();
     renderEvents();
 </script>
 </body>
