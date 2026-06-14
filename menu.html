@@ -11,10 +11,8 @@
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Inter',sans-serif;background:#0A0A0A;color:#E8E0D5;overflow-x:hidden}
         :root{--gold:#C9A96E;--gold-dark:#B8933F;--dark-card:#1A1A1A;--gray:#9B8A74;--gray-light:#D1C5B5;--border:#2C2823}
-        ::-webkit-scrollbar{width:6px}
-        ::-webkit-scrollbar-track{background:#0A0A0A}
-        ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}
-        .navbar{background:rgba(10,10,10,0.97);backdrop-filter:blur(30px);border-bottom:1px solid rgba(201,169,110,0.3);position:sticky;top:0;z-index:1000;padding:15px 25px;display:flex;justify-content:space-between;align-items:center}
+
+        .navbar{background:rgba(10,10,10,0.97);backdrop-filter:blur(30px);border-bottom:1px solid rgba(201,169,110,0.3);position:sticky;top:0;z-index:1000;padding:15px 25px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
         .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
         .logo-circle{width:45px;height:45px;border-radius:50%;overflow:hidden;border:2px solid var(--gold)}
         .logo-circle img{width:100%;height:100%;object-fit:cover}
@@ -23,56 +21,54 @@
         .nav-links{display:flex;gap:22px;list-style:none}
         .nav-links a{color:var(--gray-light);text-decoration:none;font-weight:500;font-size:0.9rem;transition:0.3s}
         .nav-links a:hover,.nav-links a.active{color:var(--gold)}
-        .menu-hero{background:linear-gradient(135deg,#0A0A0A 0%,#1a1612 50%,#0A0A0A 100%);text-align:center;padding:70px 20px 50px}
-        .menu-hero .icon{font-size:3rem;color:var(--gold);animation:float 3s ease-in-out infinite;display:inline-block}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-        .menu-hero h1{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:white}
+
+        .menu-hero{background:linear-gradient(135deg,#0A0A0A,#1a1612);text-align:center;padding:70px 20px 50px;border-bottom:1px solid rgba(201,169,110,0.2)}
+        .menu-hero h1{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:white}
         .menu-hero h1 span{color:var(--gold)}
-        .menu-hero .location{display:inline-flex;align-items:center;gap:8px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);padding:10px 25px;border-radius:50px;margin-top:15px;font-size:0.9rem}
+        .menu-hero .location{display:inline-flex;align-items:center;gap:8px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);padding:10px 25px;border-radius:50px;margin-top:15px;font-size:0.9rem;color:var(--gray-light)}
+
         .container{max-width:1300px;margin:0 auto;padding:35px 20px}
         .search-bar{display:flex;justify-content:center;margin-bottom:25px}
-        .search-input-wrapper{position:relative;width:400px;max-width:100%}
-        .search-input{padding:14px 20px 14px 45px;width:100%;background:var(--dark-card);border:2px solid var(--border);border-radius:50px;color:white;font-size:0.95rem}
+        .search-input{padding:14px 20px;width:400px;max-width:100%;background:var(--dark-card);border:2px solid var(--border);border-radius:50px;color:white;font-size:0.95rem}
         .search-input:focus{outline:none;border-color:var(--gold)}
-        .search-input-wrapper i{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--gray)}
+
         .category-filter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:35px}
         .filter-btn{background:var(--dark-card);border:1px solid var(--border);padding:9px 20px;border-radius:40px;color:var(--gray-light);cursor:pointer;transition:0.3s;font-size:0.85rem}
         .filter-btn:hover,.filter-btn.active{background:var(--gold);color:#0A0A0A;border-color:var(--gold)}
-        .menu-category{margin-bottom:45px;animation:fadeInUp 0.4s ease-out}
-        @keyframes fadeInUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+
+        .menu-category{margin-bottom:45px}
         .category-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);margin-bottom:25px;padding-left:18px;border-left:4px solid var(--gold)}
+
         .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-        .menu-card{background:var(--dark-card);border-radius:18px;overflow:hidden;border:1px solid var(--border);transition:0.3s;cursor:pointer}
-        .menu-card:hover{transform:translateY(-5px);border-color:var(--gold)}
+        .menu-card{background:var(--dark-card);border-radius:18px;overflow:hidden;border:1px solid var(--border);transition:0.3s}
+        .menu-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 15px 35px rgba(201,169,110,0.12)}
         .menu-card-image{width:100%;height:170px;object-fit:cover;background:#0D0D0D}
         .no-image-icon{width:100%;height:170px;display:flex;align-items:center;justify-content:center;background:#0D0D0D;color:var(--gray);font-size:2.5rem}
-        .menu-card-content{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-        .menu-card-name{font-weight:600;font-size:0.9rem;color:white;flex:1}
+        .menu-card-content{padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
+        .menu-card-name{font-weight:600;font-size:0.9rem;color:white}
         .menu-card-price{color:var(--gold);font-weight:700;font-size:1rem;padding:7px 14px;background:rgba(201,169,110,0.1);border-radius:30px}
-        .menu-card:hover .menu-card-price{background:var(--gold);color:#0A0A0A}
+
         .stats-bar{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;padding:20px;background:var(--dark-card);border-radius:18px;margin-top:30px;border:1px solid var(--border)}
         .stat-item{display:flex;align-items:center;gap:8px;color:var(--gray-light);font-size:0.85rem}
         .stat-item i{color:var(--gold)}.stat-item strong{color:white}
-        .stat-divider{width:1px;height:18px;background:var(--border)}
+
         .footer{background:#020202;text-align:center;padding:35px 20px;margin-top:40px;border-top:1px solid rgba(201,169,110,0.1)}
-        .footer p{color:var(--gray);margin:5px 0;font-size:0.85rem}
         .footer a{color:var(--gold);text-decoration:none}
-        .floating-telegram{position:fixed;bottom:30px;left:30px;background:#0088cc;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;text-decoration:none;box-shadow:0 8px 25px rgba(0,136,204,0.35);z-index:999;animation:bounce 2s infinite}
-        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-        .back-to-top{position:fixed;bottom:30px;right:30px;background:var(--gold);color:#0A0A0A;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transition:0.3s;z-index:998;border:none}
-        .back-to-top.visible{opacity:1;visibility:visible}
+
+        .floating-telegram{position:fixed;bottom:30px;left:30px;background:#0088cc;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;text-decoration:none;box-shadow:0 8px 25px rgba(0,136,204,0.35);z-index:999;border:2px solid white}
+
         @media(max-width:768px){
             .nav-links{display:none}
-            .menu-hero h1{font-size:2.2rem}
+            .menu-hero h1{font-size:2rem}
             .menu-grid{grid-template-columns:1fr}
-            .floating-telegram{width:48px;height:48px;bottom:20px;left:20px}
+            .category-title{font-size:1.4rem}
+            .floating-telegram{width:48px;height:48px;font-size:1.3rem;bottom:20px;left:20px}
         }
     </style>
 </head>
 <body>
 
-<a href="https://t.me/+251941270797" target="_blank" class="floating-telegram"><i class="fab fa-telegram-plane"></i></a>
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+<a href="https://t.me/+251941270797" target="_blank" rel="noopener" class="floating-telegram"><i class="fab fa-telegram-plane"></i></a>
 
 <nav class="navbar">
     <a href="index.html" class="logo">
@@ -90,117 +86,150 @@
 </nav>
 
 <section class="menu-hero">
-    <div class="icon">🍽️</div>
     <h1>Our <span>Complete Menu</span></h1>
-    <div class="location"><i class="fas fa-map-marker-alt"></i> Arat Kilo, Addis Ababa &nbsp;|&nbsp; Since 1996</div>
+    <div class="location"><i class="fas fa-map-marker-alt"></i> Arat Kilo, Addis Ababa | Since 1996</div>
 </section>
 
 <div class="container">
     <div class="search-bar">
-        <div class="search-input-wrapper">
-            <input type="text" class="search-input" id="searchInput" placeholder="Search menu items...">
-            <i class="fas fa-search"></i>
-        </div>
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search menu items...">
     </div>
     <div class="category-filter" id="categoryFilters"></div>
-    <div id="menuContainer"><div style="text-align:center;padding:50px"><div style="width:45px;height:45px;border:3px solid #2C2823;border-top-color:#C9A96E;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto"></div></div></div>
+    <div id="menuContainer"><p style="text-align:center;color:var(--gray);padding:50px">Loading menu...</p></div>
     <div class="stats-bar" id="stats"></div>
 </div>
 
 <footer class="footer">
-    <p>📍 Arat Kilo, Addis Ababa &nbsp;|&nbsp; 📞 <a href="tel:+251941270797">+251 94 1270 797</a></p>
-    <p style="margin-top:8px;font-size:0.8rem">Powered by <a href="https://addispower.pages.dev/">AddisPower</a></p>
+    <p>📍 Arat Kilo, Addis Ababa | 📞 <a href="tel:+251941270797">+251 94 1270 797</a></p>
+    <p style="margin-top:8px;font-size:0.8rem">Powered by <a href="https://addispower.pages.dev/" target="_blank">AddisPower</a></p>
 </footer>
 
 <script>
-// ===== YOUR API =====
 var API_URL = 'https://lantica-menu.developeraddis.workers.dev/api/menu';
+var GITHUB_BASE = 'https://raw.githubusercontent.com/developereth/Lantica/main/';
+var PLACEHOLDER = 'https://placehold.co/400x170/1A1A1A/C9A96E?text=Lantica+1960';
+var menuData = { items: [] };
+var currentFilter = 'all';
+var currentSearch = '';
 
-var menuData = {}, currentFilter = 'all', currentSearch = '';
-
+// FETCH FROM WORKER API
 async function loadMenu() {
     try {
         var r = await fetch(API_URL);
-        var d = await r.json();
-        if (d.success && d.menu && Object.keys(d.menu).length > 0) {
-            menuData = d.menu;
-            console.log('✅ Loaded from API:', Object.keys(menuData).length, 'categories');
+        if (r.ok) {
+            menuData = await r.json();
+            console.log('✅ Loaded from API:', menuData.items.length, 'items');
         } else {
-            console.log('⚠️ Empty menu from API');
-            menuData = {};
+            console.log('API error, using empty menu');
         }
-    } catch(e) {
-        console.log('❌ Cannot connect to API');
-        menuData = {};
+    } catch (e) {
+        console.log('Fetch error:', e.message);
     }
+    renderAll();
 }
 
-function getCats() { return Object.keys(menuData).sort(); }
-function getTotal() { var t = 0; for (var k in menuData) t += menuData[k].length; return t; }
+// GET CATEGORIES FROM ITEMS
+function getCats() {
+    var cats = [];
+    (menuData.items || []).forEach(function(item) {
+        if (cats.indexOf(item.category) === -1) cats.push(item.category);
+    });
+    return cats;
+}
 
+// GET TOTAL ITEMS
+function getTotal() {
+    return (menuData.items || []).length;
+}
+
+// RENDER FILTER BUTTONS
 function renderFilters() {
     var cats = getCats();
-    var h = '<button class="filter-btn ' + (currentFilter == 'all' ? 'active' : '') + '" onclick="setFilter(\'all\')">All</button>';
+    var html = '<button class="filter-btn ' + (currentFilter === 'all' ? 'active' : '') + '" onclick="setFilter(\'all\')">All</button>';
     cats.forEach(function(c) {
-        h += '<button class="filter-btn ' + (currentFilter == c ? 'active' : '') + '" onclick="setFilter(\'' + c.replace(/'/g,"\\'") + '\')">' + c + '</button>';
+        html += '<button class="filter-btn ' + (currentFilter === c ? 'active' : '') + '" onclick="setFilter(\'' + esc(c) + '\')">' + c + '</button>';
     });
-    document.getElementById('categoryFilters').innerHTML = h;
+    document.getElementById('categoryFilters').innerHTML = html;
 }
 
-function setFilter(c) { currentFilter = c; renderFilters(); renderMenu(); }
-function setSearch() { currentSearch = document.getElementById('searchInput').value.toLowerCase(); renderMenu(); }
-
-function renderMenu() {
-    var cats = getCats(), container = document.getElementById('menuContainer'), total = 0, html = '';
-    
-    for (var i = 0; i < cats.length; i++) {
-        var cat = cats[i];
-        if (currentFilter != 'all' && currentFilter != cat) continue;
-        
-        var items = menuData[cat];
-        if (currentSearch) {
-            items = items.filter(function(item) {
-                return item.name.toLowerCase().includes(currentSearch) || cat.toLowerCase().includes(currentSearch);
-            });
-        }
-        if (!items.length) continue;
-        
-        html += '<div class="menu-category"><div class="category-title">' + cat + ' <span style="font-size:0.85rem;color:#9B8A74;font-weight:400">' + items.length + ' items</span></div><div class="menu-grid">';
-        
-        items.forEach(function(item) {
-            total++;
-            if (item.image) {
-                html += '<div class="menu-card"><img class="menu-card-image" src="' + item.image + '" alt="' + item.name + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=no-image-icon><i class=fas fa-utensils></i></div><div class=menu-card-content><span class=menu-card-name>' + item.name + '</span><span class=menu-card-price>' + item.price + ' ETB</span></div>\'"><div class="menu-card-content"><span class="menu-card-name">' + item.name + '</span><span class="menu-card-price">' + item.price + ' ETB</span></div></div>';
-            } else {
-                html += '<div class="menu-card"><div class="no-image-icon"><i class="fas fa-utensils"></i></div><div class="menu-card-content"><span class="menu-card-name">' + item.name + '</span><span class="menu-card-price">' + item.price + ' ETB</span></div></div>';
-            }
-        });
-        
-        html += '</div></div>';
-    }
-    
-    if (!html) html = '<div style="text-align:center;padding:50px"><i class="fas fa-utensils" style="font-size:3rem;color:var(--gold);opacity:0.5"></i><h3 style="color:white;margin-top:15px">No items found</h3><p style="color:var(--gray)">Try a different search or category</p></div>';
-    container.innerHTML = html;
-    
-    document.getElementById('stats').innerHTML = 
-        '<div class="stat-item"><i class="fas fa-layer-group"></i><strong>' + cats.length + '</strong> Categories</div>' +
-        '<div class="stat-divider"></div>' +
-        '<div class="stat-item"><i class="fas fa-utensils"></i><strong>' + getTotal() + '</strong> Total Items</div>' +
-        '<div class="stat-divider"></div>' +
-        '<div class="stat-item"><i class="fas fa-eye"></i> Showing <strong>' + total + '</strong></div>' +
-        '<div class="stat-divider"></div>' +
-        '<div class="stat-item"><i class="fas fa-phone"></i> Order: <strong>+251 94 1270 797</strong></div>';
-}
-
-window.addEventListener('scroll', function() {
-    document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 500);
-});
-document.getElementById('searchInput').addEventListener('keyup', setSearch);
-
-loadMenu().then(function() {
+function setFilter(c) {
+    currentFilter = c;
     renderFilters();
     renderMenu();
-});
+}
+
+function setSearch() {
+    currentSearch = document.getElementById('searchInput').value.toLowerCase();
+    renderMenu();
+}
+
+// GET IMAGE URL
+function getImgUrl(img) {
+    if (!img || img === '') return null;
+    if (img.startsWith('http')) return img;
+    return GITHUB_BASE + img;
+}
+
+// RENDER MENU
+function renderMenu() {
+    var container = document.getElementById('menuContainer');
+    var cats = getCats();
+    var total = 0;
+    var html = '';
+
+    cats.forEach(function(cat) {
+        if (currentFilter !== 'all' && currentFilter !== cat) return;
+
+        var items = menuData.items.filter(function(item) {
+            return item.category === cat;
+        });
+
+        if (currentSearch) {
+            items = items.filter(function(item) {
+                return item.name.toLowerCase().indexOf(currentSearch) !== -1;
+            });
+        }
+
+        if (items.length === 0) return;
+
+        html += '<div class="menu-category"><div class="category-title">' + cat + ' <span style="font-size:0.9rem;color:var(--gray);font-weight:400">(' + items.length + ')</span></div><div class="menu-grid">';
+
+        items.forEach(function(item) {
+            total++;
+            var imgUrl = getImgUrl(item.image);
+            if (imgUrl) {
+                html += '<div class="menu-card"><img class="menu-card-image" src="' + imgUrl + '" alt="' + esc(item.name) + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=no-image-icon><i class=fas fa-utensils></i></div><div class=menu-card-content><span class=menu-card-name>' + esc(item.name) + '</span><span class=menu-card-price>' + item.price + ' ETB</span></div>\'"><div class="menu-card-content"><span class="menu-card-name">' + esc(item.name) + '</span><span class="menu-card-price">' + item.price + ' ETB</span></div></div>';
+            } else {
+                html += '<div class="menu-card"><div class="no-image-icon"><i class="fas fa-utensils"></i></div><div class="menu-card-content"><span class="menu-card-name">' + esc(item.name) + '</span><span class="menu-card-price">' + item.price + ' ETB</span></div></div>';
+            }
+        });
+
+        html += '</div></div>';
+    });
+
+    if (html === '') {
+        html = '<div style="text-align:center;padding:50px"><i class="fas fa-search" style="font-size:3rem;color:var(--gold);opacity:0.5;margin-bottom:15px;display:block"></i><h3>No items found</h3></div>';
+    }
+
+    container.innerHTML = html;
+
+    document.getElementById('stats').innerHTML = '<div class="stat-item"><i class="fas fa-layer-group"></i><strong>' + cats.length + '</strong> Categories</div><div class="stat-item"><i class="fas fa-utensils"></i><strong>' + getTotal() + '</strong> Total Items</div><div class="stat-item"><i class="fas fa-eye"></i> Showing <strong>' + total + '</strong></div><div class="stat-item"><i class="fas fa-phone"></i> Order: <strong>+251 94 1270 797</strong></div>';
+}
+
+function renderAll() {
+    renderFilters();
+    renderMenu();
+}
+
+function esc(s) {
+    if (!s) return '';
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+document.getElementById('searchInput').addEventListener('keyup', setSearch);
+
+// START
+loadMenu();
 </script>
 </body>
 </html>
