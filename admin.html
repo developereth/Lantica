@@ -7,83 +7,386 @@
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;padding:20px}
-        .container{max-width:900px;margin:0 auto}
-        h1{color:#C9A96E;margin-bottom:20px;font-size:1.5rem;text-align:center}
+        .container{max-width:1000px;margin:0 auto}
+        h1{color:#C9A96E;margin-bottom:15px;font-size:1.5rem;text-align:center}
         .card{background:#111;padding:20px;border-radius:12px;margin-bottom:20px;border:1px solid #333}
         h2{color:#C9A96E;margin-bottom:12px;font-size:1.1rem}
         .row{display:flex;gap:10px;margin-bottom:10px}.row>*{flex:1}
-        input,select{width:100%;padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.9rem;margin-bottom:8px}
-        button{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold}
-        .btn-gold{background:#C9A96E;color:#000}.btn-red{background:#c0392b;color:#fff}.btn-blue{background:#3498db;color:#fff}.btn-green{background:#27ae60;color:#fff}
-        .upload-box{border:2px dashed #C9A96E;padding:15px;text-align:center;border-radius:10px;cursor:pointer;margin-bottom:8px}
+        input,select,textarea{width:100%;padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.9rem;margin-bottom:8px;font-family:inherit}
+        input:focus,select:focus,textarea:focus{outline:none;border-color:#C9A96E}
+        button{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;transition:0.3s}
+        .btn-gold{background:#C9A96E;color:#000}.btn-gold:hover{background:#b8933f}
+        .btn-red{background:#c0392b;color:#fff}.btn-red:hover{background:#e74c3c}
+        .btn-blue{background:#3498db;color:#fff}.btn-green{background:#27ae60;color:#fff}.btn-orange{background:#e67e22;color:#fff}
+        .upload-box{border:2px dashed #C9A96E;padding:20px;text-align:center;border-radius:10px;cursor:pointer;margin-bottom:10px;transition:0.3s}
+        .upload-box:hover{background:#1a1a1a;border-color:#fff}
+        .preview-row{display:flex;gap:15px;margin-bottom:10px;align-items:center}
+        .preview-row img{width:120px;height:120px;object-fit:cover;border-radius:8px;display:none;border:2px solid #333}
+        .preview-row img.show{border-color:#C9A96E}
         .msg{padding:10px;margin:8px 0;border-radius:8px;display:none;text-align:center;font-weight:600}
         .msg.success{background:#27ae60;display:block}.msg.error{background:#c0392b;display:block}
-        .item-row{display:flex;align-items:center;gap:12px;padding:10px;background:#1a1a1a;border-radius:8px;margin-bottom:6px;border:1px solid #333;flex-wrap:wrap}
-        .item-row img{width:45px;height:45px;object-fit:cover;border-radius:6px}
-        .item-row .info{flex:1}.item-row .info h3{color:#C9A96E;font-size:0.85rem}.item-row .info p{color:#888;font-size:0.7rem}
-        .search-box{width:100%;padding:10px;background:#1a1a1a;border:2px solid #C9A96E;border-radius:20px;color:#fff;margin-bottom:12px}
+        .item-row{display:flex;align-items:center;gap:15px;padding:12px;background:#1a1a1a;border-radius:8px;margin-bottom:8px;border:1px solid #333;flex-wrap:wrap}
+        .item-row:hover{background:#222}
+        .item-row img{width:60px;height:60px;object-fit:cover;border-radius:8px;border:2px solid #333;cursor:pointer}
+        .item-row img:hover{border-color:#C9A96E}
+        .item-row .info{flex:1;min-width:150px}.item-row .info h3{color:#C9A96E;font-size:0.9rem}.item-row .info p{color:#888;font-size:0.75rem}
+        .search-box{width:100%;padding:10px;background:#1a1a1a;border:2px solid #C9A96E;border-radius:20px;color:#fff;margin-bottom:15px}
+        .edit-form{display:none;background:#1a1a1a;padding:20px;border-radius:8px;margin:10px 0;border:2px solid #C9A96E}
+        .edit-form.show{display:block}
         .top-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:15px}
-        @media(max-width:600px){.row{flex-direction:column}}
+        .btn-sm{padding:6px 14px;font-size:0.8rem}
+        .cat-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:15px}
+        .cat-tab{padding:6px 14px;border:1px solid #C9A96E;background:transparent;color:#C9A96E;border-radius:20px;cursor:pointer;font-size:0.8rem}
+        .cat-tab.active,.cat-tab:hover{background:#C9A96E;color:#000}
+        .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}
+        .stat{background:#111;padding:12px;border-radius:8px;text-align:center;border:1px solid #333}
+        .stat .num{font-size:1.3rem;font-weight:700;color:#C9A96E}.stat .lbl{font-size:0.65rem;color:#888}
+        @media(max-width:600px){.row{flex-direction:column}.preview-row{justify-content:center}}
     </style>
 </head>
 <body>
 <div class="container">
-<div class="top-bar"><h1 style="margin:0">🍽️ Lantica 1960</h1><div style="display:flex;gap:8px"><button class="btn-green" onclick="saveData()">💾 Save</button><button class="btn-blue" onclick="loadData()">🔄 Reload</button></div></div>
-
-<div class="card"><h2>➕ Add Item</h2>
-<div class="upload-box" onclick="document.getElementById('f1').click()">📷 Upload Image</div>
-<input type="file" id="f1" accept="image/*" style="display:none" onchange="uploadImg()">
-<div style="margin-bottom:8px"><img id="pv1" style="width:100px;height:100px;object-fit:cover;border-radius:8px;display:none"><span id="st1" style="font-size:0.8rem;margin-left:10px;color:#C9A96E"></span></div>
-<input type="hidden" id="u1">
-<div class="row"><input type="text" id="name" placeholder="Item Name *"><input type="number" id="price" placeholder="Price *"></div>
-<div class="row"><select id="category"><option value="">Category</option></select><input type="text" id="imageUrl" placeholder="Or paste image URL"></div>
-<div class="row"><input type="text" id="newCat" placeholder="New category"><button class="btn-gold" onclick="addCategory()">+ Add</button></div>
-<button class="btn-gold" onclick="addItem()">✅ Add</button><div id="msg" class="msg"></div>
+<div class="top-bar">
+    <h1 style="margin:0">🍽️ Lantica 1960 Admin</h1>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn-orange btn-sm" onclick="loadAllDefaults()">🔄 Load All Defaults</button>
+        <button class="btn-green btn-sm" onclick="saveData()">💾 Save</button>
+        <button class="btn-blue btn-sm" onclick="loadData()">🔄 Reload</button>
+    </div>
 </div>
 
-<div class="card"><h2>📋 Items</h2><input type="text" class="search-box" placeholder="🔍 Search..." id="sp" oninput="renderItems()"><div id="pList">Loading...</div></div>
+<div class="stats">
+    <div class="stat"><div class="num" id="statItems">0</div><div class="lbl">Total Items</div></div>
+    <div class="stat"><div class="num" id="statCats">0</div><div class="lbl">Categories</div></div>
+    <div class="stat"><div class="num" id="statImg">0</div><div class="lbl">With Images</div></div>
+</div>
+
+<!-- ADD ITEM -->
+<div class="card"><h2>➕ Add New Item</h2>
+<div class="upload-box" onclick="document.getElementById('addFile').click()">
+    <div style="font-size:30px">📷</div>
+    <div style="font-size:0.8rem;color:#888">Click to Upload Image (or paste URL below)</div>
+</div>
+<input type="file" id="addFile" accept="image/*" style="display:none" onchange="handleAddImage()">
+<div class="preview-row">
+    <img id="addPreview">
+    <span id="addStatus" style="font-size:0.8rem;color:#C9A96E"></span>
+</div>
+<input type="hidden" id="addImageUrl">
+<div class="row"><input type="text" id="addName" placeholder="Item Name *"><input type="number" id="addPrice" placeholder="Price (ETB) *"></div>
+<div class="row">
+    <select id="addCategory"><option value="">Select Category</option></select>
+    <input type="text" id="addImageManual" placeholder="Or paste image URL here">
+</div>
+<div class="row"><input type="text" id="newCategory" placeholder="➕ New category name"><button class="btn-gold btn-sm" onclick="addNewCategory()">+ Add Category</button></div>
+<button class="btn-gold" onclick="addItem()">✅ Add Item</button><div id="msg" class="msg"></div>
+</div>
+
+<!-- EDIT FORM -->
+<div class="edit-form" id="editForm"><h2>✏️ Edit Item</h2>
+<input type="hidden" id="editId"><input type="hidden" id="editOrigCat">
+<div class="upload-box" onclick="document.getElementById('editFile').click()">
+    <div style="font-size:30px">📷</div>
+    <div style="font-size:0.8rem;color:#888">Click to Change Image</div>
+</div>
+<input type="file" id="editFile" accept="image/*" style="display:none" onchange="handleEditImage()">
+<div class="preview-row">
+    <img id="editPreview">
+    <span id="editStatus" style="font-size:0.8rem;color:#C9A96E"></span>
+</div>
+<input type="hidden" id="editImageUrl">
+<div class="row"><input type="text" id="editName" placeholder="Name"><input type="number" id="editPrice" placeholder="Price"></div>
+<div class="row"><select id="editCategory"><option value="">Category</option></select><input type="text" id="editImageManual" placeholder="Or paste image URL"></div>
+<button class="btn-green" onclick="saveEdit()">💾 Save Changes</button>
+<button class="btn-red" onclick="closeEdit()">Cancel</button>
+<button class="btn-red" onclick="deleteEditItem()" style="margin-left:10px">🗑️ Delete</button></div>
+
+<!-- ITEMS LIST -->
+<div class="card"><h2>📋 All Menu Items</h2>
+<input type="text" class="search-box" placeholder="🔍 Search items..." id="searchBox" oninput="renderItems()">
+<div class="cat-tabs" id="catTabs"></div>
+<div id="itemList">Loading...</div></div>
 </div>
 
 <script>
 var C='dnxxxpbm9',PR='lantica_upload',API='https://lantica-menu.developeraddis.workers.dev/api/menu';
-var menuData={};
+var menuData={},currentCat='all';
 
 loadData();
 
 async function loadData(){
-    try{var r=await fetch(API);var d=await r.json();menuData=d||{};renderAll()}catch(e){menuData={};renderAll()}
+    try{var r=await fetch(API);var d=await r.json();if(Object.keys(d).length>0)menuData=d;else menuData={}}catch(e){menuData={}}
+    renderAll();updateStats();
 }
 async function saveData(){
     try{var r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(menuData)});var d=await r.json();if(d.success)showMsg('msg','✅ Saved!','success')}catch(e){showMsg('msg','❌ '+e.message,'error')}
 }
-async function uploadImg(){
-    var f=document.getElementById('f1').files[0];if(!f)return;
-    var s=document.getElementById('st1');s.textContent='Uploading...';
-    var fd=new FormData();fd.append('file',f);fd.append('upload_preset',PR);fd.append('folder','lantica-menu');
-    try{var r=await fetch('https://api.cloudinary.com/v1_1/'+C+'/image/upload',{method:'POST',body:fd});var d=await r.json();
-    if(d.secure_url){document.getElementById('u1').value=d.secure_url;document.getElementById('pv1').src=d.secure_url;document.getElementById('pv1').style.display='block';s.textContent='✅'}}catch(e){s.textContent='❌'}
+
+// CLOUDINARY UPLOAD
+async function uploadToCloudinary(file,previewId,statusId,hiddenId){
+    var s=document.getElementById(statusId);s.textContent='Uploading...';s.style.color='#C9A96E';
+    var fd=new FormData();fd.append('file',file);fd.append('upload_preset',PR);fd.append('folder','lantica-menu');
+    try{
+        var r=await fetch('https://api.cloudinary.com/v1_1/'+C+'/image/upload',{method:'POST',body:fd});
+        var d=await r.json();
+        if(d.secure_url){
+            document.getElementById(hiddenId).value=d.secure_url;
+            document.getElementById(previewId).src=d.secure_url;
+            document.getElementById(previewId).style.display='block';
+            document.getElementById(previewId).classList.add('show');
+            s.textContent='✅ Image Uploaded!';
+            s.style.color='#27ae60';
+        }else{s.textContent='❌ Failed';s.style.color='#e74c3c'}
+    }catch(e){s.textContent='❌ Error';s.style.color='#e74c3c'}
 }
+
+function handleAddImage(){var f=document.getElementById('addFile').files[0];if(f)uploadToCloudinary(f,'addPreview','addStatus','addImageUrl')}
+function handleEditImage(){var f=document.getElementById('editFile').files[0];if(f)uploadToCloudinary(f,'editPreview','editStatus','editImageUrl')}
+
 function getCats(){return Object.keys(menuData)}
 function getAllItems(){var items=[];for(var k in menuData)menuData[k].forEach(function(i){items.push({...i,category:k})});return items}
-function renderAll(){renderItems();document.getElementById('category').innerHTML='<option value="">Category</option>'+getCats().map(c=>'<option value="'+esc(c)+'">'+c+'</option>').join('')}
+
+function updateStats(){
+    var items=getAllItems();
+    document.getElementById('statItems').textContent=items.length;
+    document.getElementById('statCats').textContent=getCats().length;
+    document.getElementById('statImg').textContent=items.filter(i=>i.image&&i.image.trim()).length;
+}
+
+function renderAll(){
+    renderItems();
+    var cats=getCats();
+    var opts='<option value="">Select Category</option>';
+    cats.forEach(function(c){opts+='<option value="'+esc(c)+'">'+c+'</option>'});
+    document.getElementById('addCategory').innerHTML=opts;
+    document.getElementById('editCategory').innerHTML=opts;
+    
+    var tabs='<span class="cat-tab '+(currentCat=='all'?'active':'')+'" onclick="setCat(\'all\')">All</span>';
+    cats.forEach(function(c){tabs+='<span class="cat-tab '+(currentCat==c?'active':'')+'" onclick="setCat(\''+esc(c)+'\')">'+c+'</span>'});
+    document.getElementById('catTabs').innerHTML=tabs;
+}
+
+function setCat(c){currentCat=c;renderAll()}
+
+function getImageUrl(img){
+    if(!img||img==='')return'https://placehold.co/60/1A1A1A/C9A96E?text=No+Image';
+    if(img.startsWith('http'))return img;
+    return'https://raw.githubusercontent.com/developereth/Lantica/main/'+img;
+}
+
 function renderItems(){
-    var s=(document.getElementById('sp')?.value||'').toLowerCase(),items=getAllItems();
-    if(s)items=items.filter(i=>i.name.toLowerCase().includes(s));
-    var c=document.getElementById('pList');
-    if(!items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:30px">No items</p>';return}
-    c.innerHTML=items.map(p=>'<div class="item-row"><img src="'+(p.image||'https://placehold.co/45/1A1A1A/C9A96E')+'" onerror="this.src=\'https://placehold.co/45/1A1A1A/C9A96E\'"><div class="info"><h3>'+esc(p.name)+'</h3><p>'+esc(p.category)+' | '+p.price+' ETB</p></div><button class="btn-blue" onclick="editItem(\''+esc(p.category)+'\',\''+p.id+'\')">✏️</button><button class="btn-red" onclick="deleteItem(\''+esc(p.category)+'\',\''+p.id+'\')">🗑️</button></div>').join('')}
+    var search=(document.getElementById('searchBox')?.value||'').toLowerCase();
+    var items=getAllItems();
+    if(currentCat!='all')items=items.filter(function(i){return i.category==currentCat});
+    if(search)items=items.filter(function(i){return i.name.toLowerCase().indexOf(search)!==-1});
+    var c=document.getElementById('itemList');
+    if(!items.length){c.innerHTML='<p style="text-align:center;color:#888;padding:30px">No items. Click "Load All Defaults" or add items above.</p>';return}
+    c.innerHTML=items.map(function(p){
+        var img=getImageUrl(p.image);
+        return'<div class="item-row"><img src="'+img+'" onerror="this.src=\'https://placehold.co/60/1A1A1A/C9A96E\'" onclick="window.open(\''+img+'\',\'_blank\')"><div class="info"><h3>'+esc(p.name)+'</h3><p>📂 '+esc(p.category)+' | 💰 '+p.price+' ETB | 🖼️ '+(p.image?'Yes':'No')+'</p></div><button class="btn-blue btn-sm" onclick="openEdit(\''+esc(p.category)+'\',\''+p.id+'\')">✏️ Edit</button><button class="btn-red btn-sm" onclick="deleteItem(\''+esc(p.category)+'\',\''+p.id+'\')">🗑️</button></div>';
+    }).join('');
+}
+
+// ADD ITEM
 function addItem(){
-    var n=document.getElementById('name').value.trim(),pr=parseInt(document.getElementById('price').value)||0,cat=document.getElementById('category').value,img=document.getElementById('u1').value||document.getElementById('imageUrl').value.trim();
-    if(!n||!pr||!cat){showMsg('msg','❌ Fill all fields','error');return}
+    var n=document.getElementById('addName').value.trim();
+    var pr=parseInt(document.getElementById('addPrice').value)||0;
+    var cat=document.getElementById('addCategory').value;
+    var img=document.getElementById('addImageUrl').value||document.getElementById('addImageManual').value.trim();
+    if(!n||!pr||!cat){showMsg('msg','❌ Fill name, price, and category','error');return}
     if(!menuData[cat])menuData[cat]=[];
-    var maxId=0;for(var k in menuData)menuData[k].forEach(i=>{if(parseInt(i.id)>maxId)maxId=parseInt(i.id)});
+    var maxId=0;for(var k in menuData)menuData[k].forEach(function(i){if(parseInt(i.id)>maxId)maxId=parseInt(i.id)});
     menuData[cat].push({id:String(maxId+1),name:n,price:pr,image:img});
-    document.getElementById('name').value='';document.getElementById('price').value='';document.getElementById('imageUrl').value='';document.getElementById('u1').value='';document.getElementById('pv1').style.display='none';document.getElementById('st1').textContent='';document.getElementById('f1').value='';
-    saveData();renderAll();showMsg('msg','✅ Added!','success')}
-function editItem(cat,id){var p=menuData[cat].find(x=>x.id==id);if(!p)return;var nn=prompt('Name:',p.name);if(!nn)return;var np=prompt('Price:',p.price);if(!np)return;p.name=nn;p.price=parseInt(np)||0;saveData();renderAll();showMsg('msg','✅ Updated!','success')}
-function deleteItem(cat,id){if(!confirm('Delete?'))return;menuData[cat]=menuData[cat].filter(x=>x.id!=id);if(!menuData[cat].length)delete menuData[cat];saveData();renderAll();showMsg('msg','🗑️ Deleted','success')}
-function addCategory(){var n=document.getElementById('newCat').value.trim();if(!n)return;if(!menuData[n])menuData[n]=[];document.getElementById('newCat').value='';saveData();renderAll();showMsg('msg','✅ Added!','success')}
-function showMsg(id,t,type){var m=document.getElementById(id);m.textContent=t;m.className='msg '+type;setTimeout(()=>m.className='msg',3000)}
+    document.getElementById('addName').value='';document.getElementById('addPrice').value='';document.getElementById('addImageManual').value='';
+    document.getElementById('addImageUrl').value='';document.getElementById('addPreview').style.display='none';document.getElementById('addStatus').textContent='';document.getElementById('addFile').value='';
+    saveData();renderAll();updateStats();showMsg('msg','✅ Item added with image!','success');
+}
+
+// EDIT ITEM
+function openEdit(cat,id){
+    var p=menuData[cat].find(function(x){return x.id==id});if(!p)return;
+    document.getElementById('editId').value=id;document.getElementById('editOrigCat').value=cat;
+    document.getElementById('editName').value=p.name;document.getElementById('editPrice').value=p.price;
+    document.getElementById('editCategory').value=cat;
+    document.getElementById('editImageManual').value=p.image||'';
+    document.getElementById('editImageUrl').value=p.image||'';
+    if(p.image){
+        var img=p.image.startsWith('http')?p.image:'https://raw.githubusercontent.com/developereth/Lantica/main/'+p.image;
+        document.getElementById('editPreview').src=img;document.getElementById('editPreview').style.display='block';
+    }else{document.getElementById('editPreview').style.display='none'}
+    document.getElementById('editStatus').textContent='';document.getElementById('editFile').value='';
+    document.getElementById('editForm').classList.add('show');
+    document.getElementById('editForm').scrollIntoView({behavior:'smooth'});
+}
+function closeEdit(){document.getElementById('editForm').classList.remove('show')}
+function saveEdit(){
+    var id=document.getElementById('editId').value,ocat=document.getElementById('editOrigCat').value;
+    var n=document.getElementById('editName').value.trim(),pr=parseInt(document.getElementById('editPrice').value)||0;
+    var cat=document.getElementById('editCategory').value;
+    var img=document.getElementById('editImageUrl').value||document.getElementById('editImageManual').value.trim();
+    var p=menuData[ocat].find(function(x){return x.id==id});if(!p)return;
+    if(ocat===cat){p.name=n;p.price=pr;p.image=img}else{
+        menuData[ocat]=menuData[ocat].filter(function(x){return x.id!=id});
+        if(!menuData[cat])menuData[cat]=[];
+        menuData[cat].push({id:id,name:n,price:pr,image:img});
+        if(!menuData[ocat].length)delete menuData[ocat];
+    }
+    closeEdit();saveData();renderAll();updateStats();showMsg('msg','✅ Updated with image!','success');
+}
+function deleteEditItem(){
+    var id=document.getElementById('editId').value,cat=document.getElementById('editOrigCat').value;
+    if(!confirm('Delete this item?'))return;
+    menuData[cat]=menuData[cat].filter(function(x){return x.id!=id});
+    if(!menuData[cat].length)delete menuData[cat];
+    closeEdit();saveData();renderAll();updateStats();showMsg('msg','🗑️ Deleted','success');
+}
+
+// DELETE ITEM
+function deleteItem(cat,id){
+    if(!confirm('Delete this item?'))return;
+    menuData[cat]=menuData[cat].filter(function(x){return x.id!=id});
+    if(!menuData[cat].length)delete menuData[cat];
+    saveData();renderAll();updateStats();showMsg('msg','🗑️ Deleted','success');
+}
+
+// ADD CATEGORY
+function addNewCategory(){
+    var n=document.getElementById('newCategory').value.trim();
+    if(!n)return;
+    if(!menuData[n])menuData[n]=[];
+    document.getElementById('newCategory').value='';
+    saveData();renderAll();showMsg('msg','✅ Category "'+n+'" added!','success');
+}
+
+// LOAD ALL DEFAULTS
+function loadAllDefaults(){
+    menuData={
+        "☀️ Breakfast":[
+            {"id":"1","name":"Combo Fasting","price":250,"image":""},
+            {"id":"2","name":"Egg w/ meat","price":250,"image":""},
+            {"id":"3","name":"Special Fetora","price":350,"image":""},
+            {"id":"4","name":"Normal Fetora","price":200,"image":""},
+            {"id":"5","name":"Special Chech","price":250,"image":""},
+            {"id":"6","name":"Normal Foul","price":180,"image":""},
+            {"id":"7","name":"Special Foul","price":250,"image":""},
+            {"id":"8","name":"Tomato Cheese","price":170,"image":""},
+            {"id":"9","name":"Egg Sandwich","price":200,"image":""}
+        ],
+        "🔥 Traditional Food":[
+            {"id":"10","name":"Lamb Tibs","price":680,"image":""},
+            {"id":"11","name":"Lamb Tibs Tefresho","price":700,"image":""},
+            {"id":"12","name":"Okie","price":600,"image":""},
+            {"id":"13","name":"Chikena Tibs","price":600,"image":""},
+            {"id":"14","name":"Chikena Tefresho","price":650,"image":""},
+            {"id":"15","name":"Kitto","price":1200,"image":""},
+            {"id":"16","name":"Quanta Firfir","price":370,"image":""},
+            {"id":"17","name":"Kiba Firfir","price":210,"image":""},
+            {"id":"18","name":"Tibes Firfir","price":320,"image":""},
+            {"id":"19","name":"Shiro Bekibe","price":300,"image":""},
+            {"id":"20","name":"Dullet","price":330,"image":""},
+            {"id":"21","name":"Derkosh Firfir Beseg","price":380,"image":""},
+            {"id":"22","name":"Bozena Shiro","price":350,"image":""},
+            {"id":"23","name":"Mahberawi","price":1200,"image":""},
+            {"id":"24","name":"Yefisk Agelgel","price":1000,"image":""},
+            {"id":"25","name":"Gomen Kitto","price":300,"image":""}
+        ],
+        "🍕 Pizza":[
+            {"id":"26","name":"Special Lentic Pizza Large","price":580,"image":""},
+            {"id":"27","name":"Special Lentic Pizza Medium","price":550,"image":""},
+            {"id":"28","name":"Chicken Pizza Large","price":550,"image":""},
+            {"id":"29","name":"Chicken Pizza Medium","price":460,"image":""},
+            {"id":"30","name":"Margarita Large","price":450,"image":""},
+            {"id":"31","name":"Margarita Medium","price":400,"image":""},
+            {"id":"32","name":"Vegetable Pizza Large","price":370,"image":""}
+        ],
+        "🍝 Spaghetti & Rice":[
+            {"id":"33","name":"Spaghetti with Vegetables","price":230,"image":""},
+            {"id":"34","name":"Rice","price":400,"image":""}
+        ],
+        "🍔 Burgers & Sandwiches":[
+            {"id":"35","name":"Noma Burger","price":305,"image":""},
+            {"id":"36","name":"Cheese Burger","price":350,"image":""},
+            {"id":"37","name":"Noma Ketchup","price":380,"image":""},
+            {"id":"38","name":"Club Sandwich","price":360,"image":""},
+            {"id":"39","name":"Tuna Sandwich","price":350,"image":""},
+            {"id":"40","name":"Vegetable Sandwich","price":160,"image":""},
+            {"id":"41","name":"Chicken Shawarma","price":600,"image":""},
+            {"id":"42","name":"French Fries","price":180,"image":""}
+        ],
+        "🥩 Pork Selections":[
+            {"id":"43","name":"Pork Chop","price":320,"image":""},
+            {"id":"44","name":"Pork Sausage","price":180,"image":""},
+            {"id":"45","name":"Pork Steak","price":570,"image":""},
+            {"id":"46","name":"Pork Loin","price":200,"image":""},
+            {"id":"47","name":"Pork Ribs","price":400,"image":""},
+            {"id":"48","name":"Pork Belly","price":380,"image":""},
+            {"id":"49","name":"Pork Shoulder","price":400,"image":""}
+        ],
+        "🥗 Soup & Salad":[
+            {"id":"50","name":"Vegetable Soup","price":180,"image":""},
+            {"id":"51","name":"Mixed Salad","price":200,"image":""},
+            {"id":"52","name":"Chicken Salad","price":300,"image":""}
+        ],
+        "🍲 Fast Food":[
+            {"id":"53","name":"Special Lantica Fasting","price":500,"image":""},
+            {"id":"54","name":"Normal Firfir","price":180,"image":""},
+            {"id":"55","name":"Shiro","price":275,"image":""},
+            {"id":"56","name":"Tegabino","price":300,"image":""},
+            {"id":"57","name":"Derkosh Firfir Fasting","price":220,"image":""},
+            {"id":"58","name":"Mesere","price":250,"image":""},
+            {"id":"59","name":"Hafe Hafe","price":280,"image":""}
+        ],
+        "🥤 Fresh Juices":[
+            {"id":"60","name":"Papaya Juice","price":160,"image":""},
+            {"id":"61","name":"Avocado Juice","price":160,"image":""},
+            {"id":"62","name":"Mango Juice","price":160,"image":""},
+            {"id":"63","name":"Telba Juice","price":200,"image":""}
+        ],
+        "🧊 Cold Drinks":[
+            {"id":"64","name":"1/4 Water","price":20,"image":""},
+            {"id":"65","name":"1/2 Water","price":35,"image":""},
+            {"id":"66","name":"1 Liter Water","price":55,"image":""},
+            {"id":"67","name":"2 Liter Water","price":75,"image":""},
+            {"id":"68","name":"Soft Drink","price":60,"image":""},
+            {"id":"69","name":"Ambo Water","price":65,"image":""},
+            {"id":"70","name":"Plastic Soft Drink","price":70,"image":""},
+            {"id":"71","name":"Tonic Water","price":80,"image":""}
+        ],
+        "🍺 Beer & Draft":[
+            {"id":"72","name":"Normal Beer","price":100,"image":""},
+            {"id":"73","name":"Big Bedla","price":120,"image":""},
+            {"id":"74","name":"Hicnek Beer","price":125,"image":""},
+            {"id":"75","name":"Arada Beer","price":130,"image":""},
+            {"id":"76","name":"Janibo","price":145,"image":""},
+            {"id":"77","name":"Single Draft","price":65,"image":""}
+        ],
+        "🍷 Wine List":[
+            {"id":"78","name":"Axmite","price":900,"image":""},
+            {"id":"79","name":"Guder Big","price":720,"image":""},
+            {"id":"80","name":"Kmila Big","price":800,"image":""},
+            {"id":"81","name":"Gebeta","price":1100,"image":""},
+            {"id":"82","name":"Aksejar","price":1200,"image":""}
+        ],
+        "☕ Hot Beverages":[
+            {"id":"83","name":"Tea","price":30,"image":""},
+            {"id":"84","name":"Coffee","price":60,"image":""},
+            {"id":"85","name":"Milk","price":80,"image":""},
+            {"id":"86","name":"Latte","price":70,"image":""},
+            {"id":"87","name":"Macchiato","price":75,"image":""},
+            {"id":"88","name":"Spires","price":60,"image":""},
+            {"id":"89","name":"Lewis Tea","price":75,"image":""},
+            {"id":"90","name":"Kesher","price":50,"image":""},
+            {"id":"91","name":"Tea with Lemon","price":45,"image":""},
+            {"id":"92","name":"Flavor Tea","price":65,"image":""},
+            {"id":"93","name":"Special Tea","price":150,"image":""},
+            {"id":"94","name":"Fasting Macchiato","price":85,"image":""},
+            {"id":"95","name":"Hot Chocolate","price":80,"image":""}
+        ]
+    };
+    saveData();renderAll();updateStats();showMsg('msg','✅ 95 items in 13 categories loaded!','success');
+}
+
+function showMsg(id,t,type){var m=document.getElementById(id);m.textContent=t;m.className='msg '+type;setTimeout(function(){m.className='msg'},3000)}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 </script>
 </body>
