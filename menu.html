@@ -41,12 +41,12 @@
         .menu-card-name{font-weight:600;font-size:0.9rem;color:white}
         .menu-card-price{color:var(--gold);font-weight:700;padding:7px 14px;background:rgba(201,169,110,0.1);border-radius:30px}
 
-        /* Payment Bar */
         .payment-bar{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-bottom:30px}
-        .payment-btn{background:var(--dark-card);border:1px solid var(--gold);padding:10px 22px;border-radius:40px;color:var(--gold);cursor:pointer;font-size:0.8rem;font-weight:600;transition:0.3s;display:flex;align-items:center;gap:8px}
+        .payment-btn{background:var(--dark-card);border:1px solid var(--gold);padding:10px 22px;border-radius:40px;color:var(--gold);cursor:pointer;font-size:0.8rem;font-weight:600;transition:0.3s;display:flex;align-items:center;gap:8px;text-decoration:none}
         .payment-btn:hover{background:var(--gold);color:#0A0A0A}
+        .payment-btn.call-btn{background:var(--gold);color:#0A0A0A;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,169,110,0.4)}50%{box-shadow:0 0 0 15px rgba(201,169,110,0)}}
 
-        /* Modal */
         .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:2000;align-items:center;justify-content:center;padding:20px}
         .modal-overlay.show{display:flex}
         .modal{background:#1a1a1a;border-radius:20px;max-width:500px;width:100%;overflow:hidden;border:2px solid var(--gold);animation:modalIn 0.3s ease;position:relative}
@@ -58,18 +58,18 @@
         .modal-body .modal-ingredients{background:rgba(201,169,110,0.08);border-radius:12px;padding:15px;margin:15px 0;color:var(--gray-light);font-size:0.85rem;line-height:1.6;border-left:3px solid var(--gold);text-align:left}
         .modal-body .modal-ingredients i{color:var(--gold);margin-right:6px}
         .modal-body .modal-price{font-size:2rem;font-weight:700;color:var(--gold);margin:15px 0}
+        .modal-body .btn-call-modal{display:inline-block;background:var(--gold);color:#0A0A0A;padding:12px 30px;border-radius:25px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:0.3s;margin-top:10px}
+        .modal-body .btn-call-modal:hover{background:#b8933f;transform:scale(1.05)}
         .modal-close{position:absolute;top:10px;right:15px;background:rgba(0,0,0,0.6);color:white;border:none;width:35px;height:35px;border-radius:50%;font-size:1.2rem;cursor:pointer;z-index:10}
 
         .stats-bar{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;padding:20px;background:var(--dark-card);border-radius:18px;margin-top:30px;border:1px solid var(--border);color:var(--gray-light)}
         .stats-bar i{color:var(--gold)}.stats-bar strong{color:white}
         .footer{background:#020202;text-align:center;padding:35px 20px;margin-top:40px}
         .footer a{color:var(--gold);text-decoration:none}
-        .floating-telegram{position:fixed;bottom:30px;left:30px;background:#0088cc;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;text-decoration:none;z-index:999;border:2px solid white}
         @media(max-width:768px){.nav-links{display:none}.menu-hero h1{font-size:2rem}.menu-grid{grid-template-columns:1fr}}
     </style>
 </head>
 <body>
-<a href="https://t.me/+251941270797" target="_blank" class="floating-telegram"><i class="fab fa-telegram-plane"></i></a>
 
 <nav class="navbar">
     <a href="index.html" class="logo">
@@ -96,7 +96,7 @@
     <div class="payment-bar">
         <button class="payment-btn" onclick="copyText('+251941270797')"><i class="fas fa-mobile-alt"></i> Telebirr: +251 94 1270 797</button>
         <button class="payment-btn" onclick="copyText('1000234567')"><i class="fas fa-university"></i> CBE: 1000234567</button>
-        <a href="https://t.me/+251941270797" target="_blank" class="payment-btn"><i class="fab fa-telegram"></i> Order via Telegram</a>
+        <a href="tel:+251941270797" class="payment-btn call-btn"><i class="fas fa-phone"></i> Call to Order</a>
     </div>
 
     <div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="🔍 Search menu items..." onkeyup="renderMenu()"></div>
@@ -105,7 +105,7 @@
     <div class="stats-bar" id="stats"></div>
 </div>
 
-<!-- MODAL - Only Food, Price, Ingredients -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
     <div class="modal" onclick="event.stopPropagation()">
         <button class="modal-close" onclick="closeModal()">&times;</button>
@@ -117,6 +117,7 @@
             <div class="modal-ingredients" id="modalIngredients">
                 <i class="fas fa-leaf"></i> <span id="modalIngText"></span>
             </div>
+            <a href="tel:+251941270797" class="btn-call-modal"><i class="fas fa-phone"></i> Call to Order</a>
         </div>
     </div>
 </div>
