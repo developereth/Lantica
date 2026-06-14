@@ -20,7 +20,7 @@
         .nav-links{display:flex;gap:22px;list-style:none}
         .nav-links a{color:var(--gray-light);text-decoration:none;font-weight:500;font-size:0.9rem}
         .nav-links a:hover,.nav-links a.active{color:var(--gold)}
-        .menu-hero{background:linear-gradient(135deg,#0A0A0A,#1a1612);text-align:center;padding:70px 20px 50px}
+        .menu-hero{background:linear-gradient(0deg,rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.4) 100%),url('https://raw.githubusercontent.com/developereth/Lantica/ad1aa143155bfee5fbc0a391e5a7ee7419a74a00/hero.png') center/cover no-repeat;text-align:center;padding:70px 20px 50px}
         .menu-hero h1{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:white}
         .menu-hero h1 span{color:var(--gold)}
         .container{max-width:1300px;margin:0 auto;padding:35px 20px}
@@ -90,7 +90,6 @@ async function loadMenu(){
     try{
         var r=await fetch(API);
         var d=await r.json();
-        console.log('API Response:', d);
         if(d && typeof d === 'object' && Object.keys(d).length > 0){
             menuData = d;
         } else {
@@ -98,7 +97,6 @@ async function loadMenu(){
         }
         renderAll();
     } catch(e) {
-        console.log('Error:', e);
         document.getElementById('menuContainer').innerHTML = '<p style="text-align:center;padding:50px;color:var(--gray)">Error loading menu. Please try again.</p>';
     }
 }
